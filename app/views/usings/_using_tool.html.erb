@@ -1,0 +1,4 @@
+<li>
+  <%= link_to using_tool.tool.name, using_tool.tool %> (<%= number_with_delimiter(using_tool.tool.sites_count) %>)
+  <%= content_tag(:p, using_tool.description) if using_tool.description %>
+</li>

@@ -1,0 +1,21 @@
+<% title "Sign In" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= semantic_form_for resource, :as => resource_name, :url => user_session_path do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :email, :as => :string, :required => true %>
+        <%= form.input :password, :as => :password, :required => true %>
+        <%= form.input :remember_me, :as => :boolean %>
+      <% end %>
+      <%= form.buttons do %>
+        <%= form.commit_button :label => "Login" %>
+      <% end %>
+    <% end %>
+  </section>
+</section>
+
+<sidebar>
+  <%= render :partial => "devise/shared/links" %>
+</sidebar>

@@ -1,0 +1,28 @@
+<% title "Sites" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <div id="sorting">
+    <p><a href="#" class="change_sorting">Sorting by <%= sorting_name(params[:sort]) %> </a></p>
+    <ul class="options" style="display:none;">
+      <li><%= link_to "Sort by Alexa Rank", sites_path(:sort => :alexa_asc) %></li>
+      <li><%= link_to "Sort by Google PageRank", sites_path(:sort => :google_desc) %></li>
+      <li><%= link_to "Sort by Site Name", sites_path(:sort => :sitename_asc) %></li>
+      <li><%= link_to "Sort by Number of Tools", sites_path(:sort => :tools_desc) %></li>
+    </ul>
+  </div>
+  <section>
+    <ul class="sites">
+      <%= render @sites %>
+    </ul>
+    <%= will_paginate @sites %>
+  </section>
+</section>
+
+<sidebar>
+  <aside>
+    <%= link_to "New Site", new_site_path %>
+  </aside>
+</sidebar>
+
+

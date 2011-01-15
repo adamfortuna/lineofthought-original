@@ -1,0 +1,8 @@
+<aside>
+  <h3>Top Sites</h3>
+  <ul>
+    <% Site.popular(5).each do |site| %>
+      <li><%= link_to site.title, site %></li>
+    <% end %>
+  </ul>
+</aside>

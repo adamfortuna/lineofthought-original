@@ -1,0 +1,21 @@
+<% title "Register" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= semantic_form_for resource, :as => resource_name, :url => registration_path(resource_name) do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :email, :as => :string, :required => true %>
+        <%= form.input :password, :as => :password, :required => true %>
+        <%= form.input :password_confirmation, :as => :password, :required => true %>
+      <% end %>
+      <%= form.buttons do %>
+        <%= form.commit_button :label => "Register" %>
+      <% end %>
+    <% end %>
+  </section>
+</section>
+
+<sidebar>
+  <%= render :partial => "devise/shared/links" %>
+</sidebar>

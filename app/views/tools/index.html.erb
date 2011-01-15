@@ -1,0 +1,36 @@
+<% title "Tools" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <div id="sorting">
+    <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
+    <ul class="options" style="display:none;">
+      <li><%= link_to "Sort by Sites Using", tools_path(:sort => :sites_desc) %></li>
+      <li><%= link_to "Sort by Category", tools_path(:sort => :category_asc) %></li>
+      <li><%= link_to "Sort by Tool Name", tools_path(:sort => :toolname_asc) %></li>
+    </ul>
+  </div>
+  <section>
+    <ul class="tools">
+      <%= render @tools %>
+    </ul>
+    <%= will_paginate @tools %>
+  </section>
+</section>
+
+<sidebar>
+  <aside>
+    <h3>Categories</h3>
+    <ul>
+      <%= render :partial => "categories/category_small", :collection => @categories %>
+    </ul>
+  </aside>
+  <aside>
+    <ul>
+      <li><%= link_to "View Tools by Category", categories_path %></li>
+      <li><%= link_to "Add a New Tool", new_tool_path %></li>
+    </ul>
+  </aside>
+</sidebar>
+
+

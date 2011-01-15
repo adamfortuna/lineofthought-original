@@ -1,0 +1,18 @@
+<li class="site group">
+  <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=site.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" class="screenshot small" />
+  <div class="site_info">
+    <h4 class="title"><%= link_to site.title, site_path(site) %></h4>
+    <p clas="description"><%= site.excerpt %></p>
+    <p class="site_tools">
+      <% if site.tools_count > 0 %>
+        Built with <%= raw site_tools(site) %>
+      <% else %>
+        We don't know what tools this site uses. <%= link_to "Help us fill in the gaps.", edit_site_tools_path(site) %>
+      <% end %>
+    </p>
+    <ul class="ranks">
+      <li>Alexa Rank: <%= site.alexa_global_rank %></li>
+      <li>Google Pagerank: <%= site.google_pagerank %></li>
+    </ul>
+  </div>
+</li>

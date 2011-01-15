@@ -1,0 +1,11 @@
+<%= semantic_form_for @site do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :title, :as => :string, :required => true %>
+    <%= f.input :url, :as => :string, :required => true %>
+    <%= f.input :excerpt, :as => :text, :required => true, :hint => "140 characters max", :input_html => { :rows => 3 } %>
+    <%= f.input :description, :as => :text, :required => false %>
+  <% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button :label => "Create New Site" %>
+  <% end %>
+<% end %>

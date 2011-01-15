@@ -1,0 +1,8 @@
+<aside>
+  <h3>Top Tools</h3>
+  <ul>
+    <% Tool.popular(5).each do |tool| %>
+      <li><%= link_to tool.name, tool %></li>
+    <% end %>
+  </ul>
+</aside>

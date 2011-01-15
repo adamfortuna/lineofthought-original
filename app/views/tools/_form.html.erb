@@ -1,0 +1,49 @@
+<%= semantic_form_for @tool do |f| %>
+  <% form = f %>
+  <%= f.inputs do %>
+    <%= f.input :name, :as => :string, :required => true %>
+    <%= f.input :url, :as => :string, :required => false %>
+    <%= f.input :excerpt, :as => :text, :required => true %>
+    <%= f.input :description, :as => :text, :required => false %>
+    <%= f.input :category, :as => :select, :collection => Category.find(:all, :order => :name) %>
+  <% end %>
+
+  <div>
+    <%= f.inputs :for => :sources do |source| %>
+      <%= source.inputs :url %>
+      <%= source.inputs :title %>
+      <%= source.inputs :description, :as => :text %>
+      <p><%= link_to "Remove link", "#", :id => "remove_source", :class => "remove" %></p>
+    <% end %>
+    <div id="new_sources"></div>
+    <p><a href="#" id="add_new_source" class="add">Add another link</a></p>
+  </div>
+
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>
+
+<div id="new_source" style="display:none;">
+  <%= form.inputs :for => @tool.sources.build do |source| %>
+    <%= source.inputs :url %>
+    <%= source.inputs :title %>
+    <%= source.inputs :description, :as => :text %>
+    <p><%= link_to "Remove link", "#", :id => "remove_source", :class => "remove" %></p>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $("#add_new_source").click(function(e){
+    $("#new_sources").append($("#new_source").html());
+    e.preventDefault();
+    return false;
+  });
+  $(".remove").live('click', function(e){
+    var target = $(e.currentTarget);
+    console.log(target);
+    target.parents("fieldset").remove();
+    e.preventDefault();
+    return false;
+  });
+</script>

@@ -1,0 +1,14 @@
+<% title "Edit Category" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= render 'form' %>
+  </section>
+</section>
+
+<sidebar>
+  <aside>
+    <%= link_to "New Category", new_category_path %>
+  </aside>
+</sidebar>

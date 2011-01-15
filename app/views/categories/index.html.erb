@@ -1,0 +1,17 @@
+<% title "Categories" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <p><%= link_to "New Category", new_category_path %></p>
+  <section>
+    <ul class="categories">
+      <%= render @categories %>
+    </ul>
+  </section>
+</section>
+
+<sidebar>
+  <%= render :partial => "layouts/sidebar/top_tools" %>
+</sidebar>
+
+

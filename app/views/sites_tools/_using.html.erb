@@ -1,0 +1,5 @@
+<li id="using_<%= using.id %>">
+  <%= link_to using.tool.name, using.tool %> (<%= number_with_delimiter(using.tool.sites_count) %>)
+  <%= content_tag(:p, using.description) if using.description %>
+  <%= link_to "remove", site_tools_path(@site, :using_id => using.id), :remote => true, :method => :delete %>
+</li>

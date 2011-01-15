@@ -1,0 +1,4 @@
+<li>
+  <%= link_to using_site.site.title, using_site.site %> (Alexa: <%= number_with_delimiter(using_site.site.alexa_global_rank) %> / PageRank: <%= number_with_delimiter(using_site.site.google_pagerank) %>)
+  <%= content_tag(:p, using_site.description) if using_site.description %>
+</li>

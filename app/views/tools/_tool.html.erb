@@ -1,0 +1,10 @@
+<li class="tool">
+  <h4 class="title"><%= link_to tool.name, tool_path(tool) %></h4>
+  <%= content_tag(:p, tool.excerpt) unless tool.excerpt.blank? %>
+  <p>Category: <%= link_to tool.category.name, tool.category %></p>
+  <% if tool.sites_count > 0 %>
+    <p>Used on <%= pluralize(tool.sites_count, 'site') %> including <%= raw tool_sites(tool) %>.
+  <% else %>
+    <p>We don't know of any sites using this tool.</p>
+  <% end %>
+</li>

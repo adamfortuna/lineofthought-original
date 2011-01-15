@@ -1,0 +1,42 @@
+<% title "Edit Tools on #{@site.title} (#{@site.domain})" %>
+
+<section id="content" class="main full">
+  <h2><%= @title %></h2>
+  <section>
+    
+    <%= semantic_form_for Using.new, :as => Using.new, :url => site_tools_path(@site), :remote => true, :html => { :id => "new_using" } do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :tool_id, :as => :string, :wrapper_html => { :class => "nolabel tokeninput" } %>
+        <li class="countdown"><span>500</span></li>
+        <%= form.input :description, :label => "How is this tool being used?", :as => :text, :required => false, :input_html => { :rows => 3 } %>
+        <%= form.commit_button :button_html => { :value => "add this tool", :class => "right" } %>
+      <% end %>
+    <% end %>
+    
+    
+    <ul class="usings">
+      <%= render :partial => 'using', :collection => @site.usings.all(:include => :tool, :order => "tools.name") %>
+    </ul>
+  </section>
+</section>
+
+<sidebar>
+  <aside>test</aside>
+</sidebar>
+
+<script type="text/javascript">
+
+var token_options = {
+    hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
+    noResultsText: "No tools found. Check out our <a href='#' class='defaultOptions'>popular tools</a>.",
+    defaultOptions: <%= raw Tool.for_autocomplete %>,
+    allowNewValues: true,
+    canCreate: true,
+    tokenLimit: 1
+};
+
+
+$(function() {
+  $("#using_tool_id").tokenInput('<%= autocomplete_tools_path %>', token_options).focus();
+});
+</script>

@@ -1,0 +1,23 @@
+<% title "Category - #{@category.name}" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <%= raw show_breadcrumbs "#{link_to 'categories', categories_path} > #{@category.name.downcase}" %>
+  <p><%= @category.description %></p>
+  <section>
+    <h3>Tools classified as <%= @category.name %></h3>
+    <ul class="tools">
+      <%= render @category.tools %>
+    </ul>
+  </section>
+</section>
+
+<sidebar>
+  <aside>
+    <%= link_to "Edit this Category", edit_category_path(@category) %>
+    <br/>
+    <%= link_to "Remove this Category", category_path(@category), :method => :delete %>
+    <br/>
+    <%= link_to "New Category", new_category_path %>
+  </aside>
+</sidebar>

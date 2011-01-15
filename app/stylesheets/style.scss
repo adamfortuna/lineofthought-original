@@ -1,0 +1,62 @@
+.right { float:right; }
+p.breadcrumbs { font-size:.8em; }
+a.add { background:url(/images/icons/13-plus.png) no-repeat; padding-left:20px; }
+a.remove { background:url(/images/icons/14-minus.png) no-repeat 0 7px; padding-left:20px; }
+img.screenshot { border: 1px solid #777; float:left; }
+a.external { font-size:1em; }
+
+/* Sorting options */
+#sorting { float:right; position:relative; width:250px; }
+#sorting p { float:right; }
+#sorting p a { background:url(/images/icons/13-plus.png) no-repeat right; padding-right:20px; display:block; }
+#sorting p a.active { background:url(/images/icons/14-minus.png) no-repeat right; }
+#sorting ul.options { background-color:#F1F1F1; padding:10px; float:right; z-index:1; clear:left; border: 3px solid #e3e3e3; clear:both; position:absolute; top:20px; border-radius:8px; -moz-border-radius: 8px; width:200px; right:0; }
+
+/* categories#index, sites#index, tools#index */
+ul.categories, ul.sites, ul.tools, ul.usings { list-style:none; }
+ul.categories > li, ul.sites > li, ul.tools > li, ul.usings > li { border-bottom:1px solid #c3c0bd; padding-top:1em; }
+
+
+/* categories */
+.categories .title { background:url(/images/icons/19-gear.png) no-repeat top right; min-height:24px; font-weight:normal; }
+
+
+/* tools */
+.tools .title { background:url(/images/icons/157-wrench.png) no-repeat top right; min-height:24px; font-weight:normal; }
+
+/* tools#index */
+ul.tools li.tool h4 { font-size:1.2em; font-weight:normal; }
+
+/* tools#show, sites#show */
+ul.usings { }
+
+
+
+
+/* sites */
+.site .title { background:url(/images/icons/55-network.png) no-repeat top right; min-height:24px; font-weight:normal; }
+
+/* sites#index */
+ul.sites li.site img.screenshot.small { margin-top:10px; width:100px; height:78px; }
+ul.sites li.site .site_info { margin-left: 120px; }
+ul.sites li.site .site_info h4 { font-size:1.2em; padding-left:1.8em; }
+ul.sites li.site .site_info p.description { line-height:1.1em; }
+ul.sites li.site ul.ranks { list-style:none; float:right; }
+ul.sites li.site ul.ranks li { float:left; padding-left:1em; }
+
+/* sites#show */
+section.site { }
+section.site .site_details { margin-left: 220px; }
+section.site ul.tools { list-style:none; }
+section.site ul.tools li { border-bottom:1px solid #c3c0bd; padding-top:1em; }
+
+
+/* Add tool to site page */
+form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput { position:relative; }
+form.formtastic fieldset ol li.autolabel label { margin: .4em 0 0 0.6em; position: absolute; color:#666; font-weight:normal; }
+form.formtastic fieldset ol li.nolabel label { display:none; }
+form.formtastic fieldset ol li.tokeninput { margin-bottom:2em; }
+
+.using textarea { height:55px; width:97%; }
+.using .countdown { margin:0; height:30px; position:absolute; width:580px; }
+.using .countdown span { float:right; }
