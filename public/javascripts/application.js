@@ -7,6 +7,12 @@ $(function() {
       $(this).addClass("active");
     }
   });
+  
+  $("#s").focus(function(e) {
+    toggleLabel(this, false);
+  }).blur(function(e) {
+    toggleLabel(this, true);
+  });
 });
 
 

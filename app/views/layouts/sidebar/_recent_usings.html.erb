@@ -1,7 +1,7 @@
 <aside>
   <h3>Recent Edits</h3>
   <ul>
-    <% Using.recent(5).by_site.each do |using| %>
+    <% Using.recent(5).each do |using| %>
       <li><%= link_to using.site.title, using.site %> is using <%= link_to using.tool.name, using.tool.name %></li>
     <% end %>
   </ul>

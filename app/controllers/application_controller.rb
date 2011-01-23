@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   
   protected
   def beta_user_check
-    redirect_to root_path unless user_signed_in?
+    redirect_to root_path unless session_exists?
+  end
+  
+  def session_exists?
+    session["warden.user.user.key"] && session["warden.user.user.key"].first == "User"
   end
 end

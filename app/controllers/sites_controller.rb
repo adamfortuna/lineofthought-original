@@ -1,19 +1,23 @@
 class SitesController < ApplicationController
-  before_filter :load_record, :only => [:show, :edit, :update]
+  before_filter :load_record, :only => [:edit, :update]
   respond_to :html, :json, :xml
+  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@order = { "google" => "google_pagerank", 
               "alexa" => "alexa_global_rank", 
               "tools" => "tools_count", 
               "sitename" => "title"
             }
-            
+
   def index
-    @sites = Site.all(:order => build_order).paginate(:page => params[:page] || 1, :per_page => params[:page] || 25)
+    @sites = Site.order(build_order)
+                 .paginate(:page => params[:page] || 1, :per_page => params[:page] || 25)
     respond_with(@sites)
   end
 
   def show
+    @site = Site.find_by_cached_slug(params[:id]) 
     respond_with(@site)
   end
 
@@ -47,7 +51,7 @@ class SitesController < ApplicationController
 
   private
   def load_record
-    @site = Site.find_by_cached_slug(params[:id]) 
+    
   end
   
   def build_order

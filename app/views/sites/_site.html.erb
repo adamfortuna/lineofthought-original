@@ -1,3 +1,4 @@
+<% cache(["partial", site], :expires_in => 15.minutes) do %>
 <li class="site group">
   <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=site.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" class="screenshot small" />
   <div class="site_info">
@@ -16,3 +17,4 @@
     </ul>
   </div>
 </li>
+<% end %>

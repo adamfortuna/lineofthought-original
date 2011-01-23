@@ -4,7 +4,6 @@
   <title>SitesUsing - Find out what powers the web!</title>
   <%- title = yield(:title) %>
   <title><%=  title || "SitesUsing - Find what technologies other sites are using" %><%= " - SitesUsing" if title %></title>
-
   <%= raw stylesheet_link_merged :base %>
   <%= raw javascript_include_merged :base %>
   <%= csrf_meta_tag %>
@@ -20,30 +19,18 @@
     </div>
     <nav id="nav">
       <ul>
-        <li><%= link_to raw('<strong>Tools <em>Ruby, MongoDB</em></strong>'), tools_path %></li>
-        <li><%= link_to raw('<strong>Sites <em>Twitter, FourSquare</em></strong>'), sites_path %></li>
-        <li class="last"><%= link_to raw('<strong>Jobs <em>234 Available</em></strong>'), "#" %></li>
+        <li><a href="<%= tools_path %>"><strong>Tools <em>Ruby, MongoDB</em></strong></a></li>
+        <li><a href="<%= sites_path %>"><strong>Sites <em>Twitter, FourSquare</em></strong></a></li>
+        <li class="last"><a href="#"><strong>Jobs <em>234 Available</em></strong></a></li>
       </ul>
     </nav>
   </div>
   <div id="subnav" class="group">
     <div class="container">
       <p class="feature"><a href="#">Twitter</a> uses <a href="#">Cassandra</a>, <a href="#">Ruby on Rails</a>, <a href="#">Flock</a> and 23 other tools.</p>
-      <nav>
-        <ul>
-          <% if user_signed_in? -%>
-          <li><%= link_to 'my account', edit_user_registration_path %></li>
-          <li><%= link_to 'logout', destroy_user_session_path %></li>
-          <% else %>
-          <li><%= link_to 'sign up', new_user_registration_path %></li>
-          <li><%= link_to 'login', new_user_session_path %></li>
-          <% end %>
-        </ul>
-      </nav>
-
       <form>
         <label for="s">Search for a website or tool...</label>
-        <input type="text" id="s" onfocus="toggleLabel(this, false);" onblur="toggleLabel(this, true);">
+        <input type="text" id="s">
         <input type="submit" value="Go" />
       </form>
     </div>
@@ -62,13 +49,12 @@
 <footer>
   <div class="container">
     <ul class="links">
-      <li><%= link_to "Home", root_path %></li>
-      <li><%= link_to "About", about_path %></li>
-      <li><%= link_to "Categories", categories_path %></li>
-      <li><%= link_to "Tools", tools_path %></li>
-      <li><%= link_to "Sites", sites_path %></li>
+      <li><a href="<%= beta_path %>">Home</a></li>
+      <li><a href="<%= about_path %>">About</a></li>
+      <li><a href="<%= tools_path %>">Tools</a></li>
+      <li><a href="<%= sites_path %>">Sites</a></li>
     </ul>
-    <p>To get started, just <%= link_to "browse around", root_path %>, <%= link_to "add a site", new_site_path %> or <%= link_to "add a tool", new_tool_path %>.</p>
+    <p>To get started, just <a href="<%= root_path %>">browse around</a>, <a href="<%= new_site_path %>">add a site</a> or <a href="<%= new_tool_path %>">add a tool</a>.</p>
     <p>SitesUsing &copy; 2011.</p>
   </div>
 </footer>
