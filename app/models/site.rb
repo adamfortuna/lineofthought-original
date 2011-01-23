@@ -29,4 +29,14 @@ class Site < ActiveRecord::Base
   end
   handle_asynchronously :update_ranks!
   after_create :update_ranks!
+  
+  def snap_screenshot!
+    wt = Webthumb.new('962a3d86dac6ab380ae08e2536bb1cb6')
+    job = wt.thumbnail(:url => self.url)
+    job.write_file(job.fetch(:medium2), '/tmp/medium2.jpg')
+    job.write_file(job.fetch(:small), '/tmp/small.jpg')
+  end
+  handle_asynchronously :snap_screenshot!
+  after_create :snap_screenshot!
+  
 end

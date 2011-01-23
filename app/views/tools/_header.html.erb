@@ -1,0 +1,25 @@
+<%= link_to tool_path(@tool), :class => "logo" do %>
+  <% if @tool.url? %>
+  <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=@tool.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" class="screenshot small" />
+  <% else %>
+    <img src="http://localhost:3000/images/screenshot.png" class="screenshot small" />
+  <% end %>
+<% end %>
+
+<section class="details group">
+  <div class="title">
+    <h2><%= @tool.name %></h4>
+    <ul class="count">
+      <li class="sites"><%= link_to pluralize(@tool.sites_count, "site"), tool_path(@tool) %></li>
+      <li class="links"><%= link_to pluralize(0, "article"), tool_path(@tool) %></li>
+    </ul>
+    <%= content_tag(:p, @tool.description) unless @tool.description.blank? %>
+    <% if @tool.url? %><p clas="external"><%= link_to @tool.url, @tool.url %></p><% end %>
+  </div>
+  <div class="content">
+    <ul class="categories">
+      <%= raw tool_categories(@tool) %>
+      <% if @tool.language_id? %><li><%= link_to @tool.language.name, @tool.language %></li><% end %>
+    </ul>
+  </div>
+</section>

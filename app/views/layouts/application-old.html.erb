@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SitesUsing - Find out what powers the web</title>
+  <%- title = yield(:title) %>
+  <title><%=  title || "SitesUsing - Find what technologies other sites are using" %><%= " - SitesUsing" if title %></title>
+
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag ["jquery/jquery.js", "jquery/jquery.tokeninput", "rails", "application"] %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<header class="group">
+  <div class="container">
+    <div id="title">
+      <a href="/">SitesUsing</a>
+      <p>Find out what powers the web!</p>
+    </div>
+    <nav>
+      <ul>
+        <li><%= link_to 'categories', categories_path %></li>
+        <li><%= link_to 'tools', tools_path %></li>
+        <li><%= link_to 'sites', sites_path %></li>
+        <% if user_signed_in? -%>
+        <li><%= link_to 'my account', edit_user_registration_path %></li>
+        <li><%= link_to 'logout', destroy_user_session_path %></li>
+        <% else %>
+        <li><%= link_to 'sign up', new_user_registration_path %></li>
+        <li><%= link_to 'login', new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>
+  
+<div id="main">
+  <div class="container group">
+    <%- flash.each do |key, msg| -%>
+      <%= content_tag :div, msg, :class => key %>
+    <%- end -%>
+    <%= yield %>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <ul class="links">
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "About", about_path %></li>
+      <li><%= link_to "Categories", categories_path %></li>
+      <li><%= link_to "Tools", tools_path %></li>
+      <li><%= link_to "Sites", sites_path %></li>
+    </ul>
+    <p>To get started, just <%= link_to "add a site", new_site_path %> or <%= link_to "add a tool", new_tool_path %>.</p>
+    <p>SitesUsing &copy; 2011.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -29,14 +29,14 @@ module ApplicationHelper
   end
   
   def sorting_name(name)
-    case name
-      when 'sites_desc' then 'Sites Using'
-      when 'category_asc' then 'Category'
-      when 'toolname_asc' then 'Tool Name'
-      when 'sitename_asc' then 'Site Name'
-      when 'alexa_asc' then 'Alexa Rank'
-      when 'google_desc' then 'Google PageRank'
-      when 'tools_desc' then 'Tools Count'
+    case name.split("_").first
+      when 'sites' then 'Sites Using'
+      when 'category' then 'Category'
+      when 'toolname' then 'Tool Name'
+      when 'sitename' then 'Site Name'
+      when 'alexa' then 'Alexa Rank'
+      when 'google' then 'Google PageRank'
+      when 'tools' then 'Tools Count'
     end
   end
 end

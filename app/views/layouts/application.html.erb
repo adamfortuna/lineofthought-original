@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SitesUsing - Find out what powers the web</title>
+  <title>SitesUsing - Find out what powers the web!</title>
   <%- title = yield(:title) %>
   <title><%=  title || "SitesUsing - Find what technologies other sites are using" %><%= " - SitesUsing" if title %></title>
 
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "flutie", "new", "style", "tokeninput" %>
   <%= javascript_include_tag ["jquery/jquery.js", "jquery/jquery.tokeninput", "rails", "application"] %>
   <%= csrf_meta_tag %>
 </head>
-<body>
-
+<body>  
 <header class="group">
   <div class="container">
     <div id="title">
-      <a href="/">SitesUsing</a>
-      <p>Find out what powers the web!</p>
+      <a href="/beta">
+        Sites<em>Using</em>
+        <em class="tagline">Tracking what the web uses.</em>
+      </a>
     </div>
-    <nav>
+    <nav id="nav">
       <ul>
-        <li><%= link_to 'categories', categories_path %></li>
-        <li><%= link_to 'tools', tools_path %></li>
-        <li><%= link_to 'sites', sites_path %></li>
-        <% if user_signed_in? -%>
-        <li><%= link_to 'my account', edit_user_registration_path %></li>
-        <li><%= link_to 'logout', destroy_user_session_path %></li>
-        <% else %>
-        <li><%= link_to 'sign up', new_user_registration_path %></li>
-        <li><%= link_to 'login', new_user_session_path %></li>
-        <% end %>
+        <li><%= link_to raw('<strong>Tools <em>Ruby, MongoDB</em></strong>'), tools_path %></li>
+        <li><%= link_to raw('<strong>Sites <em>Twitter, FourSquare</em></strong>'), sites_path %></li>
+        <li class="last"><%= link_to raw('<strong>Jobs <em>234 Available</em></strong>'), "#" %></li>
       </ul>
     </nav>
+  </div>
+  <div id="subnav" class="group">
+    <div class="container">
+      <p class="feature"><a href="#">Twitter</a> uses <a href="#">Cassandra</a>, <a href="#">Ruby on Rails</a>, <a href="#">Flock</a> and 23 other tools.</p>
+      <nav>
+        <ul>
+          <% if user_signed_in? -%>
+          <li><%= link_to 'my account', edit_user_registration_path %></li>
+          <li><%= link_to 'logout', destroy_user_session_path %></li>
+          <% else %>
+          <li><%= link_to 'sign up', new_user_registration_path %></li>
+          <li><%= link_to 'login', new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+
+      <form>
+        <label for="s">Search for a website or tool...</label>
+        <input type="text" id="s" onfocus="toggleLabel(this, false);" onblur="toggleLabel(this, true);">
+        <input type="submit" value="Go" />
+      </form>
+    </div>
   </div>
 </header>
   
@@ -52,7 +68,7 @@
       <li><%= link_to "Tools", tools_path %></li>
       <li><%= link_to "Sites", sites_path %></li>
     </ul>
-    <p>To get started, just <%= link_to "add a site", new_site_path %> or <%= link_to "add a tool", new_tool_path %>.</p>
+    <p>To get started, just <%= link_to "browse around", root_path %>, <%= link_to "add a site", new_site_path %> or <%= link_to "add a tool", new_tool_path %>.</p>
     <p>SitesUsing &copy; 2011.</p>
   </div>
 </footer>

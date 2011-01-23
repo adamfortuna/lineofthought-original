@@ -1,0 +1,5 @@
+<ul class="tabs">
+  <%= menu_link "Sites", tool_sites_path(@tool), { :a_class => 'sites' } %>
+  <%= menu_link "Articles", "#", { :a_class => 'articles' } if @tool.articles_count > 0 %>
+  <%= menu_link "Jobs", "#", { :a_class => 'jobs' } if @tool.jobs_count > 0 %>
+</ul>

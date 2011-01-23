@@ -1,23 +1,43 @@
 <% title "Category - #{@category.name}" %>
 
 <section id="content" class="main">
-  <h2><%= @title %></h2>
-  <%= raw show_breadcrumbs "#{link_to 'categories', categories_path} > #{@category.name.downcase}" %>
-  <p><%= @category.description %></p>
+  <div class="title_bar group">
+    <div class="title_header">
+      <h2><%= @title %></h2>
+      <div id="sorting">
+        <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
+        <ul class="options" style="display:none;">
+          <li><a href="<%= category_path(@category, :sort => :sites_desc) %>">Sort by Sites Using</a></li>
+          <li><a href="<%= category_path(@category, :sort => :toolname_asc) %>">Sort by Tool Name</a></li>
+        </ul>
+      </div>
+      <div class="group clear">
+        <p><%= @category.description %></p>
+        <p>Tools classified as <%= @category.name %></p>
+      </div>
+    </div>
+  </div>
   <section>
-    <h3>Tools classified as <%= @category.name %></h3>
     <ul class="tools">
-      <%= render @category.tools %>
+      <%= render @tools %>
     </ul>
+    <%= will_paginate @tools %>
   </section>
 </section>
 
 <sidebar>
+  <% cache("categories-sidebar") do %>
   <aside>
-    <%= link_to "Edit this Category", edit_category_path(@category) %>
-    <br/>
-    <%= link_to "Remove this Category", category_path(@category), :method => :delete %>
-    <br/>
-    <%= link_to "New Category", new_category_path %>
+    <h3>Categories</h3>
+    <ul class="lst">
+      <%= render :partial => "categories/category_small", :collection => @categories %>
+    </ul>
+  </aside>
+  <% end %>
+  <aside>
+    <ul>
+      <li><%= link_to "View Tools by Category", categories_path %></li>
+      <li><%= link_to "Add a New Tool", new_tool_path %></li>
+    </ul>
   </aside>
 </sidebar>

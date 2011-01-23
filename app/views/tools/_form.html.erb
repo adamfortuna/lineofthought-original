@@ -1,11 +1,14 @@
-<%= semantic_form_for @tool do |f| %>
+<%= semantic_form_for @tool, :html => { :multipart => true } do |f| %>
   <% form = f %>
   <%= f.inputs do %>
     <%= f.input :name, :as => :string, :required => true %>
     <%= f.input :url, :as => :string, :required => false %>
+    <%= f.input :logo, :as => :file, :required => false %>
     <%= f.input :excerpt, :as => :text, :required => true %>
     <%= f.input :description, :as => :text, :required => false %>
-    <%= f.input :category, :as => :select, :collection => Category.find(:all, :order => :name) %>
+    <%= f.input :categories, :as => :check_boxes, :required => false, :label => "Categories",
+                :collection => Category.order(:name) %>
+    <%= f.input :language, :as => :select, :collection => Tool.languages.find(:all, :order => :name) %>
   <% end %>
 
   <div>
@@ -34,6 +37,7 @@
 </div>
 
 <script type="text/javascript">
+$(function() {
   $("#add_new_source").click(function(e){
     $("#new_sources").append($("#new_source").html());
     e.preventDefault();
@@ -46,4 +50,5 @@
     e.preventDefault();
     return false;
   });
+});
 </script>

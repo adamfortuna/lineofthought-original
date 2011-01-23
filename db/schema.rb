@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110109015355) do
+ActiveRecord::Schema.define(:version => 20110122183902) do
+
+  create_table "buildables", :force => true do |t|
+    t.integer "tool_id"
+    t.integer "category_id"
+  end
+
+  add_index "buildables", ["category_id"], :name => "index_buildables_on_category_id"
+  add_index "buildables", ["tool_id"], :name => "index_buildables_on_tool_id"
 
   create_table "categories", :force => true do |t|
     t.string  "cached_slug"
@@ -39,6 +47,15 @@ ActiveRecord::Schema.define(:version => 20110109015355) do
   add_index "delayed_jobs", ["locked_by"], :name => "delayed_jobs_locked_by"
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "invites", :force => true do |t|
+    t.string   "code"
+    t.integer  "max_count",   :default => 1
+    t.integer  "users_count", :default => 0
+    t.datetime "expire_date"
+  end
+
+  add_index "invites", ["code"], :name => "index_invites_on_code"
+
   create_table "owners", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -65,8 +82,11 @@ ActiveRecord::Schema.define(:version => 20110109015355) do
     t.integer  "tools_count",                      :default => 0
   end
 
+  add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
   add_index "sites", ["cached_slug"], :name => "index_sites_on_cached_slug", :unique => true
+  add_index "sites", ["google_pagerank"], :name => "index_sites_on_google_pagerank"
   add_index "sites", ["title"], :name => "index_sites_on_title"
+  add_index "sites", ["tools_count"], :name => "index_sites_on_tools_count"
 
   create_table "slugs", :force => true do |t|
     t.string   "name"
@@ -98,15 +118,19 @@ ActiveRecord::Schema.define(:version => 20110109015355) do
     t.string   "cached_slug"
     t.string   "name"
     t.string   "url"
-    t.integer  "category_id"
     t.text     "description"
-    t.integer  "sites_count",                :default => 0
-    t.string   "excerpt",     :limit => 140
+    t.integer  "sites_count",                      :default => 0
+    t.string   "excerpt",           :limit => 140
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.integer  "language_id"
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true
-  add_index "tools", ["category_id"], :name => "index_tools_on_category_id"
   add_index "tools", ["name"], :name => "index_tools_on_name"
+  add_index "tools", ["sites_count"], :name => "index_tools_on_sites_count"
 
   create_table "users", :force => true do |t|
     t.datetime "created_at"
@@ -127,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20110109015355) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
+    t.string   "invite_code"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
@@ -138,8 +163,11 @@ ActiveRecord::Schema.define(:version => 20110109015355) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tool_id"
-    t.text     "description"
     t.integer  "site_id",     :null => false
+    t.text     "description"
   end
+
+  add_index "usings", ["site_id"], :name => "index_usings_on_site_id"
+  add_index "usings", ["tool_id"], :name => "index_usings_on_tool_id"
 
 end

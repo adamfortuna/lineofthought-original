@@ -1,4 +1,16 @@
-<li>
-  <%= link_to using_site.site.title, using_site.site %> (Alexa: <%= number_with_delimiter(using_site.site.alexa_global_rank) %> / PageRank: <%= number_with_delimiter(using_site.site.google_pagerank) %>)
-  <%= content_tag(:p, using_site.description) if using_site.description %>
-</li>
+<% cache(["using-site", using_site]) do %>
+  <li class="site group ind">
+    <%= link_to site_path(using_site.site), :class => "screenshot" do %>
+      <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=using_site.site.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" class="screenshot small" />
+    <% end %>  
+    
+    <div class="title">
+      <h4><%= link_to using_site.site.title, using_site.site %></h4>
+      <ul class="ranks">
+        <%= raw global_alexa_rank(using_site.site.alexa_global_rank) %>
+        <%= raw google_pagerank(using_site.site.google_pagerank) %>
+      </ul>
+      <%= content_tag(:p, using_site.description) if using_site.description %>
+    </div>
+  </li>
+<% end %>

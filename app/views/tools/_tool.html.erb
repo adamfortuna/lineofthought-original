@@ -1,10 +1,38 @@
-<li class="tool">
-  <h4 class="title"><%= link_to tool.name, tool_path(tool) %></h4>
-  <%= content_tag(:p, tool.excerpt) unless tool.excerpt.blank? %>
-  <p>Category: <%= link_to tool.category.name, tool.category %></p>
-  <% if tool.sites_count > 0 %>
-    <p>Used on <%= pluralize(tool.sites_count, 'site') %> including <%= raw tool_sites(tool) %>.
-  <% else %>
-    <p>We don't know of any sites using this tool.</p>
+<% cache(["partial", tool], :expires_in => 15.minutes) do %>
+<li class="tool group ind">
+  <%= link_to tool_path(tool), :class => "screenshot" do %>
+    <% if tool.url? %>
+    <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=tool.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" />
+    <% else %>
+      <img src="http://localhost:3000/images/screenshot.png" />
+    <% end %>
   <% end %>
+
+  <div class="details">
+    <div class="title">
+      <h4><%= link_to tool.name, tool %></h4>
+      <ul class="count">
+        <li class="sites"><%= link_to pluralize(tool.sites_count, "site"), tool_path(tool) %></li>
+        <li class="links"><%= link_to pluralize(0, "article"), tool_path(tool) %></li>
+      </ul>
+      <%= content_tag(:p, tool.excerpt) unless tool.excerpt.blank? %>
+    </div>
+  
+    <div class="content">
+      <% if tool.sites_count > 0 %>
+        <ul class="sites">
+          <%= raw tool_sites(tool) %>
+          <% if tool.sites_count > 2 %>
+            <li><%= link_to "#{pluralize(tool.sites_count-2, 'more site')}", tool %></li>
+          <% end %>
+        </ul>
+      <% end %>
+  
+      <ul class="categories">
+        <%= raw tool_categories(tool) %>
+        <% if tool.language_id? %><li><%= link_to tool.language.name, tool.language %></li><% end %>
+      </ul>
+    </div>
+  </div>
 </li>
+<% end %>

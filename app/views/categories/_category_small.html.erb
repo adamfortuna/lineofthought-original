@@ -1,1 +1,1 @@
-<li><%= link_to category_small.name, category_path(category_small) %> (<%= category_small.tools_count %>)</li>
+<li class="<%= cycle 'odd', 'even' %>"><%= link_to category_path(category_small) do %><em><%= pluralize(category_small.tools_count, "tool") %></em> <%= category_small.name %><% end %></li>

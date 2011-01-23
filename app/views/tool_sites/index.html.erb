@@ -1,0 +1,10 @@
+<% title "Sites Using #{@tool.name}" %>
+
+<section class="main tool">
+  <% cache(["full", @tool]) do %>
+    <%= render 'tools/header' %>
+  <% end %>
+  
+  <%= render :partial => "tools/menu" %>
+  <%= render :partial => "tools/sites", :object => @usings %>
+</section>

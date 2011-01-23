@@ -1,0 +1,11 @@
+<section id="content" class="main">
+  <p>SitesUsing is a collaborative collection of what runs the web. You can see what technology a website is using, or what an individual site is using. You can add your own site or fill in the gaps for what tools other sites are using.</p>
+  <ul class="sites">
+    <%= render Site.popular(5) %>
+  </ul>
+</section>
+
+<sidebar>
+  <%= render :partial => "layouts/sidebar/top_tools" %>
+  <%= render :partial => "layouts/sidebar/recent_usings" %>
+</sidebar>

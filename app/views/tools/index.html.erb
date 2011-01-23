@@ -1,14 +1,15 @@
 <% title "Tools" %>
 
 <section id="content" class="main">
-  <h2><%= @title %></h2>
-  <div id="sorting">
-    <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
-    <ul class="options" style="display:none;">
-      <li><%= link_to "Sort by Sites Using", tools_path(:sort => :sites_desc) %></li>
-      <li><%= link_to "Sort by Category", tools_path(:sort => :category_asc) %></li>
-      <li><%= link_to "Sort by Tool Name", tools_path(:sort => :toolname_asc) %></li>
-    </ul>
+  <div class="title_bar group">
+    <h2><%= @title %></h2>
+    <div id="sorting">
+      <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
+      <ul class="options" style="display:none;">
+        <li><a href="<%= tools_path(:sort => :sites_desc) %>">Sort by Sites Using</a></li>
+        <li><a href="<%= tools_path(:sort => :toolname_asc) %>">Sort by Tool Name</a></li>
+      </ul>
+    </div>
   </div>
   <section>
     <ul class="tools">
@@ -19,12 +20,14 @@
 </section>
 
 <sidebar>
+  <% cache("categories-sidebar") do %>
   <aside>
     <h3>Categories</h3>
-    <ul>
+    <ul class="lst">
       <%= render :partial => "categories/category_small", :collection => @categories %>
     </ul>
   </aside>
+  <% end %>
   <aside>
     <ul>
       <li><%= link_to "View Tools by Category", categories_path %></li>
@@ -32,5 +35,3 @@
     </ul>
   </aside>
 </sidebar>
-
-

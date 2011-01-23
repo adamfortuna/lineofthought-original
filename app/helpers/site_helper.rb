@@ -6,6 +6,10 @@ module SiteHelper
   end
   
   def tool_sites(tool, count=2)
-    tool.sites.all(:limit => count, :order => :alexa_global_rank).collect { |site| link_to site.title, site }.join(", ")
+    tool.sites.all(:limit => count, :order => :alexa_global_rank).collect { |site| content_tag(:li, link_to(site.title, site)) }.join
+  end
+  
+  def tool_categories(tool)
+    tool.categories.sort {|a,b| a.name <=> b.name }.collect { |category| content_tag(:li, link_to(category.name, category)) }.join
   end
 end

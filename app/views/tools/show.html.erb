@@ -1,42 +1,24 @@
 <% title "#{@tool.name}" %>
 
-<section id="content" class="main">
+<section class="main tool">
+  <% cache(["full", @tool]) do %>
+    <%= render 'header' %>
+  <% end %>
+  
+  <ul class="tabs">
+    <%= menu_link "Sites", tool_path(@tool), { :a_class => 'sites' } %>
+    <%= menu_link "Articles", "#", { :a_class => 'articles' } if @tool.articles_count > 0 %>
+    <%= menu_link "Jobs", "#", { :a_class => 'jobs' } if @tool.jobs_count > 0 %>
+  </ul>
+  
+  <%= render :partial => "sites", 
+             :object => @tool.usings.by_alexa_site.paginate(:page => params[:page] || 1, 
+                                                            :per_page => params[:per_page] || 25) %>
+    
   <section>
-    <h2><%= @title %></h2>
-    <%= raw show_breadcrumbs "#{link_to 'categories', categories_path} > #{link_to @tool.category.name.downcase, @tool.category} > #{@tool.name}" %>
-    <p><%= @tool.description %></p>
-    <% if @tool.url %>
-      <p><%= link_to @tool.url, @tool.url %></p>
-    <% end %>
-  </section>
-
-  <section>
-    <h3><%= @tool.name %> is used on <%= pluralize(@tool.sites_count, "site") %></h3>
-    <% if @tool.sites_count > 0 %>
-    <div id="sorting">
-      <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
-      <ul class="options" style="display:none;">
-        <li><%= link_to "Sort by Alexa Rank", tool_path(@tool, :sort => :alexa_asc) %></li>
-        <li><%= link_to "Sort by Google PageRank", tool_path(@tool, :sort => :google_desc) %></li>
-        <li><%= link_to "Sort by Site Name", tool_path(@tool, :sort => :sitename_asc) %></li>
-        <li><%= link_to "Sort by Number of Tools", tool_path(@tool, :sort => :tools_desc) %></li>
-      </ul>
-    </div>
-    <ul class="usings">
-      <%= render :partial => 'usings/using_site', :collection => @usings %>
-    </ul>
-    <%= will_paginate @usings %>
-    <% else %>
-      <p>We don't know of any sites using <%= @tool.name %></p>
-    <% end %>
+    <h3>Admin Options
+    <p>
+      <%= link_to "edit", edit_tool_path(@tool) %>
+    </p>
   </section>
 </section>
-
-<sidebar>
-  <aside>
-    <ul>
-      <li><%= link_to "Edit this Tool", edit_tool_path(@tool) %></li>
-      <li><%= link_to "Remove this Tool", tool_path(@tool, :method => :delete) %></li>
-    </ul>
-  </aside>
-</sidebar>

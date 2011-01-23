@@ -8,6 +8,7 @@
         <%= form.input :email, :as => :string, :required => true %>
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>
+        <%= form.input :invite_code, :as => :string, :required => true %>
       <% end %>
       <%= form.buttons do %>
         <%= form.commit_button :label => "Register" %>

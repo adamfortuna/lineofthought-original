@@ -1,35 +1,26 @@
 class ToolsController < ApplicationController
-  before_filter :load_record, :only => [:show, :edit, :update]
+  before_filter :load_record, :only => [:edit, :update]
   respond_to :html, :json, :xml
+  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@order = { "sites" => "sites_count", 
-              "category" => "categories.name", 
-              "toolname" => "tools.name"
-            }
+              "toolname" => "tools.name" }
 
-  @@site_order = { "google" => "google_pagerank", 
-                   "alexa" => "alexa_global_rank", 
-                   "tools" => "tools_count", 
-                   "sitename" => "title"
-                 }
-  
   def index
-    @tools = Tool.all(:include => :category, :order => build_order).paginate(:page => params[:page] || 1, 
-                                                      :per_page => params[:page] || 25)
-    @categories = Category.all(:order => :name, :conditions => "tools_count > 0")
+    @tools = Tool.order(build_order).includes(:categories)
+                 .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
+    @categories = Category.order(:name).where("tools_count > 0")
     respond_with @tools
   end
   
   def show
-    @usings = @tool.usings.all(:joins => [:tool, :site],
-                               :include => [:tool, :site],
-                               :order => build_site_order).paginate(:page => params[:page] || 1, 
-                                                                    :per_page => params[:page] || 25)
+    @tool = Tool.find_by_cached_slug(params[:id])
+    params[:sort] = "alexa"
     respond_with @tool
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @tool.update_attributes(params[:tool])
@@ -63,10 +54,6 @@ class ToolsController < ApplicationController
   end
 
   private
-  def load_record
-    @tool = Tool.find_by_cached_slug(params[:id]) 
-  end
-  
   def build_order
     params[:sort] ||= "sites_desc"
     order = params[:sort]
@@ -75,11 +62,7 @@ class ToolsController < ApplicationController
     return "#{sort_order} #{direction}"
   end
   
-  def build_site_order
-    params[:sort] ||= "alexa_asc"
-    order = params[:sort]
-    sort_order = @@site_order[order.split("_").first] rescue "alexa_global_rank"
-    direction = order.split("_").last rescue "asc"
-    return "#{sort_order} #{direction}"    
+  def load_record
+    @tool = Tool.find_by_cached_slug(params[:id])
   end
 end
