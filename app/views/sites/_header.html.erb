@@ -12,7 +12,7 @@
         <li><%= raw global_alexa_rank(@site.alexa_global_rank) %></li>
         <li><%= raw google_pagerank(@site.google_pagerank) %></li>
       </ul>
-      <p><%= link_to @site.url, @site.url %>
+      <p><%= link_to @site.url, @site.url, :target => "_blank" %>
       <%= content_tag(:p, @site.description) unless @site.description.blank? %>
     </div>
   </div>
