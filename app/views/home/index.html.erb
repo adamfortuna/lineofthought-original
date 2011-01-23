@@ -12,6 +12,10 @@
       If you have an invite code, you can <%= link_to "sign up", new_user_registration_path %>, or if you have
       a login, you can <%= link_to "sign in", new_user_session_path %>
     </p>
+    
+    <% if user_signed_in? %>
+    <p>Looks like you're signed in! You can <%= link_to "browse around", beta_path %></p>
+    <% end %>
   </div>
 </body>
 </html>
