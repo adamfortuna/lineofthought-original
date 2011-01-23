@@ -5,8 +5,8 @@
   <%- title = yield(:title) %>
   <title><%=  title || "SitesUsing - Find what technologies other sites are using" %><%= " - SitesUsing" if title %></title>
 
-  <%= stylesheet_link_tag "flutie", "new", "style", "tokeninput" %>
-  <%= javascript_include_tag ["jquery/jquery.js", "jquery/jquery.tokeninput", "rails", "application"] %>
+  <%= raw stylesheet_link_merged :base %>
+  <%= raw javascript_include_merged :base %>
   <%= csrf_meta_tag %>
 </head>
 <body>  

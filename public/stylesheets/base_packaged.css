@@ -1,0 +1,267 @@
+ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block}
+nav ul {list-style: none}
+blockquote, q {quotes: none}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none}
+a {margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent}
+ins {background-color: #ff9; color: #000; text-decoration: none}
+mark {background-color: #ff9; color: #000; font-style: italic; font-weight: bold}
+del {text-decoration: line-through}
+abbr[title], dfn[title] {cursor: help}
+ table {border-collapse: collapse; border-spacing: 0}
+hr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0}
+input, select {vertical-align: middle}
+body {color: #222; font-size: 13px; font-family: arial, "helvetica neue", helvetica, "lucida grande", sans-serif}
+h1, h2, h3, h4, h5, h6 {color: #111; font-family: "helvetica neue", Helvetica, arial, sans-serif}
+ div.alert, div.error, div.notice, div.success, #flash_failure, #flash_success, #flash_notice {border: 1px solid #ddd; -moz-border-radius: 8px; -webkit-border-radius: 8px; margin-bottom: 1em; padding: 0.8em}
+div.alert, div.error, #flash_failure {background: #FBE3E4; border-color: #FBC2C4; color: #D12F19}
+div.alert a, div.error a, #flash_failure a {color: #D12F19}
+div.success, #flash_success {background: #FFF6BF; border-color: #FFD324; color: #817134}
+div.success a, #flash_success a {color: #817134}
+div.notice, #flash_notice {background: #E6EFC2; border-color: #C6D880; color: #529214}
+div.notice a, #flash_notice a {color: #529214}
+  .box {background: #eee; margin-bottom: 1.5em; padding: 1.5em}
+ hr {background: #ddd; border: none; clear: both; color: #ddd; float: none; height: 1px; margin: 0 0 1.4em; width: 100%}
+hr.space {background: #fff; color: #fff}
+ .ir {display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr}
+ .hidden {display: none; visibility: hidden}
+ .visuallyhidden {position: absolute !important; clip: rect(1px 1px 1px 1px);  clip: rect(1px, 1px, 1px, 1px)}
+ .invisible {visibility: hidden}
+ .clearfix:before, .clearfix:after {content: "\0020"; display: block; height: 0; visibility: hidden}
+.clearfix:after {clear: both}
+ .clearfix {zoom: 1}
+.ie7 img {-ms-interpolation-mode: bicubic}
+@media print {* {background: transparent !important; color: #444 !important; text-shadow: none !important}
+a, a:visited {color: #444 !important; text-decoration: underline}
+a:after {content: " (" attr(href) ")"}
+abbr:after {content: " (" attr(title) ")"}
+.ir a:after {content: ""}
+ pre, blockquote {border: 1px solid #999; page-break-inside: avoid}
+thead {display: table-header-group}
+ tr, img {page-break-inside: avoid}
+@page {margin: 0.5cm}
+p, h2, h3 {orphans: 3; widows: 3}
+h2, h3 {page-break-after: avoid}
+}
+ h1, h2, h3, h4, h5, h6 {font-weight: bold}
+h1 {font-size: 2.2em; line-height: 1; margin-bottom: 0.25em}
+h2 {font-size: 1.6em; line-height: 1.1; margin-bottom: 0.25em}
+h3 {font-size: 1.3em; line-height: 1; margin-bottom: 0.25em}
+h4 {font-size: 1.1em; line-height: 1.25; margin-bottom: 0.25em}
+h5 {font-size: 1em; margin-bottom: 0.25em}
+h6 {font-size: 1em; margin-bottom: 0.25em}
+ p {margin-bottom: 0.5em}
+p.last {margin-bottom: 0}
+p img {float: left; margin: 1.5em 1.5em 1.5em 0; padding: 0}
+ p img.top {margin-top: 0}
+img {margin: 0 0 1.5em}
+abbr, acronym {border-bottom: 1px dotted #666; cursor: help}
+address {font-style: italic; margin-top: 1.5em}
+del {color: #666}
+a, a:link {color: #1a4882; text-decoration: underline}
+a:visited {color: #1a4882}
+a:hover {color: #052246}
+a:active, a:focus {color: #1a4882}
+blockquote {border-left: 4px solid #d1d1d1; color: #666; font-style: italic; margin: 1.5em 0; padding-left: 1em}
+strong {font-weight: bold}
+em, dfn {font-style: italic}
+dfn {font-weight: bold}
+pre, code {margin: 1.5em 0; white-space: pre;  white-space: pre-wrap;  white-space: pre-line;  word-wrap: break-word;  }
+pre, code, tt {font: 1em 'andale mono', 'monotype.com', 'lucida console', monospace; line-height: 1.5}
+pre.code {background: #000; color: #fff; padding: 20px}
+tt {display: block; line-height: 1.5; margin: 1.5em 0}
+  input[type="submit"]::-moz-focus-inner {border: none}
+form ol {list-style: none; margin: 0 0 1em 0}
+form ol ol {margin-left: 0}
+form ol li {list-style-position: outside; margin: 0 0 1em 0}
+ form ol ol li {list-style-position: outside; margin: 0 0 .25em 0}
+form ol li.error input {background: #FBE3E4}
+p.inline-errors {color: #D12F19}
+form ol li.file {background: #e1e1e1; border: 1px solid #c8c8c8; padding: 10px}
+form abbr {border-bottom: 0}
+label {display: block}
+.required label {font-weight: bold}
+.checkbox_field label, .radio_field label {font-weight: normal}
+a.cancel {color: #7d0d0d}
+.inline-hints {color: #666; font-size: 0.8em; margin-bottom: 0.25em}
+ fieldset {background: #f1f1f1; border: 1px solid #e3e3e3; margin: 0 0 1.5em 0; padding: 1.5em 1.5em 1em 1.5em}
+fieldset fieldset, fieldset fieldset fieldset {border: 0; padding: 0}
+legend {font-weight: bold}
+.ie6 legend, .ie7 legend {margin-left: -7px}
+fieldset.buttons {background: inherit; border: 0; padding: 0}
+fieldset.buttons li {display: inline}
+.radio fieldset {margin: 0; padding: 0}
+ input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"] {font-size: inherit; padding: 3px 2px; width: 300px}
+.ie6 input {vertical-align: text-bottom}
+input[disabled='disabled'] {background-color: #fcfcfc; cursor: default}
+input[type="checkbox"] {margin: 0 3px 0 0; position: relative; top: -2px; vertical-align: middle}
+.ie7 input[type="checkbox"] {vertical-align: baseline}
+input[type="radio"] {margin: 0 3px 0 0; position: relative; top: -2px; vertical-align: middle}
+.check_boxes label {display: inline; padding: 0; vertical-align: middle}
+.radio label {padding: 0}
+ textarea {font-size: inherit; height: 200px; margin: 0 0.5em 0.5em 0; padding: 5px; width: 440px; overflow: auto}
+ fieldset .select select {width: 200px; font-size: 0.9em}
+optgroup {margin: 0 0 .5em 0}
+ form ol li.date ol li, form ol li.time ol li {display: inline}
+form ol li.datetime ol li {display: inline-block}
+form ol li.datetime select, form ol li.date select, form ol li.time select {display: inline; width: auto}
+form ol li.date label, form ol li.time label {display: none}
+ table {margin-bottom: 2em; width: 100%}
+th {border-bottom: 2px solid #ccc; font-weight: bold; text-align: left}
+td {border-bottom: 1px solid #ddd}
+caption, th, td {padding: 4px 10px 4px 0}
+caption {background: #f1f1f1; margin-bottom: 1em; padding: 10px 0}
+tr, td, th {vertical-align: middle}
+ table .last {padding-right: 0}
+ ul, ol {list-style-position: inside; margin-bottom: 1.5em}
+ul {list-style-type: disc}
+ol {list-style-type: decimal}
+dl {line-height: 1.4; margin-bottom: 1.5em}
+dl dt {font-weight: bold; margin-top: 0.5em}
+dl dd {margin-bottom: 0em}
+dd {margin-left: 0.5em}
+li {line-height: 1.4}
+ol ol, ol ul, ul ul, ul ol {margin-left: 1em}
+ ul.token-input-list {overflow: hidden; height: auto !important; height: 1%; width: 99%; border: 1px solid #999; cursor: text; font-size: 12px; font-family: Verdana; z-index: 999; margin: 0; padding: 0; background-color: #fff}
+ul.token-input-list li {list-style-type: none}
+ul.token-input-list li input {border: 0; width: 350px; padding: 3px 8px; background-color: white}
+li.token-input-token {overflow: hidden; height: auto !important; height: 1%; margin: 3px; padding: 3px 5px; background-color: #d0efa0; color: #000; font-weight: bold; cursor: default; display: block}
+li.token-input-token p {float: left; padding: 0; margin: 0}
+li.token-input-token span {float: right; color: #777; cursor: pointer}
+li.token-input-selected-token {background-color: #08844e; color: #fff}
+li.token-input-selected-token span {color: #bbb}
+div.token-input-dropdown {position: absolute; width: 99%; background-color: #fff; overflow: hidden; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; cursor: default; font-size: 12px; font-family: Verdana; z-index: 1}
+div.token-input-dropdown p {margin: 0; padding: 5px; font-weight: bold; color: #777}
+div.token-input-dropdown ul {margin: 0; padding: 0}
+div.token-input-dropdown ul li {background-color: #fff; padding: 3px; list-style-type: none}
+div.token-input-dropdown ul li.token-input-dropdown-item {background-color: #fafafa}
+div.token-input-dropdown ul li.token-input-dropdown-item2 {background-color: #fff}
+div.token-input-dropdown ul li em {font-weight: bold; font-style: normal}
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #d0efa0}
+.container {width: 1000px; margin: 0 auto}
+.group:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
+ul {list-style: none; margin: 0; padding: 0}
+ header {background-color: #766557}
+#title {margin: 0; width: 220px; float: left}
+#title a {color: #e3c887; display: block; width: 100%; text-decoration: none; font-size: 3.2em; text-shadow: 0px 2px 3px #555}
+#title a em {font-style: normal}
+#title a:hover em {color: #eee}
+#title a em.tagline {color: #B2A18F; font-size: 16px; float: left}
+ #nav {position: relative; max-width: 780px; margin: 0; font-size: 1.3em; float: right}
+#nav ul {margin: 0; float: left}
+#nav ul li {float: left; width: 200px; margin: 0; border-left: 1px solid #87705d}
+#nav ul li.last {margin-right: 0; width: 175px; border-right: 1px solid #87705d; float: right}
+#nav ul li a {display: block; float: left; width: 100%; font-size: 1.1em; line-height: 1.3em; font-weight: bold; -webkit-transition: background-color .4s linear; text-decoration: none}
+#nav ul li a:hover, nav ul li.selected a {background: rgba(0, 0, 0, 0.15)}
+#nav ul li a strong {display: block; padding: .8em 15px; color: #ddd; font-weight: normal}
+#nav ul li a:hover strong {color: #fff}
+#nav ul li a em {display: block; font-size: .9em; font-weight: normal; font-style: normal; text-transform: none; letter-spacing: 0; color: #b2a18f}
+#subnav .container {position: relative}
+#subnav {background-color: #F3F2E8; clear: both; height: 30px; border-bottom: 1px solid #e5e4d9}
+#subnav p {float: left; width: 480px; color: #B2A18F; font-size: 14px; line-height: 30px; margin: 0}
+#subnav p a {color: #B2A18F}
+#subnav form {position: absolute; right: 0; top: 2px}
+#subnav form label {position: absolute; margin: 6px 0 0 4px}
+#subnav form input {background-color: #e5e4d9; border: none}
+#subnav form label, #subnav form input {color: #51463D; width: 240px; font-size: 16px}
+#subnav form input[type=submit] {width: auto; -moz-border-radius-topright: 2px; -moz-border-radius-bottomright: 2px; background-color: #B2A18F; padding: 3px; position: relative; cursor: pointer}
+#subnav nav {float: left; display: none}
+#subnav nav, #subnav nav ul li {float: right}
+#subnav nav ul li a {color: #eee; font-weight: normal}
+ #main {color: #333; padding: 20px 0; background: url(/images/background.png); border-top: 1px solid #fff}
+#content {width: 640px; float: left}
+.main a {text-decoration: none}
+.main a:hover {text-decoration: underline}
+sidebar {width: 320px; float: right; margin-top: 32px}
+aside {background: #f1f1f1; border: 1px solid #e3e3e3; margin: 0 0 1.5em 0; padding: 1.5em 1.5em 1em 1.5em}
+aside h3 {margin: 0; padding: 0 0 4px 0; font-size: 1.1em; font-weight: bold; color: #a14141; border-bottom: 2px solid #ecebe1}
+aside ul.lst li a {display: block; padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
+ul.lst li.last a {border: none}
+ul.lst a:hover {background: #f8f7f1}
+ul.lst li em {float: right; margin: 0 0 0 5px; font-size: 1em; font-style: normal; font-weight: normal; color: #9c836e}
+ul.lst li.even {background-color: #cef}
+ footer {border-top: 1px solid #ccc; color: #9C836E}
+footer a, footer a:visited {color: #51463D}
+footer ul li {float: left; padding: 0 20px 0 0}
+.clear {clear: both}
+.right {float: right}
+p.breadcrumbs {font-size: .8em}
+a.add {background: url(/images/icons/13-plus.png) no-repeat; padding-left: 20px}
+a.remove {background: url(/images/icons/14-minus.png) no-repeat 0 7px; padding-left: 20px}
+img.screenshot {border: 1px solid #777; float: left}
+a.external {font-size: 1em}
+  ul.tabs {height: 34px; padding: 0 20px; background: url(http://static.arcadefly.com/images/helpers/tab_bottom.gif) repeat-x bottom; clear: both; margin: 0px 0 20px}
+ul.tabs li {margin: 0; padding: 0; display: inline; list-style-type: none}
+ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height: 18px}
+ul.tabs a {background-color: #f3f3f3}
+ul.tabs li.current a:link, ul.tabs li.current a:visited {border-bottom: 1px solid #ececec; background: #ececec; color: #000}
+ul.tabs a:hover {background-color: #fff}
+ul.tabs a.arcades {background-color: #dde}
+ul.tabs a.arcades:hover {background-color: #ccf}
+ul.tabs a.games {background-color: #fdd}
+ul.tabs a.games:hover {background-color: #fcc}
+ul.tabs a.users {background-color: #ded}
+ul.tabs a.users:hover {background-color: #cec}
+ #sorting {float: right; position: relative; width: 250px}
+#sorting p {float: right; width: 100%; text-align: right}
+#sorting p a {background: url(/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
+#sorting p a.active {background: url(/images/icons/14-minus.png) no-repeat right}
+#sorting ul.options {background-color: #F1F1F1; padding: 10px; float: right; z-index: 1; clear: left; border: 3px solid #e3e3e3; clear: both; position: absolute; top: 20px; border-radius: 8px; -moz-border-radius: 8px; width: 200px; right: 0}
+ ul.categories, ul.sites, ul.tools, ul.usings {list-style: none}
+ul.tools li.tool {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
+.title_bar {border-bottom: 1px solid #ccc}
+.title_bar h2, .title_bar h3, .title_bar h4 {float: left}
+ .tools {clear: both; margin-top: 1em}
+ .ind a.screenshot {float: left; margin-right: 10px; width: 110px; height: 100px; max-width: 110px; max-height: 100px}
+.ind a.screenshot img {max-width: 110px; max-height: 100px}
+.ind .title {min-height: 60px}
+.ind .title h4 {display: inline; width: 100%}
+.ind .details {margin-left: 130px; min-height: 100px}
+.tool ul.count, .tool > ul.sites, .tool ul.categories {float: right; list-style: none; margin: 0}
+.tool ul.count a, .tool > ul.sites a, .tool ul.categories a {display: block; padding: 4px}
+.tool .title ul.count a {background-color: red; color: white}
+.tool .title ul.count a:hover {background-color: blue}
+.tool .title ul.count li.sites a {background-color: red}
+.tool .title ul.count li.links a {background-color: green}
+.tool .title p {max-width: 435px}
+.tool .content .sites {float: left}
+.tool .content .sites li {float: left; margin-right: 10px}
+.tool .content .sites li a {background-color: yellow}
+.tool .content .categories li {margin-left: 10px; float: right}
+.tool .categories li a {background-color: #ccc}
+ section.tool a.logo, section.tool a.logo img {max-width: 200px; max-height: 147px}
+section.tool .details {margin-left: 220px; min-height: 200px}
+section.tool .title p {max-width: 680px}
+section.tool ul.sites {margin-top: 20px}
+ .site .title {min-height: 24px; font-weight: normal}
+ ul.sites li.site img.screenshot.small {width: 100px; height: 78px}
+ul.sites li.site .site_info {margin-left: 120px}
+ul.sites li.site .site_info h4 {font-size: 1.2em}
+ul.sites li.site .site_info p.description {line-height: 1.1em}
+ul.sites li.site ul.ranks {list-style: none; float: right; border: 1px solid #ccc; width: 200px}
+ul.sites li.site ul.ranks li {float: left; clear: left; width: 100%; text-align: center}
+ul.sites li.site ul.ranks li.alexa {border-bottom: 1px solid #ccc}
+ul.sites li.site ul.ranks li.pagerank {position: relative; color: #eee; text-align: left}
+ul.sites li.site ul.ranks li.pagerank p {width: 200px; position: absolute; clear: both}
+ul.ranks li.pagerank span {display: block; background-color: green; position: absolute; height: 1.4em}
+ul.ranks li.pagerank.pagerank-0 span {width: 0px; color: #000}
+ul.ranks li.pagerank.pagerank-1 span {width: 20px}
+ul.ranks li.pagerank.pagerank-2 span {width: 40px}
+ul.ranks li.pagerank.pagerank-3 span {width: 60px}
+ul.ranks li.pagerank.pagerank-4 span {width: 80px}
+ul.ranks li.pagerank.pagerank-5 span {width: 100px}
+ul.ranks li.pagerank.pagerank-6 span {width: 120px}
+ul.ranks li.pagerank.pagerank-7 span {width: 140px}
+ul.ranks li.pagerank.pagerank-8 span {width: 160px}
+ul.ranks li.pagerank.pagerank-9 span {width: 180px}
+ul.ranks li.pagerank.pagerank-10 span {width: 200px}
+ section.site .site_details {margin-left: 220px}
+section.site ul.tools {list-style: none}
+section.site ul.tools li {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
+ form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
+form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
+form.formtastic fieldset ol li.nolabel label {display: none}
+form.formtastic fieldset ol li.tokeninput {margin-bottom: 2em}
+.using textarea {height: 55px; width: 97%}
+.using .countdown {margin: 0; height: 30px; position: absolute; width: 580px}
+.using .countdown span {float: right}

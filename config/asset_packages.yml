@@ -1,0 +1,13 @@
+--- 
+javascripts: 
+- base: 
+  - jquery/jquery
+  - jquery/jquery.tokeninput
+  - rails
+  - application
+stylesheets: 
+- base: 
+  - flutie
+  - tokeninput
+  - layout
+  - style
