@@ -1,4 +1,29 @@
-<li>
-  <%= link_to using_tool.tool.name, using_tool.tool %> (<%= number_with_delimiter(using_tool.tool.sites_count) %>)
-  <%= content_tag(:p, using_tool.description) if using_tool.description %>
+<% cache(["partial", using_tool], :expires_in => 15.minutes) do %>
+<li class="tool group ind">
+  <%= link_to using_tool.tool, :class => "screenshot" do %>
+    <% if using_tool.tool.url? %>
+    <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=using_tool.tool.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" />
+    <% else %>
+      <img src="http://localhost:3000/images/screenshot.png" />
+    <% end %>
+  <% end %>
+
+  <div class="details">
+    <div class="title">
+      <h4><%= link_to using_tool.tool.name, using_tool.tool %></h4>
+      <ul class="count">
+        <li class="sites"><%= link_to pluralize(using_tool.tool.sites_count, "site"), using_tool.tool %></li>
+        <li class="links"><%= link_to pluralize(0, "article"), using_tool.tool %></li>
+      </ul>
+      <%= content_tag(:p, using_tool.description) unless using_tool.description.blank? %>
+    </div>
+  
+    <div class="content">
+      <ul class="categories">
+        <%= raw tool_categories(using_tool.tool) %>
+        <% if using_tool.tool.language_id? %><li><%= link_to using_tool.tool.language.name, using_tool.tool.language %></li><% end %>
+      </ul>
+    </div>
+  </div>
 </li>
+<% end %>

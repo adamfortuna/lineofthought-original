@@ -1,6 +1,6 @@
 <aside>
   <h3>Recent Edits</h3>
-  <ul>
+  <ul class="group txt">
     <% Using.recent(5).each do |using| %>
       <li><%= link_to using.site.title, using.site %> is using <%= link_to using.tool.name, using.tool.name %></li>
     <% end %>

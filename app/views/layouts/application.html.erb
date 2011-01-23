@@ -11,17 +11,15 @@
 <body>  
 <header class="group">
   <div class="container">
-    <div id="title">
-      <a href="/beta">
-        Sites<em>Using</em>
-        <em class="tagline">Tracking what the web uses.</em>
-      </a>
-    </div>
+    <hgroup id="title">
+      <p><a href="/beta">Sites<span>Using</span></a></p>
+      <span>Tracking what the web uses!</span>
+    </hgroup>
     <nav id="nav">
       <ul>
-        <li><a href="<%= tools_path %>"><strong>Tools <em>Ruby, MongoDB</em></strong></a></li>
-        <li><a href="<%= sites_path %>"><strong>Sites <em>Twitter, FourSquare</em></strong></a></li>
-        <li class="last"><a href="#"><strong>Jobs <em>234 Available</em></strong></a></li>
+        <li><a href="<%= tools_path %>"><strong>Tools</strong></a></li>
+        <li><a href="<%= sites_path %>"><strong>Sites</strong></a></li>
+        <li><a href="#"><strong>Jobs</strong></a></li>
       </ul>
     </nav>
   </div>
@@ -48,14 +46,18 @@
 
 <footer>
   <div class="container">
-    <ul class="links">
-      <li><a href="<%= beta_path %>">Home</a></li>
-      <li><a href="<%= about_path %>">About</a></li>
-      <li><a href="<%= tools_path %>">Tools</a></li>
-      <li><a href="<%= sites_path %>">Sites</a></li>
-    </ul>
-    <p>To get started, just <a href="<%= root_path %>">browse around</a>, <a href="<%= new_site_path %>">add a site</a> or <a href="<%= new_tool_path %>">add a tool</a>.</p>
-    <p>SitesUsing &copy; 2011.</p>
+    <section class="sidebar_nav">&nbsp;</section>
+    <section class="main-footer">
+      <h3>Copyright &copy; 2010 SitesUsing. Development by <a href="http://adamfortuna.com">Adam Fortuna</a>.</h3>
+    </section>
+    <section class="sidebar">
+      <h3>Quick Nav</h3>
+      <ul>
+        <li><a href="/about">About SitesUsing</a></li>
+        <li><a href="/sites/sitesusing">Tools We Use</a></li>
+        <li><a href="http://blog.sitesusing.com">Blog</a></li>
+      </ul>
+    </section>
   </div>
 </footer>
 </body>

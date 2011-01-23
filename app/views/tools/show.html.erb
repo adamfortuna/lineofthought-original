@@ -1,6 +1,6 @@
 <% title "#{@tool.name}" %>
 
-<section class="main tool">
+<section id="content" class="main tool">
   <% cache(["full", @tool]) do %>
     <%= render 'header' %>
   <% end %>
@@ -14,11 +14,21 @@
   <%= render :partial => "sites", 
              :object => @tool.usings.by_alexa_site.paginate(:page => params[:page] || 1, 
                                                             :per_page => params[:per_page] || 25) %>
-    
-  <section>
-    <h3>Admin Options
-    <p>
-      <%= link_to "edit", edit_tool_path(@tool) %>
-    </p>
-  </section>
 </section>
+
+<sidebar>
+  <aside>
+    <h3>Similar Tools</h3>
+    <ul class="lst">
+      <li><a href="#"><em>Javascript</em>Prototype</a></li>
+      <li><a href="#"><em>Javascript</em>MooTools</a></li>
+      <li><a href="#"><em>Javascript</em>YUI</a></li>
+    </ul>
+  </aside>
+  <aside>
+    <h3>Admin Options</h3>
+    <ul class="lst">
+      <li><%= link_to "edit", edit_tool_path(@tool) %></li>
+    </ul>
+  </aside>
+</sidebar>

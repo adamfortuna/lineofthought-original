@@ -138,24 +138,23 @@ div.token-input-dropdown ul li.token-input-dropdown-item {background-color: #faf
 div.token-input-dropdown ul li.token-input-dropdown-item2 {background-color: #fff}
 div.token-input-dropdown ul li em {font-weight: bold; font-style: normal}
 div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #d0efa0}
-.container {width: 1000px; margin: 0 auto}
+body {font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background: #222}
+.container {max-width: 1100px; margin: 0 auto; position: relative; height: 100%}
 .group:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
 ul {list-style: none; margin: 0; padding: 0}
- header {background-color: #766557}
-#title {margin: 0; width: 220px; float: left}
-#title a {color: #e3c887; display: block; width: 100%; text-decoration: none; font-size: 3.2em; text-shadow: 0px 2px 3px #555}
-#title a em {font-style: normal}
-#title a:hover em {color: #eee}
-#title a em.tagline {color: #B2A18F; font-size: 16px; float: left}
- #nav {position: relative; max-width: 780px; margin: 0; font-size: 1.3em; float: right}
-#nav ul {margin: 0; float: left}
-#nav ul li {float: left; width: 200px; margin: 0; border-left: 1px solid #87705d}
-#nav ul li.last {margin-right: 0; width: 175px; border-right: 1px solid #87705d; float: right}
-#nav ul li a {display: block; float: left; width: 100%; font-size: 1.1em; line-height: 1.3em; font-weight: bold; -webkit-transition: background-color .4s linear; text-decoration: none}
-#nav ul li a:hover, nav ul li.selected a {background: rgba(0, 0, 0, 0.15)}
-#nav ul li a strong {display: block; padding: .8em 15px; color: #ddd; font-weight: normal}
-#nav ul li a:hover strong {color: #fff}
-#nav ul li a em {display: block; font-size: .9em; font-weight: normal; font-style: normal; text-transform: none; letter-spacing: 0; color: #b2a18f}
+ header {display: block; background-color: #222; border-top: 6px solid #68aff3; height: 100px; border-bottom: 3px solid #68aff3}
+#title p a {display: block; color: #eee; font-size: 3em; padding-top: .4em}
+#title p a:hover {color: #ccc}
+#title p a span {color: #68aff3; font-size: 100%}
+#title p a:hover span {color: #4B81B4}
+#title span {font-size: 2em; color: #9c9c9c}
+ #nav {display: block; position: absolute; right: 0; bottom: 0; width: 800px}
+#nav ul {float: right}
+#nav ul li {float: left}
+#nav ul li a:link, nav ul li a:visited {display: block; background-color: #68aff3; color: #fff}
+#nav ul li a {padding: .6em 1.4em; font-size: 1.4em; margin-left: 1em; border-top-left-radius: 6px; border-top-right-radius: 6px; -webkit-border-top-left-radius: 6px; -webkit-border-top-right-radius: 6px; -moz-border-radius-topleft: 6px; -moz-border-radius-topright: 6px}
+#nav ul li a:hover {background-color: #68aff3}
+ #subnav {display: none}
 #subnav .container {position: relative}
 #subnav {background-color: #F3F2E8; clear: both; height: 30px; border-bottom: 1px solid #e5e4d9}
 #subnav p {float: left; width: 480px; color: #B2A18F; font-size: 14px; line-height: 30px; margin: 0}
@@ -168,21 +167,36 @@ ul {list-style: none; margin: 0; padding: 0}
 #subnav nav {float: left; display: none}
 #subnav nav, #subnav nav ul li {float: right}
 #subnav nav ul li a {color: #eee; font-weight: normal}
- #main {color: #333; padding: 20px 0; background: url(/images/background.png); border-top: 1px solid #fff}
-#content {width: 640px; float: left}
-.main a {text-decoration: none}
-.main a:hover {text-decoration: underline}
-sidebar {width: 320px; float: right; margin-top: 32px}
-aside {background: #f1f1f1; border: 1px solid #e3e3e3; margin: 0 0 1.5em 0; padding: 1.5em 1.5em 1em 1.5em}
-aside h3 {margin: 0; padding: 0 0 4px 0; font-size: 1.1em; font-weight: bold; color: #a14141; border-bottom: 2px solid #ecebe1}
-aside ul.lst li a {display: block; padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
+ section, aside {display: block}
+#main {background-color: #E3E3E3; color: #1B1B1B; padding: 2em 0}
+#content, #content_with_nav, sidebar aside {background-color: #fff; padding: .6em; border: 1px solid #ccc}
+ #content {width: 800px; float: left; padding: 1em}
+#content_with_nav {width: 670px; float: left; min-height: 500px; margin-left: -1px}
+#content_with_nav.no_sidebar {margin-left: 4px}
+.main section {padding: 1em}
+ sidebar {width: 260px; float: right}
+sidebar aside {margin-bottom: 2em; padding: 15px}
+sidebar aside h3 {margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 1.6em; font-weight: bold; color: #365B81; border-bottom: 2px solid #ecebe1}
+sidebar aside p.more {margin-top: 12px; text-align: center}
+sidebar aside ul li {font-size: 1.2em}
+ ul.txt li {padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
+ul.txt li:hover {background: #EFF2F7}
+ ul.lst li a {display: block; padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
 ul.lst li.last a {border: none}
-ul.lst a:hover {background: #f8f7f1}
+ul.lst a:hover {background: #EFF2F7}
 ul.lst li em {float: right; margin: 0 0 0 5px; font-size: 1em; font-style: normal; font-weight: normal; color: #9c836e}
-ul.lst li.even {background-color: #cef}
- footer {border-top: 1px solid #ccc; color: #9C836E}
-footer a, footer a:visited {color: #51463D}
-footer ul li {float: left; padding: 0 20px 0 0}
+ ul.lst-rating li {margin: 0 0 2px 0; position: relative}
+ul.lst-rating li a {position: relative; display: block; padding: 7px; z-index: 2; font-size: 1.1em}
+ul.lst-rating li em {float: right; margin: 0 0 0 5px; font-style: normal; font-weight: normal; color: #9c836e}
+ul.lst-rating li span {position: absolute; top: 0; left: 0; display: block; height: 100%; line-height: 2.55em; text-indent: -9999px; background: #EBE6FF}
+ul.lst-rating li:hover span {background: #C6C8E8}
+ footer {display: block; min-height: 140px}
+footer section {float: left}
+footer section p, footer section h3 {margin: 1em}
+footer section li {margin: .4em 1em}
+footer section.main-footer {width: 700px}
+footer section.sidebar {width: 260px; float: right}
+footer section h3 {color: #E2DDDC; font-size: 10px; text-transform: uppercase}
 .clear {clear: both}
 .right {float: right}
 p.breadcrumbs {font-size: .8em}
@@ -190,11 +204,17 @@ a.add {background: url(/images/icons/13-plus.png) no-repeat; padding-left: 20px}
 a.remove {background: url(/images/icons/14-minus.png) no-repeat 0 7px; padding-left: 20px}
 img.screenshot {border: 1px solid #777; float: left}
 a.external {font-size: 1em}
+a:link, a:visited {color: #3792B3; font-weight: bold; outline-color: -moz-use-text-color; outline-style: none; outline-width: medium; text-decoration: none}
+ section.announcement {margin-bottom: 1em}
+section.announcement p {font-size: 1.8em; color: #333; margin: .5em 1em; text-align: center}
+section.announcement p.title {font-size: 2.4em; color: #666; margin: .5em 0}
+section.announcement p a {font-weight: bold; font-style: normal}
+section.announcement p a:hover {text-decoration: underline}
   ul.tabs {height: 34px; padding: 0 20px; background: url(http://static.arcadefly.com/images/helpers/tab_bottom.gif) repeat-x bottom; clear: both; margin: 0px 0 20px}
 ul.tabs li {margin: 0; padding: 0; display: inline; list-style-type: none}
 ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height: 18px}
-ul.tabs a {background-color: #f3f3f3}
-ul.tabs li.current a:link, ul.tabs li.current a:visited {border-bottom: 1px solid #ececec; background: #ececec; color: #000}
+ul.tabs a {background-color: #f3f3f3; font-size: 1.6em}
+ul.tabs li.current a:link, ul.tabs li.current a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
 ul.tabs a:hover {background-color: #fff}
 ul.tabs a.arcades {background-color: #dde}
 ul.tabs a.arcades:hover {background-color: #ccf}
@@ -202,60 +222,48 @@ ul.tabs a.games {background-color: #fdd}
 ul.tabs a.games:hover {background-color: #fcc}
 ul.tabs a.users {background-color: #ded}
 ul.tabs a.users:hover {background-color: #cec}
+section.tab {clear: both}
  #sorting {float: right; position: relative; width: 250px}
 #sorting p {float: right; width: 100%; text-align: right}
 #sorting p a {background: url(/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
 #sorting p a.active {background: url(/images/icons/14-minus.png) no-repeat right}
 #sorting ul.options {background-color: #F1F1F1; padding: 10px; float: right; z-index: 1; clear: left; border: 3px solid #e3e3e3; clear: both; position: absolute; top: 20px; border-radius: 8px; -moz-border-radius: 8px; width: 200px; right: 0}
- ul.categories, ul.sites, ul.tools, ul.usings {list-style: none}
+ ul.categories, ul.sites, ul.tools, ul.usings {list-style: none; margin: 1em}
 ul.tools li.tool {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
-.title_bar {border-bottom: 1px solid #ccc}
+.title_bar {font-size: 1.4em; padding: 1em 1em 0 1em}
 .title_bar h2, .title_bar h3, .title_bar h4 {float: left}
- .tools {clear: both; margin-top: 1em}
- .ind a.screenshot {float: left; margin-right: 10px; width: 110px; height: 100px; max-width: 110px; max-height: 100px}
-.ind a.screenshot img {max-width: 110px; max-height: 100px}
+ .ind {border-top: 1px solid #ccc; padding: 1em 0}
+.ind:hover {background-color: #efefef}
+div.ind:hover {background-color: #fff}
+div.ind {border: none; margin-bottom: 3em}
+.ind a.screenshot {float: left; margin-right: 10px; width: 110px; height: 100px; max-width: 110px; max-height: 100px}
+.ind a.screenshot img {max-height: 95px; max-width: 120px}
 .ind .title {min-height: 60px}
-.ind .title h4 {display: inline; width: 100%}
-.ind .details {margin-left: 130px; min-height: 100px}
-.tool ul.count, .tool > ul.sites, .tool ul.categories {float: right; list-style: none; margin: 0}
-.tool ul.count a, .tool > ul.sites a, .tool ul.categories a {display: block; padding: 4px}
-.tool .title ul.count a {background-color: red; color: white}
-.tool .title ul.count a:hover {background-color: blue}
-.tool .title ul.count li.sites a {background-color: red}
-.tool .title ul.count li.links a {background-color: green}
-.tool .title p {max-width: 435px}
-.tool .content .sites {float: left}
-.tool .content .sites li {float: left; margin-right: 10px}
-.tool .content .sites li a {background-color: yellow}
-.tool .content .categories li {margin-left: 10px; float: right}
+.ind .title h4 {display: inline; width: 100%; font-size: 1.6em}
+.ind .details {margin-left: 140px; min-height: 88px; position: relative}
+.ind ul.count, .ind > ul.sites {float: right; list-style: none; margin: 0}
+.ind ul.count a, .ind > ul.sites a, .ind ul.categories a {display: block; padding: 4px}
+.ind ul.count a {background-color: red; color: white}
+.ind ul.count a:hover {background-color: blue}
+.ind ul.count li.sites a {background-color: red}
+.ind ul.count li.links a {background-color: yellow}
+.ind ul.count li.alexa {background-color: blue; color: white}
+.ind ul.count li.pagerank {background-color: green; color: white}
+.ind p {font-size: 1.4em}
+ section.tool a.screenshot, section.tool a.screenshot img, section.site a.screenshot, section.site a.screenshot img {max-width: 200px; max-height: 147px}
+section.tool .details, section.site .details {margin-left: 220px; min-height: 145px}
+section.tool section.tab ul.sites, section.sites section.tab ul.tools {position: relative}
+section.tab ul.tools a.screenshot, section.tab ul.tools a.screenshot img, section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img {max-height: 95px; max-width: 120px}
+section.tab ul.tools .details, section.tab ul.sites .details {margin-left: 140px; min-height: 88px}
+ .sites .tools li a, .tools .sites li a {display: block; padding: .3em; margin-right: .4em; font-size: 1.2em}
+.sites .tools, .tools .sites {margin: .4em 0}
+.sites .tools li, .tools .sites li {float: left}
+.sites .tools li a {background-color: orange; color: #000}
+.tools .sites li a {background-color: yellow}
+ .tool .categories {position: absolute; bottom: 0; right: 0; margin: 0; padding: 0}
+.tool .categories li {margin-left: 10px; float: right}
 .tool .categories li a {background-color: #ccc}
- section.tool a.logo, section.tool a.logo img {max-width: 200px; max-height: 147px}
-section.tool .details {margin-left: 220px; min-height: 200px}
-section.tool .title p {max-width: 680px}
-section.tool ul.sites {margin-top: 20px}
- .site .title {min-height: 24px; font-weight: normal}
- ul.sites li.site img.screenshot.small {width: 100px; height: 78px}
-ul.sites li.site .site_info {margin-left: 120px}
-ul.sites li.site .site_info h4 {font-size: 1.2em}
-ul.sites li.site .site_info p.description {line-height: 1.1em}
-ul.sites li.site ul.ranks {list-style: none; float: right; border: 1px solid #ccc; width: 200px}
-ul.sites li.site ul.ranks li {float: left; clear: left; width: 100%; text-align: center}
-ul.sites li.site ul.ranks li.alexa {border-bottom: 1px solid #ccc}
-ul.sites li.site ul.ranks li.pagerank {position: relative; color: #eee; text-align: left}
-ul.sites li.site ul.ranks li.pagerank p {width: 200px; position: absolute; clear: both}
-ul.ranks li.pagerank span {display: block; background-color: green; position: absolute; height: 1.4em}
-ul.ranks li.pagerank.pagerank-0 span {width: 0px; color: #000}
-ul.ranks li.pagerank.pagerank-1 span {width: 20px}
-ul.ranks li.pagerank.pagerank-2 span {width: 40px}
-ul.ranks li.pagerank.pagerank-3 span {width: 60px}
-ul.ranks li.pagerank.pagerank-4 span {width: 80px}
-ul.ranks li.pagerank.pagerank-5 span {width: 100px}
-ul.ranks li.pagerank.pagerank-6 span {width: 120px}
-ul.ranks li.pagerank.pagerank-7 span {width: 140px}
-ul.ranks li.pagerank.pagerank-8 span {width: 160px}
-ul.ranks li.pagerank.pagerank-9 span {width: 180px}
-ul.ranks li.pagerank.pagerank-10 span {width: 200px}
- section.site .site_details {margin-left: 220px}
+   section.site .site_details {margin-left: 220px}
 section.site ul.tools {list-style: none}
 section.site ul.tools li {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
  form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}

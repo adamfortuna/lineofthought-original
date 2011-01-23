@@ -1,0 +1,20 @@
+<% cache(["header", @site], :expires_in => 15.minutes) do %>
+<div class="site group ind">
+  <%= link_to @site, :class => "screenshot" do %>
+    <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=@site.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" />
+  <% end %>
+  <div class="details">
+    <div class="title">
+      <h2><%= link_to @site.title, @site %></h2>
+      <ul class="count">
+        <li class="sites"><%= link_to pluralize(@site.tools_count, "tools"), site_tools_path(@site) %></li>
+        <li class="links"><%= link_to pluralize(0, "article"), @site %></li>
+        <li><%= raw global_alexa_rank(@site.alexa_global_rank) %></li>
+        <li><%= raw google_pagerank(@site.google_pagerank) %></li>
+      </ul>
+      <p><%= link_to @site.url, @site.url %>
+      <%= content_tag(:p, @site.description) unless @site.description.blank? %>
+    </div>
+  </div>
+</div>
+<% end %>

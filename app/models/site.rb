@@ -7,6 +7,7 @@ class Site < ActiveRecord::Base
   has_many :tools, :through => :usings
 
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
+  scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
   
   def domain
     url.downcase.scan(/^.*?([^\.\/]+\.[a-z\.]{2,6})(:\d{1,5})?(\/.*)?$/i).join.gsub(/(:\d{1,5})?(\/.*)?/, '')
@@ -39,4 +40,11 @@ class Site < ActiveRecord::Base
   handle_asynchronously :snap_screenshot!
   after_create :snap_screenshot!
   
+  def jobs_count
+    4
+  end
+  
+  def articles_count
+    6
+  end
 end

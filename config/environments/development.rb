@@ -24,12 +24,12 @@ Snaps::Application.configure do
   
   
   # caching
-  config.cache_store = :mem_cache_store, "localhost"
-  config.action_controller.perform_caching = true
-  config.cache_classes = true
+  # config.cache_store = :mem_cache_store, "localhost"
+  # config.action_controller.perform_caching = true
+  # config.cache_classes = true
 
   # dev
-  # config.action_controller.perform_caching = false
-  # config.cache_classes = false
+  config.action_controller.perform_caching = false
+  config.cache_classes = false
 end
 

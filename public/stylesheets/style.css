@@ -22,6 +22,36 @@ img.screenshot {
 a.external {
   font-size: 1em; }
 
+a:link, a:visited {
+  color: #3792B3;
+  font-weight: bold;
+  outline-color: -moz-use-text-color;
+  outline-style: none;
+  outline-width: medium;
+  text-decoration: none; }
+
+/* home */
+section.announcement {
+  margin-bottom: 1em; }
+
+section.announcement p {
+  font-size: 1.8em;
+  color: #333;
+  margin: .5em 1em;
+  text-align: center; }
+
+section.announcement p.title {
+  font-size: 2.4em;
+  color: #666;
+  margin: .5em 0; }
+
+section.announcement p a {
+  font-weight: bold;
+  font-style: normal; }
+
+section.announcement p a:hover {
+  text-decoration: underline; }
+
 /* Tabs */
 /* Very cool tabs from  http://www.simplebits.com/bits/css_tabs.html */
 ul.tabs {
@@ -48,11 +78,12 @@ ul.tabs a:link, ul.tabs a:visited {
   height: 18px; }
 
 ul.tabs a {
-  background-color: #f3f3f3; }
+  background-color: #f3f3f3;
+  font-size: 1.6em; }
 
 ul.tabs li.current a:link, ul.tabs li.current a:visited {
-  border-bottom: 1px solid #ececec;
-  background: #ececec;
+  border-bottom: 1px solid #fff;
+  background: #fff;
   color: #000; }
 
 ul.tabs a:hover {
@@ -75,6 +106,9 @@ ul.tabs a.users {
 
 ul.tabs a.users:hover {
   background-color: #cec; }
+
+section.tab {
+  clear: both; }
 
 /* Sorting options */
 #sorting {
@@ -115,24 +149,35 @@ ul.tabs a.users:hover {
 
 /* sites#index, tools#index */
 ul.categories, ul.sites, ul.tools, ul.usings {
-  list-style: none; }
+  list-style: none;
+  margin: 1em; }
 
 ul.tools li.tool {
   border-bottom: 1px solid #c3c0bd;
   padding-top: 1em; }
 
 .title_bar {
-  border-bottom: 1px solid #ccc; }
+  font-size: 1.4em;
+  padding: 1em 1em 0 1em; }
 
 .title_bar h2, .title_bar h3, .title_bar h4 {
   float: left; }
 
-/* tools#index */
-.tools {
-  clear: both;
-  margin-top: 1em; }
-
 /* Lists of sites or tools */
+.ind {
+  border-top: 1px solid #ccc;
+  padding: 1em 0; }
+
+.ind:hover {
+  background-color: #efefef; }
+
+div.ind:hover {
+  background-color: #fff; }
+
+div.ind {
+  border: none;
+  margin-bottom: 3em; }
+
 .ind a.screenshot {
   float: left;
   margin-right: 10px;
@@ -142,161 +187,145 @@ ul.tools li.tool {
   max-height: 100px; }
 
 .ind a.screenshot img {
-  max-width: 110px;
-  max-height: 100px; }
+  max-height: 95px;
+  max-width: 120px; }
 
 .ind .title {
   min-height: 60px; }
 
 .ind .title h4 {
   display: inline;
-  width: 100%; }
+  width: 100%;
+  font-size: 1.6em; }
 
 .ind .details {
-  margin-left: 130px;
-  min-height: 100px; }
+  margin-left: 140px;
+  min-height: 88px;
+  position: relative; }
 
-.tool ul.count, .tool > ul.sites, .tool ul.categories {
+.ind ul.count, .ind > ul.sites {
   float: right;
   list-style: none;
   margin: 0; }
 
-.tool ul.count a, .tool > ul.sites a, .tool ul.categories a {
+.ind ul.count a, .ind > ul.sites a, .ind ul.categories a {
   display: block;
   padding: 4px; }
 
-.tool .title ul.count a {
+.ind ul.count a {
   background-color: red;
   color: white; }
 
-.tool .title ul.count a:hover {
+.ind ul.count a:hover {
   background-color: blue; }
 
-.tool .title ul.count li.sites a {
+.ind ul.count li.sites a {
   background-color: red; }
 
-.tool .title ul.count li.links a {
-  background-color: green; }
-
-.tool .title p {
-  max-width: 435px; }
-
-.tool .content .sites {
-  float: left; }
-
-.tool .content .sites li {
-  float: left;
-  margin-right: 10px; }
-
-.tool .content .sites li a {
+.ind ul.count li.links a {
   background-color: yellow; }
 
-.tool .content .categories li {
+.ind ul.count li.alexa {
+  background-color: blue;
+  color: white; }
+
+.ind ul.count li.pagerank {
+  background-color: green;
+  color: white; }
+
+.ind p {
+  font-size: 1.4em; }
+
+/* tools#show, sites#show */
+section.tool a.screenshot, section.tool a.screenshot img,
+section.site a.screenshot, section.site a.screenshot img {
+  max-width: 200px;
+  max-height: 147px; }
+
+section.tool .details, section.site .details {
+  margin-left: 220px;
+  min-height: 145px; }
+
+section.tool section.tab ul.sites, section.sites section.tab ul.tools {
+  position: relative; }
+
+section.tab ul.tools a.screenshot, section.tab ul.tools a.screenshot img,
+section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img {
+  max-height: 95px;
+  max-width: 120px; }
+
+section.tab ul.tools .details, section.tab ul.sites .details {
+  margin-left: 140px;
+  min-height: 88px; }
+
+/* sites on a tool list, tools on a site list*/
+.sites .tools li a, .tools .sites li a {
+  display: block;
+  padding: .3em;
+  margin-right: .4em;
+  font-size: 1.2em; }
+
+.sites .tools, .tools .sites {
+  margin: .4em 0; }
+
+.sites .tools li, .tools .sites li {
+  float: left; }
+
+.sites .tools li a {
+  background-color: orange;
+  color: #000; }
+
+.tools .sites li a {
+  background-color: yellow; }
+
+/* List of categories for a tool */
+.tool .categories {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 0; }
+
+.tool .categories li {
   margin-left: 10px;
   float: right; }
 
 .tool .categories li a {
   background-color: #ccc; }
 
-/* tools#show, sites#show */
-section.tool a.logo, section.tool a.logo img {
-  max-width: 200px;
-  max-height: 147px; }
-
-section.tool .details {
-  margin-left: 220px;
-  min-height: 200px; }
-
-section.tool .title p {
-  max-width: 680px; }
-
-section.tool ul.sites {
-  margin-top: 20px; }
-
-/* sites */
-.site .title {
-  min-height: 24px;
-  font-weight: normal; }
-
 /* sites#index, tools#show */
-ul.sites li.site img.screenshot.small {
-  width: 100px;
-  height: 78px; }
+/*
 
-ul.sites li.site .site_info {
-  margin-left: 120px; }
+.tool .title p { max-width:435px; }
+.tool .content .sites { float:left; }
+.tool .content .sites li { float:left; margin-right:10px; }
+.tool .content .sites li a { background-color:yellow; }
+.tool .content .categories li { margin-left:10px; float:right; }
+.tool .categories li a { background-color:#ccc; }
 
-ul.sites li.site .site_info h4 {
-  font-size: 1.2em; }
 
-ul.sites li.site .site_info p.description {
-  line-height: 1.1em; }
 
-ul.sites li.site ul.ranks {
-  list-style: none;
-  float: right;
-  border: 1px solid #ccc;
-  width: 200px; }
-
-ul.sites li.site ul.ranks li {
-  float: left;
-  clear: left;
-  width: 100%;
-  text-align: center; }
-
-ul.sites li.site ul.ranks li.alexa {
-  border-bottom: 1px solid #ccc; }
-
-ul.sites li.site ul.ranks li.pagerank {
-  position: relative;
-  color: #eee;
-  text-align: left; }
-
-ul.sites li.site ul.ranks li.pagerank p {
-  width: 200px;
-  position: absolute;
-  clear: both; }
-
-ul.ranks li.pagerank span {
-  display: block;
-  background-color: green;
-  position: absolute;
-  height: 1.4em; }
-
-ul.ranks li.pagerank.pagerank-0 span {
-  width: 0px;
-  color: #000; }
-
-ul.ranks li.pagerank.pagerank-1 span {
-  width: 20px; }
-
-ul.ranks li.pagerank.pagerank-2 span {
-  width: 40px; }
-
-ul.ranks li.pagerank.pagerank-3 span {
-  width: 60px; }
-
-ul.ranks li.pagerank.pagerank-4 span {
-  width: 80px; }
-
-ul.ranks li.pagerank.pagerank-5 span {
-  width: 100px; }
-
-ul.ranks li.pagerank.pagerank-6 span {
-  width: 120px; }
-
-ul.ranks li.pagerank.pagerank-7 span {
-  width: 140px; }
-
-ul.ranks li.pagerank.pagerank-8 span {
-  width: 160px; }
-
-ul.ranks li.pagerank.pagerank-9 span {
-  width: 180px; }
-
-ul.ranks li.pagerank.pagerank-10 span {
-  width: 200px; }
-
+ul.sites li.site img.screenshot.small { width:100px; height:78px; }
+ul.sites li.site .site_info { margin-left: 120px; }
+ul.sites li.site .site_info p.description { line-height:1.1em; }
+ul.sites li.site ul.ranks { list-style:none; float:right; border:1px solid #ccc; width:200px; }
+ul.sites li.site ul.ranks li { float:left; clear:left; width:100%; text-align:center; }
+ul.sites li.site ul.ranks li.alexa { border-bottom:1px solid #ccc; }
+ul.sites li.site ul.ranks li.pagerank { position:relative; color:#eee; text-align:left; }
+ul.sites li.site ul.ranks li.pagerank p { width:200px; position:absolute; clear:both;}
+ul.ranks li.pagerank span { display:block; background-color:green; position:absolute; height:1.4em;}
+ul.ranks li.pagerank.pagerank-0 span { width:0px; color:#000; } 
+ul.ranks li.pagerank.pagerank-1 span { width:20px; } 
+ul.ranks li.pagerank.pagerank-2 span { width:40px; } 
+ul.ranks li.pagerank.pagerank-3 span { width:60px; } 
+ul.ranks li.pagerank.pagerank-4 span { width:80px; } 
+ul.ranks li.pagerank.pagerank-5 span { width:100px; } 
+ul.ranks li.pagerank.pagerank-6 span { width:120px; } 
+ul.ranks li.pagerank.pagerank-7 span { width:140px; } 
+ul.ranks li.pagerank.pagerank-8 span { width:160px; } 
+ul.ranks li.pagerank.pagerank-9 span { width:180px; } 
+ul.ranks li.pagerank.pagerank-10 span { width:200px; } 
+*/
 /* sites#show */
 section.site .site_details {
   margin-left: 220px; }

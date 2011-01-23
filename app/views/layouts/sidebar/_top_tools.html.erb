@@ -1,8 +1,11 @@
 <aside>
-  <h3>Top Tools</h3>
-  <ul>
+  <h3>Most Used Tools</h3>
+  <ul class="group lst">
     <% Tool.popular(5).each do |tool| %>
-      <li><%= link_to tool.name, tool %></li>
+      <li><%= link_to tool do %>
+        <em><%= pluralize(tool.sites_count, 'site') %></em>
+        <%= tool.name %>
+      <% end %></li>
     <% end %>
   </ul>
 </aside>

@@ -1,8 +1,6 @@
 module SiteHelper
   def site_tools(site, count=2)
-    links = site.tools.all(:limit => count, :order => :sites_count).collect { |tool| link_to tool.name, tool_path(tool) }.join(", ")
-    links += " and #{pluralize(site.tools_count-count, 'other tools')}" if site.tools_count > count
-    return links + "."
+    site.tools.limit(2).order("sites_count desc").collect { |tool| content_tag(:li, link_to(tool.name, tool)) }.join
   end
   
   def tool_sites(tool, count=2)
