@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SitesUsing - Find out what powers the web!</title>
   <%- title = yield(:title) %>
-  <title><%=  title || "SitesUsing - Find what technologies other sites are using" %><%= " - SitesUsing" if title %></title>
+  <title><%=  title || "SitesUsing - Find out what powers the web!" %><%= " - SitesUsing" if title && !title.blank? %></title>
   <%= raw stylesheet_link_merged :base %>
   <%= csrf_meta_tag %>
 </head>
@@ -48,7 +47,7 @@
   <div class="container">
     <section class="sidebar_nav">&nbsp;</section>
     <section class="main-footer">
-      <h3>Copyright &copy; 2010 SitesUsing. Development by <a href="http://adamfortuna.com">Adam Fortuna</a>.</h3>
+      <h3>Copyright &copy; 2011 SitesUsing.</h3>
     </section>
     <section class="sidebar">
       <h3>Quick Nav</h3>
@@ -61,5 +60,16 @@
   </div>
 </footer>
 <%= raw javascript_include_merged :base %>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90326-13']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 </body>
 </html>
