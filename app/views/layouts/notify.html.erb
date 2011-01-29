@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta content='SitesUsing.com - Find out what powers the web!' name='description' />
+    <title><%= "Notify me when SitesUsing launches!" %></title>
+    <link href='/stylesheets/notify-me.css' rel='stylesheet' />
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div id='container'>
+      <%= yield %>
+    </div>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script>
+    <script src='/javascripts/notify-me.js'></script>
+  </body>
+</html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110122183902) do
+ActiveRecord::Schema.define(:version => 20110129061122) do
 
   create_table "buildables", :force => true do |t|
     t.integer "tool_id"
@@ -78,8 +78,7 @@ ActiveRecord::Schema.define(:version => 20110122183902) do
     t.integer  "alexa_us_rank",     :limit => 8
     t.integer  "alexa_global_rank", :limit => 8
     t.integer  "google_pagerank"
-    t.string   "excerpt",           :limit => 140
-    t.integer  "tools_count",                      :default => 0
+    t.integer  "tools_count",                    :default => 0
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
@@ -112,6 +111,13 @@ ActiveRecord::Schema.define(:version => 20110122183902) do
 
   add_index "sources", ["sourceable_id", "sourceable_type"], :name => "index_sources_on_sourceable_id_and_sourceable_type"
 
+  create_table "subscriptions", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "email"
+    t.string   "referrer"
+  end
+
   create_table "tools", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -119,12 +125,7 @@ ActiveRecord::Schema.define(:version => 20110122183902) do
     t.string   "name"
     t.string   "url"
     t.text     "description"
-    t.integer  "sites_count",                      :default => 0
-    t.string   "excerpt",           :limit => 140
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
+    t.integer  "sites_count", :default => 0
     t.integer  "language_id"
   end
 

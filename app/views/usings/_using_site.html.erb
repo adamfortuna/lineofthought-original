@@ -1,4 +1,4 @@
-<% cache(["partial", using_site], :expires_in => 15.minutes) do %>
+<% cache(["partial-using-site", using_site], :expires_in => 15.minutes) do %>
 <li class="site group ind">
   <%= link_to using_site.site, :class => "screenshot" do %>
     <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=using_site.site.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" />

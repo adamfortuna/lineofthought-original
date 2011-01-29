@@ -454,7 +454,7 @@ input[type="url"],
 input[type="week"] {
   font-size: inherit;
   padding: 3px 2px;
-  width: 300px; }
+  width: 60%; }
 
 .ie6 input {
   vertical-align: text-bottom; }
@@ -489,7 +489,7 @@ input[type="radio"] {
 /* Textareas */
 textarea {
   font-size: inherit;
-  height: 200px;
+  height: 100px;
   margin: 0 0.5em 0.5em 0;
   padding: 5px;
   width: 440px;

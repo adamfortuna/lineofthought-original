@@ -4,7 +4,7 @@ Snaps::Application.routes.draw do
   resources :tools, :except => :destroy do
     resources :sites, :controller => "tool_sites", :only => [:index]
     collection do 
-      get :autocomplete
+      get :autocomplete, :lookup
     end
   end
 
@@ -23,7 +23,8 @@ Snaps::Application.routes.draw do
 
   # resources :users
   
-  resources :categories
+  resources :categories, :except => [:index]
+  resources :subscriptions, :only => [:create]
   
   match '/new' => 'home#new', :as => 'new'
   match '/beta' => 'home#beta', :as => 'beta'

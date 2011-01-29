@@ -1,54 +1,16 @@
 <%= semantic_form_for @tool, :html => { :multipart => true } do |f| %>
   <% form = f %>
   <%= f.inputs do %>
-    <%= f.input :name, :as => :string, :required => true %>
-    <%= f.input :url, :as => :string, :required => false %>
-    <%= f.input :logo, :as => :file, :required => false %>
-    <%= f.input :excerpt, :as => :text, :required => true %>
-    <%= f.input :description, :as => :text, :required => false %>
+    <%= f.input :url, :as => :string, :required => true, :label => "Unique URL for this Tool", :hint => "Definite source for this tool." %>
+    <%= f.input :name, :as => :string, :required => true, :label => "Tool Name", :hint => "Just the name here." %>
+    <%= f.input :language, :as => :select, :collection => Tool.languages.find(:all, :order => :name), 
+                :label => "Programming Language", :hint => "Primary language used. If multiple, select the main one." %>
     <%= f.input :categories, :as => :check_boxes, :required => false, :label => "Categories",
-                :collection => Category.order(:name) %>
-    <%= f.input :language, :as => :select, :collection => Tool.languages.find(:all, :order => :name) %>
+                :collection => Category.order(:name), :hint => "Is this tool a database? A framework? A web service?" %>
+    <%= f.input :description, :as => :text, :required => false,
+                :hint => "Few words about this tool. There's no limit here, so give as much info as you want." %>
   <% end %>
-
-  <div>
-    <%= f.inputs :for => :sources do |source| %>
-      <%= source.inputs :url %>
-      <%= source.inputs :title %>
-      <%= source.inputs :description, :as => :text %>
-      <p><%= link_to "Remove link", "#", :id => "remove_source", :class => "remove" %></p>
-    <% end %>
-    <div id="new_sources"></div>
-    <p><a href="#" id="add_new_source" class="add">Add another link</a></p>
-  </div>
-
   <%= f.buttons do %>
     <%= f.commit_button %>
   <% end %>
 <% end %>
-
-<div id="new_source" style="display:none;">
-  <%= form.inputs :for => @tool.sources.build do |source| %>
-    <%= source.inputs :url %>
-    <%= source.inputs :title %>
-    <%= source.inputs :description, :as => :text %>
-    <p><%= link_to "Remove link", "#", :id => "remove_source", :class => "remove" %></p>
-  <% end %>
-</div>
-
-<script type="text/javascript">
-$(function() {
-  $("#add_new_source").click(function(e){
-    $("#new_sources").append($("#new_source").html());
-    e.preventDefault();
-    return false;
-  });
-  $(".remove").live('click', function(e){
-    var target = $(e.currentTarget);
-    console.log(target);
-    target.parents("fieldset").remove();
-    e.preventDefault();
-    return false;
-  });
-});
-</script>

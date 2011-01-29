@@ -53,6 +53,10 @@ class ToolsController < ApplicationController
     render :json => tags
   end
 
+  def lookup
+    
+  end
+
   private
   def build_order
     params[:sort] ||= "sites_desc"

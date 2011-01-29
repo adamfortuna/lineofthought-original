@@ -1,4 +1,4 @@
-<% cache(["partial", using_tool], :expires_in => 15.minutes) do %>
+<% cache(["partial-using-tool", using_tool], :expires_in => 15.minutes) do %>
 <li class="tool group ind">
   <%= link_to using_tool.tool, :class => "screenshot" do %>
     <% if using_tool.tool.url? %>

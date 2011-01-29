@@ -1,0 +1,49 @@
+/* Add tool to site page */
+form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {
+  position: relative; }
+
+form.formtastic fieldset ol li.autolabel label {
+  margin: .4em 0 0 0.6em;
+  position: absolute;
+  color: #666;
+  font-weight: normal; }
+
+form.formtastic fieldset ol li.nolabel label {
+  display: none; }
+
+form.formtastic fieldset ol li.tokeninput {
+  margin-bottom: 2em; }
+
+.using textarea {
+  height: 55px;
+  width: 97%; }
+
+.using .countdown {
+  margin: 0;
+  height: 30px;
+  position: absolute;
+  width: 580px; }
+
+.using .countdown span {
+  float: right; }
+
+form {
+  font-size: 1.4em; }
+
+.check_boxes {
+  position: relative; }
+
+.check_boxes fieldset {
+  margin: 0 0 5px 0; }
+
+.check_boxes fieldset li {
+  float: left;
+  width: 30%; }
+
+.inline-hints {
+  margin: 0.5em .25em;
+  font-size: .8em; }
+
+form.formtastic fieldset {
+  border: 0;
+  background: none; }

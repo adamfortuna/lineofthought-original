@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>SitesUsing - Find out what powers the web!</title>
-  <title></title>
-</head>
-<body>
-  <div>
-    <p>Still working on things...</p>
-    
-    <p>
-      If you have an invite code, you can <%= link_to "sign up", new_user_registration_path %>, or if you have
-      a login, you can <%= link_to "sign in", new_user_session_path %>
-    </p>
-    
-    <% if user_signed_in? %>
-    <p>Looks like you're signed in! You can <%= link_to "browse around", beta_path %></p>
+<div id='boxtop'></div>
+<div id='banner'>
+  <h1><%= "SitesUsing will be launching soon!" %></h1>
+</div>
+<div id='boxmain'>
+  <p>Enter your email address below and we'll notify you when we've launched.</p>
+  <div id='subscribe'>
+    <%= form_tag subscriptions_path do %>
+      <input type='hidden' name='subscription[referrer]' value='<%= request.referrer %>' />
+      <label for='email'>Email</label>
+      <input type='text' name='subscription[email]' value='' />
+      <div class='button-container'>
+        <button value='submit' class='awesome'>Notify Me!</button>
+      </div>
     <% end %>
   </div>
-</body>
-</html>
+</div>

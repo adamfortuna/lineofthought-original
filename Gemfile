@@ -14,4 +14,13 @@ gem 'will_paginate', '3.0.pre2'
 group :development, :test do
   gem 'haml'
   gem 'ruby-debug19'
+
+  gem 'mocha'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+end
+
+group :test do
+#  gem 'rspec-rails'
+  gem 'shoulda-matchers'
 end

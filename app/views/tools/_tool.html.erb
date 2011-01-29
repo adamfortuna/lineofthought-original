@@ -15,7 +15,7 @@
         <li class="sites"><%= link_to pluralize(tool.sites_count, "site"), tool_path(tool) %></li>
         <li class="links"><%= link_to pluralize(0, "article"), tool_path(tool) %></li>
       </ul>
-      <%= content_tag(:p, tool.excerpt) unless tool.excerpt.blank? %>
+      <%= content_tag(:p, truncate(tool.description, :length => 140)) unless tool.description.blank? %>
     </div>
   
     <div class="content">

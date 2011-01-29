@@ -1,7 +1,4 @@
 class Tool < ActiveRecord::Base
-  validates_presence_of :name, :excerpt
-  validates_length_of :excerpt, :maximum => 140
-    
   belongs_to :category, :counter_cache => true
   belongs_to :language, :class_name => 'Tool'
   
@@ -21,6 +18,10 @@ class Tool < ActiveRecord::Base
   scope :languages, :conditions => "buildables.category_id = categories.id AND categories.name='Programming Language'", :joins => { :buildables => :category }
 
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "64x64>" }
+
+  validates_presence_of :url, :name
+  validates_uniqueness_of :url
+
   
   def self.for_autocomplete(count = 20)
     Rails.cache.fetch "tool-for_autocomplete_#{count}" do

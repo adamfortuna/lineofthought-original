@@ -11,7 +11,7 @@
         <%= raw global_alexa_rank(site.alexa_global_rank) %>
         <%= raw google_pagerank(site.google_pagerank) %>
       </ul>
-      <p clas="description"><%= site.excerpt %></p>
+      <p clas="description"><%= truncate(site.description, :length => 140) %></p>
 
       <% if site.tools_count > 0 %>
         <ul class="tools">

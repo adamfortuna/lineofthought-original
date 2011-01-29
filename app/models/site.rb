@@ -1,7 +1,6 @@
 class Site < ActiveRecord::Base
   has_friendly_id :domain_name, :use_slug => true
-  validates_presence_of :title, :excerpt
-  validates_length_of :excerpt, :maximum => 140
+  validates_presence_of :title, :url
   
   has_many :usings
   has_many :tools, :through => :usings

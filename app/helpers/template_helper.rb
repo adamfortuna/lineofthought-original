@@ -4,7 +4,7 @@ module TemplateHelper
   end
   
   def global_alexa_rank(rank)
-    "<li class='alexa'>Alexa Rank: #{number_with_delimiter(rank)}</li"
+    "<li class='alexa'>Alexa Rank: #{number_with_delimiter(rank)}</li>"
   end
   
   def google_pagerank(rank)

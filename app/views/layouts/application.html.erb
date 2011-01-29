@@ -5,7 +5,6 @@
   <%- title = yield(:title) %>
   <title><%=  title || "SitesUsing - Find what technologies other sites are using" %><%= " - SitesUsing" if title %></title>
   <%= raw stylesheet_link_merged :base %>
-  <%= raw javascript_include_merged :base %>
   <%= csrf_meta_tag %>
 </head>
 <body>  
@@ -20,6 +19,7 @@
         <li><a href="<%= tools_path %>"><strong>Tools</strong></a></li>
         <li><a href="<%= sites_path %>"><strong>Sites</strong></a></li>
         <li><a href="#"><strong>Jobs</strong></a></li>
+        <li><a href="#"><strong>Books</strong></a></li>
       </ul>
     </nav>
   </div>
@@ -60,5 +60,6 @@
     </section>
   </div>
 </footer>
+<%= raw javascript_include_merged :base %>
 </body>
 </html>
