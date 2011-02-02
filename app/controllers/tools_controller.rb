@@ -8,7 +8,7 @@ class ToolsController < ApplicationController
               "toolname" => "tools.name" }
 
   def index
-    @tools = Tool.order(build_order).includes(:categories)
+    @tools = Tool.order(build_order).includes(:categories, :language)
                  .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
     @categories = Category.order(:name).where("tools_count > 0")
     respond_with @tools

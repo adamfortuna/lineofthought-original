@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110129061122) do
+ActiveRecord::Schema.define(:version => 20110202033249) do
 
   create_table "buildables", :force => true do |t|
     t.integer "tool_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20110129061122) do
     t.integer  "alexa_global_rank", :limit => 8
     t.integer  "google_pagerank"
     t.integer  "tools_count",                    :default => 0
+    t.text     "top_tools"
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
@@ -125,8 +126,11 @@ ActiveRecord::Schema.define(:version => 20110129061122) do
     t.string   "name"
     t.string   "url"
     t.text     "description"
-    t.integer  "sites_count", :default => 0
+    t.integer  "sites_count",       :default => 0
     t.integer  "language_id"
+    t.text     "top_sites"
+    t.text     "cached_categories"
+    t.string   "cached_language"
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true

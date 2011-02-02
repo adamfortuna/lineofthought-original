@@ -1,8 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Site do
   context 'relationships' do
-    it { should belong_to(:user) }
     it { should have_many(:usings) }
     it { should have_many(:tools) }
   end

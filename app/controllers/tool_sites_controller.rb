@@ -16,6 +16,17 @@ class ToolSitesController < ApplicationController
                           .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
     respond_with [@tool, @usings]
   end
+  
+  def new
+    @tool = Tool.find_by_cached_slug(params[:tool_id])
+  end
+
+  # POST /tools/:tool_id/sites
+  def create
+    @tool = Tool.find_by_cached_slug(params[:tool_id])
+    @tool.add_sites!(params[:tool][:csv])
+    redirect_to new_tool_site_path(@tool), :notice => "We're processing your tools. They should be added soon!"
+  end
 
   private
   def build_order

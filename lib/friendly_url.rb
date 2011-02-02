@@ -1,0 +1,195 @@
+##
+# This class makes URI parsing "friendly", including automatically adding
+# missing http:// schemes, stripping whitespace, and relying on Ruby's URI
+# normalization.
+# 
+# It will also accept an invalid URL, in which case none of the URI methods
+# (#host, #port, #path and friends) will be available.  This allows you to use
+# it in a composed_of macro without having to deal with URI::InvalidURIError
+# being raised when a user enters a bad URL.
+# 
+class FriendlyUrl
+  def ==(other)
+    return true if super                # same object
+    return true if @uri == other.to_uri # same URI (cheaper test)
+    variants.any? { |v| v.to_uri == other.to_uri }
+  end
+
+  def blank?
+    @original.blank?
+  end
+
+  def canonical
+    Domainatrix.parse(@uri.to_s).canonical if valid?
+  end
+
+  def host
+    @uri.host if valid?
+  end
+
+  def path
+    @uri.path if valid?
+  end
+
+  def port
+    @uri.port if valid?
+  end
+
+  def scheme
+    @uri.scheme if valid?
+  end
+  
+  def query
+    @uri.query if valid?    
+  end
+
+  def to_s
+    valid? ? @uri.to_s : @original.to_s
+  end
+
+  def to_uri
+    @uri
+  end
+
+  def valid?
+    @valid
+  end
+  
+  def domain
+    @uri.to_s.downcase.scan(/^.*?([^\.\/]+\.[a-z\.]{2,6})(:\d{1,5})?(\/.*)?$/i).join.gsub(/(:\d{1,5})?(\/.*)?/, '') if valid?
+  end
+  
+  def domain_name
+    domain.split(".").first if valid?    
+  end
+  
+  ##
+  # Checks to see if another FriendlyUrl exists on this Url.
+  # Can be used to check if a specific page exists on a site.
+  #
+  # @returns boolean
+  #
+  def include?(other)
+    return false unless valid? && other.valid?
+    self == other.without_params(self.path)
+  end
+
+  ##
+  # Returns an array of possible variations on this URL (with "www." in the
+  # host, with "https", etc.).
+  # 
+  # @return [Array<FriendlyUrl>]
+  # 
+  def variants
+    [with_www, without_www].compact.collect do |uri|
+      [uri.with_http, uri.with_https]
+    end.flatten
+  end
+
+  ##
+  # Returns a variant of this URL with an http:// scheme.  If this URL is
+  # already using the http:// scheme, this method returns self.
+  # 
+  # @return [FriendlyUrl, nil]
+  # 
+  def with_http
+    return unless valid?
+    return self if @uri.scheme == 'http'
+    transform { |uri| uri.scheme = 'http' }
+  end
+
+  ##
+  # Returns a variant of this URL with an https:// scheme.  If this URL is
+  # already using the https:// scheme, this method returns self.
+  # 
+  # @return [FriendlyUrl, nil]
+  # 
+  def with_https
+    return unless valid?
+    return self if @uri.scheme == 'https'
+    transform { |uri| uri.scheme = 'https' }
+  end
+
+  ##
+  # Returns a variant of this URL with a leading "www." in the host name.  If
+  # this URL's host already begins with "www.", this method returns self.
+  # 
+  # @return [FriendlyUrl, nil]
+  # 
+  def with_www
+    return unless valid?
+    return if host_is_ip_address?
+    return self if @uri.host =~ /\Awww\./
+    transform { |uri| uri.host = "www.#{uri.host}" }
+  end
+
+
+  ##
+  # Returns a variant of this URL with any leading "www." in the host name
+  # stripped out.  If this URL's host doesn't begin with "www.", this method
+  # returns self.
+  # 
+  # @return [FriendlyUrl, nil]
+  # 
+  def without_www
+    return unless valid?
+    return self if @uri.host !~ /\Awww\./
+    transform { |uri| uri.host = uri.host.sub(/\Awww\./, '') }
+  end
+
+  ##
+  # Returns a variant of this URL without query params and with 
+  # 
+  # @return [FriendlyUrl, nil]
+  #
+  def without_params(comparison_path = nil)
+    return unless valid?
+    transform do |uri|
+      uri.query = nil                                                                       # Dump all query parameters
+      uri.path  = comparison_path if comparison_path && uri.path =~ /^#{comparison_path}/   # Only include the part of the path that matches the comparison URLs
+    end
+  end
+
+  private
+
+  def initialize(uri)
+    if uri.is_a?(URI)
+      @original = uri.to_s
+      @uri      = uri
+      @valid    = true
+    else
+      begin
+        @uri      = parse_url(uri)
+        @original = @uri.to_s
+        @valid    = true
+      rescue URI::InvalidURIError
+        @original = uri
+        @uri      = nil
+        @valid    = false
+      end
+    end
+  end
+
+  ##
+  # Convert a String into a (normalized) URI.
+  # 
+  # @param [String] url
+  # @return [URI::HTTP]
+  # 
+  # @api private
+  def parse_url(url)
+    parsed_url = Util.parse_uri(Util.normalize_url(url))
+    raise URI::InvalidURIError if parsed_url.nil?
+    return parsed_url
+  end
+
+  def host_is_ip_address?
+    valid? && @uri.host =~ /\A\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\Z/
+  end
+
+  def transform
+    uri = @uri.dup
+    yield uri
+    self.class.new(uri.to_s)
+  end
+end

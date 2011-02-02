@@ -1,8 +1,6 @@
 <% cache(["partial", site], :expires_in => 15.minutes) do %>
 <li class="site group ind">
-  <%= link_to site, :class => "screenshot" do %>
-    <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=site.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" />
-  <% end %>
+  <a href="<%= site_path(site)%>" class="screenshot"><img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=site.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" /></a>
   <div class="details">
     <div class="title">
       <h4><%= link_to site.title, site_path(site) %></h4>

@@ -2,7 +2,7 @@ Snaps::Application.routes.draw do
   match '/' => 'home#index', :as => 'root'
 
   resources :tools, :except => :destroy do
-    resources :sites, :controller => "tool_sites", :only => [:index]
+    resources :sites, :controller => "tool_sites", :only => [:index, :new, :create]
     collection do 
       get :autocomplete, :lookup
     end

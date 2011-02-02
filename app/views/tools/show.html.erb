@@ -1,4 +1,4 @@
-<% title @tool.name %>
+<% title "List of sites using #{@tool.name}" %>
 
 <section id="content" class="main tool">
   <% cache(["full", @tool]) do %>
@@ -6,9 +6,9 @@
   <% end %>
   
   <ul class="tabs">
-    <%= menu_link "Sites", tool_path(@tool), { :a_class => 'sites' } %>
-    <%= menu_link "Articles", "#", { :a_class => 'articles' } if @tool.articles_count > 0 %>
-    <%= menu_link "Jobs", "#", { :a_class => 'jobs' } if @tool.jobs_count > 0 %>
+    <li class="current"><a href="#" class="sites">Sites</a></li> 
+    <% if @tool.articles_count > 0 %><li><a href="#" class="articles">Articles</a></li><% end %>
+    <% if @tool.jobs_count > 0 %><li><a href="#" class="jobs">Jobs</a></li><% end %>
   </ul>
   
   <%= render :partial => "sites", 
@@ -29,6 +29,7 @@
     <h3>Admin Options</h3>
     <ul class="lst">
       <li><%= link_to "edit", edit_tool_path(@tool) %></li>
+      <li><%= link_to "add sites", new_tool_site_path(@tool) %></li>
     </ul>
   </aside>
 </sidebar>

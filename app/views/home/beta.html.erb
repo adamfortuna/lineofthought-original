@@ -4,15 +4,15 @@
     <p>We're an <em>open resource</em> for what runs the web.
       You can <%= link_to "see what tools a site is using", sites_path %>. 
       Fill in what tools other sites are using or <%= link_to "Add your own site", new_site_path %> or <%= link_to "tool", new_tool_path %>.</p>
-    <% cache("popular-sites", :exires => 15.minutes) do %>
   </section>
-  <ul class="sites">
-    <%= render Site.popular(5).with_tools(1) %>
-  </ul>
+  <% cache("popular-sites", :exires => 15.minutes) do %>
+    <ul class="sites">
+      <%= render @sites %>
+    </ul>
   <% end %>
 </section>
 
 <sidebar>
   <% cache("top-tools", :expires => 15.minutes) do %><%= render :partial => "layouts/sidebar/top_tools" %><% end %>
-  <% cache("recent-usings", :expires => 15.minutes) do %><%= render :partial => "layouts/sidebar/recent_usings" %><% end %>
+  <% cache("site_stats", :expires => 15.minutes) do %><%= render :partial => "layouts/sidebar/site_stats" %><% end %>
 </sidebar>

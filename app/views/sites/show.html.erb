@@ -5,9 +5,9 @@
   <% end %>
   
   <ul class="tabs">
-    <%= menu_link "Sites", site_path(@site), { :a_class => 'sites' } %>
-    <%= menu_link "Articles", "#", { :a_class => 'articles' } if @site.articles_count > 0 %>
-    <%= menu_link "Jobs", "#", { :a_class => 'jobs' } if @site.jobs_count > 0 %>
+    <li class="current"><a href="#" class="sites">Sites</a></li> 
+    <li><a href="#" class="articles">Articles</a></li> 
+    <li><a href="#" class="jobs">Jobs</a></li>
   </ul>
 
 

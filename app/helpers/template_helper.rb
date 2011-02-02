@@ -8,9 +8,7 @@ module TemplateHelper
   end
   
   def google_pagerank(rank)
-    content_tag(:li, :class => "pagerank pagerank-#{rank}") do
-      raw "<p>#{rank}</p><span></span>"
-    end
+    "<li class=\"pagerank pagerank-#{rank}\"><p>#{rank}</p><span></span></li>"
   end
   
   def menu_link(text, link, options = {})

@@ -4,7 +4,11 @@ class HomeController < ApplicationController
   caches_action :index, :beta, :style
   
   def index; end
-  def beta; end
+  def beta
+    # @popular_sites = Site.order("alexa_global_rank").limit(5)
+    @tools = Tool.order('sites_count desc').limit(5)
+    @sites = Site.popular(5).with_tools(1)
+  end
   def style; end
   def subscribed; end
 end
