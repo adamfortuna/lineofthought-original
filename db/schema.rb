@@ -168,8 +168,8 @@ ActiveRecord::Schema.define(:version => 20110202033249) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tool_id"
-    t.integer  "site_id",     :null => false
     t.text     "description"
+    t.integer  "site_id",     :null => false
   end
 
   add_index "usings", ["site_id"], :name => "index_usings_on_site_id"

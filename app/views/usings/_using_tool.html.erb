@@ -1,7 +1,5 @@
 <% cache(["partial-using-tool", using_tool], :expires_in => 15.minutes) do %>
 <li class="tool group ind">
-  <a href="<%= using_tool.tool %>" class="screenshot"><% if using_tool.tool.url? %><img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=using_tool.tool.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" /><% else %><img src="http://localhost:3000/images/screenshot.png" /><% end %></a>
-
   <div class="details">
     <div class="title">
       <h4><%= link_to using_tool.tool.name, using_tool.tool %></h4>

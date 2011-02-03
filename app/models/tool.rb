@@ -1,6 +1,7 @@
 require 'csv'
 class Tool < ActiveRecord::Base
 
+  attr_accessible :name, :url, :description, :category_ids, :language_id
   attr_accessor :csv
   has_friendly_id :name, :use_slug => true
   
@@ -20,10 +21,11 @@ class Tool < ActiveRecord::Base
   scope :popular, lambda { |limit| { :limit => limit, :order => "sites_count desc" }}
   scope :languages, :conditions => "buildables.category_id = categories.id AND categories.name='Programming Language'", :joins => { :buildables => :category }
   
-  attr_accessible :name, :url, :description
   serialize :top_sites
   serialize :cached_categories
   serialize :cached_language
+
+  before_save :update_cached_categories, :if => :categories_changed?
   
   def self.for_autocomplete(count = 20)
     Rails.cache.fetch "tool-for_autocomplete_#{count}" do
@@ -55,14 +57,17 @@ class Tool < ActiveRecord::Base
     save!
   end
 
-  def update_cached_categories!
+  def update_cached_categories
     self.cached_categories = []
     self.categories.order(:name).each do |category|
       self.cached_categories << { :name => category.name, :param => category.to_param }
     end
     self.cached_language = nil
     self.cached_language = { :name => language.name, :param => language.to_param } if language
-      
+  end
+
+  def update_cached_categories!
+    update_cached_categories
     save!
   end
 
@@ -72,5 +77,14 @@ class Tool < ActiveRecord::Base
   
   def articles_count
     6
+  end
+  
+  def books_count
+    3
+  end
+  
+  private
+  def categories_changed?
+    true
   end
 end

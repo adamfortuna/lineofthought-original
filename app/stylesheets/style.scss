@@ -3,7 +3,7 @@
 p.breadcrumbs { font-size:.8em; }
 a.add { background:url(/images/icons/13-plus.png) no-repeat; padding-left:20px; }
 a.remove { background:url(/images/icons/14-minus.png) no-repeat 0 7px; padding-left:20px; }
-img.screenshot { border: 1px solid #777; float:left; }
+img.screenshot, .screenshot img { border: 1px solid #ccc; float:left; }
 a.external { font-size:1em; }
 a:link, a:visited { color:#3792B3; font-weight:bold; outline-color:-moz-use-text-color; outline-style:none; outline-width:medium; text-decoration:none; }
 

@@ -4,6 +4,5 @@ class Using < ActiveRecord::Base
   
   scope :recent, lambda { |limit| { :limit => limit, :order => "created_at desc" }}
   
-  scope :by_sites_count, joins(:tool).order(:sites_count).includes(:tool)
   scope :by_alexa_site, joins(:site).order(:alexa_global_rank).includes(:site)
 end

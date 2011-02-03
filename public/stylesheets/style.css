@@ -15,8 +15,8 @@ a.remove {
   background: url(/images/icons/14-minus.png) no-repeat 0 7px;
   padding-left: 20px; }
 
-img.screenshot {
-  border: 1px solid #777;
+img.screenshot, .screenshot img {
+  border: 1px solid #ccc;
   float: left; }
 
 a.external {

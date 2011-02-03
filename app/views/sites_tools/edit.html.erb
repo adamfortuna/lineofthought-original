@@ -24,8 +24,7 @@
   <aside>test</aside>
 </sidebar>
 
-<script type="text/javascript">
-
+<% javascript do %>
 var token_options = {
     hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
     noResultsText: "No tools found. Check out our <a href='#' class='defaultOptions'>popular tools</a>.",
@@ -39,4 +38,4 @@ var token_options = {
 $(function() {
   $("#using_tool_id").tokenInput('<%= autocomplete_tools_path %>', token_options).focus();
 });
-</script>
+<% end %>

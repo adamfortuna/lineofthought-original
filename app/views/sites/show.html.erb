@@ -17,7 +17,7 @@
       <h3>We know of <strong><%= pluralize(@site.tools_count, "tool") %></strong> used on <strong><%= @site.title %></strong></h3>
     </div>
     <ul class="usings sites">
-      <%= render :partial => 'usings/using_tool', :collection => @site.usings.by_sites_count %>
+      <%= render :partial => 'usings/using_tool', :collection => @usings %>
     </ul>
     <% else %>
       <p>We don't know of any tools that <%= @site.title %> is using.</p>

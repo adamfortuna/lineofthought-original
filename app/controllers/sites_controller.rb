@@ -18,6 +18,7 @@ class SitesController < ApplicationController
 
   def show
     @site = Site.find_by_cached_slug(params[:id]) 
+    @usings = @site.usings.includes(:tool).joins(:tool).order("sites_count desc")
     respond_with(@site)
   end
 
@@ -37,10 +38,12 @@ class SitesController < ApplicationController
   end
   
   def edit
+    @site = Site.find_by_cached_slug(params[:id]) 
     respond_with(@site)
   end
   
   def update
+    @site = Site.find_by_cached_slug(params[:id]) 
     if @site.update_attributes(params[:site])
       redirect_to @site
     else

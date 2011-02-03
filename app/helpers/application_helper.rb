@@ -11,17 +11,14 @@ module ApplicationHelper
         '// <![CDATA['
     b = '// ]]>' + \
         '</script>'
-    content_for(:javascript) { create_template(a, b, &block) }
+    content_for(:javascript) { raw create_template(a, b, &block) }
   end
   
 
   def create_template(header, footer, &block)
     # Get the data from the block 
     data = capture(&block)
-    res = header + data + footer
-
-    # Use concat method to pass text back to the view 
-    concat(res)
+    header + "\n" + data + "\n" + footer
   end
   
   def tools_links(tools)
