@@ -10,7 +10,8 @@ class Tool < ActiveRecord::Base
   has_many :categories, :through => :buildables
   has_many :usings
   has_many :sites, :through => :usings
-  has_many :sources, :as => :sourceable  
+  has_many :sources, :as => :sourceable
+  acts_as_recommendable :sites, :through => :usings, :use_dataset => true, :limit => 5
 
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :sources
@@ -27,10 +28,14 @@ class Tool < ActiveRecord::Base
 
   before_save :update_cached_categories, :if => :categories_changed?
   
+  # def self.for_autocomplete(count = 20)
+  #   Rails.cache.fetch "tool-for_autocomplete_#{count}" do
+  #     popular(20).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})"}}
+  #   end
+  # end
+
   def self.for_autocomplete(count = 20)
-    Rails.cache.fetch "tool-for_autocomplete_#{count}" do
-      popular(20).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})"}}.to_json
-    end
+    popular(20).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})"}}
   end
   
   def add_sites!(csv)

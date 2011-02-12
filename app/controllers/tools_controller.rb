@@ -1,21 +1,23 @@
 class ToolsController < ApplicationController
   before_filter :load_record, :only => [:edit, :update]
   respond_to :html, :json, :xml
-  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
-  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
+  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name" }
 
   def index
-    @tools = Tool.order(build_order).includes(:categories, :language)
-                 .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
+    # @tools = Tool.order(build_order).includes(:categories, :language)
+    #              .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
+    @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 10))
     @categories = Category.order(:name).where("tools_count > 0")
     respond_with @tools
   end
   
   def show
     @tool = Tool.find_by_cached_slug(params[:id])
+    @usings = @tool.usings.joins(:site).includes(:site).order("alexa_global_rank desc").paginate(:page => 1, :per_page => 25)
     params[:sort] = "alexa"
     respond_with @tool
   end
@@ -43,14 +45,6 @@ class ToolsController < ApplicationController
     else
       redirect_to @tool
     end
-  end
-  
-  def autocomplete
-    tags = Tool.all(:limit => 50, :order => 'sites_count DESC', :select => [:id, :name, :sites_count],
-                    :conditions => ['tools.name LIKE ?', "#{params[:q]}%"]).collect do |tool|
-      { :name => "#{tool.name} (#{tool.sites_count})", :id => tool.name.to_s }
-    end
-    render :json => tags
   end
 
   def lookup

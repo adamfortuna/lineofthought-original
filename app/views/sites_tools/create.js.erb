@@ -1,2 +1,2 @@
 $('ul.usings').prepend("<%= escape_javascript(render(:partial => 'using', :locals => {:using => @using})) %>");
-$('#new_using').reset();
+$('#new_using')[0].reset();

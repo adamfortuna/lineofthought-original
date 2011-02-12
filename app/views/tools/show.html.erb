@@ -1,7 +1,7 @@
 <% title "List of sites using #{@tool.name}" %>
 
 <section id="content" class="main tool">
-  <% cache(["full", @tool]) do %>
+  <% cache(["full", @tool], :expires_in => 15.minutes) do %>
     <%= render 'header' %>
   <% end %>
   
@@ -12,18 +12,16 @@
     <% if @tool.books_count > 0 %><li><a href="#" class="books">Books</a></li><% end %>    
   </ul>
   
-  <%= render :partial => "sites", 
-             :object => @tool.usings.by_alexa_site.paginate(:page => params[:page] || 1, 
-                                                            :per_page => params[:per_page] || 25) %>
+  <%= render :partial => "sites", :object => @usings %>
 </section>
 
 <sidebar>
   <aside>
     <h3>Similar Tools</h3>
     <ul class="lst">
-      <li><a href="#"><em>Javascript</em>Prototype</a></li>
-      <li><a href="#"><em>Javascript</em>MooTools</a></li>
-      <li><a href="#"><em>Javascript</em>YUI</a></li>
+      <% @tool.similar_tools.each do |tool| %>
+        <li><a href="<%= tool_path(tool) %>"><em><%= tool.cached_language[:name] if tool.language_id %></em><%= tool.name %></a></li>
+      <% end %>
     </ul>
   </aside>
   <aside>

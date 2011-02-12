@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
   
   has_many :usings
   has_many :tools, :through => :usings
+  acts_as_recommendable :tools, :through => :usings, :use_dataset => true, :limit => 5
 
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
   scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
@@ -59,6 +60,12 @@ class Site < ActiveRecord::Base
   
   def self.find_by_friendly_url(friendly_url)
     Site.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
+  end
+  
+  def tools_hash
+    self.tools.collect do |tool|
+      { "id" => tool.id.to_s, "name" => "#{tool.name} (#{tool.sites_count})"}
+    end
   end
   
   private

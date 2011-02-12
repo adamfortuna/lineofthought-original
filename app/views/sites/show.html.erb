@@ -27,13 +27,23 @@
 
 <sidebar>
   <aside>
-    <h3>Similar Sites</h3>
+    <h3>Sites Using Similar Tools</h3>
     <ul class="lst">
-      <li><a href="#"><em>Javascript</em>Prototype</a></li>
-      <li><a href="#"><em>Javascript</em>MooTools</a></li>
-      <li><a href="#"><em>Javascript</em>YUI</a></li>
+      <% @site.similar_sites.each do |site| %>
+        <li><a href="<%= site_path(site) %>"><%= site.title %></a></li>
+      <% end %>
     </ul>
   </aside>
+  <% if @recommended_tools.length > 0 %>
+  <aside>
+    <h3>Recommended Tools</h3>
+    <ul class="lst">
+      <% @recommended_tools.each do |tool| %>
+        <li><a href="<%= tool_path(tool) %>"><em><%= tool.cached_categories.first[:name] unless tool.cached_categories.empty? %></em><%= tool.name %></a></li>
+      <% end %>
+    </ul>
+  </aside>
+  <% end %>
   <aside class="admin">
     <h3>Admin Options</h3>
     <ul class="lst">

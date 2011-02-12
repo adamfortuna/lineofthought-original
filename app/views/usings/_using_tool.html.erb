@@ -1,5 +1,5 @@
 <% cache(["partial-using-tool", using_tool], :expires_in => 15.minutes) do %>
-<li class="tool group ind">
+<li class="tool group ind using">
   <div class="details">
     <div class="title">
       <h4><%= link_to using_tool.tool.name, using_tool.tool %></h4>
@@ -8,12 +8,9 @@
         <li class="links"><%= link_to pluralize(0, "article"), using_tool.tool %></li>
       </ul>
       <% unless using_tool.description.blank? %><p><%= using_tool.description %></p><% end %>
-    </div>
-  
-    <div class="content">
-      <ul class="categories">
+
+      <ul class="using">
         <%= raw tool_categories(using_tool.tool) %>
-        <% if using_tool.tool.language_id? %><li><%= link_to using_tool.tool.cached_language[:name], using_tool.tool.cached_language[:param] %></li><% end %>
       </ul>
     </div>
   </div>

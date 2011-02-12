@@ -1,8 +1,8 @@
 class SitesController < ApplicationController
   before_filter :load_record, :only => [:edit, :update]
   respond_to :html, :json, :xml
-  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
-  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
+  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
 
   @@order = { "google" => "google_pagerank", 
               "alexa" => "alexa_global_rank", 
@@ -12,13 +12,14 @@ class SitesController < ApplicationController
 
   def index
     @sites = Site.order(build_order)
-                 .paginate(:page => params[:page] || 1, :per_page => params[:page] || 25)
+                 .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 10)
     respond_with(@sites)
   end
 
   def show
     @site = Site.find_by_cached_slug(params[:id]) 
     @usings = @site.usings.includes(:tool).joins(:tool).order("sites_count desc")
+    @recommended_tools = @site.recommended_tools
     respond_with(@site)
   end
 

@@ -1,6 +1,6 @@
 <% cache(["partial", tool], :expires_in => 15.minutes) do %>
 <li class="tool group ind">
-  <a href="<%= tool_path(tool) %>" class="screenshot"><% if tool.url? %><img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=tool.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" /><% else %><img src="http://localhost:3000/images/screenshot.png" /><% end %></a>
+  <a href="<%= tool_path(tool) %>" class="screenshot"><img src="http://localhost:3000/images/screenshot.png" /></a>
 
   <div class="details">
     <div class="title">
@@ -24,7 +24,6 @@
   
       <ul class="categories">
         <%= raw tool_categories(tool) %>
-        <% if tool.language_id? %><li><%= link_to tool.language.name, tool.language %></li><% end %>
       </ul>
     </div>
   </div>

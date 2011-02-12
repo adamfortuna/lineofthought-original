@@ -11,7 +11,8 @@ module SiteHelper
   end
   
   def tool_categories(tool)
-    tool.cached_categories.collect do |category|
+    language = tool.language_id? ? "<li><a href='#{tool.cached_language[:param]}'>#{tool.cached_language[:name]}</a></li>" : ""
+    language + tool.cached_categories.collect do |category|
       "<li><a href='/categories/#{category[:param]}'>#{category[:name]}</a></li>"
     end.join
   end

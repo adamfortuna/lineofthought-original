@@ -1,5 +1,15 @@
-<li id="using_<%= using.id %>">
-  <%= link_to using.tool.name, using.tool %> (<%= number_with_delimiter(using.tool.sites_count) %>)
-  <%= content_tag(:p, using.description) if using.description %>
-  <%= link_to "remove", site_tools_path(@site, :using_id => using.id), :remote => true, :method => :delete %>
+<li class="tool group ind using">
+  <div class="details">
+    <div class="title">
+      <h4><%= link_to using.tool.name, using.tool %></h4>
+      <ul class="count">
+        <li><%= link_to "remove", site_tools_path(@site, :using_id => using.id), :remote => true, :method => :delete %></li>
+      </ul>
+      <% unless using.description.blank? %><p><%= using.description %></p><% end %>
+
+      <ul class="using">
+        <%= raw tool_categories(using.tool) %>
+      </ul>
+    </div>
+  </div>
 </li>

@@ -180,7 +180,7 @@ div.ind {
 
 .ind a.screenshot {
   float: left;
-  margin-right: 10px;
+  margin-right: 24px;
   width: 110px;
   height: 100px;
   max-width: 110px;
@@ -223,7 +223,7 @@ div.ind {
   background-color: red; }
 
 .ind ul.count li.links a {
-  background-color: yellow; }
+  background-color: orange; }
 
 .ind ul.count li.alexa {
   background-color: blue;
@@ -257,6 +257,11 @@ section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img {
 section.tab ul.tools .details, section.tab ul.sites .details {
   margin-left: 140px;
   min-height: 88px; }
+
+section.tab ul.usings div.details, ul.usings div.details {
+  margin-left: 0;
+  min-height: 0;
+  padding: 0 1.5em; }
 
 /* sites on a tool list, tools on a site list*/
 .sites .tools li a, .tools .sites li a {
@@ -292,6 +297,19 @@ section.tab ul.tools .details, section.tab ul.sites .details {
 
 .tool .categories li a {
   background-color: #ccc; }
+
+/* List of categories for a using-tool */
+.tool .using {
+  clear: both;
+  margin: 1.5em 0 0 0; }
+
+.tool .using li {
+  float: left;
+  margin-right: 10px; }
+
+.tool .using li a {
+  background-color: #ccc;
+  padding: .4em; }
 
 /* sites#index, tools#show */
 /*
@@ -336,3 +354,57 @@ section.site ul.tools {
 section.site ul.tools li {
   border-bottom: 1px solid #c3c0bd;
   padding-top: 1em; }
+
+.pagination {
+  background: white; }
+
+.pagination a, .pagination span, .pagination em {
+  padding: .2em .5em;
+  display: block;
+  float: left;
+  margin-right: 1px; }
+
+.pagination span.disabled {
+  color: #999;
+  border: 1px solid #DDD; }
+
+.pagination em {
+  font-weight: bold;
+  background: #2E6AB1;
+  color: white;
+  border: 1px solid #2E6AB1; }
+
+.pagination a {
+  text-decoration: none;
+  color: #105CB6;
+  border: 1px solid #9AAFE5; }
+
+.pagination a:hover, .pagination a:focus {
+  color: #003;
+  border-color: #003; }
+
+.pagination .page_info {
+  background: #2E6AB1;
+  color: white;
+  padding: .4em .6em;
+  width: 22em;
+  margin-bottom: .3em;
+  text-align: center; }
+
+.pagination .page_info b {
+  color: #003;
+  background: #6aa6ed;
+  padding: .1em .25em; }
+
+.pagination:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+* html .pagination {
+  height: 1%; }
+
+*:first-child + html .pagination {
+  overflow: hidden; }

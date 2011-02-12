@@ -4,12 +4,16 @@ Snaps::Application.routes.draw do
   resources :tools, :except => :destroy do
     resources :sites, :controller => "tool_sites", :only => [:index, :new, :create]
     collection do 
-      get :autocomplete, :lookup
+      get :lookup
     end
   end
 
   resources :sites do
-    resource :tools, :controller => "sites_tools", :only => [:index, :edit, :create, :destroy]
+    resource :tools, :controller => "sites_tools", :only => [:index, :edit, :create, :destroy] do
+      collection do 
+        get :autocomplete
+      end
+    end
   end
 
 

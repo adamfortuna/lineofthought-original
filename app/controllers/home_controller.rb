@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
   before_filter :beta_user_check, :except => [:index]
   layout lambda { |res| ["index","subscribed"].include?(params[:action]) ? "notify" : "application" }
-  caches_action :index, :beta, :style
+  caches_action :index, :beta, :style, :expires_in => 15.minutes
+
   
   def index; end
   def beta

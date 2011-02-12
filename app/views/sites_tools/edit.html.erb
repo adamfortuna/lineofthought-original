@@ -14,9 +14,12 @@
     <% end %>
     
     
-    <ul class="usings">
-      <%= render :partial => 'using', :collection => @site.usings.all(:include => :tool, :order => "tools.name") %>
-    </ul>
+    <div>
+      <h3>Manage Tools used on <%= @site.title %></h3>
+      <ul class="usings">
+        <%= render :partial => 'using', :collection => @usings %>
+      </ul>
+    </div>
   </section>
 </section>
 
@@ -28,7 +31,7 @@
 var token_options = {
     hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
     noResultsText: "No tools found. Check out our <a href='#' class='defaultOptions'>popular tools</a>.",
-    defaultOptions: <%= raw Tool.for_autocomplete %>,
+    defaultOptions: <%= raw (Tool.for_autocomplete - @site.tools_hash).to_json %>,
     allowNewValues: true,
     canCreate: true,
     tokenLimit: 1
@@ -36,6 +39,6 @@ var token_options = {
 
 
 $(function() {
-  $("#using_tool_id").tokenInput('<%= autocomplete_tools_path %>', token_options).focus();
+  $("#using_tool_id").tokenInput('<%= autocomplete_site_tools_path(@site) %>', token_options).focus();
 });
 <% end %>

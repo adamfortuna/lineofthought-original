@@ -1,30 +1,21 @@
-<% cache(["header", @tool], :expires_in => 15.minutes) do %>
 <div class="tool group ind">
-  <%= link_to @tool.url, :class => "screenshot", :target => "_blank" do %>
-    <% if @tool.url? %>
-    <img src="http://snapshots.bloggerschoiceawards.com/images?url=<%=@tool.url%>&f=jpg&h=147&w=201&default=http://localhost:3000/images/screenshot.png" />
-    <% else %>
-      <img src="http://localhost:3000/images/screenshot.png" />
-    <% end %>
-  <% end %>
+  <a href="<%= @tool.url %>" class="screenshot" target="_blank"><img src="http://localhost:3000/images/screenshot.png" /></a>
 
   <div class="details">
     <div class="title">
-      <h4><%= link_to @tool.name, @tool.url, :target => "_blank" %></h4>
+      <h4><%= link_to @tool.name, @tool.url, :target => "_blank", :rel => "nofollow" %></h4>
       <ul class="count">
         <li class="sites"><%= link_to pluralize(@tool.sites_count, "site"), @tool %></li>
         <li class="links"><%= link_to pluralize(0, "article"), @tool %></li>
       </ul>
       <%= content_tag(:p, @tool.description) unless @tool.description.blank? %>
-      <%= content_tag(:p, link_to(@tool.url, @tool.url, :target => "_blank")) unless @tool.url.blank? %>
+      <%= content_tag(:p, link_to(@tool.url, @tool.url, :target => "_blank", :rel => "nofollow")) unless @tool.url.blank? %>
     </div>
   
     <div class="content">
       <ul class="categories">
         <%= raw tool_categories(@tool) %>
-        <% if @tool.language_id? %><li><%= link_to @tool.language.name, @tool.language %></li><% end %>
       </ul>
     </div>
   </div>
 </div>
-<% end %>
