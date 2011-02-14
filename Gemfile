@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'admin_data'
 gem 'dalli'
 gem 'delayed_job'
 gem 'devise'

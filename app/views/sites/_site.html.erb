@@ -5,7 +5,6 @@
     <div class="title">
       <h4><%= link_to site.title, site_path(site) %></h4>
       <ul class="count">
-        <li class="sites"><%= link_to pluralize(site.tools_count, "tool"), site %></li>
         <%= raw global_alexa_rank(site.alexa_global_rank) %>
         <%= raw google_pagerank(site.google_pagerank) %>
       </ul>

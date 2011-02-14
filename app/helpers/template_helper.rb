@@ -4,11 +4,11 @@ module TemplateHelper
   end
   
   def global_alexa_rank(rank)
-    "<li class='alexa'>Alexa Rank: #{number_with_delimiter(rank)}</li>"
+    "<li class='alexa'><span><em>#{number_with_delimiter(rank)}</em>Alexa</span></li>"
   end
   
   def google_pagerank(rank)
-    "<li class=\"pagerank pagerank-#{rank}\"><p>#{rank}</p><span></span></li>"
+    "<li class=\"pagerank pagerank-#{rank}\"><span><em>#{rank}</em>Pagerank</span></li>"
   end
   
   def menu_link(text, link, options = {})

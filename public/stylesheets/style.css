@@ -225,14 +225,6 @@ div.ind {
 .ind ul.count li.links a {
   background-color: orange; }
 
-.ind ul.count li.alexa {
-  background-color: blue;
-  color: white; }
-
-.ind ul.count li.pagerank {
-  background-color: green;
-  color: white; }
-
 .ind p {
   font-size: 1.4em; }
 
@@ -408,3 +400,30 @@ section.site ul.tools li {
 
 *:first-child + html .pagination {
   overflow: hidden; }
+
+/* Counts */
+ul.count {
+  color: #fff;
+  width: 120px; }
+
+ul.count li.alexa {
+  background-color: blue; }
+
+ul.count li.pagerank {
+  background-color: green; }
+
+ul.count li {
+  margin: 0;
+  position: relative; }
+
+ul.count li span, ul.count li a {
+  display: block;
+  padding: 7px;
+  z-index: 2;
+  font-size: 1.1em; }
+
+ul.count li em {
+  float: right;
+  font-style: normal;
+  font-weight: bold;
+  padding-left: 12px; }

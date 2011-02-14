@@ -6,8 +6,8 @@
     <div class="title">
       <h4><%= link_to tool.name, tool %></h4>
       <ul class="count">
-        <li class="sites"><%= link_to pluralize(tool.sites_count, "site"), tool_path(tool) %></li>
-        <li class="links"><%= link_to pluralize(0, "article"), tool_path(tool) %></li>
+        <%= raw tool_sites_count(tool) %>
+        <%= raw tool_articles_count(tool) %>
       </ul>
       <%= content_tag(:p, truncate(tool.description, :length => 140)) unless tool.description.blank? %>
     </div>

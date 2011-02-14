@@ -32,6 +32,8 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
+    admin_data (1.1.10)
+      will_paginate (>= 3.0.pre2)
     archive-tar-minitar (0.5.2)
     arel (2.0.7)
     autotest (4.4.6)
@@ -136,6 +138,7 @@ PLATFORMS
 
 DEPENDENCIES
   PageRankr
+  admin_data
   autotest
   dalli
   delayed_job

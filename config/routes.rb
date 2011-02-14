@@ -34,7 +34,9 @@ Snaps::Application.routes.draw do
   match '/beta' => 'home#beta', :as => 'beta'
   match '/about' => 'home#about', :as => 'about'
   
+
   # Route for tools without the tool part
   #   ie: http://sitesusing.com/rails
+  match '/admin_data' => "admin_data/home#index"
   match '/:id' => 'tools#show'
 end
