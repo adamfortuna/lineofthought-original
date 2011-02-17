@@ -2,13 +2,17 @@
   <section class="announcement">
     <p class="title">Discover what powers the sites you visit</p>
     <p>We're an <em>open resource</em> for what runs the web.
-      You can <%= link_to "see what tools a site is using", sites_path %>. 
-      Fill in what tools other sites are using or <%= link_to "Add your own site", new_site_path %> or <%= link_to "tool", new_tool_path %>.</p>
+      You can <%= link_to "see what tools a site uses", sites_path %>. 
+      Fill in what tools other sites are using or <%= link_to "add your own site", new_site_path %> or <%= link_to "tool", new_tool_path %>.</p>
   </section>
   <% cache("popular-sites", :exires => 15.minutes) do %>
     <ul class="sites">
       <%= render @sites %>
     </ul>
+
+    <section class="announcement">
+      <p>Check out all <%= link_to "#{Site.count} sites", sites_path %> or <%= link_to "#{Tool.count} tools", tools_path %>.</p>
+    </section>
   <% end %>
 </section>
 

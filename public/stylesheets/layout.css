@@ -4,11 +4,17 @@ body {
   font-size: 62.5%;
   background: #222; }
 
+body.popup {
+  background-color: #E3E3E3; }
+
 .container {
   max-width: 1100px;
   margin: 0 auto;
   position: relative;
   height: 100%; }
+
+body.popup .container {
+  max-width: 600px; }
 
 .group:after {
   content: ".";
@@ -164,6 +170,9 @@ section, aside {
   width: 800px;
   float: left;
   padding: 1em; }
+
+body.popup #content {
+  width: 550px; }
 
 #content_with_nav {
   width: 670px;

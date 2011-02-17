@@ -9,6 +9,10 @@ class SitesToolsController < ApplicationController
 
   def edit
     @usings = @site.usings.all(:include => :tool, :order => "tools.name")
+    respond_to do |format|
+      format.html
+      format.popup
+    end
   end
 
   def create

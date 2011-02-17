@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   def beta
     # @popular_sites = Site.order("alexa_global_rank").limit(5)
     @tools = Tool.order('sites_count desc').limit(5)
-    @sites = Site.popular(5).with_tools(1)
+    @sites = Site.order('alexa_global_rank').where(["tools_count > ? AND alexa_global_rank IS NOT NULL AND description IS NOT NULL and description != ''", 0]).limit(5)
   end
   def style; end
   def subscribed; end

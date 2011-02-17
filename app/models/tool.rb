@@ -35,7 +35,15 @@ class Tool < ActiveRecord::Base
   # end
 
   def self.for_autocomplete(count = 20)
-    popular(20).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})"}}
+    popular(20).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})", "description" => "(#{t.combined_category_names.join(", ")})"}}
+  end
+  
+  def combined_category_names
+    combined_categories.collect { |s| s[:name] }
+  end
+  
+  def combined_categories
+    ([self.cached_language] + self.cached_categories).compact
   end
   
   def add_sites!(csv)
@@ -75,7 +83,7 @@ class Tool < ActiveRecord::Base
     update_cached_categories
     save!
   end
-
+  
   def jobs_count
     4
   end

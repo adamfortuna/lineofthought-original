@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- title = yield(:title) %>
+  <title><%=  title || "SitesUsing - Find out what powers the web!" %><%= " - SitesUsing" if title && !title.blank? %></title>
+  <%= raw stylesheet_link_merged :base %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="popup">
+<div id="main">
+  <div class="container group">
+    <%- flash.each do |key, msg| -%>
+      <%= content_tag :div, msg, :class => key %>
+    <%- end -%>
+    <%= yield %>
+  </div>
+</div>
+
+<%= raw javascript_include_merged :base %>
+<%= yield :javascript %>
+</body>
+</html>

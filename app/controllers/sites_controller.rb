@@ -1,11 +1,12 @@
 class SitesController < ApplicationController
   before_filter :load_record, :only => [:edit, :update]
+  before_filter :redirect_to_site_tools, :only => [:new]
   respond_to :html, :json, :xml
   caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
   caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
 
   @@order = { "google" => "google_pagerank", 
-              "alexa" => "alexa_global_rank", 
+              "alexa" => "isnull(alexa_global_rank), alexa_global_rank", 
               "tools" => "tools_count", 
               "sitename" => "title"
             }
@@ -24,7 +25,7 @@ class SitesController < ApplicationController
   end
 
   def new
-    @site = Site.new
+    @site = Site.new(params[:site])
     respond_with(@site)
   end
 
@@ -34,7 +35,10 @@ class SitesController < ApplicationController
       flash[:error] = "There was a problem creating this site."
       render :new
     else
-      redirect_to @site
+      respond_to do |format|
+        format.html { redirect_to @site }
+        format.popup { redirect_to edit_site_tools_path(@site, :format => :popup) }
+      end
     end
   end
   
@@ -54,9 +58,7 @@ class SitesController < ApplicationController
   end
 
   private
-  def load_record
-    
-  end
+  def load_record; end
   
   def build_order
     params[:sort] ||= "alexa_asc"
@@ -64,5 +66,12 @@ class SitesController < ApplicationController
     sort_order = @@order[order.split("_").first] rescue "alexa_global_rank"
     direction = order.split("_").last rescue "asc"
     return "#{sort_order} #{direction}"
+  end
+  
+  def redirect_to_site_tools
+    return true unless params[:site] && params[:site][:url]
+    url = FriendlyUrl.new(params[:site][:url])
+    site = Site.find_by_url(url.to_s)
+    redirect_to edit_site_tools_path(site, :format => params[:format]) if site
   end
 end

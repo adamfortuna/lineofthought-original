@@ -228,6 +228,9 @@ div.ind {
 .ind p {
   font-size: 1.4em; }
 
+ul.sites li.ind:last-child, ul.usings li.ind:last-child {
+  border-bottom: 1px solid #ccc; }
+
 /* tools#show, sites#show */
 section.tool a.screenshot, section.tool a.screenshot img,
 section.site a.screenshot, section.site a.screenshot img {
@@ -303,39 +306,6 @@ section.tab ul.usings div.details, ul.usings div.details {
   background-color: #ccc;
   padding: .4em; }
 
-/* sites#index, tools#show */
-/*
-
-.tool .title p { max-width:435px; }
-.tool .content .sites { float:left; }
-.tool .content .sites li { float:left; margin-right:10px; }
-.tool .content .sites li a { background-color:yellow; }
-.tool .content .categories li { margin-left:10px; float:right; }
-.tool .categories li a { background-color:#ccc; }
-
-
-
-ul.sites li.site img.screenshot.small { width:100px; height:78px; }
-ul.sites li.site .site_info { margin-left: 120px; }
-ul.sites li.site .site_info p.description { line-height:1.1em; }
-ul.sites li.site ul.ranks { list-style:none; float:right; border:1px solid #ccc; width:200px; }
-ul.sites li.site ul.ranks li { float:left; clear:left; width:100%; text-align:center; }
-ul.sites li.site ul.ranks li.alexa { border-bottom:1px solid #ccc; }
-ul.sites li.site ul.ranks li.pagerank { position:relative; color:#eee; text-align:left; }
-ul.sites li.site ul.ranks li.pagerank p { width:200px; position:absolute; clear:both;}
-ul.ranks li.pagerank span { display:block; background-color:green; position:absolute; height:1.4em;}
-ul.ranks li.pagerank.pagerank-0 span { width:0px; color:#000; } 
-ul.ranks li.pagerank.pagerank-1 span { width:20px; } 
-ul.ranks li.pagerank.pagerank-2 span { width:40px; } 
-ul.ranks li.pagerank.pagerank-3 span { width:60px; } 
-ul.ranks li.pagerank.pagerank-4 span { width:80px; } 
-ul.ranks li.pagerank.pagerank-5 span { width:100px; } 
-ul.ranks li.pagerank.pagerank-6 span { width:120px; } 
-ul.ranks li.pagerank.pagerank-7 span { width:140px; } 
-ul.ranks li.pagerank.pagerank-8 span { width:160px; } 
-ul.ranks li.pagerank.pagerank-9 span { width:180px; } 
-ul.ranks li.pagerank.pagerank-10 span { width:200px; } 
-*/
 /* sites#show */
 section.site .site_details {
   margin-left: 220px; }
@@ -347,6 +317,7 @@ section.site ul.tools li {
   border-bottom: 1px solid #c3c0bd;
   padding-top: 1em; }
 
+/* Pagination */
 .pagination {
   background: white; }
 
@@ -427,3 +398,12 @@ ul.count li em {
   font-style: normal;
   font-weight: bold;
   padding-left: 12px; }
+
+/* forms */
+li.countdown {
+  float: right;
+  font-size: 16px;
+  margin: 0 14px 0 0; }
+
+li.countdown .alert {
+  color: red; }

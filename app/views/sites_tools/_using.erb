@@ -1,0 +1,15 @@
+<li class="tool group ind using" id="using_<%= using.id %>">
+  <div class="details">
+    <div class="title">
+      <h4><%= link_to using.tool.name, using.tool %></h4>
+      <ul class="count">
+        <li><%= link_to "remove", site_tools_path(@site, :using_id => using.id), :remote => true, :method => :delete %></li>
+      </ul>
+      <% unless using.description.blank? %><p><%= using.description %></p><% end %>
+
+      <ul class="using">
+        <%= raw tool_categories(using.tool) %>
+      </ul>
+    </div>
+  </div>
+</li>

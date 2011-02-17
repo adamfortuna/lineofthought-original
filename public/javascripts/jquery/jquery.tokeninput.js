@@ -328,7 +328,7 @@
 			return element;
 		}
 
-		// Inner function to a token to the list
+		// Inner function to add token to the list
 		function insert_token(id, value) {
 			var this_token = $("<li><p>"+ value +"</p> </li>")
 			.addClass(settings.classes.token)
@@ -379,6 +379,7 @@
         
 			if(settings.tokenLimit != null && settings.tokenLimit >= token_count) {
 				input_box.hide();
+//				input_box.parent().hide();
 				hide_dropdown();
 			}
 
@@ -519,16 +520,20 @@
 		}
 
 		function show_dropdown_hint () {
-			dropdown
-			.html("<p>"+settings.hintText+"</p>")
-			.show();
-			if(settings.defaultOptions) {
-				dropdown.find("a.defaultOptions").click(function(event) {
-					show_dropdown = true;
-					populate_dropdown("", settings.defaultOptions);
-					return false;
-				});
-			}
+		  if (settings.tokenLimit == null || (settings.tokenLimit > token_count)) {
+  			dropdown
+  			.html("<p>"+settings.hintText+"</p>")
+  			.show();
+  			if(settings.defaultOptions) {
+  				dropdown.find("a.defaultOptions").click(function(event) {
+  					show_dropdown = true;
+  					populate_dropdown("", settings.defaultOptions);
+  					return false;
+  				});
+  			}
+  		} else {
+  		  hide_dropdown();
+  		}
 		}
 
 		// Highlight the query part of the search term
