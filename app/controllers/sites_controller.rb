@@ -20,7 +20,6 @@ class SitesController < ApplicationController
   def show
     @site = Site.find_by_cached_slug(params[:id]) 
     @usings = @site.usings.includes(:tool).joins(:tool).order("sites_count desc")
-    @recommended_tools = @site.recommended_tools
     respond_with(@site)
   end
 

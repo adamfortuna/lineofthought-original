@@ -11,7 +11,6 @@ class Tool < ActiveRecord::Base
   has_many :usings
   has_many :sites, :through => :usings
   has_many :sources, :as => :sourceable
-  acts_as_recommendable :sites, :through => :usings, :use_dataset => true, :limit => 5
 
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :sources

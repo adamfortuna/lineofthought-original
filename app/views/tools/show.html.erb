@@ -17,14 +17,6 @@
 
 <sidebar>
   <aside>
-    <h3>Similar Tools</h3>
-    <ul class="lst">
-      <% @tool.similar_tools.each do |tool| %>
-        <li><a href="<%= tool_path(tool) %>"><em><%= tool.cached_language[:name] if tool.language_id %></em><%= tool.name %></a></li>
-      <% end %>
-    </ul>
-  </aside>
-  <aside>
     <h3>Admin Options</h3>
     <ul class="lst">
       <li><%= link_to "edit", edit_tool_path(@tool) %></li>
