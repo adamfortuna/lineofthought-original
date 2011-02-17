@@ -6,7 +6,7 @@ class SitesController < ApplicationController
   caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
 
   @@order = { "google" => "google_pagerank", 
-              "alexa" => "isnull(alexa_global_rank), alexa_global_rank", 
+              "alexa" => "coalesce(alexa_global_rank, 100000)", 
               "tools" => "tools_count", 
               "sitename" => "title"
             }
