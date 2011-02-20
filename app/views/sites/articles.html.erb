@@ -5,23 +5,21 @@
   <% end %>
   
   <ul class="tabs">
-    <li class="current"><a href="#" class="sites">Tools</a></li> 
-    <% if @site.articles_count > 0 %>
-      <li><a href="<%= articles_site_path(@site)%>" class="articles">Articles</a></li> 
-    <% end %>
+    <li><a href="<%= site_path(@site) %>" class="sites">Tools</a></li> 
+    <li class="current"><a href="#" class="articles">Articles</a></li> 
     <li><a href="#" class="jobs">Jobs</a></li>
   </ul>
 
   <section class="tab">
-    <% if @site.tools_count > 0 %>
+    <% if @site.articles_count > 0 %>
     <div class="title_bar group">
-      <h3>We know of <strong><%= pluralize(@site.tools_count, "tool") %></strong> used on <strong><%= @site.title %></strong></h3>
+      <h3>We know of <strong><%= pluralize(@site.articles_count, "article") %></strong> on <strong><%= @site.title %></strong></h3>
     </div>
-    <ul class="usings sites">
-      <%= render :partial => 'usings/using_tool', :collection => @usings %>
+    <ul class="articles">
+      <%= render @site.articles %>
     </ul>
     <% else %>
-      <p>We don't know of any tools that <%= @site.title %> is using.</p>
+      <p>We don't know of any articles mentioning <%= @site.title %>.</p>
     <% end %>
   </section>
 </section>

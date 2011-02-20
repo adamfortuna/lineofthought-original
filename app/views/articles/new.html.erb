@@ -1,0 +1,17 @@
+<% title "Add an Article to SitesUsing" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= render 'form' %>
+  </section>
+</section>
+
+<sidebar>
+  <aside>
+    <h3>Bookmarklet</h3>
+    <ul>
+      <li><%= link_to "Add Article to SitesUsing", "javascript:(function(){f='#{new_article_url(:format => "popup")}?article[url]='+encodeURIComponent(window.location.href)+'&article[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'sitesusing-new-article','location=yes,links=no,scrollbars=no,toolbar=no,width=625,height=550'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %></li>
+    </ul>
+  </aside>
+</sidebar>

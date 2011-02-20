@@ -10,7 +10,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110202033249) do
+ActiveRecord::Schema.define(:version => 20110220200333) do
+
+  create_table "annotations", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "annotateable_type"
+    t.integer  "annotateable_id"
+    t.integer  "article_id"
+    t.text     "description"
+  end
+
+  create_table "articles", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.text     "url"
+    t.text     "description"
+    t.text     "cached_tools"
+    t.text     "cached_sites"
+    t.text     "cached_connections"
+    t.string   "cached_slug"
+  end
+
+  add_index "articles", ["cached_slug"], :name => "index_articles_on_cached_slug"
+  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
 
   create_table "buildables", :force => true do |t|
     t.integer "tool_id"
@@ -80,6 +104,9 @@ ActiveRecord::Schema.define(:version => 20110202033249) do
     t.integer  "google_pagerank"
     t.integer  "tools_count",                    :default => 0
     t.text     "top_tools"
+    t.string   "uid"
+    t.integer  "articles_count",                 :default => 1
+    t.text     "cached_articles"
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
@@ -131,6 +158,8 @@ ActiveRecord::Schema.define(:version => 20110202033249) do
     t.text     "top_sites"
     t.text     "cached_categories"
     t.string   "cached_language"
+    t.integer  "articles_count",    :default => 1
+    t.text     "cached_articles"
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true
@@ -168,8 +197,8 @@ ActiveRecord::Schema.define(:version => 20110202033249) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tool_id"
-    t.text     "description"
     t.integer  "site_id",     :null => false
+    t.text     "description"
   end
 
   add_index "usings", ["site_id"], :name => "index_usings_on_site_id"

@@ -6,13 +6,25 @@
   <% end %>
   
   <ul class="tabs">
-    <li class="current"><a href="#" class="sites">Sites</a></li> 
-    <% if @tool.articles_count > 0 %><li><a href="<%= articles_tool_path(@tool) %>" class="articles">Articles</a></li><% end %>
+    <li><a href="<%= tool_path(@tool) %>" class="sites">Sites</a></li> 
+    <li class="current"><a href="<%= articles_tool_path(@tool) %>" class="articles">Articles</a></li>
     <% if @tool.jobs_count > 0 %><li><a href="#" class="jobs">Jobs</a></li><% end %>
     <% if @tool.books_count > 0 %><li><a href="#" class="books">Books</a></li><% end %>    
   </ul>
   
-  <%= render :partial => "sites", :object => @usings %>
+  <section class="tab">
+    <% if @tool.articles_count > 0 %>
+    <div class="title_bar group">
+      <h3>We know of <strong><%= pluralize(@tool.articles_count, "article") %></strong> on <strong><%= @tool.name %></strong></h3>
+    </div>
+    <ul class="articles">
+      <%= render @tool.articles %>
+    </ul>
+    <% else %>
+      <p>We don't know of any articles mentioning <%= @tool.name %>.</p>
+    <% end %>
+  </section>
+
 </section>
 
 <sidebar>

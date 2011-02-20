@@ -5,6 +5,13 @@ class Using < ActiveRecord::Base
   validates_uniqueness_of :tool_id, :scope => :site_id
   
   scope :recent, lambda { |limit| { :limit => limit, :order => "created_at desc" }}
-  
   scope :by_alexa_site, joins(:site).order(:alexa_global_rank).includes(:site)
+  
+  after_create :update_caches
+  
+  private
+  def update_caches
+    site.update_top_tools!
+    tool.update_top_sites!
+  end
 end

@@ -1,5 +1,5 @@
 class ToolsController < ApplicationController
-  before_filter :load_record, :only => [:edit, :update]
+  before_filter :load_record, :only => [:edit, :update, :destroy]
   respond_to :html, :json, :xml
   caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
   caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
@@ -17,7 +17,7 @@ class ToolsController < ApplicationController
   
   def show
     @tool = Tool.find_by_cached_slug(params[:id])
-    @usings = @tool.usings.joins(:site).includes(:site).order("alexa_global_rank desc").paginate(:page => 1, :per_page => 25)
+    @usings = @tool.usings.joins(:site).includes(:site).order("coalesce(alexa_global_rank, 100000000)").paginate(:page => 1, :per_page => 25)
     params[:sort] = "alexa"
     respond_with @tool
   end
@@ -47,8 +47,30 @@ class ToolsController < ApplicationController
     end
   end
 
-  def lookup
-    
+  def autocomplete
+    tags = Tool.limit(50)
+               .order('sites_count DESC')
+               .select([:id, :name, :sites_count])
+               .where(['tools.name LIKE ?', "#{params[:q]}%"]).collect do |tool|
+      { "name" => "#{tool.name} (#{tool.sites_count})", "id" => tool.id.to_s }
+    end
+    render :json => tags
+  end
+  
+  def destroy
+    if @tool.destroy
+      flash[:notice] = "Delete successful"
+      redirect_to tools_path
+    else
+      flash[:error] = "There was a problem deleting this tool."
+      redirect_to tool_path(@tool)
+    end
+  end
+
+  def articles
+    @tool = Tool.find_by_cached_slug(params[:id])
+    @articles = @tool.articles.order("created_at desc")
+                     .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 15)
   end
 
   private

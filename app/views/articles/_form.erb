@@ -1,0 +1,28 @@
+<%= semantic_form_for @article, :format => params[:format] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :url, :as => :string, :required => true, :label => "Article URL" %>
+    <%= f.input :title, :as => :string, :required => true, :label => "Site Title" %>
+    <%= f.input :description, :as => :text, :required => false, :label => "About this Site", :input_html => { :rows => 3 } %>
+    <%= f.input :tool_ids, :as => :string, :wrapper_html => { :class => "tokeninput inline-tokenlist" }, :label => "Tools Mentioned", :hint => "Start typing a tool name, or type the complete name.", :input_html => { :name => "article[tool_ids][]" } %>
+    <%= f.input :site_ids, :as => :string, :wrapper_html => { :class => "tokeninput inline-tokenlist" }, :label => "Sites Mentioned", :hint => "Start typing a site URL or site name.", :input_html => { :name => "article[site_ids][]" } %>
+  <% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>
+
+<% javascript do %>
+var site_token_options = {
+    hintText: "Start typing the a site URL or site name.",
+    noResultsText: "No sites found. You can <a href='<%= new_site_path %>' target='_blank'>add a site</a> at anytime."
+};
+var tool_token_options = {
+    hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
+    noResultsText: "No tools found. Check out our <a href='#' class='defaultOptions'>popular tools</a>.",
+    defaultOptions: <%= raw Tool.for_autocomplete.to_json %>
+};
+$(function() {
+  $("#article_tool_ids").tokenInput('<%= autocomplete_tools_path %>', tool_token_options).focus();
+  $("#article_site_ids").tokenInput('<%= autocomplete_sites_path %>', site_token_options)
+});
+<% end %>

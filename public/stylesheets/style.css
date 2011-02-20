@@ -195,8 +195,9 @@ div.ind {
 
 .ind .title h4 {
   display: inline;
-  width: 100%;
-  font-size: 1.6em; }
+  width: 480px;
+  font-size: 1.6em;
+  float: left; }
 
 .ind .details {
   margin-left: 140px;
@@ -226,7 +227,11 @@ div.ind {
   background-color: orange; }
 
 .ind p {
-  font-size: 1.4em; }
+  font-size: 1.4em;
+  clear: left; }
+
+.ind .title p {
+  clear: none; }
 
 ul.sites li.ind:last-child, ul.usings li.ind:last-child {
   border-bottom: 1px solid #ccc; }

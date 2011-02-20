@@ -58,7 +58,7 @@ li.token-input-token p {
 
 li.token-input-token span {
     float: right;
-    color: #777;
+    color: #bbb;
     cursor: pointer;
     padding-right:10px;
 }
@@ -123,3 +123,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {
     background-color: #5670A6;
     color:#eee;
 }
+
+
+.inline-tokenlist ul.token-input-list li input { width: 200px; }
+.inline-tokenlist ul.token-input-list li.token-input-token { float:left; }

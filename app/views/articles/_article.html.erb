@@ -1,0 +1,27 @@
+<% cache(["partial", article], :expires_in => 15.minutes) do %>
+<li class="article group ind">
+  <a href="<%= article_path(article) %>" class="screenshot"><img src="http://localhost:3000/images/screenshot.png" /></a>
+
+  <div class="details">
+    <div class="title">
+      <h4><%= link_to article.title, article %></h4>
+      <%= content_tag(:p, truncate(article.description, :length => 140)) unless article.description.blank? %>
+    </div>
+  
+    <div class="content">
+      <% if article.sites_count > 0 %>
+        <ul class="sites">
+          <%= raw article_sites(article) %>
+          <% if article.sites_count > 2 %>
+            <li><%= link_to "#{pluralize(article.sites_count-2, 'more sites')}", article %></li>
+          <% end %>
+        </ul>
+      <% end %>
+  
+      <ul class="categories">
+        <%= raw article_tools(article) %>
+      </ul>
+    </div>
+  </div>
+</li>
+<% end %>

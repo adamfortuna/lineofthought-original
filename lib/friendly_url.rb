@@ -19,8 +19,12 @@ class FriendlyUrl
     @original.blank?
   end
 
+  def domainatrix
+    Domainatrix.parse(@uri.to_s)  if valid?
+  end
+
   def canonical
-    Domainatrix.parse(@uri.to_s).canonical if valid?
+    domainatrix.canonical
   end
 
   def host
@@ -56,11 +60,25 @@ class FriendlyUrl
   end
   
   def domain
-    @uri.to_s.downcase.scan(/^.*?([^\.\/]+\.[a-z\.]{2,6})(:\d{1,5})?(\/.*)?$/i).join.gsub(/(:\d{1,5})?(\/.*)?/, '') if valid?
+    domainatrix.domain.blank? ? nil : domainatrix.domain
   end
   
-  def domain_name
-    domain.split(".").first if valid?    
+  def subdomain
+    domainatrix.subdomain.blank? ? nil : domainatrix.subdomain
+  end
+
+  def tld
+    domainatrix.public_suffix.blank? ? nil : domainatrix.public_suffix
+  end
+  
+  def uid
+    [tld, domain, subdomain].compact.join(".")
+  end
+  
+  def full_uid
+    new_tld = ["com", "new", "org"].include?(tld) ? nil : tld
+    sub = (subdomain == "www") ? nil : subdomain
+    [sub, [domain, new_tld].compact.join("")].compact.join("-").downcase
   end
   
   ##

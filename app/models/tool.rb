@@ -6,11 +6,15 @@ class Tool < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true
   
   belongs_to :language, :class_name => 'Tool'
-  has_many :buildables
+  has_many :buildables, :dependent => :destroy
   has_many :categories, :through => :buildables
-  has_many :usings
+  has_many :usings, :dependent => :destroy
   has_many :sites, :through => :usings
   has_many :sources, :as => :sourceable
+
+  # Articles
+  has_many :annotations, :as => :annotateable, :dependent => :destroy
+  has_many :articles, :through => :annotations
 
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :sources
@@ -71,7 +75,8 @@ class Tool < ActiveRecord::Base
 
   def update_cached_categories
     self.cached_categories = []
-    self.categories.order(:name).each do |category|
+    cats = new_record? ? self.categories : self.categories.order(:name)
+    cats.each do |category|
       self.cached_categories << { :name => category.name, :param => category.to_param }
     end
     self.cached_language = nil
@@ -83,12 +88,16 @@ class Tool < ActiveRecord::Base
     save!
   end
   
+  def update_articles!
+    self.cached_articles = []
+    self.articles.each do |article|
+      self.cached_articles << { :id => article.id, :title => article.title}
+    end
+    save
+  end
+
   def jobs_count
     4
-  end
-  
-  def articles_count
-    6
   end
   
   def books_count

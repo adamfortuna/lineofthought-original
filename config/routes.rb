@@ -1,20 +1,31 @@
 Snaps::Application.routes.draw do
   match '/' => 'home#index', :as => 'root'
 
-  resources :tools, :except => :destroy do
-    resources :sites, :controller => "tool_sites", :only => [:index, :new, :create]
+  resources :tools do
     collection do 
-      get :lookup
+      get :autocomplete
     end
+    member do
+      get :articles
+    end
+    resources :sites, :controller => "tool_sites", :only => [:index, :new, :create]
   end
 
   resources :sites do
+    collection do 
+      get :autocomplete
+    end
+    member do
+      get :articles
+    end
     resource :tools, :controller => "sites_tools", :only => [:index, :edit, :create, :destroy] do
       collection do 
         get :autocomplete
       end
     end
   end
+  
+  resources :articles, :only => [:new, :create, :index, :show]
 
 
   match '/auth/:provider/callback' => 'authentications#create'
@@ -29,6 +40,8 @@ Snaps::Application.routes.draw do
   
   resources :categories, :except => [:index]
   resources :subscriptions, :only => [:create]
+  
+  resources :articles, :only => [:new, :create, :edit, :update]
   
   match '/new' => 'home#new', :as => 'new'
   match '/beta' => 'home#beta', :as => 'beta'

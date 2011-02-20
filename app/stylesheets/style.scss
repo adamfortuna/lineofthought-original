@@ -57,7 +57,7 @@ div.ind { border:none; margin-bottom:3em; }
 .ind a.screenshot { float:left; margin-right:24px; width:110px; height:100px; max-width:110px; max-height:100px; }
 .ind a.screenshot img { max-height:95px; max-width:120px;}
 .ind .title { min-height:60px; }
-.ind .title h4 { display:inline; width:100%; font-size:1.6em; }
+.ind .title h4 { display:inline; width:480px; font-size:1.6em; float:left; }
 .ind .details { margin-left:140px; min-height:88px; position:relative; }
 .ind ul.count, .ind > ul.sites  { float:right; list-style:none; margin:0; }
 .ind ul.count a, .ind > ul.sites a, .ind ul.categories a { display:block; padding:4px; }
@@ -65,7 +65,8 @@ div.ind { border:none; margin-bottom:3em; }
 .ind ul.count a:hover { background-color:blue; }
 .ind ul.count li.sites a { background-color:red; }
 .ind ul.count li.links a { background-color:orange; }
-.ind p { font-size:1.4em; }
+.ind p { font-size:1.4em; clear:left; }
+.ind .title p { clear:none; }
 ul.sites li.ind:last-child, ul.usings li.ind:last-child { border-bottom:1px solid #ccc; }
 
 /* tools#show, sites#show */

@@ -1,0 +1,21 @@
+<% title "Recent Articles" %>
+
+<section id="content" class="main">
+  <div class="title_bar group">
+    <h2><%= @title %></h2>
+  </div>
+  <section>
+    <ul class="tools">
+      <%= render @articles %>
+    </ul>
+    <%= will_paginate @articles %>
+  </section>
+</section>
+
+<sidebar>
+  <aside>
+    <ul class="lst">
+      <li><%= link_to "Add a New Article", new_article_path %></li>
+    </ul>
+  </aside>
+</sidebar>

@@ -6,7 +6,7 @@ class SitesController < ApplicationController
   caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
 
   @@order = { "google" => "google_pagerank", 
-              "alexa" => "coalesce(alexa_global_rank, 100000)", 
+              "alexa" => "coalesce(alexa_global_rank, 100000000)", 
               "tools" => "tools_count", 
               "sitename" => "title"
             }
@@ -47,13 +47,29 @@ class SitesController < ApplicationController
   end
   
   def update
-    @site = Site.find_by_cached_slug(params[:id]) 
+    @site = Site.find_by_cached_slug(params[:id])
     if @site.update_attributes(params[:site])
       redirect_to @site
     else
       flash[:error] = "There was a problem updating this site."
       render :edit
-    end    
+    end
+  end
+  
+  def autocomplete
+    sites = Site.limit(25)
+               .order('updated_at DESC')
+               .select([:id, :title, :url])
+               .where(['sites.title LIKE ? OR sites.url LIKE ?', "#{params[:q]}%", "%#{params[:q]}%"]).collect do |site|
+      { "name" => "#{site.title} (#{site.url})", "id" => site.id.to_s }
+    end
+    render :json => sites
+  end
+
+  def articles
+    @site = Site.find_by_cached_slug(params[:id])
+    @articles = @site.articles.order("created_at desc")
+                     .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 15)
   end
 
   private
@@ -70,7 +86,7 @@ class SitesController < ApplicationController
   def redirect_to_site_tools
     return true unless params[:site] && params[:site][:url]
     url = FriendlyUrl.new(params[:site][:url])
-    site = Site.find_by_url(url.to_s)
+    site = Site.find_by_uid(url.uid)
     redirect_to edit_site_tools_path(site, :format => params[:format]) if site
   end
 end

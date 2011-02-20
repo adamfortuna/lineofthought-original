@@ -1,11 +1,15 @@
 class Site < ActiveRecord::Base
-  has_friendly_id :domain_name, :use_slug => true
+  has_friendly_id :full_uid, :use_slug => true
 
   validates_presence_of :title, :url
   validate :validate_uri
   
   has_many :usings
   has_many :tools, :through => :usings
+
+  # Articles
+  has_many :annotations, :as => :annotateable
+  has_many :articles, :through => :annotations
 
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
   scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
@@ -18,7 +22,7 @@ class Site < ActiveRecord::Base
     :allow_nil  => true,
     :converter  => :new
 
-  delegate :host, :path, :port, :domain, :domain_name, :to => :uri
+  delegate :host, :path, :port, :domain, :full_uid, :to => :uri
   serialize :top_tools
 
   # Todo: Make this the root of the current URL, rather than the domain
@@ -67,6 +71,14 @@ class Site < ActiveRecord::Base
     end
   end
   
+  def update_articles!
+    self.cached_articles = []
+    self.articles.each do |article|
+      self.cached_articles << { :id => article.id, :title => article.title}
+    end
+    save
+  end
+  
   private
   ##
   # Custom validations for blog URI.  Validates that it's present, valid, and
@@ -90,6 +102,6 @@ class Site < ActiveRecord::Base
   end
   
   def default_title_to_domain
-    self.title = domain_name unless self.title
+    self.title = slug.capitalize unless self.title
   end
 end

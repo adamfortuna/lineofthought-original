@@ -6,7 +6,6 @@ module SiteHelper
   
   def tool_sites(tool, count=2)
     return nil unless tool.top_sites
-    
     tool.top_sites[:sites].sort_by{rand}[0..count-1].collect { |site| content_tag(:li, link_to(site[:name], "/sites/#{site[:param]}")) }.join
   end
   
@@ -23,5 +22,15 @@ module SiteHelper
     language + tool.cached_categories.collect do |category|
       "<li><a href='/categories/#{category[:param]}'>#{category[:name]}</a></li>"
     end.join
+  end
+  
+  def article_sites(article, count=2)
+    return nil unless article.cached_sites
+    article.cached_sites.sort_by{rand}[0..count-1].collect { |site| content_tag(:li, link_to(site[:name], "/sites/#{site[:param]}")) }.join
+  end
+  
+  def article_tools(article, count=2)
+    return nil unless article.cached_tools
+    article.cached_tools.sort_by{rand}[0..count-1].collect { |tool| content_tag(:li, link_to(tool[:name], "/tools/#{tool[:param]}")) }.join
   end
 end
