@@ -1,8 +1,5 @@
 <% cache(["header", @site], :expires_in => 15.minutes) do %>
 <div class="site group ind">
-  <%= link_to @site.url, :class => "screenshot", :rel => "nofollow" do %>
-    <img src="http://localhost:3000/images/screenshot.png" />
-  <% end %>
   <div class="details">
     <div class="title">
       <h2><%= @site.title %></h2>

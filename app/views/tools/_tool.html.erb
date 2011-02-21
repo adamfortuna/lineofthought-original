@@ -1,7 +1,5 @@
 <% cache(["partial", tool], :expires_in => 15.minutes) do %>
 <li class="tool group ind">
-  <a href="<%= tool_path(tool) %>" class="screenshot"><img src="http://localhost:3000/images/screenshot.png" /></a>
-
   <div class="details">
     <div class="title">
       <h4><%= link_to tool.name, tool %></h4>

@@ -58,21 +58,21 @@ div.ind { border:none; margin-bottom:3em; }
 .ind a.screenshot img { max-height:95px; max-width:120px;}
 .ind .title { min-height:60px; }
 .ind .title h4 { display:inline; width:480px; font-size:1.6em; float:left; }
-.ind .details { margin-left:140px; min-height:88px; position:relative; }
-.ind ul.count, .ind > ul.sites  { float:right; list-style:none; margin:0; }
+.ind .details { min-height:88px; position:relative; }
+.ind ul.count, .ind > ul.sites  { float:right; list-style:none; margin:0 0 0 20px; }
 .ind ul.count a, .ind > ul.sites a, .ind ul.categories a { display:block; padding:4px; }
 .ind ul.count a { background-color:red; color:white; }
 .ind ul.count a:hover { background-color:blue; }
 .ind ul.count li.sites a { background-color:red; }
 .ind ul.count li.links a { background-color:orange; }
 .ind p { font-size:1.4em; clear:left; }
-.ind .title p { clear:none; }
+.ind .title p, .ind .title h4 { clear:none; width:590px; }
 ul.sites li.ind:last-child, ul.usings li.ind:last-child { border-bottom:1px solid #ccc; }
 
 /* tools#show, sites#show */
 section.tool a.screenshot, section.tool a.screenshot img,
 section.site a.screenshot, section.site a.screenshot img { max-width:200px; max-height:147px; }
-section.tool .details, section.site .details { margin-left:220px; min-height:145px; }
+section.tool .details, section.site .details { min-height:145px; }
 section.tool section.tab ul.sites, section.sites section.tab ul.tools { position:relative; }
 
 
@@ -80,7 +80,7 @@ section.tab ul.tools a.screenshot, section.tab ul.tools a.screenshot img,
 section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img { max-height:95px; max-width:120px; }
 section.tab ul.tools .details, section.tab ul.sites .details { margin-left:140px; min-height:88px; }
 
-section.tab ul.usings div.details, ul.usings div.details { margin-left:0; min-height:0; padding:0 1.5em; }
+section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details { margin-left:0; min-height:0; padding:0 1.5em; }
 
 /* sites on a tool list, tools on a site list*/
 .sites .tools li a, .tools .sites li a { display:block; padding:.3em; margin-right:.4em; font-size:1.2em;  }

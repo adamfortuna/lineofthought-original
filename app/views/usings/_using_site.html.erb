@@ -1,7 +1,5 @@
 <% cache(["partial-using-site", using_site], :expires_in => 15.minutes) do %>
 <li class="site group ind">
-  <a href="<%= site_path(using_site.site) %>" class='screenshot'><img src="http://localhost:3000/images/screenshot.png" /></a>
-
   <div class="details">
     <div class="title">
       <h4><%= link_to using_site.site.title, using_site.site %></h4>

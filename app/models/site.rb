@@ -57,10 +57,6 @@ class Site < ActiveRecord::Base
     4
   end
   
-  def articles_count
-    6
-  end
-  
   def self.find_by_friendly_url(friendly_url)
     Site.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
   end

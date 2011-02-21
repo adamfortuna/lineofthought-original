@@ -200,14 +200,13 @@ div.ind {
   float: left; }
 
 .ind .details {
-  margin-left: 140px;
   min-height: 88px;
   position: relative; }
 
 .ind ul.count, .ind > ul.sites {
   float: right;
   list-style: none;
-  margin: 0; }
+  margin: 0 0 0 20px; }
 
 .ind ul.count a, .ind > ul.sites a, .ind ul.categories a {
   display: block;
@@ -230,8 +229,9 @@ div.ind {
   font-size: 1.4em;
   clear: left; }
 
-.ind .title p {
-  clear: none; }
+.ind .title p, .ind .title h4 {
+  clear: none;
+  width: 590px; }
 
 ul.sites li.ind:last-child, ul.usings li.ind:last-child {
   border-bottom: 1px solid #ccc; }
@@ -243,7 +243,6 @@ section.site a.screenshot, section.site a.screenshot img {
   max-height: 147px; }
 
 section.tool .details, section.site .details {
-  margin-left: 220px;
   min-height: 145px; }
 
 section.tool section.tab ul.sites, section.sites section.tab ul.tools {
@@ -258,7 +257,7 @@ section.tab ul.tools .details, section.tab ul.sites .details {
   margin-left: 140px;
   min-height: 88px; }
 
-section.tab ul.usings div.details, ul.usings div.details {
+section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details {
   margin-left: 0;
   min-height: 0;
   padding: 0 1.5em; }
