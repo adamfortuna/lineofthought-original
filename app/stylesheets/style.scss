@@ -18,8 +18,8 @@ section.announcement p a:hover { text-decoration:underline; }
 
 /* Tabs */
 /* Very cool tabs from  http://www.simplebits.com/bits/css_tabs.html */
-ul.tabs { height: 34px; padding: 0 20px; background: url(http://static.arcadefly.com/images/helpers/tab_bottom.gif) repeat-x bottom; clear: both; margin:0px 0 20px; }
-ul.tabs li { margin: 0; padding: 0; display: inline; list-style-type: none; }
+ul.tabs { height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin:0px 0 20px; }
+ul.tabs li { margin: 0; padding: 0; display: inline; list-style-type: none; position:relative; top:1px; }
 ul.tabs a:link, ul.tabs a:visited { float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height:18px; }
 ul.tabs a { background-color: #f3f3f3; font-size:1.6em; }
 ul.tabs li.current a:link, ul.tabs li.current a:visited { border-bottom: 1px solid #fff; background: #fff; color: #000; }
