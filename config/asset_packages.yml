@@ -1,7 +1,6 @@
 --- 
 javascripts: 
 - base: 
-  - jquery/jquery
   - jquery/jquery.tokeninput
   - rails
   - application
