@@ -45,6 +45,7 @@ section.tab { clear:both; }
 /* sites#index, tools#index */
 ul.categories, ul.sites, ul.tools, ul.usings { list-style:none; margin:1em; min-height:1em; }
 ul.tools li.tool { border-bottom:1px solid #c3c0bd; padding-top:1em; }
+ul.tools .content { position:relative; }
 .title_bar { font-size: 1.4em; padding: 1em 1em 0 1em; }
 .title_bar h2, .title_bar h3, .title_bar h4 { float:left; }
 
@@ -82,7 +83,6 @@ section.tool section.tab ul.sites, section.sites section.tab ul.tools { position
 section.tab ul.tools a.screenshot, section.tab ul.tools a.screenshot img,
 section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img { max-height:95px; max-width:120px; }
 section.tab ul.tools .details, section.tab ul.sites .details { margin-left:140px; min-height:88px; }
-
 section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, ul.tools div.details { margin-left:0; min-height:0; padding:0 1.5em; }
 
 
@@ -99,7 +99,7 @@ section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, 
 .tools .sites li a:hover { background-color:#dddd11; }
 
 /* List of categories for a tool */
-.tool .categories { position:absolute; bottom:0; right:0; margin:0 1.5em 0 0; padding:0; }
+.tool .categories { position:absolute; bottom:0; right:0; margin:0; padding:0; }
 .tool .categories li { margin-left:10px; float:right; }
 .tool .categories li a { background-color:#ccc; }
 .tool .categories li a:hover { background-color:#aaa; }

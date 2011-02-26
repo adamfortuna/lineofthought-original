@@ -1,11 +1,10 @@
-<% cache(["partial-using-tool", using_tool], :expires_in => 15.minutes) do %>
 <li class="tool group ind using">
   <div class="details">
     <div class="title">
       <h4><%= link_to using_tool.tool.name, using_tool.tool %></h4>
       <ul class="count">
-        <%= raw tool_sites_count(using_tool.tool) %>
-        <%= raw tool_articles_count(using_tool.tool) %>
+        <li class="sites"><a href="<%= tool_path(using_tool.tool) %>"><em><%= using_tool.tool.sites_count %></em> sites</a></li>
+        <li class="links"><a href="<%= tool_path(using_tool.tool) %>"><em><%= using_tool.tool.articles_count %></em>articles</a></li>
       </ul>
       <% unless using_tool.description.blank? %><p><%= using_tool.description %></p><% end %>
 
@@ -15,4 +14,3 @@
     </div>
   </div>
 </li>
-<% end %>

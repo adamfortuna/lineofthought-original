@@ -9,14 +9,6 @@ module SiteHelper
     tool.top_sites[:sites].sample(2).collect { |site| content_tag(:li, link_to(site[:name], "/sites/#{site[:param]}")) }.join
   end
   
-  def tool_sites_count(tool)
-    "<li class=\"sites\"><a href=\"#{tool_path(tool)}\"><em>#{tool.sites_count}</em>sites</a></li>"
-  end
-
-  def tool_articles_count(tool)
-    "<li class=\"links\"><a href=\"#{tool_path(tool)}\"><em>0</em>articles</a></li>"
-  end
-  
   def tool_categories(tool)
     language = tool.language_id? ? "<li><a href='#{tool.cached_language[:param]}'>#{tool.cached_language[:name]}</a></li>" : ""
     language + tool.cached_categories.collect do |category|

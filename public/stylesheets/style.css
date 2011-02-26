@@ -159,6 +159,9 @@ ul.tools li.tool {
   border-bottom: 1px solid #c3c0bd;
   padding-top: 1em; }
 
+ul.tools .content {
+  position: relative; }
+
 .title_bar {
   font-size: 1.4em;
   padding: 1em 1em 0 1em; }
@@ -304,7 +307,7 @@ section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, 
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 0 1.5em 0 0;
+  margin: 0;
   padding: 0; }
 
 .tool .categories li {

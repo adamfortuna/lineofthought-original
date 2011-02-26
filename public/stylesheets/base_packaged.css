@@ -158,8 +158,8 @@ ul {list-style: none; margin: 0; padding: 0}
 #nav ul {float: right}
 #nav ul li {float: left}
 #nav ul li a:link, nav ul li a:visited {display: block; background-color: #68aff3; color: #fff}
-#nav ul li a {padding: .6em 1.4em; font-size: 1.4em; margin-left: 1em; border-top-left-radius: 6px; border-top-right-radius: 6px; -webkit-border-top-left-radius: 6px; -webkit-border-top-right-radius: 6px; -moz-border-radius-topleft: 6px; -moz-border-radius-topright: 6px}
-#nav ul li a:hover {background-color: #68aff3}
+#nav ul li a {padding: .6em 1.4em; font-size: 1.4em; margin-left: 1em}
+#nav ul li a:hover {background-color: #4b81b4}
  #subnav {display: none}
 #subnav .container {position: relative}
 #subnav {background-color: #F3F2E8; clear: both; height: 30px; border-bottom: 1px solid #e5e4d9}
@@ -218,9 +218,9 @@ section.announcement p.title {font-size: 2.4em; color: #666; margin: .5em 0}
 section.announcement p a {font-weight: bold; font-style: normal}
 section.announcement p a:hover {text-decoration: underline}
   ul.tabs {height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin: 0px 0 20px}
-ul.tabs li {margin: 0; padding: 0; display: inline; list-style-type: none; position: relative; top: 1px}
+ul.tabs li {margin: 0; padding: 0; display: inline; list-style-type: none}
 ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height: 18px}
-ul.tabs a {background-color: #f3f3f3; font-size: 1.6em}
+ul.tabs a {background-color: #f3f3f3; font-size: 1.6em; position: relative; top: 1px}
 ul.tabs li.current a:link, ul.tabs li.current a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
 ul.tabs a:hover {background-color: #fff}
 ul.tabs a.arcades {background-color: #dde}
@@ -235,14 +235,16 @@ section.tab {clear: both}
 #sorting p a {background: url(/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
 #sorting p a.active {background: url(/images/icons/14-minus.png) no-repeat right}
 #sorting ul.options {background-color: #F1F1F1; padding: 10px; float: right; z-index: 1; clear: left; border: 3px solid #e3e3e3; clear: both; position: absolute; top: 20px; border-radius: 8px; -moz-border-radius: 8px; width: 200px; right: 0}
- ul.categories, ul.sites, ul.tools, ul.usings {list-style: none; margin: 1em}
+ ul.categories, ul.sites, ul.tools, ul.usings {list-style: none; margin: 1em; min-height: 1em}
 ul.tools li.tool {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
+ul.tools .content {position: relative}
 .title_bar {font-size: 1.4em; padding: 1em 1em 0 1em}
 .title_bar h2, .title_bar h3, .title_bar h4 {float: left}
  .ind {border-top: 1px solid #ccc; padding: 1em 0}
 .ind:hover {background-color: #efefef}
 div.ind:hover {background-color: #fff}
-div.ind {border: none; margin-bottom: 3em}
+div.ind {border: none; margin: .2em 1em 2em 1em}
+div.ind h2 {width: 640px; float: left}
 .ind a.screenshot {float: left; margin-right: 24px; width: 110px; height: 100px; max-width: 110px; max-height: 100px}
 .ind a.screenshot img {max-height: 95px; max-width: 120px}
 .ind .title {min-height: 60px}
@@ -252,25 +254,29 @@ div.ind {border: none; margin-bottom: 3em}
 .ind ul.count a, .ind > ul.sites a, .ind ul.categories a {display: block; padding: 4px}
 .ind ul.count a {background-color: red; color: white}
 .ind ul.count a:hover {background-color: blue}
-.ind ul.count li.sites a {background-color: red}
-.ind ul.count li.links a {background-color: orange}
+.ind ul.count li.sites a {background-color: #f00}
+.ind ul.count li.sites a:hover {background-color: #D00}
+.ind ul.count li.links a {background-color: #FFA500}
+.ind ul.count li.links a:hover {background-color: #ccA500}
 .ind p {font-size: 1.4em; clear: left}
 .ind .title p, .ind .title h4 {clear: none; width: 590px}
 ul.sites li.ind:last-child, ul.usings li.ind:last-child {border-bottom: 1px solid #ccc}
  section.tool a.screenshot, section.tool a.screenshot img, section.site a.screenshot, section.site a.screenshot img {max-width: 200px; max-height: 147px}
-section.tool .details, section.site .details {min-height: 145px}
 section.tool section.tab ul.sites, section.sites section.tab ul.tools {position: relative}
 section.tab ul.tools a.screenshot, section.tab ul.tools a.screenshot img, section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img {max-height: 95px; max-width: 120px}
 section.tab ul.tools .details, section.tab ul.sites .details {margin-left: 140px; min-height: 88px}
-section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details {margin-left: 0; min-height: 0; padding: 0 1.5em}
+section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, ul.tools div.details {margin-left: 0; min-height: 0; padding: 0 1.5em}
  .sites .tools li a, .tools .sites li a {display: block; padding: .3em; margin-right: .4em; font-size: 1.2em}
 .sites .tools, .tools .sites {margin: .4em 0}
 .sites .tools li, .tools .sites li {float: left}
-.sites .tools li a {background-color: orange; color: #000}
-.tools .sites li a {background-color: yellow}
+.sites .tools li a {background-color: #FFA500; color: #000}
+.sites .tools li a:hover {background-color: #ccA500; color: #000}
+.tools .sites li a {background-color: #ff0}
+.tools .sites li a:hover {background-color: #dddd11}
  .tool .categories {position: absolute; bottom: 0; right: 0; margin: 0; padding: 0}
 .tool .categories li {margin-left: 10px; float: right}
 .tool .categories li a {background-color: #ccc}
+.tool .categories li a:hover {background-color: #aaa}
  .tool .using {clear: both; margin: 1.5em 0 0 0}
 .tool .using li {float: left; margin-right: 10px}
 .tool .using li a {background-color: #ccc; padding: .4em}

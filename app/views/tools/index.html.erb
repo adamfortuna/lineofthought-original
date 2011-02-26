@@ -20,7 +20,7 @@
 </section>
 
 <sidebar>
-  <% cache("categories-sidebar") do %>
+  <% cache("categories-sidebar", :expires_in => 30.minutes) do %>
   <aside>
     <h3>Categories</h3>
     <ul class="lst">

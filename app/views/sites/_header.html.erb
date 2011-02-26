@@ -4,8 +4,8 @@
     <div class="title">
       <h2><%= @site.title %></h2>
       <ul class="count">
-        <li><%= raw global_alexa_rank(@site.alexa_global_rank) %></li>
-        <li><%= raw google_pagerank(@site.google_pagerank) %></li>
+        <li class="alexa"><span><em><%= number_with_delimiter(@site.alexa_global_rank) %></em>Alexa</span></li>
+        <li class="pagerank pagerank-<%= @site.google_pagerank %>"><span><em><%= @site.google_pagerank %></em>Pagerank</span></li>
       </ul>
       <p><%= link_to @site.url, @site.url, :target => "_blank", :rel => "nofollow" %>
       <%= content_tag(:p, @site.description) unless @site.description.blank? %>
