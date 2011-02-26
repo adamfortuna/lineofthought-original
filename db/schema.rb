@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110220200333) do
+ActiveRecord::Schema.define(:version => 20110225041641) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -102,16 +102,22 @@ ActiveRecord::Schema.define(:version => 20110220200333) do
     t.integer  "alexa_us_rank",     :limit => 8
     t.integer  "alexa_global_rank", :limit => 8
     t.integer  "google_pagerank"
-    t.integer  "tools_count",                    :default => 0
+    t.integer  "tools_count",                                                    :default => 0
     t.text     "top_tools"
     t.string   "uid"
-    t.integer  "articles_count",                 :default => 1
+    t.integer  "articles_count",                                                 :default => 1
     t.text     "cached_articles"
+    t.string   "display_location"
+    t.string   "location"
+    t.decimal  "lat",                            :precision => 15, :scale => 10
+    t.decimal  "lng",                            :precision => 15, :scale => 10
+    t.integer  "jobs_count",                                                     :default => 0
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
   add_index "sites", ["cached_slug"], :name => "index_sites_on_cached_slug", :unique => true
   add_index "sites", ["google_pagerank"], :name => "index_sites_on_google_pagerank"
+  add_index "sites", ["lat", "lng"], :name => "index_sites_on_lat_and_lng"
   add_index "sites", ["title"], :name => "index_sites_on_title"
   add_index "sites", ["tools_count"], :name => "index_sites_on_tools_count"
 
@@ -160,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20110220200333) do
     t.string   "cached_language"
     t.integer  "articles_count",    :default => 1
     t.text     "cached_articles"
+    t.integer  "jobs_count",        :default => 0
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true

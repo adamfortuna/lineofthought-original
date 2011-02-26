@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   
   def show
     @category = Category.find_by_cached_slug(params[:id]) 
-    @tools = @category.tools.order(build_order).includes(:categories)
+    @tools = @category.tools.order(build_order)
                  .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
     @categories = Category.order(:name).where("tools_count > 0")
     respond_with [@category, @tools]

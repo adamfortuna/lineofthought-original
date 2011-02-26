@@ -9,7 +9,9 @@
     <% if @site.articles_count > 0 %>
       <li><a href="<%= articles_site_path(@site)%>" class="articles">Articles</a></li> 
     <% end %>
-    <li><a href="#" class="jobs">Jobs</a></li>
+    <% if @site.jobs_count > 0 %>
+      <li><a href="#" class="jobs">Jobs</a></li>
+    <% end %>
   </ul>
 
   <section class="tab">

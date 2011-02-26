@@ -1,5 +1,6 @@
 class Site < ActiveRecord::Base
   has_friendly_id :full_uid, :use_slug => true
+  acts_as_mappable
 
   validates_presence_of :title, :url
   validate :validate_uri
@@ -52,13 +53,15 @@ class Site < ActiveRecord::Base
     update_top_tools!
   end
   handle_asynchronously :update_top_tools_in_background!
-  
-  def jobs_count
-    4
-  end
-  
+    
   def self.find_by_friendly_url(friendly_url)
     Site.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
+  end
+  
+  def self.cached_count(reload = false)
+    Rails.cache.fetch("site-cached_count", :expires_in => 15.minutes, :force => reload) do
+      Site.count
+    end
   end
   
   def tools_hash
@@ -100,4 +103,13 @@ class Site < ActiveRecord::Base
   def default_title_to_domain
     self.title = slug.capitalize unless self.title
   end
+  
+  after_save :update_lat_and_lng, :if => :location_changed?
+  def update_lat_and_lng
+    geo = Geokit::Geocoders::MultiGeocoder.geocode(location)
+    errors.add(:address, "Could not Geocode address") if !geo.success
+    self.lat, self.lng = geo.lat, geo.lng if geo.success
+    save
+  end
+  handle_asynchronously :update_lat_and_lng
 end

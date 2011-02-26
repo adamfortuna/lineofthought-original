@@ -2,7 +2,7 @@
 <html>
 <head>
   <%- title = yield(:title) %>
-  <title><%=  title || "SitesUsing - Find out what powers the web!" %><%= " - SitesUsing" if title && !title.blank? %></title>
+  <title><%=  title || "Line Of Thought - Find out what powers the web!" %><%= " - Line Of Thought" if title && !title.blank? %></title>
   <%= raw stylesheet_link_merged :base %>
   <%= csrf_meta_tag %>
 </head>
@@ -10,7 +10,7 @@
 <header class="group">
   <div class="container">
     <hgroup id="title">
-      <p><a href="/beta">Sites<span>Using</span></a></p>
+      <p><a href="/beta">Line Of <span>Thought</span></a></p>
       <span>Tracking what the web uses!</span>
     </hgroup>
     <nav id="nav">
@@ -22,16 +22,6 @@
         <li><a href="#"><strong>Books</strong></a></li>
       </ul>
     </nav>
-  </div>
-  <div id="subnav" class="group">
-    <div class="container">
-      <p class="feature"><a href="#">Twitter</a> uses <a href="#">Cassandra</a>, <a href="#">Ruby on Rails</a>, <a href="#">Flock</a> and 23 other tools.</p>
-      <form>
-        <label for="s">Search for a website or tool...</label>
-        <input type="text" id="s">
-        <input type="submit" value="Go" />
-      </form>
-    </div>
   </div>
 </header>
   
@@ -48,14 +38,14 @@
   <div class="container">
     <section class="sidebar_nav">&nbsp;</section>
     <section class="main-footer">
-      <h3>Copyright &copy; 2011 SitesUsing.</h3>
+      <h3>Copyright &copy; 2011 Line Of Thought.</h3>
     </section>
     <section class="sidebar">
       <h3>Quick Nav</h3>
       <ul>
-        <li><a href="/about">About SitesUsing</a></li>
-        <li><a href="/sites/sitesusing">Tools We Use</a></li>
-        <li><a href="http://blog.sitesusing.com">Blog</a></li>
+        <li><a href="/about">About Line Of Thought</a></li>
+        <li><a href="/sites/lineofthought">Tools We Use</a></li>
+        <li><a href="http://blog.lineofthought.com">Blog</a></li>
       </ul>
     </section>
   </div>
@@ -67,9 +57,10 @@
 <% end %>
 <%= raw javascript_include_merged :base %>
 <%= yield :javascript %>
+<% if Rails.env == "production" %>
 <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-90326-13']);
+  _gaq.push(['_setAccount', 'UA-90326-14']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -78,5 +69,6 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+<% end %>
 </body>
 </html>

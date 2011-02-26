@@ -2,15 +2,7 @@ module TemplateHelper
   def show_breadcrumbs(crumbs)
     "<p class='breadcrumbs'>#{crumbs}</p>"
   end
-  
-  def global_alexa_rank(rank)
-    "<li class='alexa'><span><em>#{number_with_delimiter(rank)}</em>Alexa</span></li>"
-  end
-  
-  def google_pagerank(rank)
-    "<li class=\"pagerank pagerank-#{rank}\"><span><em>#{rank}</em>Pagerank</span></li>"
-  end
-  
+
   def menu_link(text, link, options = {})
     options.reverse_merge! :a_class => [], :li_class => []
 

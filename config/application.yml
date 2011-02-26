@@ -1,0 +1,15 @@
+defaults: &defaults
+  admin_password: "test"
+  root_url: "http://lineofthought.com"
+  root_image_url: "http://s.lineofthought.com"
+
+development:
+ <<: *defaults
+ root_url: "http://lineofthought.local"
+ root_image_url: "http://lineofthought.local"
+
+test:
+ <<: *defaults
+
+production:
+ <<: *defaults

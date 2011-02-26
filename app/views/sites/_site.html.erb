@@ -4,8 +4,8 @@
     <div class="title">
       <h4><%= link_to site.title, site_path(site) %></h4>
       <ul class="count">
-        <%= raw global_alexa_rank(site.alexa_global_rank) %>
-        <%= raw google_pagerank(site.google_pagerank) %>
+        <li class="alexa"><span><em><%= number_with_delimiter(site.alexa_global_rank) %></em>Alexa</span></li>
+        <li class="pagerank pagerank-<%= site.google_pagerank %>"><span><em><%= site.google_pagerank %></em>Pagerank</span></li>
       </ul>
       <p clas="description"><%= truncate(site.description, :length => 140) %></p>
 

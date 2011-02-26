@@ -48,8 +48,15 @@ Snaps::Application.routes.draw do
   match '/about' => 'home#about', :as => 'about'
   
 
+  # Admin related
+  match '/admin_data' => "admin_data/home#index"
+  namespace :admin do
+    
+  end
+  match '/admin' => 'admin/home#index'
+  
+
   # Route for tools without the tool part
   #   ie: http://sitesusing.com/rails
-  match '/admin_data' => "admin_data/home#index"
   match '/:id' => 'tools#show'
 end

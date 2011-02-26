@@ -10,6 +10,19 @@ development:
   password:
   socket: /tmp/mysql.sock
 
+# development:
+#   adapter: mysql2
+#   encoding: utf8
+#   reconnect: false
+#   database: sitesusing_production
+#   pool: 10
+#   username: sitesusing_adam
+#   password: SitesUsing4*7X
+#   socket: /tmp/mysql.sock
+#   host: ec2-46-137-125-224.eu-west-1.compute.amazonaws.com
+#   port: 3276
+  
+
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.

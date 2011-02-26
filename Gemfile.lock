@@ -66,6 +66,10 @@ GEM
       i18n (>= 0.4.0)
     friendly_id (3.2.0)
       babosa (~> 0.2.1)
+    geokit (1.5.0)
+    geokit-rails3 (0.1.2)
+      geokit (~> 1.5.0)
+      rails (~> 3.0.0)
     haml (3.0.25)
     i18n (0.5.0)
     json (1.5.0)
@@ -150,6 +154,7 @@ DEPENDENCIES
   factory_girl_rails
   formtastic (= 1.2.2)
   friendly_id
+  geokit-rails3
   haml
   mocha
   mysql2

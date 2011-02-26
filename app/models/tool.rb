@@ -96,10 +96,6 @@ class Tool < ActiveRecord::Base
     save
   end
 
-  def jobs_count
-    4
-  end
-  
   def books_count
     3
   end

@@ -9,6 +9,7 @@
       </ul>
       <p><%= link_to @site.url, @site.url, :target => "_blank", :rel => "nofollow" %>
       <%= content_tag(:p, @site.description) unless @site.description.blank? %>
+      <%= content_tag(:p, "Based in #{@site.display_location}") unless @site.display_location.blank? %>
     </div>
   </div>
 </div>

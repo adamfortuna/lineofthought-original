@@ -4,8 +4,8 @@
     <div class="title">
       <h4><%= link_to using_site.site.title, using_site.site %></h4>
       <ul class="count">
-        <%= raw global_alexa_rank(using_site.site.alexa_global_rank) %>
-        <%= raw google_pagerank(using_site.site.google_pagerank) %>
+        <li class="alexa"><span><em><%= number_with_delimiter(using_site.site.alexa_global_rank) %></em>Alexa</span></li>
+        <li class="pagerank pagerank-<%= using_site.site.google_pagerank %>"><span><em><%= using_site.site.google_pagerank %></em>Pagerank</span></li>
       </ul>
       <p clas="description"><%= using_site.description %></p>
 

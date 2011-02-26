@@ -6,6 +6,8 @@
       <%= f.input :cached_slug, :as => :string, :required => true, :label => "URL Identifier", :hint => "lowercase, usually something easy like twitter, google, bitly" %>
     <% end %>
     <%= f.input :description, :as => :text, :required => false, :label => "About this Site", :input_html => { :rows => 3 } %>
+    <%= f.input :display_location, :as => :string, :required => true, :label => "Location text to show", :hint => "Usually just city state, like Orlando, FL." %>
+    <%= f.input :location, :as => :string, :required => true, :label => "Location for maps", :hint => "Be as exact as you want. If you're running this site out of your house, might want to leave this as your city/state, or your zip code." %>
   <% end %>
   <%= f.buttons do %>
     <%= f.commit_button %>

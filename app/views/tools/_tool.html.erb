@@ -4,21 +4,19 @@
     <div class="title">
       <h4><%= link_to tool.name, tool %></h4>
       <ul class="count">
-        <%= raw tool_sites_count(tool) %>
-        <%= raw tool_articles_count(tool) %>
+        <li class="sites"><a href="<%= tool_path(tool) %>"><em><%= tool.sites_count %></em> sites</a></li>
+        <li class="links"><a href="<%= tool_path(tool) %>"><em><%= tool.articles_count %></em>articles</a></li>
       </ul>
       <%= content_tag(:p, truncate(tool.description, :length => 140)) unless tool.description.blank? %>
     </div>
   
-    <div class="content">
-      <% if tool.sites_count > 0 %>
-        <ul class="sites">
-          <%= raw tool_sites(tool) %>
-          <% if tool.sites_count > 2 %>
-            <li><%= link_to "#{pluralize(tool.sites_count-2, 'more site')}", tool %></li>
-          <% end %>
-        </ul>
-      <% end %>
+    <div class="content group">
+      <ul class="sites">
+        <%= raw tool_sites(tool) %>
+        <% if tool.sites_count > 2 %>
+          <li><%= link_to "#{pluralize(tool.sites_count-2, 'more site')}", tool %></li>
+        <% end %>
+      </ul>
   
       <ul class="categories">
         <%= raw tool_categories(tool) %>

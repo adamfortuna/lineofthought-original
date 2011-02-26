@@ -65,9 +65,7 @@ ul.tabs li {
   margin: 0;
   padding: 0;
   display: inline;
-  list-style-type: none;
-  position: relative;
-  top: 1px; }
+  list-style-type: none; }
 
 ul.tabs a:link, ul.tabs a:visited {
   float: left;
@@ -81,7 +79,9 @@ ul.tabs a:link, ul.tabs a:visited {
 
 ul.tabs a {
   background-color: #f3f3f3;
-  font-size: 1.6em; }
+  font-size: 1.6em;
+  position: relative;
+  top: 1px; }
 
 ul.tabs li.current a:link, ul.tabs li.current a:visited {
   border-bottom: 1px solid #fff;
@@ -152,7 +152,8 @@ section.tab {
 /* sites#index, tools#index */
 ul.categories, ul.sites, ul.tools, ul.usings {
   list-style: none;
-  margin: 1em; }
+  margin: 1em;
+  min-height: 1em; }
 
 ul.tools li.tool {
   border-bottom: 1px solid #c3c0bd;
@@ -178,7 +179,11 @@ div.ind:hover {
 
 div.ind {
   border: none;
-  margin-bottom: 3em; }
+  margin: .2em 1em 2em 1em; }
+
+div.ind h2 {
+  width: 640px;
+  float: left; }
 
 .ind a.screenshot {
   float: left;
@@ -222,10 +227,16 @@ div.ind {
   background-color: blue; }
 
 .ind ul.count li.sites a {
-  background-color: red; }
+  background-color: #f00; }
+
+.ind ul.count li.sites a:hover {
+  background-color: #D00; }
 
 .ind ul.count li.links a {
-  background-color: orange; }
+  background-color: #FFA500; }
+
+.ind ul.count li.links a:hover {
+  background-color: #ccA500; }
 
 .ind p {
   font-size: 1.4em;
@@ -244,9 +255,6 @@ section.site a.screenshot, section.site a.screenshot img {
   max-width: 200px;
   max-height: 147px; }
 
-section.tool .details, section.site .details {
-  min-height: 145px; }
-
 section.tool section.tab ul.sites, section.sites section.tab ul.tools {
   position: relative; }
 
@@ -259,7 +267,7 @@ section.tab ul.tools .details, section.tab ul.sites .details {
   margin-left: 140px;
   min-height: 88px; }
 
-section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details {
+section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, ul.tools div.details {
   margin-left: 0;
   min-height: 0;
   padding: 0 1.5em; }
@@ -278,18 +286,25 @@ section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details {
   float: left; }
 
 .sites .tools li a {
-  background-color: orange;
+  background-color: #FFA500;
+  color: #000; }
+
+.sites .tools li a:hover {
+  background-color: #ccA500;
   color: #000; }
 
 .tools .sites li a {
-  background-color: yellow; }
+  background-color: #ff0; }
+
+.tools .sites li a:hover {
+  background-color: #dddd11; }
 
 /* List of categories for a tool */
 .tool .categories {
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 0;
+  margin: 0 1.5em 0 0;
   padding: 0; }
 
 .tool .categories li {
@@ -298,6 +313,9 @@ section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details {
 
 .tool .categories li a {
   background-color: #ccc; }
+
+.tool .categories li a:hover {
+  background-color: #aaa; }
 
 /* List of categories for a using-tool */
 .tool .using {

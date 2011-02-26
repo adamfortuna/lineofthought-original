@@ -1,4 +1,5 @@
 $header-link: #68aff3;
+$nav-link-hover: #4B81B4;
 
 body { font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background:#222; }
 body.popup { background-color:#E3E3E3; }
@@ -20,9 +21,8 @@ header { display:block; background-color:#222; border-top:6px solid #68aff3; hei
 #nav ul { float:right; }
 #nav ul li { float:left; }
 #nav ul li a:link, nav ul li a:visited  { display:block; background-color:$header-link; color:#fff; }
-#nav ul li a { padding:.6em 1.4em; font-size:1.4em; margin-left:1em;	
-	border-top-left-radius: 6px; border-top-right-radius: 6px; -webkit-border-top-left-radius: 6px; -webkit-border-top-right-radius: 6px; -moz-border-radius-topleft: 6px; -moz-border-radius-topright: 6px; }
-#nav ul li a:hover { background-color:$header-link; }
+#nav ul li a { padding:.6em 1.4em; font-size:1.4em; margin-left:1em; }
+#nav ul li a:hover { background-color:$nav-link-hover; }
 
 
 
