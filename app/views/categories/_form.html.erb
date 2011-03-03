@@ -1,9 +1,0 @@
-<%= semantic_form_for @category do |form| %>
-  <%= form.inputs do %>
-    <%= form.input :name, :as => :string, :required => true %>
-    <%= form.input :description, :as => :text, :required => true %>
-  <% end %>
-  <%= form.buttons do %>
-    <%= form.commit_button %>
-  <% end %>
-<% end %>
