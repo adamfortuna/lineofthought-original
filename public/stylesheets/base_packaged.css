@@ -13,7 +13,7 @@ hr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 
 input, select {vertical-align: middle}
 body {color: #222; font-size: 13px; font-family: arial, "helvetica neue", helvetica, "lucida grande", sans-serif}
 h1, h2, h3, h4, h5, h6 {color: #111; font-family: "helvetica neue", Helvetica, arial, sans-serif}
- div.alert, div.error, div.notice, div.success, #flash_failure, #flash_success, #flash_notice {border: 1px solid #ddd; -moz-border-radius: 8px; -webkit-border-radius: 8px; margin-bottom: 1em; padding: 0.8em}
+ div.alert, div.error, div.notice, div.success, #flash_failure, #flash_success, #flash_notice {border: 1px solid #ddd; -moz-border-radius: 8px; -webkit-border-radius: 8px; margin-bottom: 1em; font-size: 1.4em; padding: 0.8em}
 div.alert, div.error, #flash_failure {background: #FBE3E4; border-color: #FBC2C4; color: #D12F19}
 div.alert a, div.error a, #flash_failure a {color: #D12F19}
 div.success, #flash_success {background: #FFF6BF; border-color: #FFD324; color: #817134}
@@ -230,6 +230,7 @@ ul.tabs a.games:hover {background-color: #fcc}
 ul.tabs a.users {background-color: #ded}
 ul.tabs a.users:hover {background-color: #cec}
 section.tab {clear: both}
+section.tab p.empty_message {color: #444; text-align: center; font-size: 1.6em; margin-bottom: 1.5em}
  #sorting {float: right; position: relative; width: 250px}
 #sorting p {float: right; width: 100%; text-align: right}
 #sorting p a {background: url(/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
@@ -240,6 +241,7 @@ ul.tools li.tool {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
 ul.tools .content {position: relative}
 .title_bar {font-size: 1.4em; padding: 1em 1em 0 1em}
 .title_bar h2, .title_bar h3, .title_bar h4 {float: left}
+ .category-description {font-size: 1em; color: #666}
  .ind {border-top: 1px solid #ccc; padding: 1em 0}
 .ind:hover {background-color: #efefef}
 div.ind:hover {background-color: #fff}
@@ -302,6 +304,19 @@ ul.count li span, ul.count li a {display: block; padding: 7px; z-index: 2; font-
 ul.count li em {float: right; font-style: normal; font-weight: bold; padding-left: 12px}
  li.countdown {float: right; font-size: 16px; margin: 0 14px 0 0}
 li.countdown .alert {color: red}
+.edit-in-place {position: relative}
+.edit-in-place:hover {background-color: transparent}
+.edit-in-place form {display: none}
+.edit-in-place .actions {display: none; position: absolute; left: -100px; background: #fff; border: 1px solid #ccc; border-right: none; width: 70px; border-radius: 8px; -moz-border-radius: 8px; -moz-border-radius-topright: 0px; -moz-border-radius-bottomright: 0px; top: 10px}
+.edit-in-place .actions li a {border: 1px solid transparent; display: block; font-size: 1.4em; padding: 0.2em 0.6em; width: 70px}
+.edit-in-place .actions li a:hover {color: red; display: block}
+.edit-in-place:hover .actions {display: block}
+.edit-in-place h4 {font-size: 1.6em}
+.edit-in-place p em {color: #777}
+.editing form.using {display: block; margin: 0}
+.editing form.using fieldset {padding: 0}
+.editing .edit-in-place-show {display: none}
+.edit-in-place-cancel {display: none}
  form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
 form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
 form.formtastic fieldset ol li.nolabel label {display: none}
