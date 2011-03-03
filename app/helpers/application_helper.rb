@@ -34,6 +34,7 @@ module ApplicationHelper
       when 'alexa' then 'Alexa Rank'
       when 'google' then 'Google PageRank'
       when 'tools' then 'Tools Count'
+      when 'jobs' then 'Jobs Count'
     end
   end
 end

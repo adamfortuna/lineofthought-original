@@ -6,6 +6,7 @@ $(function() {
     } else {
       $(this).addClass("active");
     }
+    return false;
   });
   
   $("#s").focus(function(e) {

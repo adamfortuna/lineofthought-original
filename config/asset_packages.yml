@@ -2,6 +2,7 @@
 javascripts: 
 - base: 
   - jquery/jquery.tokeninput
+  - jquery/autoresize.jquery.min.js
   - rails
   - application
 stylesheets: 

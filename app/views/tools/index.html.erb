@@ -1,4 +1,4 @@
-<% title "List of Tools Sites are Using" %>
+<% title "List of Tools" %>
 
 <section id="content" class="main">
   <div class="title_bar group">
@@ -6,8 +6,9 @@
     <div id="sorting">
       <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
       <ul class="options" style="display:none;">
-        <li><a href="<%= tools_path(:sort => :sites_desc) %>">Sort by Sites Using</a></li>
+        <li><a href="<%= tools_path(:sort => :sites_desc) %>">Sort by number of Sites</a></li>
         <li><a href="<%= tools_path(:sort => :toolname_asc) %>">Sort by Tool Name</a></li>
+        <li><a href="<%= tools_path(:sort => :jobs_desc) %>">Sort by number of Jobs</a></li>
       </ul>
     </div>
   </div>
@@ -31,6 +32,7 @@
   <aside>
     <ul class="lst">
       <li><%= link_to "Add a New Tool", new_tool_path %></li>
+      <li><%= link_to "Add Tool to LoT", "javascript:(function(){f='#{new_tool_url(:format => "popup")}?tool[url]='+encodeURIComponent(window.location.href)+'&tool[name]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=850'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %></li>
     </ul>
   </aside>
 </sidebar>

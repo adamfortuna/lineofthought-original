@@ -1,11 +1,11 @@
 class ToolSitesController < ApplicationController
   respond_to :html, :json, :xml
-  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@site_order = { "google" => "google_pagerank", 
                    "alexa" => "alexa_global_rank", 
                    "tools" => "tools_count", 
-                   "sitename" => "title"
+                   "sitename" => "title",
+                   "jobs" => "jobs_count"
                  }
 
   def index
@@ -34,6 +34,6 @@ class ToolSitesController < ApplicationController
     order = params[:sort]
     sort_order = @@site_order[order.split("_").first] rescue "alexa_global_rank"
     direction = order.split("_").last rescue "asc"
-    return "#{sort_order} #{direction}"    
+    return "#{sort_order} #{direction}, sites.title"    
   end
 end

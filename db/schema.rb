@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110225041641) do
+ActiveRecord::Schema.define(:version => 20110227201906) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -80,6 +80,29 @@ ActiveRecord::Schema.define(:version => 20110225041641) do
 
   add_index "invites", ["code"], :name => "index_invites_on_code"
 
+  create_table "jobs", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status"
+    t.string   "title"
+    t.string   "url"
+    t.string   "company"
+    t.text     "description"
+    t.text     "how_to_apply"
+    t.text     "cached_sites"
+    t.text     "cached_tools"
+    t.datetime "posted_at"
+    t.string   "logo"
+    t.string   "display_location"
+    t.string   "location"
+    t.string   "lat"
+    t.string   "decimal"
+    t.string   "lng"
+    t.integer  "views_count"
+  end
+
+  add_index "jobs", ["lat", "lng"], :name => "index_jobs_on_lat_and_lng"
+
   create_table "owners", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -117,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20110225041641) do
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
   add_index "sites", ["cached_slug"], :name => "index_sites_on_cached_slug", :unique => true
   add_index "sites", ["google_pagerank"], :name => "index_sites_on_google_pagerank"
+  add_index "sites", ["jobs_count"], :name => "index_sites_on_jobs_count"
   add_index "sites", ["lat", "lng"], :name => "index_sites_on_lat_and_lng"
   add_index "sites", ["title"], :name => "index_sites_on_title"
   add_index "sites", ["tools_count"], :name => "index_sites_on_tools_count"
@@ -170,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20110225041641) do
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true
+  add_index "tools", ["jobs_count"], :name => "index_tools_on_jobs_count"
   add_index "tools", ["name"], :name => "index_tools_on_name"
   add_index "tools", ["sites_count"], :name => "index_tools_on_sites_count"
 
@@ -210,5 +235,15 @@ ActiveRecord::Schema.define(:version => 20110225041641) do
 
   add_index "usings", ["site_id"], :name => "index_usings_on_site_id"
   add_index "usings", ["tool_id"], :name => "index_usings_on_tool_id"
+
+  create_table "workables", :force => true do |t|
+    t.integer "job_id"
+    t.string  "workable_type"
+    t.string  "workable_id"
+    t.text    "description"
+  end
+
+  add_index "workables", ["job_id"], :name => "index_workables_on_job_id"
+  add_index "workables", ["workable_type", "workable_id"], :name => "index_workables_on_workable_type_and_workable_id"
 
 end

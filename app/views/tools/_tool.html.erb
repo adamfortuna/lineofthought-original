@@ -5,7 +5,11 @@
       <h4><%= link_to tool.name, tool %></h4>
       <ul class="count">
         <li class="sites"><a href="<%= tool_path(tool) %>"><em><%= tool.sites_count %></em> sites</a></li>
-        <li class="links"><a href="<%= tool_path(tool) %>"><em><%= tool.articles_count %></em>articles</a></li>
+        <li class="links"><a href="<%= articles_tool_path(tool) %>"><em><%= tool.articles_count %></em>articles</a></li>
+        <!--
+        <li class="jobs"><a href="<%= jobs_tool_path(tool) %>"><em><%= tool.jobs_count %></em>jobs</a></li>
+        <li class="books"><a href="<%= books_tool_path(tool) %>"><em><%= tool.books_count %></em>books</a></li>
+        -->
       </ul>
       <%= content_tag(:p, truncate(tool.description, :length => 140)) unless tool.description.blank? %>
     </div>

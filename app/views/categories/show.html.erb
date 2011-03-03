@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class="group clear">
-        <p><%= @category.description %></p>
+        <p class="category-description"><%= @category.description %></p>
       </div>
     </div>
   </div>
@@ -33,10 +33,4 @@
     </ul>
   </aside>
   <% end %>
-  <aside>
-    <ul>
-      <li><%= link_to "View Tools by Category", categories_path %></li>
-      <li><%= link_to "Add a New Tool", new_tool_path %></li>
-    </ul>
-  </aside>
 </sidebar>

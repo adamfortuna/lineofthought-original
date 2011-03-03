@@ -1,9 +1,7 @@
 class SitesController < ApplicationController
-  before_filter :load_record, :only => [:edit, :update]
+  before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_site_tools, :only => [:new]
   respond_to :html, :json, :xml
-  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
-  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
 
   @@order = { "google" => "google_pagerank", 
               "alexa" => "coalesce(alexa_global_rank, 100000000)", 
@@ -18,13 +16,16 @@ class SitesController < ApplicationController
   end
 
   def show
-    @site = Site.find_by_cached_slug(params[:id]) 
+    @site = Site.find_by_cached_slug!(params[:id]) 
     @usings = @site.usings.includes(:tool).joins(:tool).order("sites_count desc")
     respond_with(@site)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
   end
 
   def new
     @site = Site.new(params[:site])
+    @site.load_by_url unless @site.url.blank?
     respond_with(@site)
   end
 
@@ -43,6 +44,7 @@ class SitesController < ApplicationController
   
   def edit
     @site = Site.find_by_cached_slug(params[:id]) 
+    @site.load_by_url if @site.description.blank?
     respond_with(@site)
   end
   
@@ -72,8 +74,20 @@ class SitesController < ApplicationController
                      .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 15)
   end
 
+  def destroy
+    if @site.destroy
+      flash[:notice] = "Delete successful"
+      redirect_to sites_path
+    else
+      flash[:error] = "There was a problem deleting this site."
+      redirect_to site_path(@site)
+    end
+  end
+
   private
-  def load_record; end
+  def load_record
+    @site = Site.find_by_cached_slug(params[:id])
+  end
   
   def build_order
     params[:sort] ||= "alexa_asc"

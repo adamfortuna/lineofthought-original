@@ -14,12 +14,11 @@ class SitesToolsController < ApplicationController
       format.popup
     end
   end
-
+  
   def create
-    @using = @site.usings.new(params[:using])
     respond_to do |format|
       format.js {
-        if @using.save
+        if @using = @site.usings.create(params[:using])
           render
         else
           render :js => "alert('problem');"

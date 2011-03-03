@@ -25,7 +25,7 @@
   <aside>
     <ul>
       <li><%= link_to "New Site", new_site_path %></li>
-      <li><%= link_to "Add Site to SitesUsing", "javascript:(function(){f='#{new_site_url(:format => "popup")}?site[url]='+encodeURIComponent(window.location.href)+'&site[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'sitesusing-new','location=yes,links=no,scrollbars=no,toolbar=no,width=625,height=550'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %></li>
+      <li><%= link_to "Add Site to LoT", "javascript:(function(){f='#{new_site_url(:format => "popup")}?site[url]='+encodeURIComponent(window.location.href)+'&site[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'sitesusing-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=650'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %></li>
     </ul>
   </aside>
 </sidebar>

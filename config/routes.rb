@@ -6,7 +6,7 @@ Snaps::Application.routes.draw do
       get :autocomplete
     end
     member do
-      get :articles
+      get :articles, :books, :jobs
     end
     resources :sites, :controller => "tool_sites", :only => [:index, :new, :create]
   end
@@ -26,7 +26,10 @@ Snaps::Application.routes.draw do
   end
   
   resources :articles, :only => [:new, :create, :index, :show]
+  resources :usings, :only => [:update]
 
+  resources :jobs
+#  resources :books
 
   match '/auth/:provider/callback' => 'authentications#create'
   devise_for :users, :only => [:new, :create, :edit, :update],
@@ -38,7 +41,7 @@ Snaps::Application.routes.draw do
 
   # resources :users
   
-  resources :categories, :except => [:index]
+  resources :categories, :only => [:show]
   resources :subscriptions, :only => [:create]
   
   resources :articles, :only => [:new, :create, :edit, :update]

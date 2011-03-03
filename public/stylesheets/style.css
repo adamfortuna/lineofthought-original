@@ -112,6 +112,12 @@ ul.tabs a.users:hover {
 section.tab {
   clear: both; }
 
+section.tab p.empty_message {
+  color: #444;
+  text-align: center;
+  font-size: 1.6em;
+  margin-bottom: 1.5em; }
+
 /* Sorting options */
 #sorting {
   float: right;
@@ -168,6 +174,11 @@ ul.tools .content {
 
 .title_bar h2, .title_bar h3, .title_bar h4 {
   float: left; }
+
+/* Tools by Category */
+.category-description {
+  font-size: 1em;
+  color: #666; }
 
 /* Lists of sites or tools */
 .ind {
@@ -434,3 +445,59 @@ li.countdown {
 
 li.countdown .alert {
   color: red; }
+
+.edit-in-place {
+  position: relative; }
+
+.edit-in-place:hover {
+  background-color: transparent; }
+
+.edit-in-place form {
+  display: none; }
+
+.edit-in-place .actions {
+  display: none;
+  position: absolute;
+  left: -100px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-right: none;
+  width: 70px;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 0px;
+  top: 10px; }
+
+.edit-in-place .actions li a {
+  border: 1px solid transparent;
+  display: block;
+  font-size: 1.4em;
+  padding: 0.2em 0.6em;
+  width: 70px; }
+
+.edit-in-place .actions li a:hover {
+  color: red;
+  display: block; }
+
+.edit-in-place:hover .actions {
+  display: block; }
+
+.edit-in-place h4 {
+  font-size: 1.6em; }
+
+.edit-in-place p em {
+  color: #777; }
+
+.editing form.using {
+  display: block;
+  margin: 0; }
+
+.editing form.using fieldset {
+  padding: 0; }
+
+.editing .edit-in-place-show {
+  display: none; }
+
+.edit-in-place-cancel {
+  display: none; }

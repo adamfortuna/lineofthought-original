@@ -15,6 +15,5 @@
 </section>
 
 <sidebar>
-  <% cache("top-tools", :expires => 15.minutes) do %><%= render :partial => "layouts/sidebar/top_tools" %><% end %>
-  <% cache("site_stats", :expires => 15.minutes) do %><%= render :partial => "layouts/sidebar/site_stats" %><% end %>
+  <% cache("top-tools", :expires_in => 15.minutes) do %><%= render :partial => "layouts/sidebar/top_tools" %><% end %>
 </sidebar>

@@ -2,12 +2,9 @@
   <%= f.inputs do %>
     <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
     <%= f.input :title, :as => :string, :required => true, :label => "Site Title", :hint => "Short name for this site. Don't go SEO crazy on this one - it doesn't matter. ex: Yahoo, Twitter, Google." %>
-    <% if !@site.new_record? %>
-      <%= f.input :cached_slug, :as => :string, :required => true, :label => "URL Identifier", :hint => "lowercase, usually something easy like twitter, google, bitly" %>
-    <% end %>
     <%= f.input :description, :as => :text, :required => false, :label => "About this Site", :input_html => { :rows => 3 } %>
-    <%= f.input :display_location, :as => :string, :required => true, :label => "Location text to show", :hint => "Usually just city state, like Orlando, FL." %>
-    <%= f.input :location, :as => :string, :required => true, :label => "Location for maps", :hint => "Be as exact as you want. If you're running this site out of your house, might want to leave this as your city/state, or your zip code." %>
+    <%= f.input :display_location, :as => :string, :required => false, :label => "Location text to show", :hint => "Usually just city state, like Orlando, FL." %>
+    <%= f.input :location, :as => :string, :required => false, :label => "Location for maps", :hint => "Be as exact as you want. If you're running this site out of your house, might want to leave this as your city/state, or your zip code." %>
   <% end %>
   <%= f.buttons do %>
     <%= f.commit_button %>

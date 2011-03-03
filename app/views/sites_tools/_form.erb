@@ -8,7 +8,6 @@
     <% end %>
   <% end %>
   
-  
   <div>
     <h3>Manage Tools used on <%= @site.title %></h3>
     <ul class="usings">
@@ -37,5 +36,31 @@ $(function() {
     else { $(".countdown span").removeClass("alert"); }
   });
   
+  $('textarea.using_description').autoResize({
+      // On resize:
+      onResize : function() {
+          $(this).css({opacity:0.8});
+      },
+      // After resize:
+      animateCallback : function() {
+          $(this).css({opacity:1});
+      },
+      // Quite slow animation:
+      animateDuration : 300,
+      // More extra space:
+      extraSpace : 40
+  });
+  
+  $('.edit-in-place-edit').click(function() {
+    console.log("edit clicked");
+    $(this).parents('.edit-in-place').addClass('editing').find(".edit-in-place-cancel").show();
+    $(this).hide();
+    return false;
+  });
+  $('.edit-in-place-cancel, .edit-in-place-cancel a').click(function() {
+    $(this).parents('.edit-in-place').removeClass('editing').find(".edit-in-place-cancel").hide();
+    $(this).parents('.edit-in-place').find(".edit-in-place-edit").show();
+    return false;
+  });
 });
 <% end %>

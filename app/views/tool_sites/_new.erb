@@ -1,0 +1,14 @@
+<% title "Add Multiple Sites to #{@tool.name}" %>
+
+<section id="content" class="main tool">
+  <h2><%= @title %></h2>
+  <%= form_tag tool_sites_path(@tool), :class => "formtastic tool" do |f| %>
+    <fieldset class="inputs"><ol>
+      <li class="text required" id="tool_csv_input"><label for="tool_csv">List URL and optionally how it is using Ruby on Rails. One per line.<abbr title="required">*</abbr></label><textarea id="tool_csv" name="tool[csv]" rows="20"></textarea>
+<p class="inline-hints">ex: http://sitesusing.com, &quot;Entire application is written in Rails.&quot;</p></li>
+
+</ol></fieldset>    <fieldset class="buttons"><ol>
+      <li class="commit"><input class="create" id="tool_submit" name="commit" type="submit" value="Create Tool" /></li>
+</ol></fieldset>
+  <% end %>
+</section>

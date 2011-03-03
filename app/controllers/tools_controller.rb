@@ -1,11 +1,11 @@
 class ToolsController < ApplicationController
   before_filter :load_record, :only => [:edit, :update, :destroy]
+  before_filter :redirect_to_tool, :only => [:new]
   respond_to :html, :json, :xml
-  caches_action :index, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
-  caches_action :show, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 5.minutes
 
   @@order = { "sites" => "sites_count", 
-              "toolname" => "tools.name" }
+              "toolname" => "tools.name",
+              "jobs" => "tools.jobs_count" }
 
   def index
     # @tools = Tool.order(build_order).includes(:categories, :language)
@@ -16,10 +16,12 @@ class ToolsController < ApplicationController
   end
   
   def show
-    @tool = Tool.find_by_cached_slug(params[:id])
+    @tool = Tool.find_by_cached_slug!(params[:id])
     @usings = @tool.usings.joins(:site).includes(:site).order("coalesce(alexa_global_rank, 100000000)").paginate(:page => 1, :per_page => 25)
     params[:sort] = "alexa"
     respond_with @tool
+  rescue ActiveRecord::RecordNotFound
+    redirect_to tools_path, :flash => { :error => "Unable to find a tool matching #{params[:id]}" }
   end
 
   def edit; end
@@ -34,16 +36,23 @@ class ToolsController < ApplicationController
   end
 
   def new
-    @tool = Tool.new
+    @tool = Tool.new(params[:tool])
+    @tool.load_by_url unless @tool.url.blank?
   end
   
   def create
     @tool = Tool.create(params[:tool])
     if @tool.new_record?
       flash[:error] = "There was a problem creating this tool."
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.popup { render :new }
+      end
     else
-      redirect_to @tool
+      respond_to do |format|
+        format.html { redirect_to @tool }
+        format.popup { redirect_to tool_path(@tool, :format => :popup) }
+      end
     end
   end
 
@@ -84,5 +93,13 @@ class ToolsController < ApplicationController
   
   def load_record
     @tool = Tool.find_by_cached_slug(params[:id])
+  end
+  
+  def redirect_to_tool
+    return true unless params[:tool] && params[:tool][:url]
+    url = FriendlyUrl.new(params[:tool][:url])
+    tool = Tool.find_by_friendly_url(url)
+    redirect_to tool_path(tool, :format => params[:format]) if tool
+
   end
 end

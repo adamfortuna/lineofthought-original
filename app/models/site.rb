@@ -1,3 +1,4 @@
+require 'timeout'
 class Site < ActiveRecord::Base
   has_friendly_id :full_uid, :use_slug => true
   acts_as_mappable
@@ -25,15 +26,9 @@ class Site < ActiveRecord::Base
 
   delegate :host, :path, :port, :domain, :full_uid, :to => :uri
   serialize :top_tools
-
-  # Todo: Make this the root of the current URL, rather than the domain
-  def site_root
-    "http://#{domain}"
-  end
-    
     
   def update_ranks!
-    ranks = PageRankr.ranks(site_root, :alexa, :google) #=> {:alexa=>{:us=>1, :global=>1}, :google=>10}
+    ranks = PageRankr.ranks(url, :alexa, :google) #=> {:alexa=>{:us=>1, :global=>1}, :google=>10}
     self.update_attributes({ :alexa_us_rank => ranks[:alexa][:us], 
                              :alexa_global_rank => ranks[:alexa][:global], 
                              :google_pagerank => ranks[:google]}) if ranks
@@ -78,19 +73,27 @@ class Site < ActiveRecord::Base
     save
   end
   
+  def load_by_url
+    Timeout::timeout(5) do
+      agent = Mechanize.new
+      agent.redirection_limit = 1
+      agent.redirect_ok = true
+      agent.user_agent_alias = 'Mac Safari'
+      page = agent.get(uri.to_s)
+      self.uri = page.uri.to_s if self.url != page.uri.to_s
+      
+      # <meta name="description" content="Describes the meta description tag and provides tips for search engine optimization with meta description tags. Use the meta tag generator to create meta description tags for your site." />
+      
+      meta_description = page.search("meta[name='description']")
+      self.description = meta_description.first["content"] if meta_description.length > 0
+    end
+  end
+  
   private
-  ##
-  # Custom validations for blog URI.  Validates that it's present, valid, and
-  # hasn't already been taken.
-  # 
   def validate_uri
     if uri.to_s !~ Util::URL_HTTP_OPTIONAL || !uri.valid? # valid?
       errors.add(:uri, "is not a valid URL")
-    else # taken?
-      # TODO: relax this constraint so that URL is only required to be unique
-      # among the user's blogs.  If the blog is approved, then the URL must be
-      # globally unique (ie. two people can't both have techcrunch.com as
-      # approved blogs).
+    else
       conditions = if new_record?
                      ['url IN (?)', uri.variants.collect(&:to_s)]
                    else
@@ -101,7 +104,7 @@ class Site < ActiveRecord::Base
   end
   
   def default_title_to_domain
-    self.title = slug.capitalize unless self.title
+    self.title = full_uid unless self.title
   end
   
   after_save :update_lat_and_lng, :if => :location_changed?
