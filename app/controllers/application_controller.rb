@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  # before_filter :beta_user_check
+  before_filter :beta_user_check
   
   protected
   def beta_user_check

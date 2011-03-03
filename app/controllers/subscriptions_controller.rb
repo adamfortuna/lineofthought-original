@@ -1,4 +1,5 @@
 class SubscriptionsController < ApplicationController
+  before_filter :beta_user_check, :except => [:create]
   layout 'notify'
 
   def create
