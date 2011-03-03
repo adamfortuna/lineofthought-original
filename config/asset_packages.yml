@@ -1,12 +1,12 @@
 --- 
 javascripts: 
-- base: 
+- all: 
   - jquery/jquery.tokeninput
   - jquery/autoresize.jquery.min
   - rails
   - application
 stylesheets: 
-- base: 
+- all: 
   - flutie
   - tokeninput
   - layout

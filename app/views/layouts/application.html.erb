@@ -3,7 +3,7 @@
 <head>
   <%- title = yield(:title) %>
   <title><%=  title || "Line Of Thought - Find out what powers the web!" %><%= " - Line Of Thought" if title && !title.blank? %></title>
-  <%= raw stylesheet_link_merged :base %>
+  <%= raw stylesheet_link_merged :all %>
   <%= csrf_meta_tag %>
 </head>
 <body>  
@@ -13,7 +13,7 @@
       <p><a href="/beta">Line Of <span>Thought</span></a></p>
       <span>Tracking what the web uses!</span>
     </hgroup>
-    <nav id="nav">
+    <nav>
       <ul>
         <li><a href="<%= tools_path %>"><strong>Tools</strong></a></li>
         <li><a href="<%= sites_path %>"><strong>Sites</strong></a></li>
@@ -35,7 +35,6 @@
 
 <footer>
   <div class="container">
-    <section class="sidebar_nav">&nbsp;</section>
     <section class="main-footer">
       <h3>Copyright &copy; 2011 Line Of Thought.</h3>
     </section>
@@ -54,7 +53,7 @@
 <% else %>
   <script src="/javascripts/jquery/jquery.js" type="text/javascript"></script>
 <% end %>
-<%= raw javascript_include_merged :base %>
+<%= raw javascript_include_merged :all %>
 <%= yield :javascript %>
 <% if Rails.env == "production" %>
 <script type="text/javascript">

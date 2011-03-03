@@ -112,7 +112,7 @@ module Synthesis
       build unless package_exists?
 
       path = @target_dir.gsub(/^(.+)$/, '\1/')
-      "#{path}#{@target}_packaged"
+      "#{path}#{@target}"
     end
 
     def build
@@ -126,7 +126,7 @@ module Synthesis
 
     private
       def create_new_build
-        new_build_path = "#{@asset_path}/#{@target}_packaged.#{@extension}"
+        new_build_path = "#{@asset_path}/#{@target}.#{@extension}"
         if File.exists?(new_build_path)
           log "Latest version already exists: #{new_build_path}"
         else
@@ -154,7 +154,7 @@ module Synthesis
 
       def compress_js(source)
         jsmin_path = "#{Rails.root}/vendor/plugins/asset_packager/lib"
-        tmp_path = "#{Rails.root}/tmp/#{@target}_packaged"
+        tmp_path = "#{Rails.root}/tmp/#{@target}"
       
         # write out to a temp file
         File.open("#{tmp_path}_uncompressed.js", "w") {|f| f.write(source) }
