@@ -154,25 +154,12 @@ ul {list-style: none; margin: 0; padding: 0}
 #title p a span {color: #68aff3; font-size: 100%}
 #title p a:hover span {color: #4B81B4}
 #title span {font-size: 2em; color: #9c9c9c}
- #nav {display: block; position: absolute; right: 0; bottom: 0; width: 800px}
-#nav ul {float: right}
-#nav ul li {float: left}
-#nav ul li a:link, nav ul li a:visited {display: block; background-color: #68aff3; color: #fff}
-#nav ul li a {padding: .6em 1.4em; font-size: 1.4em; margin-left: 1em}
-#nav ul li a:hover {background-color: #4b81b4}
- #subnav {display: none}
-#subnav .container {position: relative}
-#subnav {background-color: #F3F2E8; clear: both; height: 30px; border-bottom: 1px solid #e5e4d9}
-#subnav p {float: left; width: 480px; color: #B2A18F; font-size: 14px; line-height: 30px; margin: 0}
-#subnav p a {color: #B2A18F}
-#subnav form {position: absolute; right: 0; top: 2px}
-#subnav form label {position: absolute; margin: 6px 0 0 4px}
-#subnav form input {background-color: #e5e4d9; border: none}
-#subnav form label, #subnav form input {color: #51463D; width: 240px; font-size: 16px}
-#subnav form input[type=submit] {width: auto; -moz-border-radius-topright: 2px; -moz-border-radius-bottomright: 2px; background-color: #B2A18F; padding: 3px; position: relative; cursor: pointer}
-#subnav nav {float: left; display: none}
-#subnav nav, #subnav nav ul li {float: right}
-#subnav nav ul li a {color: #eee; font-weight: normal}
+ nav {display: block; position: absolute; right: 0; bottom: 0; width: 800px}
+nav ul {float: right}
+nav ul li {float: left}
+nav ul li a:link, nav ul li a:visited {display: block; background-color: #68aff3; color: #fff}
+nav ul li a {padding: .6em 1.4em; font-size: 1.4em; margin-left: 1em}
+nav ul li a:hover {background-color: #4b81b4}
  section, aside {display: block}
 #main {background-color: #E3E3E3; color: #1B1B1B; padding: 2em 0}
 #content, #content_with_nav, sidebar aside {background-color: #fff; padding: .6em; border: 1px solid #ccc}
