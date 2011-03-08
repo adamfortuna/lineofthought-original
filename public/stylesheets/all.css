@@ -204,6 +204,8 @@ section.announcement p {font-size: 1.8em; color: #333; margin: .5em 1em; text-al
 section.announcement p.title {font-size: 2.4em; color: #666; margin: .5em 0}
 section.announcement p a {font-weight: bold; font-style: normal}
 section.announcement p a:hover {text-decoration: underline}
+section.tab {clear: both}
+section.tab p.empty_message {color: #444; text-align: center; font-size: 1.6em; margin-bottom: 1.5em}
   ul.tabs {height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin: 0px 0 20px}
 ul.tabs li {margin: 0; padding: 0; display: inline; list-style-type: none}
 ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height: 18px}
@@ -216,62 +218,11 @@ ul.tabs a.games {background-color: #fdd}
 ul.tabs a.games:hover {background-color: #fcc}
 ul.tabs a.users {background-color: #ded}
 ul.tabs a.users:hover {background-color: #cec}
-section.tab {clear: both}
-section.tab p.empty_message {color: #444; text-align: center; font-size: 1.6em; margin-bottom: 1.5em}
  #sorting {float: right; position: relative; width: 250px}
 #sorting p {float: right; width: 100%; text-align: right}
 #sorting p a {background: url(/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
 #sorting p a.active {background: url(/images/icons/14-minus.png) no-repeat right}
 #sorting ul.options {background-color: #F1F1F1; padding: 10px; float: right; z-index: 1; clear: left; border: 3px solid #e3e3e3; clear: both; position: absolute; top: 20px; border-radius: 8px; -moz-border-radius: 8px; width: 200px; right: 0}
- ul.categories, ul.sites, ul.tools, ul.usings {list-style: none; margin: 1em; min-height: 1em}
-ul.tools li.tool {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
-ul.tools .content {position: relative}
-.title_bar {font-size: 1.4em; padding: 1em 1em 0 1em}
-.title_bar h2, .title_bar h3, .title_bar h4 {float: left}
- .category-description {font-size: 1em; color: #666}
- .ind {border-top: 1px solid #ccc; padding: 1em 0}
-.ind:hover {background-color: #efefef}
-div.ind:hover {background-color: #fff}
-div.ind {border: none; margin: .2em 1em 2em 1em}
-div.ind h2 {width: 640px; float: left}
-.ind a.screenshot {float: left; margin-right: 24px; width: 110px; height: 100px; max-width: 110px; max-height: 100px}
-.ind a.screenshot img {max-height: 95px; max-width: 120px}
-.ind .title {min-height: 60px}
-.ind .title h4 {display: inline; width: 480px; font-size: 1.6em; float: left}
-.ind .details {min-height: 88px; position: relative}
-.ind ul.count, .ind > ul.sites {float: right; list-style: none; margin: 0 0 0 20px}
-.ind ul.count a, .ind > ul.sites a, .ind ul.categories a {display: block; padding: 4px}
-.ind ul.count a {background-color: red; color: white}
-.ind ul.count a:hover {background-color: blue}
-.ind ul.count li.sites a {background-color: #f00}
-.ind ul.count li.sites a:hover {background-color: #D00}
-.ind ul.count li.links a {background-color: #FFA500}
-.ind ul.count li.links a:hover {background-color: #ccA500}
-.ind p {font-size: 1.4em; clear: left}
-.ind .title p, .ind .title h4 {clear: none; width: 590px}
-ul.sites li.ind:last-child, ul.usings li.ind:last-child {border-bottom: 1px solid #ccc}
- section.tool a.screenshot, section.tool a.screenshot img, section.site a.screenshot, section.site a.screenshot img {max-width: 200px; max-height: 147px}
-section.tool section.tab ul.sites, section.sites section.tab ul.tools {position: relative}
-section.tab ul.tools a.screenshot, section.tab ul.tools a.screenshot img, section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img {max-height: 95px; max-width: 120px}
-section.tab ul.tools .details, section.tab ul.sites .details {margin-left: 140px; min-height: 88px}
-section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, ul.tools div.details {margin-left: 0; min-height: 0; padding: 0 1.5em}
- .sites .tools li a, .tools .sites li a {display: block; padding: .3em; margin-right: .4em; font-size: 1.2em}
-.sites .tools, .tools .sites {margin: .4em 0}
-.sites .tools li, .tools .sites li {float: left}
-.sites .tools li a {background-color: #FFA500; color: #000}
-.sites .tools li a:hover {background-color: #ccA500; color: #000}
-.tools .sites li a {background-color: #ff0}
-.tools .sites li a:hover {background-color: #dddd11}
- .tool .categories {position: absolute; bottom: 0; right: 0; margin: 0; padding: 0}
-.tool .categories li {margin-left: 10px; float: right}
-.tool .categories li a {background-color: #ccc}
-.tool .categories li a:hover {background-color: #aaa}
- .tool .using {clear: both; margin: 1.5em 0 0 0}
-.tool .using li {float: left; margin-right: 10px}
-.tool .using li a {background-color: #ccc; padding: .4em}
- section.site .site_details {margin-left: 220px}
-section.site ul.tools {list-style: none}
-section.site ul.tools li {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
  .pagination {background: white}
 .pagination a, .pagination span, .pagination em {padding: .2em .5em; display: block; float: left; margin-right: 1px}
 .pagination span.disabled {color: #999; border: 1px solid #DDD}
@@ -283,13 +234,20 @@ section.site ul.tools li {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
 .pagination:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
 * html .pagination {height: 1%}
 *:first-child + html .pagination {overflow: hidden}
- ul.count {color: #fff; width: 120px}
-ul.count li.alexa {background-color: blue}
-ul.count li.pagerank {background-color: green}
-ul.count li {margin: 0; position: relative}
-ul.count li span, ul.count li a {display: block; padding: 7px; z-index: 2; font-size: 1.1em}
-ul.count li em {float: right; font-style: normal; font-weight: bold; padding-left: 12px}
- li.countdown {float: right; font-size: 16px; margin: 0 14px 0 0}
+ form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
+form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
+form.formtastic fieldset ol li.nolabel label {display: none}
+form.formtastic fieldset ol li.tokeninput {margin-bottom: 2em}
+.using textarea {height: 55px; width: 97%}
+.using .countdown {margin: 0; height: 30px; position: absolute; width: 580px}
+.using .countdown span {float: right}
+form {font-size: 1.4em}
+.check_boxes {position: relative}
+.check_boxes fieldset {margin: 0 0 5px 0}
+.check_boxes fieldset li {float: left; width: 30%}
+.inline-hints {margin: 0.5em .25em; font-size: .8em}
+form.formtastic fieldset {border: 0; background: none}
+  li.countdown {float: right; font-size: 16px; margin: 0 14px 0 0}
 li.countdown .alert {color: red}
 .edit-in-place {position: relative}
 .edit-in-place:hover {background-color: transparent}
@@ -304,16 +262,60 @@ li.countdown .alert {color: red}
 .editing form.using fieldset {padding: 0}
 .editing .edit-in-place-show {display: none}
 .edit-in-place-cancel {display: none}
- form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
-form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
-form.formtastic fieldset ol li.nolabel label {display: none}
-form.formtastic fieldset ol li.tokeninput {margin-bottom: 2em}
-.using textarea {height: 55px; width: 97%}
-.using .countdown {margin: 0; height: 30px; position: absolute; width: 580px}
-.using .countdown span {float: right}
-form {font-size: 1.4em}
-.check_boxes {position: relative}
-.check_boxes fieldset {margin: 0 0 5px 0}
-.check_boxes fieldset li {float: left; width: 30%}
-.inline-hints {margin: 0.5em .25em; font-size: .8em}
-form.formtastic fieldset {border: 0; background: none}
+ ul.categories, ul.sites, ul.tools, ul.usings {list-style: none; margin: 1em; min-height: 1em}
+.title_bar {font-size: 1.4em; padding: 1em 1em 0 1em}
+.title_bar h2, .title_bar h3, .title_bar h4 {float: left}
+ .category-description {font-size: 1em; color: #666}
+ .ind {border-top: 1px solid #ccc; padding: 1em 0}
+.ind:hover {background-color: #efefef}
+div.ind:hover {background-color: #fff}
+div.ind {border: none; margin: .2em 1em 2em 1em}
+div.ind h2 {width: 640px; float: left}
+.ind a.screenshot {float: left; margin-right: 24px; width: 110px; height: 100px; max-width: 110px; max-height: 100px}
+.ind a.screenshot img {max-height: 95px; max-width: 120px}
+.ind .title {min-height: 66px; margin-left: 0px}
+.ind .title h4 {display: inline; width: 480px; font-size: 1.6em; float: left}
+.ind .details {min-height: 88px; position: relative}
+.ind ul.count, .ind > ul.sites {float: right; list-style: none; margin: 0 0 0 20px}
+.ind ul.count a, .ind > ul.sites a, .ind ul.categories a {display: block; padding: 4px}
+.ind ul.count a {background-color: red; color: white}
+.ind ul.count a:hover {background-color: blue}
+.ind ul.count li.sites a {background-color: #f00}
+.ind ul.count li.sites a:hover {background-color: #D00}
+.ind ul.count li.links a {background-color: #FFA500}
+.ind ul.count li.links a:hover {background-color: #ccA500}
+.ind p {font-size: 1.4em; clear: left}
+.ind .title p, .ind .title h4 {clear: none; width: 540px}
+ul.sites li.ind:last-child, ul.usings li.ind:last-child {border-bottom: 1px solid #ccc}
+a.favicon {width: 16px; height: 16px; float: left; padding-right: 8px}
+a.favicon img {margin: 0; width: 16px; height: 16px}
+ul.usings li.ind .title h4, ul.sites li.ind .title h4 {width: 590px}
+ section.tool section.tab ul.sites, section.sites section.tab ul.tools {position: relative}
+.sites .tools li a, .tools .sites li a {display: block; padding: .3em; margin-right: .4em; font-size: 1.2em}
+.sites .tools, .tools .sites {margin: .4em 0}
+.sites .tools li, .tools .sites li {float: left}
+section.tab ul.tools a.screenshot, section.tab ul.tools a.screenshot img, section.tab ul.sites a.screenshot, section.tab ul.sites a.screenshot img {max-height: 95px; max-width: 120px}
+section.tab ul.tools .details, section.tab ul.sites .details {margin-left: 140px; min-height: 88px}
+section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, ul.tools div.details {margin-left: 0; min-height: 0; padding: 0 1.5em}
+ ul.tools li.tool {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
+ul.tools li.tool .content {position: relative}
+ .tools .sites li a {background-color: #ff0}
+.tools .sites li a:hover {background-color: #dddd11}
+ .tool .categories {position: absolute; bottom: 0; right: 0; margin: 0; padding: 0}
+.tool .categories li {margin-left: 10px; float: right}
+.tool .categories li a {background-color: #ccc}
+.tool .categories li a:hover {background-color: #aaa}
+ .tool .using {clear: both; margin: 1.5em 0 0 0}
+.tool .using li {float: left; margin-right: 10px}
+.tool .using li a {background-color: #ccc; padding: .4em}
+ section.site .site_details {margin-left: 220px}
+section.site ul.tools {list-style: none}
+section.site ul.tools li {border-bottom: 1px solid #c3c0bd; padding-top: 1em}
+ .sites .tools li a {background-color: #FFA500; color: #000}
+.sites .tools li a:hover {background-color: #ccA500; color: #000}
+ ul.count {color: #fff; width: 120px}
+ul.count li.alexa {background-color: blue}
+ul.count li.pagerank {background-color: green}
+ul.count li {margin: 0; position: relative}
+ul.count li span, ul.count li a {display: block; padding: 7px; z-index: 2; font-size: 1.1em}
+ul.count li em {float: right; font-style: normal; font-weight: bold; padding-left: 12px}
