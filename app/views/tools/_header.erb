@@ -1,7 +1,7 @@
 <div class="tool group ind">
   <div class="details">
     <div class="title">
-      <h4><% if @tool.favicon? %><a href="<%=@tool.url%>" rel="nofollow" class="favicon"><img src="<%= @tool.favicon_url %>" /></a><% end %><%= link_to @tool.name, @tool.url, :target => "_blank", :rel => "nofollow" %></h4>
+      <h4><% if @tool.has_favicon? %><a href="<%=@tool.url%>" rel="nofollow" class="favicon"><img src="<%= @tool.favicon_url %>" /></a><% end %><%= link_to @tool.name, @tool.url, :target => "_blank", :rel => "nofollow" %></h4>
       <ul class="count">
         <li class="sites"><%= link_to pluralize(@tool.sites_count, "site"), @tool %></li>
         <li class="links"><%= link_to pluralize(0, "article"), @tool %></li>
