@@ -1,0 +1,36 @@
+<% title "Tools used by #{@site.title}" %>
+<section id="content" class="main site">
+  <% cache(["full", @site]) do %>
+    <%= render 'sites/header' %>
+  <% end %>
+  
+  <ul class="tabs">
+    <li class="current"><a href="#" class="sites">Tools</a></li> 
+    <% if @site.articles_count > 0 %>
+      <li><a href="<%= articles_site_path(@site)%>" class="articles">Articles</a></li> 
+    <% end %>
+    <% if @site.jobs_count > 0 %>
+      <li><a href="#" class="jobs">Jobs</a></li>
+    <% end %>
+  </ul>
+
+  <section class="tab">
+    <% if @site.tools_count > 0 %>
+    <div class="title_bar group">
+      <h3>We know of <strong><%= pluralize(@site.tools_count, "tool") %></strong> used on <strong><%= @site.title %></strong></h3>
+      <div id="sorting">
+        <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
+        <ul class="options" style="display:none;">
+          <li><a href="<%= site_tools_path(@site, :sort => :toolname_asc) %>">Sort by Tool Name</a></li>
+          <li><a href="<%= site_tools_path(@site, :sort => :sites_desc) %>">Sort by number of Sites</a></li>
+        </ul>
+      </div>
+    </div>
+    <ul class="usings sites">
+      <%= render :partial => 'usings/using_tool', :collection => @usings %>
+    </ul>
+    <% else %>
+      <p>We don't know of any tools that <%= @site.title %> is using.</p>
+    <% end %>
+  </section>
+</section>

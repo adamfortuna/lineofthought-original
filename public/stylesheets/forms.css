@@ -47,3 +47,69 @@ form {
 form.formtastic fieldset {
   border: 0;
   background: none; }
+
+/* forms */
+/* Edit tools for site page */
+li.countdown {
+  float: right;
+  font-size: 16px;
+  margin: 0 14px 0 0; }
+
+li.countdown .alert {
+  color: red; }
+
+.edit-in-place {
+  position: relative; }
+
+.edit-in-place:hover {
+  background-color: transparent; }
+
+.edit-in-place form {
+  display: none; }
+
+.edit-in-place .actions {
+  display: none;
+  position: absolute;
+  left: -100px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-right: none;
+  width: 70px;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 0px;
+  top: 10px; }
+
+.edit-in-place .actions li a {
+  border: 1px solid transparent;
+  display: block;
+  font-size: 1.4em;
+  padding: 0.2em 0.6em;
+  width: 70px; }
+
+.edit-in-place .actions li a:hover {
+  color: red;
+  display: block; }
+
+.edit-in-place:hover .actions {
+  display: block; }
+
+.edit-in-place h4 {
+  font-size: 1.6em; }
+
+.edit-in-place p em {
+  color: #777; }
+
+.editing form.using {
+  display: block;
+  margin: 0; }
+
+.editing form.using fieldset {
+  padding: 0; }
+
+.editing .edit-in-place-show {
+  display: none; }
+
+.edit-in-place-cancel {
+  display: none; }

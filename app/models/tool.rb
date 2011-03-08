@@ -1,9 +1,18 @@
 require 'csv'
 class Tool < ActiveRecord::Base
-
-  attr_accessible :name, :url, :description, :category_ids, :language_id
-  attr_accessor :csv
+  has_attached_file :favicon,
+                    :styles => { 
+                      :small => { :geometry => "16x16>", :format => 'png' },
+                      :large => { :geometry => "48x48>", :format => 'png' }
+                    },
+                    :storage => :s3,
+                    :s3_credentials => "#{Rails.root}/config/s3.yml",
+                    :path => "/images/tools/:uid.:style.:extension"
+  attr_protected :favicon_file_name, :favicon_content_type, :favicon_size
   has_friendly_id :name, :use_slug => true
+
+  attr_accessible :name, :url, :description, :category_ids, :language_id, :favicon_url
+  attr_accessor :csv
   
   belongs_to :language, :class_name => 'Tool'
   has_many :buildables, :dependent => :destroy
@@ -37,6 +46,7 @@ class Tool < ActiveRecord::Base
     :mapping    => %w(url to_s),
     :allow_nil  => true,
     :converter  => :new
+  delegate :host, :path, :port, :domain, :full_uid, :uid, :to => :uri
 
   # def self.for_autocomplete(count = 20)
   #   Rails.cache.fetch "tool-for_autocomplete_#{count}" do
@@ -109,28 +119,36 @@ class Tool < ActiveRecord::Base
     0
   end
   
+  def loader
+    @loader ||= Loader.new(url)
+  end
+  
   def load_by_url
-    Timeout::timeout(5) do
-      agent = Mechanize.new
-      agent.redirection_limit = 1
-      agent.redirect_ok = true
-      agent.user_agent_alias = 'Mac Safari'
-      page = agent.get(uri.to_s)
-      self.uri = page.uri.to_s if self.url != page.uri.to_s
-      
-      # <meta name="description" content="Describes the meta description tag and provides tips for search engine optimization with meta description tags. Use the meta tag generator to create meta description tags for your site." />
-      
-      meta_description = page.search("meta[name='description']")
-      self.description = meta_description.first["content"] if meta_description.length > 0
-    end
-  rescue
-    # ok to timeout
+    self.name ||= loader.title
+    self.description ||= loader.description
+    self.favicon_url = (loader.favicon || "#{uri.scheme}://#{host}/favicon.ico") if self.favicon_url.blank?
+    self.language ||= loader.tools.languages.first rescue nil
+    self.categories = loader.categories if self.categories.blank?
   end
   
   def self.find_by_friendly_url(friendly_url)
     Tool.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
   end
-  
+
+  def download_favicon!
+    self.favicon = download_remote_image
+    save
+  end
+  handle_asynchronously :download_favicon!
+  after_save :download_favicon!, :if => :favicon_url_changed?
+
+  def has_favicon?
+    !favicon_file_name.blank?
+  end
+
+  def full_favicon_url(style = "small")
+    "http://s3.amazonaws.com/s.lineofthought.com/images/tools/#{uid}.#{style}.png"
+  end
 
   private
   def categories_changed?
@@ -159,5 +177,16 @@ class Tool < ActiveRecord::Base
   
   def update_url_from_uri
     self.url = uri.to_s
+  end
+  
+  def favicon_url_provided?
+    !self.favicon_url.blank?
+  end
+
+  def download_remote_image
+    io = open(URI.parse(favicon_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
 end

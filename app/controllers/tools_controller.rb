@@ -5,6 +5,7 @@ class ToolsController < ApplicationController
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name",
+              "articles" => "tools.articles_count",
               "jobs" => "tools.jobs_count" }
 
   def index
@@ -100,6 +101,5 @@ class ToolsController < ApplicationController
     url = FriendlyUrl.new(params[:tool][:url])
     tool = Tool.find_by_friendly_url(url)
     redirect_to tool_path(tool, :format => params[:format]) if tool
-
   end
 end

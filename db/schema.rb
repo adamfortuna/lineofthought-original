@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110227201906) do
+ActiveRecord::Schema.define(:version => 20110305183137) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -31,6 +31,11 @@ ActiveRecord::Schema.define(:version => 20110227201906) do
     t.text     "cached_sites"
     t.text     "cached_connections"
     t.string   "cached_slug"
+    t.string   "favicon_url"
+    t.string   "favicon_file_name"
+    t.string   "favicon_content_type"
+    t.integer  "favicon_file_size"
+    t.datetime "favicon_updated_at"
   end
 
   add_index "articles", ["cached_slug"], :name => "index_articles_on_cached_slug"
@@ -50,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20110227201906) do
     t.text    "description"
     t.integer "tools_count",                :default => 0
     t.string  "excerpt",     :limit => 140
+    t.string  "keyword"
   end
 
   add_index "categories", ["cached_slug"], :name => "index_categories_on_cached_slug", :unique => true
@@ -122,19 +128,24 @@ ActiveRecord::Schema.define(:version => 20110227201906) do
     t.string   "url"
     t.text     "description"
     t.datetime "ranks_updated_at"
-    t.integer  "alexa_us_rank",     :limit => 8
-    t.integer  "alexa_global_rank", :limit => 8
+    t.integer  "alexa_us_rank",        :limit => 8
+    t.integer  "alexa_global_rank",    :limit => 8
     t.integer  "google_pagerank"
-    t.integer  "tools_count",                                                    :default => 0
+    t.integer  "tools_count",                                                       :default => 0
     t.text     "top_tools"
     t.string   "uid"
-    t.integer  "articles_count",                                                 :default => 1
+    t.integer  "articles_count",                                                    :default => 1
     t.text     "cached_articles"
     t.string   "display_location"
     t.string   "location"
-    t.decimal  "lat",                            :precision => 15, :scale => 10
-    t.decimal  "lng",                            :precision => 15, :scale => 10
-    t.integer  "jobs_count",                                                     :default => 0
+    t.decimal  "lat",                               :precision => 15, :scale => 10
+    t.decimal  "lng",                               :precision => 15, :scale => 10
+    t.integer  "jobs_count",                                                        :default => 0
+    t.string   "favicon_url"
+    t.string   "favicon_file_name"
+    t.string   "favicon_content_type"
+    t.integer  "favicon_file_size"
+    t.datetime "favicon_updated_at"
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
@@ -183,14 +194,20 @@ ActiveRecord::Schema.define(:version => 20110227201906) do
     t.string   "name"
     t.string   "url"
     t.text     "description"
-    t.integer  "sites_count",       :default => 0
+    t.integer  "sites_count",          :default => 0
     t.integer  "language_id"
     t.text     "top_sites"
     t.text     "cached_categories"
     t.string   "cached_language"
-    t.integer  "articles_count",    :default => 1
+    t.integer  "articles_count",       :default => 1
     t.text     "cached_articles"
-    t.integer  "jobs_count",        :default => 0
+    t.integer  "jobs_count",           :default => 0
+    t.string   "keyword"
+    t.string   "favicon_url"
+    t.string   "favicon_file_name"
+    t.string   "favicon_content_type"
+    t.integer  "favicon_file_size"
+    t.datetime "favicon_updated_at"
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true

@@ -2,7 +2,7 @@
 <div class="site group ind">
   <div class="details">
     <div class="title">
-      <h2><%= @site.title %></h2>
+      <h2><% if @site.favicon? %><a href="<%= @site.url %>" class="favicon" rel="nofollow"><img src="<%= @site.full_favicon_url %>" /></a><% end %><%= @site.title %></h2>
       <ul class="count">
         <li class="alexa"><span><em><%= number_with_delimiter(@site.alexa_global_rank) %></em>Alexa</span></li>
         <li class="pagerank pagerank-<%= @site.google_pagerank %>"><span><em><%= @site.google_pagerank %></em>Pagerank</span></li>

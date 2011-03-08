@@ -7,7 +7,6 @@ class ArticlesController < ApplicationController
     @articles = Article.order("created_at desc")
                  .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 10)
     respond_with(@articles)
-    
   end
 
   def new

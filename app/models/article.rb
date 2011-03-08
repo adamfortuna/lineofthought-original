@@ -1,5 +1,7 @@
 class Article < ActiveRecord::Base
   has_friendly_id :title, :use_slug => true
+  has_attached_file :favicon, :styles => { :medium => "32x32>", :thumb => "16x16>" }
+
   validates_presence_of :title, :url
   
   has_many :annotations

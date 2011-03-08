@@ -1,12 +1,12 @@
 module SiteHelper
   def site_tools(site, count=2)
     return nil unless site.top_tools
-    site.top_tools[:tools].sample(2).collect { |tool| content_tag(:li, link_to(tool[:name], "/tools/#{tool[:param]}")) }.join
+    site.top_tools[:tools].sample(2).collect { |tool| "<li><a href='/tools/#{tool[:param]}'>#{tool[:name]}</a>" }.join
   end
   
   def tool_sites(tool, count=2)
     return nil unless tool.top_sites
-    tool.top_sites[:sites].sample(2).collect { |site| content_tag(:li, link_to(site[:name], "/sites/#{site[:param]}")) }.join
+    tool.top_sites[:sites].sample(2).collect { |site| "<li><a href='/sites/#{site[:param]}'>#{site[:name]}</a>" }.join
   end
   
   def tool_categories(tool)

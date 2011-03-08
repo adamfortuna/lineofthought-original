@@ -1,7 +1,7 @@
 <li class="tool group ind using">
   <div class="details">
     <div class="title">
-      <h4><%= link_to using_tool.tool.name, using_tool.tool %></h4>
+      <h4><% if using_tool.tool.favicon? %><a href="<%= site_path(using_tool.tool) %>" class="favicon" rel="nofollow"><img src="<%= using_tool.tool.full_favicon_url %>" /></a><% end %><%= link_to using_tool.tool.name, using_tool.tool %></h4>
       <ul class="count">
         <li class="sites"><a href="<%= tool_path(using_tool.tool) %>"><em><%= using_tool.tool.sites_count %></em> sites</a></li>
         <li class="links"><a href="<%= tool_path(using_tool.tool) %>"><em><%= using_tool.tool.articles_count %></em>articles</a></li>

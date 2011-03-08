@@ -1,0 +1,29 @@
+<li class="edit-in-place group ind using" id="using_<%= using.id %>" data-id="<%= using.id %>">
+  <h4><%= link_to using.tool.name, using.tool %></h4>
+  <ul class="actions">
+    <li><%= link_to "edit", "#", :class => "edit-in-place-edit" %></li>
+    <li class="edit-in-place-cancel"><%= link_to "cancel", "#" %></li>
+    <li><%= link_to "remove", site_tools_path(@site, :using_id => using.id), :remote => true, :method => :delete %></li>
+  </ul>
+      
+  <%= semantic_form_for using, :remote => true, :method => :put, :html => { :id => "edit_using_#{using.id}" } do |form| %>
+    <%= form.inputs do %>
+      <li class="countdown"><span>140</span></li>
+      <%= form.input :description, :label => "How is this tool being used?", :as => :text, :required => false, :input_html => { :rows => 1, :class => "using_description" } %>
+      <%= form.commit_button :button_html => { :value => "submit", :class => "right" } %>
+      <a href="#" class="edit-in-place-cancel">cancel editing</a>
+    <% end %>
+  <% end %>
+
+  <div class="edit-in-place-show">
+    <% if using.description.blank? %>
+      <p><em>No description on file.</em></p>
+    <% else %>
+      <p><%= using.description %></p>
+    <% end %>
+  </div>
+
+  <ul class="using">
+    <%= raw tool_categories(using.tool) %>
+  </ul>
+</li>

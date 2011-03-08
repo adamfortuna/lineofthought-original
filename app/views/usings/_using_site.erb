@@ -1,7 +1,7 @@
 <li class="site group ind">
   <div class="details">
     <div class="title">
-      <h4><%= link_to using_site.site.title, using_site.site %></h4>
+      <h4><% if using_site.site.favicon? %><a href="<%= site_path(using_site.site) %>" class="favicon" rel="nofollow"><img src="<%= using_site.site.full_favicon_url %>" /></a><% end %><%= link_to using_site.site.title, using_site.site %></h4>
       <ul class="count">
         <li class="alexa"><span><em><%= number_with_delimiter(using_site.site.alexa_global_rank) %></em>Alexa</span></li>
         <li class="pagerank pagerank-<%= using_site.site.google_pagerank %>"><span><em><%= using_site.site.google_pagerank %></em>Pagerank</span></li>

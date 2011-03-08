@@ -18,17 +18,22 @@ Snaps::Application.routes.draw do
     member do
       get :articles
     end
-    resource :tools, :controller => "sites_tools", :only => [:index, :edit, :create, :destroy] do
+    resources :tools, :controller => "site_tools", :only => [:index, :new, :destroy] do
       collection do 
         get :autocomplete
       end
     end
+    # resources :tools, :controller => "sites_tools", :only => [:index, :edit, :create, :destroy] do
+    #   collection do 
+    #     get :autocomplete
+    #   end
+    # end
   end
   
   resources :articles, :only => [:new, :create, :index, :show]
   resources :usings, :only => [:update]
 
-  resources :jobs
+  # resources :jobs
 #  resources :books
 
   match '/auth/:provider/callback' => 'authentications#create'

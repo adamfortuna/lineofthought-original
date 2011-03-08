@@ -17,7 +17,8 @@ class SitesController < ApplicationController
 
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
-    @usings = @site.usings.includes(:tool).joins(:tool).order("sites_count desc")
+    @usings = @site.usings.includes(:tool).joins(:tool).order(:name)
+    params[:sort] = "toolname"
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }

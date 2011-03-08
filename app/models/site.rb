@@ -1,9 +1,16 @@
-require 'timeout'
 class Site < ActiveRecord::Base
   has_friendly_id :full_uid, :use_slug => true
   acts_as_mappable
+  has_attached_file :favicon,
+                    :styles => { 
+                      :small => { :geometry => "16x16>", :format => 'png' },
+                      :large => { :geometry => "48x48>", :format => 'png' }
+                    },
+                    :storage => :s3,
+                    :s3_credentials => "#{Rails.root}/config/s3.yml",
+                    :path => "/images/sites/:uid.:style.:extension"
 
-  validates_presence_of :title, :url
+  validates_presence_of :title, :url, :uid
   validate :validate_uri
   
   has_many :usings
@@ -72,24 +79,34 @@ class Site < ActiveRecord::Base
     end
     save
   end
-  
+
   def load_by_url
-    Timeout::timeout(5) do
-      agent = Mechanize.new
-      agent.redirection_limit = 1
-      agent.redirect_ok = true
-      agent.user_agent_alias = 'Mac Safari'
-      page = agent.get(uri.to_s)
-      self.uri = page.uri.to_s if self.url != page.uri.to_s
-      
-      # <meta name="description" content="Describes the meta description tag and provides tips for search engine optimization with meta description tags. Use the meta tag generator to create meta description tags for your site." />
-      
-      meta_description = page.search("meta[name='description']")
-      self.description = meta_description.first["content"] if meta_description.length > 0
-    end
+    self.title ||= loader.title
+    self.description = loader.description if self.description.blank?
+    self.favicon_url = (loader.favicon || "#{uri.scheme}://#{host}/favicon.ico") if self.favicon_url.blank?
+  end
+
+  def loader
+    @loader ||= Loader.new(url)
+  end
+  
+  def download_favicon!
+    self.favicon = download_remote_image
+    save
+  end
+  handle_asynchronously :download_favicon!
+  after_save :download_favicon!, :if => :favicon_url_changed?
+  
+  def has_favicon?
+    !favicon_file_name.blank?
+  end
+  
+  def full_favicon_url(style = "small")
+    "http://s3.amazonaws.com/s.lineofthought.com/images/sites/#{uid}.#{style}.png"
   end
   
   private
+  
   def validate_uri
     if uri.to_s !~ Util::URL_HTTP_OPTIONAL || !uri.valid? # valid?
       errors.add(:uri, "is not a valid URL")
@@ -107,6 +124,12 @@ class Site < ActiveRecord::Base
     self.title = full_uid unless self.title
   end
   
+  after_validation :set_uid, :on => :create
+  after_validation :set_uid, :on => :update, :if => :url_changed?
+  def set_uid
+    self.uid = self.uri.uid
+  end
+  
   after_save :update_lat_and_lng, :if => :location_changed?
   def update_lat_and_lng
     geo = Geokit::Geocoders::MultiGeocoder.geocode(location)
@@ -115,4 +138,15 @@ class Site < ActiveRecord::Base
     save
   end
   handle_asynchronously :update_lat_and_lng
+  
+  def favicon_url_provided?
+    !self.favicon_url.blank?
+  end
+
+  def download_remote_image
+    io = open(URI.parse(favicon_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+  end
 end

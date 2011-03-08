@@ -1,0 +1,19 @@
+development:
+  bucket: s.lineofthought.com
+  access_key_id: 096RRJ93PTDQPZZ44802
+  secret_access_key: GXZ0vgPaG57k/vBEJFXyngpImh3yvziyWUfdXueJ
+
+test:
+  bucket: s.lineofthought.com
+  access_key_id: 096RRJ93PTDQPZZ44802
+  secret_access_key: GXZ0vgPaG57k/vBEJFXyngpImh3yvziyWUfdXueJ
+
+qa:
+  bucket: s.lineofthought.com
+  access_key_id: 096RRJ93PTDQPZZ44802
+  secret_access_key: GXZ0vgPaG57k/vBEJFXyngpImh3yvziyWUfdXueJ
+
+production:
+  bucket: s.lineofthought.com
+  access_key_id: 096RRJ93PTDQPZZ44802
+  secret_access_key: GXZ0vgPaG57k/vBEJFXyngpImh3yvziyWUfdXueJ
