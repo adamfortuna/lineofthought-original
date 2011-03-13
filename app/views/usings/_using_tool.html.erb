@@ -1,17 +1,10 @@
-<li class="tool group ind using">
-  <div class="details">
-    <div class="title">
-      <h4><% if using_tool.tool.has_favicon? %><a href="<%= site_path(using_tool.tool) %>" class="favicon" rel="nofollow"><img src="<%= using_tool.tool.full_favicon_url %>" /></a><% end %><%= link_to using_tool.tool.name, using_tool.tool %></h4>
-      <ul class="count">
-        <li class="sites"><a href="<%= tool_path(using_tool.tool) %>"><em><%= using_tool.tool.sites_count %></em> sites</a></li>
-        <li class="links"><a href="<%= tool_path(using_tool.tool) %>"><em><%= using_tool.tool.articles_count %></em>articles</a></li>
-      </ul>
-      <% unless using_tool.description.blank? %><p><%= using_tool.description %></p><% end %>
-
-      <ul class="using">
-        <%= raw tool_categories(using_tool.tool) %>
-      </ul>
-      <%= link_to "comments", site_tool_path(@site, using_tool.tool) %>
-    </div>
+<li class="tool group ind">
+  <div class="title">
+    <h4><a href="<%= tool_path(using_tool.tool) %>"><% if using_tool.tool.has_favicon? %><img src="<%= using_tool.tool.full_favicon_url %>"   class="favicon" /><% end %><%= using_tool.tool.name%></a></h4>
+    <ul class="categories">
+      <%= raw tool_categories(using_tool.tool) %>
+      <li><%= link_to "comments", site_tool_path(@site, using_tool.tool), :class => "comments" %></li>
+    </ul>
   </div>
+  <% unless using_tool.description.blank? %><p><%= using_tool.description %> <%= link_to "edit", manage_site_tools_path(@site), :class => "manage_site_tools" %></p><% end %>
 </li>

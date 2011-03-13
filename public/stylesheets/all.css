@@ -167,7 +167,7 @@ nav ul li a:hover {background-color: #4b81b4}
 body.popup #content {width: 550px}
 #content_with_nav {width: 670px; float: left; min-height: 500px; margin-left: -1px}
 #content_with_nav.no_sidebar {margin-left: 4px}
-.main section {padding: 1em}
+.main section {padding: .4em}
  sidebar {width: 260px; float: right}
 sidebar aside {margin-bottom: 2em; padding: 15px}
 sidebar aside h3 {margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 1.6em; font-weight: bold; color: #365B81; border-bottom: 2px solid #ecebe1}
@@ -206,7 +206,7 @@ section.announcement p a {font-weight: bold; font-style: normal}
 section.announcement p a:hover {text-decoration: underline}
 section.tab {clear: both}
 section.tab p.empty_message {color: #444; text-align: center; font-size: 1.6em; margin-bottom: 1.5em}
-  ul.tabs {height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin: 0px 0 20px}
+  ul.tabs {height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin: 0}
 ul.tabs li {margin: 0; padding: 0; display: inline; list-style-type: none}
 ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height: 18px}
 ul.tabs a {background-color: #f3f3f3; font-size: 1.6em; position: relative; top: 1px}
@@ -234,6 +234,7 @@ ul.tabs a.users:hover {background-color: #cec}
 .pagination:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
 * html .pagination {height: 1%}
 *:first-child + html .pagination {overflow: hidden}
+div.disqus_wrapper {padding: 1em; font-size: 1.4em}
  form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
 form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
 form.formtastic fieldset ol li.nolabel label {display: none}
@@ -269,7 +270,7 @@ li.countdown .alert {color: red}
  .ind {border-top: 1px solid #ccc; padding: 1em 0}
 .ind:hover {background-color: #efefef}
 div.ind:hover {background-color: #fff}
-div.ind {border: none; margin: .2em 1em 2em 1em}
+div.ind {border: none; margin: .2em 1em 1em 1em}
 div.ind h2 {width: 640px; float: left}
 .ind a.screenshot {float: left; margin-right: 24px; width: 110px; height: 100px; max-width: 110px; max-height: 100px}
 .ind a.screenshot img {max-height: 95px; max-width: 120px}
@@ -289,7 +290,8 @@ div.ind h2 {width: 640px; float: left}
 ul.sites li.ind:last-child, ul.usings li.ind:last-child {border-bottom: 1px solid #ccc}
 a.favicon {width: 16px; height: 16px; float: left; padding-right: 8px}
 a.favicon img {margin: 0; width: 16px; height: 16px}
-ul.usings li.ind .title h4, ul.sites li.ind .title h4 {width: 590px}
+ul.sites li.ind .title h4 {width: 590px}
+ul.usings li.ind .title h4 {width: 300px}
  section.tool section.tab ul.sites, section.sites section.tab ul.tools {position: relative}
 .sites .tools li a, .tools .sites li a {display: block; padding: .3em; margin-right: .4em; font-size: 1.2em}
 .sites .tools, .tools .sites {margin: .4em 0}
@@ -319,3 +321,20 @@ ul.count li.pagerank {background-color: green}
 ul.count li {margin: 0; position: relative}
 ul.count li span, ul.count li a {display: block; padding: 7px; z-index: 2; font-size: 1.1em}
 ul.count li em {float: right; font-style: normal; font-weight: bold; padding-left: 12px}
+ ul.usings li.ind {padding: .8em .8em .6em}
+ul.usings li.ind .title {margin-left: 0; min-height: 0px}
+ul.usings li.ind .title h4 {float: left; font-size: 1.6em; margin: 0; padding: .3em 0; width: auto}
+ul.usings li.ind h4 span.url {display: none; font-size: .8em; color: #888}
+ul.usings li.ind:hover h4 span.url {display: inline; margin-left: 1em}
+ul.usings li.ind h4 img.favicon {margin: 0 .5em 0 0}
+ul.usings li.ind a.comments {float: right; display: none}
+ul.usings li.ind:hover a.comments {display: block}
+ul.usings li.ind ul.tools, ul.usings li.ind ul.categories {min-height: 0; margin: 0; min-width: 400px; float: right; position: relative}
+ul.usings li.ind ul.tools li, ul.usings li.ind ul.categories li {float: right}
+ul.usings li.ind ul.tools li a, ul.usings li.ind ul.categories li a {margin: 0 0 0 .4em}
+ul.usings li.ind ul.tools li a.comments, ul.usings li.ind ul.categories li a.comments {background-color: #ff0}
+ul.usings li.ind ul.tools li a.comments:hover, ul.usings li.ind ul.categories li a.comments:hover {background-color: #dddd11}
+ul.usings li.ind p {padding-top: .4em}
+ul.usings li.ind:hover p a.manage_site_tools {display: block; float: right}
+ul.usings li.ind p a.manage_site_tools {display: none}
+ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child {border-top: none; border-bottom: 1px solid #ccc}

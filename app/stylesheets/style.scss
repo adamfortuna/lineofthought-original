@@ -19,7 +19,7 @@ section.tab p.empty_message { color:#444; text-align:center; font-size:1.6em; ma
 
 /* Tabs */
 /* Very cool tabs from  http://www.simplebits.com/bits/css_tabs.html */
-ul.tabs { height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin:0px 0 20px; }
+ul.tabs { height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin:0; }
 ul.tabs li { margin: 0; padding: 0; display: inline; list-style-type: none; }
 ul.tabs a:link, ul.tabs a:visited { float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height:18px; }
 ul.tabs a { background-color: #f3f3f3; font-size:1.6em; position:relative; top:1px; }
@@ -52,3 +52,5 @@ ul.tabs a.users:hover { background-color: #cec; }
 .pagination:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 * html .pagination { height: 1%; }
 *:first-child+html .pagination { overflow: hidden; }
+
+div.disqus_wrapper { padding:1em; font-size:1.4em; }

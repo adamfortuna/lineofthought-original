@@ -1,22 +1,15 @@
 <li class="site group ind">
-  <div class="details">
-    <div class="title">
-      <h4><% if using_site.site.has_favicon? %><a href="<%= site_path(using_site.site) %>" class="favicon" rel="nofollow"><img src="<%= using_site.site.full_favicon_url %>" /></a><% end %><%= link_to using_site.site.title, using_site.site %></h4>
-      <ul class="count">
-        <li class="alexa"><span><em><%= number_with_delimiter(using_site.site.alexa_global_rank) %></em>Alexa</span></li>
-        <li class="pagerank pagerank-<%= using_site.site.google_pagerank %>"><span><em><%= using_site.site.google_pagerank %></em>Pagerank</span></li>
-      </ul>
-      <% unless using_site.description.blank? %><p><%= using_site.description %></p><% end %>
-
+  <div class="title">
+    <h4><a href="<%= site_path(using_site.site) %>"><% if using_site.site.has_favicon? %><img src="<%= using_site.site.full_favicon_url %>"   class="favicon" /><% end %><%= using_site.site.title%></a><span class="url"><%= using_site.site.url %></span></h4>
+    <ul class="tools group">
       <% if using_site.site.tools_count > 0 %>
-        <ul class="tools">
-          <%= raw site_tools(using_site.site) %>
-          <% if using_site.site.tools_count > 2 %>
-            <li><%= link_to "#{pluralize(using_site.site.tools_count-2, 'more tool')}", using_site.site %></li>
-          <% end %>
-        </ul>
+        <% if using_site.site.tools_count > 2 %>
+          <li><%= link_to "#{pluralize(using_site.site.tools_count-2, 'more tool')}", using_site.site %></li>
+        <% end %>
+        <%= raw site_tools(using_site.site) %>
       <% end %>
-      <%= link_to "comments", site_tool_path(using_site.site, @tool) %>
-    </div>
+      <li><%= link_to "comments", site_tool_path(using_site.site, @tool), :class => "comments" %></li>
+    </ul>
   </div>
+  <% unless using_site.description.blank? %><p><%= using_site.description %> <%= link_to "edit", manage_site_tools_path(using_site.site), :class => "manage_site_tools" %></p><% end %>
 </li>

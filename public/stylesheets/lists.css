@@ -29,7 +29,7 @@ div.ind:hover {
 
 div.ind {
   border: none;
-  margin: .2em 1em 2em 1em; }
+  margin: .2em 1em 1em 1em; }
 
 div.ind h2 {
   width: 640px;
@@ -111,8 +111,11 @@ a.favicon img {
   width: 16px;
   height: 16px; }
 
-ul.usings li.ind .title h4, ul.sites li.ind .title h4 {
+ul.sites li.ind .title h4 {
   width: 590px; }
+
+ul.usings li.ind .title h4 {
+  width: 300px; }
 
 /* sites#show, tools#show */
 section.tool section.tab ul.sites, section.sites section.tab ul.tools {
@@ -236,3 +239,70 @@ ul.count li em {
   font-style: normal;
   font-weight: bold;
   padding-left: 12px; }
+
+/* Usings */
+ul.usings li.ind {
+  padding: .8em .8em .6em; }
+
+ul.usings li.ind .title {
+  margin-left: 0;
+  min-height: 0px; }
+
+ul.usings li.ind .title h4 {
+  float: left;
+  font-size: 1.6em;
+  margin: 0;
+  padding: .3em 0;
+  width: auto; }
+
+ul.usings li.ind h4 span.url {
+  display: none;
+  font-size: .8em;
+  color: #888; }
+
+ul.usings li.ind:hover h4 span.url {
+  display: inline;
+  margin-left: 1em; }
+
+ul.usings li.ind h4 img.favicon {
+  margin: 0 .5em 0 0; }
+
+ul.usings li.ind a.comments {
+  float: right;
+  display: none; }
+
+ul.usings li.ind:hover a.comments {
+  display: block; }
+
+ul.usings li.ind ul.tools, ul.usings li.ind ul.categories {
+  min-height: 0;
+  margin: 0;
+  min-width: 400px;
+  float: right;
+  position: relative; }
+
+ul.usings li.ind ul.tools li, ul.usings li.ind ul.categories li {
+  float: right; }
+
+ul.usings li.ind ul.tools li a, ul.usings li.ind ul.categories li a {
+  margin: 0 0 0 .4em; }
+
+ul.usings li.ind ul.tools li a.comments, ul.usings li.ind ul.categories li a.comments {
+  background-color: #ff0; }
+
+ul.usings li.ind ul.tools li a.comments:hover, ul.usings li.ind ul.categories li a.comments:hover {
+  background-color: #dddd11; }
+
+ul.usings li.ind p {
+  padding-top: .4em; }
+
+ul.usings li.ind:hover p a.manage_site_tools {
+  display: block;
+  float: right; }
+
+ul.usings li.ind p a.manage_site_tools {
+  display: none; }
+
+ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child {
+  border-top: none;
+  border-bottom: 1px solid #ccc; }

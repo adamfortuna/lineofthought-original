@@ -12,8 +12,8 @@
   </ul>
 
   <section class="tab">
-    <ul class="usings sites">
-      <%= render @tool %>
+    <ul class="usings sites single">
+      <%= render :partial => 'usings/using_tool', :object => @using %>
     </ul>
 
     <%= render :partial => 'shared/disqus', :object => "site_#{@site.id}_tool_#{@tool.id}" %>

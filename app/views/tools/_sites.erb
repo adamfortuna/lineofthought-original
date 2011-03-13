@@ -1,7 +1,7 @@
 <section class="tab">
   <% if @tool.sites_count > 0 %>
   <div class="title_bar group">
-    <h3>We know of <%= pluralize(@tool.sites_count, "site") %> sites using <%= @tool.name %>.</h3>
+    <h3>We know of <%= pluralize(@tool.sites_count, "site") %> using <%= @tool.name %>.</h3>
     <div id="sorting">
       <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
       <ul class="options" style="display:none;">
