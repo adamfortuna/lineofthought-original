@@ -1,17 +1,11 @@
 class Site < ActiveRecord::Base
   has_friendly_id :full_uid, :use_slug => true
   acts_as_mappable
-  has_attached_file :favicon,
-                    :styles => { 
-                      :small => { :geometry => "16x16>", :format => 'png' },
-                      :large => { :geometry => "48x48>", :format => 'png' }
-                    },
-                    :storage => :s3,
-                    :s3_credentials => "#{Rails.root}/config/s3.yml",
-                    :path => "/images/sites/:uid.:style.:extension"
+  include HasFavicon
 
   validates_presence_of :title, :url, :uid
-  validate :validate_uri
+  validate :validate_uri, :if => :url_changed?
+  
   
   has_many :usings
   has_many :tools, :through => :usings
@@ -83,28 +77,13 @@ class Site < ActiveRecord::Base
   def load_by_url
     self.title ||= loader.title
     self.description = loader.description if self.description.blank?
-    self.favicon_url = (loader.favicon || "#{uri.scheme}://#{host}/favicon.ico") if self.favicon_url.blank?
+    set_uid
   end
 
   def loader
     @loader ||= Loader.new(url)
   end
-  
-  def download_favicon!
-    self.favicon = download_remote_image
-    save
-  end
-  handle_asynchronously :download_favicon!
-  after_save :download_favicon!, :if => :favicon_url_changed?
-  
-  def has_favicon?
-    !favicon_file_name.blank?
-  end
-  
-  def full_favicon_url(style = "small")
-    "http://s3.amazonaws.com/s.lineofthought.com/images/sites/#{uid}.#{style}.png"
-  end
-  
+    
   private
   
   def validate_uri
@@ -124,8 +103,8 @@ class Site < ActiveRecord::Base
     self.title = full_uid unless self.title
   end
   
-  after_validation :set_uid, :on => :create
-  after_validation :set_uid, :on => :update, :if => :url_changed?
+  before_validation :set_uid, :on => :create
+  before_validation :set_uid, :on => :update, :if => :url_changed?
   def set_uid
     self.uid = self.uri.uid
   end
@@ -138,15 +117,4 @@ class Site < ActiveRecord::Base
     save
   end
   handle_asynchronously :update_lat_and_lng
-  
-  def favicon_url_provided?
-    !self.favicon_url.blank?
-  end
-
-  def download_remote_image
-    io = open(URI.parse(favicon_url))
-    def io.original_filename; base_uri.path.split('/').last; end
-    io.original_filename.blank? ? nil : io
-  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
-  end
 end

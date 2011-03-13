@@ -1,5 +1,5 @@
 class SiteToolsController < ApplicationController
-  before_filter :load_record, :only => [:new, :destroy, :autocomplete]
+  before_filter :load_record, :only => [:manage, :autocomplete]
   respond_to :html, :json, :xml
 
   @@order = { "sites" => "sites_count", 
@@ -15,9 +15,17 @@ class SiteToolsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
   end
+  
+  # GET /sites/:site_id/tools/:id
+  def show
+    @site = Site.find_by_cached_slug!(params[:site_id]) 
+    @tool = Tool.find_by_cached_slug!(params[:id]) 
+  rescue ActiveRecord::RecordNotFound
+    redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
+  end
 
-  # GET /sites/:site_id/tools/new
-  def new
+  # GET /sites/:site_id/tools/manage
+  def manage
     @usings = @site.usings.all(:include => :tool, :order => "tools.name")
     respond_to do |format|
       format.html
@@ -39,18 +47,18 @@ class SiteToolsController < ApplicationController
   end
   
   # DELETE /sites/:site_id/tools/:id
-  def destroy
-    @using = @site.usings.find(params[:using_id])
-    respond_to do |format|
-      format.js {
-        if @using.destroy
-          render 'destroy.js'
-        else
-          render :js => "alert('problem');"
-        end
-      }
-    end
-  end
+  # def destroy
+  #   @using = @site.usings.find(params[:using_id])
+  #   respond_to do |format|
+  #     format.js {
+  #       if @using.destroy
+  #         render 'destroy.js'
+  #       else
+  #         render :js => "alert('problem');"
+  #       end
+  #     }
+  #   end
+  # end
 
   # GET /sites/:site_id/tools/autocomplete
   def autocomplete

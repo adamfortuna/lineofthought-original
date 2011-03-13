@@ -1,17 +1,9 @@
 require 'csv'
 class Tool < ActiveRecord::Base
-  has_attached_file :favicon,
-                    :styles => { 
-                      :small => { :geometry => "16x16>", :format => 'png' },
-                      :large => { :geometry => "48x48>", :format => 'png' }
-                    },
-                    :storage => :s3,
-                    :s3_credentials => "#{Rails.root}/config/s3.yml",
-                    :path => "/images/tools/:uid.:style.:extension"
-  attr_protected :favicon_file_name, :favicon_content_type, :favicon_size
   has_friendly_id :name, :use_slug => true
+  include HasFavicon
 
-  attr_accessible :name, :url, :description, :category_ids, :language_id, :favicon_url
+  attr_accessible :name, :url, :description, :category_ids, :language_id
   attr_accessor :csv
   
   belongs_to :language, :class_name => 'Tool'
@@ -39,6 +31,7 @@ class Tool < ActiveRecord::Base
   serialize :cached_language
 
   before_save :update_cached_categories, :if => :categories_changed?
+  before_save :update_sites_cached_tools, :if => :name_changed?
   before_save :update_url_from_uri
   
   composed_of :uri,
@@ -69,20 +62,26 @@ class Tool < ActiveRecord::Base
   def add_sites!(csv)
     transaction do
       CSV.parse(csv) do |row|
-        url = FriendlyUrl.new(row[0])
-        if site = Site.find_by_friendly_url(url)
-          using = self.usings.find_by_site_id(site.id)
-        else
-          site = Site.create({ :uri => url })
-        end
-      
-        description = row[1..row.length].join(", ")
-        description.strip! if description
-        self.usings.create( {:site => site, :description => description }) unless using
+        self.add_site!(row[0], row[1..row.length].join(", "))
       end
     end
   end
   handle_asynchronously :add_sites!
+  
+  def add_site!(url, description = nil)
+    friendly_url = FriendlyUrl.new(url)
+    if site = Site.find_by_friendly_url(friendly_url)
+      using = self.usings.find_by_site_id(site.id)
+    else
+      site = Site.new({ :uri => url })
+      site.load_by_url
+      site.save
+    end
+  
+    description.strip! if description
+    self.usings.create( {:site => site, :description => description }) unless using
+  end
+  handle_asynchronously :add_site!
   
   def update_top_sites!
     self.top_sites = { :generated => Time.now, :sites => [] }
@@ -126,7 +125,6 @@ class Tool < ActiveRecord::Base
   def load_by_url
     self.name ||= loader.title
     self.description ||= loader.description
-    self.favicon_url = (loader.favicon || "#{uri.scheme}://#{host}/favicon.ico") if self.favicon_url.blank?
     self.language ||= loader.tools.languages.first rescue nil
     self.categories = loader.categories if self.categories.blank?
   end
@@ -135,20 +133,12 @@ class Tool < ActiveRecord::Base
     Tool.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
   end
 
-  def download_favicon!
-    self.favicon = download_remote_image
-    save
+  def update_sites_cached_tools
+    sites.find_each(:batch_size => 200) do |site|
+      site.update_top_tools!
+    end
   end
-  handle_asynchronously :download_favicon!
-  after_save :download_favicon!, :if => :favicon_url_changed?
-
-  def has_favicon?
-    !favicon_file_name.blank?
-  end
-
-  def full_favicon_url(style = "small")
-    "http://s3.amazonaws.com/s.lineofthought.com/images/tools/#{uid}.#{style}.png"
-  end
+  handle_asynchronously :update_sites_cached_tools
 
   private
   def categories_changed?
@@ -177,16 +167,5 @@ class Tool < ActiveRecord::Base
   
   def update_url_from_uri
     self.url = uri.to_s
-  end
-  
-  def favicon_url_provided?
-    !self.favicon_url.blank?
-  end
-
-  def download_remote_image
-    io = open(URI.parse(favicon_url))
-    def io.original_filename; base_uri.path.split('/').last; end
-    io.original_filename.blank? ? nil : io
-  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
 end

@@ -26,10 +26,6 @@ module Util
     normalized
   end
 
-  def self.parse_admin_uri(url)
-    parse_uri(normalize_url(correct_admin_uri(url)))
-  end
-
   def self.parse_uri(url)
     return if url.blank?
     uri = if url.is_a?(URI)
@@ -42,54 +38,10 @@ module Util
     uri.scheme = uri.scheme.downcase # sub "http" for "HTTP"
     uri
   end
-
-  ## 
-  # Remove WordPress admin URL extras from "Admin" URL
-  # Just in case. ;)
-  def self.correct_admin_uri(uri)
-    url = uri.to_s
-    if url =~ %r{wp-admin}
-      url.gsub(/wp-admin.*$/, '')
-    elsif url =~ %r{mt\.cgi}
-      url.gsub(/mt\.cgi.*$/, '')
-    elsif url =~ %r{mt\-xmlrpc\.cgi}
-      url.gsub(/mt\-xmlrpc\.cgi.*$/, '')
-    else
-      url
-    end
-  end
-
-  ##
-  # Look up a country's name by its 2-letter ISO code (ie. "US" -> "United
-  # States").
-  # 
-  # @param [String] alpha2
-  #   2-letter country code (ie. "US")
-  # @raise [I18n::ArgumentError]
-  #   If no country name exists in the locale file.  Expected to be defined
-  #   under countries.{alpha2}.
-  # @return [String]
-  #   Country name (ie. "United States").  Will be internationalized.
-  # 
-  def self.country_name_by_alpha2(alpha2)
-    I18n.t("countries.#{alpha2.to_s.upcase}", :raise => true)
-  end
-
-  ##
-  # Look up a country's 2-letter ISO code by its name (ie. "United States" ->
-  # "US").  Expects the "countries" key in the locale file to define a Hash
-  # with alpha codes as keys, and country names as values (ie. {"US" =>
-  # "United States"}).  This method then inverts that hash to perform a lookup
-  # by name rather than by code.
-  # 
-  # @param [String] name
-  #   Country name (ie. "United States").
-  # @raise [I18n::ArgumentError]
-  #   If no country exists in the locale file.
-  # @return [String]
-  #   Country code (ie. "US").
-  # 
-  def self.country_alpha2_by_name(name)
-    I18n.t('countries', :raise => true).invert.fetch(name).to_s
+  
+  def self.relative_url?(url)
+    return if url.blank?
+    uri = url.is_a?(URI) ? url : URI.parse(url)
+    uri.relative?
   end
 end

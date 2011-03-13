@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305183137) do
+ActiveRecord::Schema.define(:version => 20110310035447) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -31,11 +31,7 @@ ActiveRecord::Schema.define(:version => 20110305183137) do
     t.text     "cached_sites"
     t.text     "cached_connections"
     t.string   "cached_slug"
-    t.string   "favicon_url"
-    t.string   "favicon_file_name"
-    t.string   "favicon_content_type"
-    t.integer  "favicon_file_size"
-    t.datetime "favicon_updated_at"
+    t.boolean  "has_favicon",        :default => false
   end
 
   add_index "articles", ["cached_slug"], :name => "index_articles_on_cached_slug"
@@ -77,6 +73,17 @@ ActiveRecord::Schema.define(:version => 20110305183137) do
   add_index "delayed_jobs", ["locked_by"], :name => "delayed_jobs_locked_by"
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "favicons", :force => true do |t|
+    t.string   "original_url"
+    t.string   "uid"
+    t.string   "favicon_file_name"
+    t.string   "favicon_content_type"
+    t.integer  "favicon_file_size"
+    t.datetime "favicon_updated_at"
+  end
+
+  add_index "favicons", ["uid"], :name => "index_favicons_on_uid"
+
   create_table "invites", :force => true do |t|
     t.string   "code"
     t.integer  "max_count",   :default => 1
@@ -109,6 +116,32 @@ ActiveRecord::Schema.define(:version => 20110305183137) do
 
   add_index "jobs", ["lat", "lng"], :name => "index_jobs_on_lat_and_lng"
 
+  create_table "links", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "original_url"
+    t.string   "normalized_url"
+    t.string   "destination_url"
+    t.string   "normalized_root_url"
+    t.string   "uid"
+    t.integer  "clicks_count",        :default => 0
+    t.string   "title"
+    t.string   "author"
+    t.text     "description"
+    t.text     "html"
+    t.text     "html_body"
+    t.text     "body"
+    t.text     "cached_keywords"
+    t.text     "cached_links"
+    t.string   "feed"
+    t.datetime "date_posted"
+    t.boolean  "has_favicon",         :default => false
+    t.boolean  "parsed",              :default => false
+  end
+
+  add_index "links", ["date_posted"], :name => "index_links_on_date_posted"
+  add_index "links", ["normalized_url"], :name => "index_links_on_normalized_url"
+
   create_table "owners", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -128,24 +161,20 @@ ActiveRecord::Schema.define(:version => 20110305183137) do
     t.string   "url"
     t.text     "description"
     t.datetime "ranks_updated_at"
-    t.integer  "alexa_us_rank",        :limit => 8
-    t.integer  "alexa_global_rank",    :limit => 8
+    t.integer  "alexa_us_rank",     :limit => 8
+    t.integer  "alexa_global_rank", :limit => 8
     t.integer  "google_pagerank"
-    t.integer  "tools_count",                                                       :default => 0
+    t.integer  "tools_count",                                                    :default => 0
     t.text     "top_tools"
     t.string   "uid"
-    t.integer  "articles_count",                                                    :default => 1
+    t.integer  "articles_count",                                                 :default => 1
     t.text     "cached_articles"
     t.string   "display_location"
     t.string   "location"
-    t.decimal  "lat",                               :precision => 15, :scale => 10
-    t.decimal  "lng",                               :precision => 15, :scale => 10
-    t.integer  "jobs_count",                                                        :default => 0
-    t.string   "favicon_url"
-    t.string   "favicon_file_name"
-    t.string   "favicon_content_type"
-    t.integer  "favicon_file_size"
-    t.datetime "favicon_updated_at"
+    t.decimal  "lat",                            :precision => 15, :scale => 10
+    t.decimal  "lng",                            :precision => 15, :scale => 10
+    t.integer  "jobs_count",                                                     :default => 0
+    t.boolean  "has_favicon",                                                    :default => false
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
@@ -194,20 +223,17 @@ ActiveRecord::Schema.define(:version => 20110305183137) do
     t.string   "name"
     t.string   "url"
     t.text     "description"
-    t.integer  "sites_count",          :default => 0
+    t.integer  "sites_count",       :default => 0
     t.integer  "language_id"
     t.text     "top_sites"
     t.text     "cached_categories"
     t.string   "cached_language"
-    t.integer  "articles_count",       :default => 1
+    t.integer  "articles_count",    :default => 1
     t.text     "cached_articles"
-    t.integer  "jobs_count",           :default => 0
+    t.integer  "jobs_count",        :default => 0
     t.string   "keyword"
-    t.string   "favicon_url"
-    t.string   "favicon_file_name"
-    t.string   "favicon_content_type"
-    t.integer  "favicon_file_size"
-    t.datetime "favicon_updated_at"
+    t.boolean  "has_favicon",       :default => false
+    t.string   "uid"
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true

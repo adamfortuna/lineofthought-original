@@ -8,7 +8,6 @@
                 :collection => Category.order(:name), :hint => "Is this tool a database? A framework? A web service?" %>
     <%= f.input :description, :as => :text, :required => false, :input_html => { :rows => 5 },
                 :hint => "Few words about this tool. There's no limit here, so give as much info as you want." %>
-    <%= f.input :favicon_url, :as => :hidden, :required => false %>
   <% end %>
   <%= f.buttons do %>
     <%= f.commit_button %>

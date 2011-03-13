@@ -4,9 +4,9 @@
   <aside>
     <h3>Admin Options</h3>
     <ul class="lst">
-      <li><%= link_to "edit", edit_tool_path(@tool) %></li>
-      <li><%= link_to "add sites", new_tool_site_path(@tool) %></li>
-      <li><%= link_to "delete", @tool, :method => :delete, :confirm => "Are you sure you want to delete this tool?" %></li>
+      <li><%= link_to "Edit Tool", edit_tool_path(@tool) %></li>
+      <li><%= link_to "Add sites", new_tool_site_path(@tool) %></li>
+      <li><%= link_to "Delete Tool", @tool, :method => :delete, :confirm => "Are you sure you want to delete this tool?" %></li>
     </ul>
   </aside>
 </sidebar>

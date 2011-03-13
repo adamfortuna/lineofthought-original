@@ -18,9 +18,9 @@ Snaps::Application.routes.draw do
     member do
       get :articles
     end
-    resources :tools, :controller => "site_tools", :only => [:index, :new, :destroy] do
+    resources :tools, :controller => "site_tools", :only => [:index, :create, :show] do
       collection do 
-        get :autocomplete
+        get :autocomplete, :manage
       end
     end
     # resources :tools, :controller => "sites_tools", :only => [:index, :edit, :create, :destroy] do
@@ -31,7 +31,7 @@ Snaps::Application.routes.draw do
   end
   
   resources :articles, :only => [:new, :create, :index, :show]
-  resources :usings, :only => [:update]
+  resources :usings, :only => [:update, :create, :delete]
 
   # resources :jobs
 #  resources :books
