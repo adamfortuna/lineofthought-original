@@ -1,4 +1,5 @@
 class SitesController < ApplicationController
+  # Logged in: claim, edit, new, create
   before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_site_tools, :only => [:new]
   respond_to :html, :json, :xml
@@ -12,12 +13,14 @@ class SitesController < ApplicationController
   def index
     @sites = Site.order(build_order)
                  .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 10)
+    @featured = Site.featured.limit(5)
     respond_with(@sites)
   end
 
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
     @usings = @site.usings.includes(:tool).joins(:tool).order(:name)
+    @articles = @site.articles.recent(5)
     params[:sort] = "toolname"
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
@@ -34,6 +37,7 @@ class SitesController < ApplicationController
     @site = Site.create(params[:site])
     if @site.new_record?
       flash[:error] = "There was a problem creating this site."
+      debugger
       render :new
     else
       respond_to do |format|
@@ -85,6 +89,11 @@ class SitesController < ApplicationController
     end
   end
 
+  def claim
+    @site = Site.find_by_cached_slug(params[:id])
+    @articles = @site.articles.recent(5)
+  end
+
   private
   def load_record
     @site = Site.find_by_cached_slug(params[:id])
@@ -100,7 +109,7 @@ class SitesController < ApplicationController
   
   def redirect_to_site_tools
     return true unless params[:site] && params[:site][:url]
-    url = FriendlyUrl.new(params[:site][:url])
+    url = HandyUrl.new(params[:site][:url])
     site = Site.find_by_uid(url.uid)
     redirect_to edit_site_tools_path(site, :format => params[:format]) if site
   end

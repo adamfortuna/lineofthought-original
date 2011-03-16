@@ -4,51 +4,48 @@ class Tool < ActiveRecord::Base
   include HasFavicon
 
   attr_accessible :name, :url, :description, :category_ids, :language_id
-  attr_accessor :csv
   
   belongs_to :language, :class_name => 'Tool'
   has_many :buildables, :dependent => :destroy
   has_many :categories, :through => :buildables
   has_many :usings, :dependent => :destroy
+  
   has_many :sites, :through => :usings
+  
+  # Used to get all links that are considered this Tools main pages
   has_many :sources, :as => :sourceable
-
-  # Articles
+  has_many :links, :through => :sources
+  
+  # Bookmarks
   has_many :annotations, :as => :annotateable, :dependent => :destroy
   has_many :articles, :through => :annotations
 
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :sources
 
-  validates_presence_of :url, :name
+  validates_presence_of :url
+  validates_uniqueness_of :url
   validate :validate_uri
-  
-  scope :popular, lambda { |limit| { :limit => limit, :order => "sites_count desc" }}
+
   scope :languages, :conditions => "buildables.category_id = categories.id AND categories.name='Programming Language'", :joins => { :buildables => :category }
-  
-  serialize :top_sites
+  scope :featured, where("sites_count > 5").order("sites_count desc")
+
+  serialize :cached_sites
   serialize :cached_categories
   serialize :cached_language
 
   before_save :update_cached_categories, :if => :categories_changed?
   before_save :update_sites_cached_tools, :if => :name_changed?
-  before_save :update_url_from_uri
   
   composed_of :uri,
-    :class_name => 'FriendlyUrl',
+    :class_name => 'HandyUrl',
     :mapping    => %w(url to_s),
     :allow_nil  => true,
     :converter  => :new
   delegate :host, :path, :port, :domain, :full_uid, :uid, :to => :uri
 
-  # def self.for_autocomplete(count = 20)
-  #   Rails.cache.fetch "tool-for_autocomplete_#{count}" do
-  #     popular(20).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})"}}
-  #   end
-  # end
-
   def self.for_autocomplete(count = 20)
-    popular(20).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})", "description" => "(#{t.combined_category_names.join(", ")})"}}
+    order('sites_count desc').limit(count).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})", "description" => "(#{t.combined_category_names.join(", ")})"}}
   end
   
   def combined_category_names
@@ -69,8 +66,8 @@ class Tool < ActiveRecord::Base
   handle_asynchronously :add_sites!
   
   def add_site!(url, description = nil)
-    friendly_url = FriendlyUrl.new(url)
-    if site = Site.find_by_friendly_url(friendly_url)
+    handy_url = HandyUrl.new(url)
+    if site = Site.find_by_handy_url(handy_url)
       using = self.usings.find_by_site_id(site.id)
     else
       site = Site.new({ :uri => url })
@@ -83,13 +80,19 @@ class Tool < ActiveRecord::Base
   end
   handle_asynchronously :add_site!
   
-  def update_top_sites!
-    self.top_sites = { :generated => Time.now, :sites => [] }
+  def update_cached_sites!
+    self.cached_sites = []
     sites.limit(20).order("google_pagerank desc").each do |site|
-      self.top_sites[:sites] << { :name => site.title, :param => site.to_param }
+      self.cached_sites << { :name => site.title, :param => site.to_param }
     end
     save!
   end
+
+  def update_cached_sites_in_background!
+    update_cached_sites!
+  end
+  handle_asynchronously :update_cached_sites_in_background!
+
 
   def update_cached_categories
     self.cached_categories = []
@@ -113,32 +116,32 @@ class Tool < ActiveRecord::Base
     end
     save
   end
-
-  def books_count
-    0
-  end
-  
-  def loader
-    @loader ||= Loader.new(url)
-  end
-  
-  def load_by_url
-    self.name ||= loader.title
-    self.description ||= loader.description
-    self.language ||= loader.tools.languages.first rescue nil
-    self.categories = loader.categories if self.categories.blank?
-  end
-  
-  def self.find_by_friendly_url(friendly_url)
-    Tool.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
+    
+  def self.find_by_handy_url(handy_url)
+    Tool.find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
   end
 
   def update_sites_cached_tools
+    return if sites_count <= 0
     sites.find_each(:batch_size => 200) do |site|
-      site.update_top_tools!
+      site.update_cached_tools!
     end
   end
   handle_asynchronously :update_sites_cached_tools
+
+
+  def self.new_from_link(link)
+    tool = Tool.new
+    tool.url = link.url
+    tool.categories = link.categories
+    if link.cached_keywords && link.cached_keywords.length > 0
+      tool.name = link.cached_keywords.first.first
+    else
+      tool.name = link.title
+    end
+    tool.description = link.description
+    tool
+  end
 
   private
   def categories_changed?
@@ -146,26 +149,23 @@ class Tool < ActiveRecord::Base
   end
 
   def validate_uri
-    if uri.blank?
-      errors.add(:url, "cannot be blank")
-    elsif uri.to_s !~ Util::URL_HTTP_OPTIONAL || !uri.valid?
-      errors.add(:url, "is not a valid URL")
-    else
-      conditions = if new_record?
-                     ['url IN (?)', uri.variants.collect(&:to_s)]
-                   else
-                     ['url IN (?) AND id != ?', uri.variants.collect(&:to_s), id]
-                   end
-
-      if self.class.exists?(conditions)
-        errors.add(:url, "has already been added")
-        return false
-      end
-    end
-    true
+    errors.add(:url, "is not a valid URL") if !uri.valid?
+    errors.empty?
   end
   
-  def update_url_from_uri
-    self.url = uri.to_s
+  after_save :create_or_update_link, :if => :url_changed?
+  def create_or_update_link
+    link = Link.find_or_create_by_url(url)
+    self.sources.create({:link => link})
+  end
+  
+  after_validation :check_for_favicon, :if => :uid_changed?
+  def check_for_favicon
+    self.has_favicon = true if Favicon.exists?(:uid => self.uid)
+  end
+  
+  before_validation :set_uid, :if => :url_changed?
+  def set_uid
+    self.uid = self.uri.uid
   end
 end

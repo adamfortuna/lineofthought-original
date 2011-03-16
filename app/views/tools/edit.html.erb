@@ -1,12 +1,38 @@
 <% title "Edit Tool - #{@tool.name}" %>
 
 <section id="content" class="main">
-  <h2><%= @title %></h2>
+  <% cache(["header", @tool], :expires_in => 15.minutes) do %>
+    <%= render 'header' %>
+  <% end %>
+  <%= render 'tools/nav' %>
+
   <section>
-    <%= render 'form' %>
+    <%= semantic_form_for @tool, :format => params[:format] do |f| %>
+
+      <%= f.inputs do %>
+        <%= f.input :url, :as => :string, :required => true, :label => "Unique URL for this Tool", :hint => "Definitive source for this tool." %>
+        <%= f.input :name, :as => :string, :required => true, :label => "Tool Name", :hint => "Just the name here." %>
+        <%= f.input :language, :as => :select, :collection => Tool.languages.find(:all, :order => :name), 
+                    :label => "Programming Language", :hint => "Primary language used. If multiple, select the main one." %>
+        <%= f.input :categories, :as => :check_boxes, :required => false, :label => "Categories",
+                    :collection => Category.order(:name), :hint => "Is this tool a database? A framework? A web service?" %>
+        <%= f.input :description, :as => :text, :required => false, :input_html => { :rows => 5 },
+                    :hint => "Few words about this tool. There's no limit here, so give as much info as you want." %>
+      <% end %>
+      <%= f.buttons :style => "display:none" do %>
+        <%= f.commit_button %>
+      <% end %>
+    <% end %>
   </section>
 </section>
 
 <sidebar>
-  <aside>test</aside>
+  <% if current_user.admin? %>
+  <aside>
+    <h3>Admin Options</h3>
+    <ul>
+      <li><%= link_to "Delete This Tool", @tool, :method => :delete, :confirm => "Are you sure you want to delete this tool?" %></li>
+    </ul>
+  </aside>
+  <% end %>
 </sidebar>

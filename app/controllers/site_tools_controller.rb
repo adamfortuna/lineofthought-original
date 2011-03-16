@@ -1,5 +1,6 @@
 class SiteToolsController < ApplicationController
-  before_filter :load_record, :only => [:manage, :autocomplete]
+  before_filter :authenticate_user!
+  before_filter :load_record, :only => [:create, :manage, :autocomplete]
   respond_to :html, :json, :xml
 
   @@order = { "sites" => "sites_count", 
@@ -38,7 +39,7 @@ class SiteToolsController < ApplicationController
   def create
     respond_to do |format|
       format.js {
-        if @using = @site.usings.create(params[:using])
+        if @using = @site.usings.create(params[:using].merge(:user_id => current_user.id))
           render
         else
           render :js => "alert('problem');"
@@ -46,20 +47,6 @@ class SiteToolsController < ApplicationController
       }
     end   
   end
-  
-  # DELETE /sites/:site_id/tools/:id
-  # def destroy
-  #   @using = @site.usings.find(params[:using_id])
-  #   respond_to do |format|
-  #     format.js {
-  #       if @using.destroy
-  #         render 'destroy.js'
-  #       else
-  #         render :js => "alert('problem');"
-  #       end
-  #     }
-  #   end
-  # end
 
   # GET /sites/:site_id/tools/autocomplete
   def autocomplete

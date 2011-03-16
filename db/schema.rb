@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310035447) do
+ActiveRecord::Schema.define(:version => 20110316192859) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
   add_index "categories", ["cached_slug"], :name => "index_categories_on_cached_slug", :unique => true
   add_index "categories", ["name"], :name => "index_categories_on_name"
 
+  create_table "claims", :force => true do |t|
+    t.datetime "created_at"
+    t.integer  "user_id"
+    t.integer  "claimable_id"
+    t.string   "claimable_type"
+  end
+
+  add_index "claims", ["claimable_id", "claimable_type"], :name => "index_claims_on_claimable_id_and_claimable_type"
+  add_index "claims", ["user_id"], :name => "index_claims_on_user_id"
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -74,7 +84,7 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "favicons", :force => true do |t|
-    t.string   "original_url"
+    t.string   "url"
     t.string   "uid"
     t.string   "favicon_file_name"
     t.string   "favicon_content_type"
@@ -119,12 +129,10 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
   create_table "links", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "original_url"
-    t.string   "normalized_url"
+    t.string   "url"
     t.string   "destination_url"
-    t.string   "normalized_root_url"
     t.string   "uid"
-    t.integer  "clicks_count",        :default => 0
+    t.integer  "clicks_count",    :default => 0
     t.string   "title"
     t.string   "author"
     t.text     "description"
@@ -135,12 +143,13 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
     t.text     "cached_links"
     t.string   "feed"
     t.datetime "date_posted"
-    t.boolean  "has_favicon",         :default => false
-    t.boolean  "parsed",              :default => false
+    t.boolean  "has_favicon",     :default => false
+    t.boolean  "parsed",          :default => false
+    t.string   "canonical"
+    t.string   "original_url"
   end
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"
-  add_index "links", ["normalized_url"], :name => "index_links_on_normalized_url"
 
   create_table "owners", :force => true do |t|
     t.datetime "created_at"
@@ -165,9 +174,9 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
     t.integer  "alexa_global_rank", :limit => 8
     t.integer  "google_pagerank"
     t.integer  "tools_count",                                                    :default => 0
-    t.text     "top_tools"
+    t.text     "cached_tools"
     t.string   "uid"
-    t.integer  "articles_count",                                                 :default => 1
+    t.integer  "articles_count",                                                 :default => 0
     t.text     "cached_articles"
     t.string   "display_location"
     t.string   "location"
@@ -199,12 +208,10 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
 
   create_table "sources", :force => true do |t|
     t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "title"
-    t.string   "url"
-    t.text     "description"
     t.integer  "sourceable_id"
     t.string   "sourceable_type"
+    t.integer  "link_id"
   end
 
   add_index "sources", ["sourceable_id", "sourceable_type"], :name => "index_sources_on_sourceable_id_and_sourceable_type"
@@ -225,10 +232,10 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
     t.text     "description"
     t.integer  "sites_count",       :default => 0
     t.integer  "language_id"
-    t.text     "top_sites"
+    t.text     "cached_sites"
     t.text     "cached_categories"
     t.string   "cached_language"
-    t.integer  "articles_count",    :default => 1
+    t.integer  "articles_count",    :default => 0
     t.text     "cached_articles"
     t.integer  "jobs_count",        :default => 0
     t.string   "keyword"
@@ -261,6 +268,8 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
     t.string   "invite_code"
+    t.text     "cached_site_claims"
+    t.text     "cached_tool_claims"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
@@ -272,10 +281,12 @@ ActiveRecord::Schema.define(:version => 20110310035447) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tool_id"
-    t.integer  "site_id",     :null => false
     t.text     "description"
+    t.integer  "site_id",     :null => false
+    t.integer  "user_id"
   end
 
+  add_index "usings", ["site_id", "user_id"], :name => "index_usings_on_site_id_and_user_id"
   add_index "usings", ["site_id"], :name => "index_usings_on_site_id"
   add_index "usings", ["tool_id"], :name => "index_usings_on_tool_id"
 

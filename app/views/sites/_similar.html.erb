@@ -1,0 +1,8 @@
+<aside class="admin">
+  <h3>Similar Sites</h3>
+  <ul class="lst">
+    <% similar.each do |site| %>
+      <li><%= link_to truncate(site.title, :length => 80), site %></li>
+    <% end %>
+  </ul>
+</aside>

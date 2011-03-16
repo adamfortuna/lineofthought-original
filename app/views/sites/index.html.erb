@@ -23,9 +23,20 @@
 
 <sidebar>
   <aside>
-    <ul>
-      <li><%= link_to "New Site", new_site_path %></li>
-      <li><%= link_to "Add Site to LoT", "javascript:(function(){f='#{new_site_url(:format => "popup")}?site[url]='+encodeURIComponent(window.location.href)+'&site[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=650'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %></li>
-    </ul>
+    <h3>Add a Site</h3>
+    <% if user_signed_in? %>
+      <p>Want to add your own site?<br/><%= link_to "Add a Site", new_site_path %></p>
+      <p>Add a site from anywhere using this bookmarklet. Drag this to your bookmarks bar.
+        <br/>
+        <%= link_to "Add Site to LoT", "javascript:(function(){f='#{new_site_url(:format => "popup")}?site[url]='+encodeURIComponent(window.location.href)+'&site[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=650'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
+      </p>
+    <% else %>
+      <p>Logged in users can add their own sites to LineOfThought, or manage the tools used on existing sites.</p>
+      <p><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to get started.</p>
+    <% end %>
   </aside>
+  
+  <% cache("featured_sites", :expires_in => 15.minutes) do %>
+    <%= render :partial => "sites/featured", :object => @featured if @featured.length > 0 %>
+  <% end %>
 </sidebar>

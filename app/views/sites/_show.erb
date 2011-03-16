@@ -1,16 +1,10 @@
 <% title "Tools used by #{@site.title}" %>
 <section id="content" class="main site">
-  <% cache(["full", @site]) do %>
+  <% cache(["header", @site]) do %>
     <%= render 'sites/header' %>
   <% end %>
+  <%= render 'sites/nav' %>
   
-  <ul class="tabs">
-    <li class="current"><a href="#" class="sites">Tools</a></li> 
-    <% if @site.articles_count > 0 %>
-      <li><a href="<%= articles_site_path(@site)%>" class="articles">Articles</a></li> 
-    <% end %>
-  </ul>
-
   <section class="tab">
     <% if @site.tools_count > 0 %>
     <div class="title_bar group">

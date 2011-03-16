@@ -1,12 +1,15 @@
 <% title "Edit Site - #{@site.title}" %>
-
 <section id="content" class="main">
-  <h2><%= @title %></h2>
-  <section>
+  <% cache(["header", @site]) do %>
+    <%= render 'sites/header' %>
+  <% end %>
+  <%= render 'sites/nav' %>
+  
+  <section class="tab">
     <%= render 'form' %>
   </section>
 </section>
 
-<sidebar>
-  <aside>test</aside>
-</sidebar>
+<% cache(["sidebar", @site]) do %>
+  <%= render 'sites/show_sidebar' %>
+<% end %>

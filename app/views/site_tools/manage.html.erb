@@ -1,15 +1,16 @@
 <% title "Edit Tools on #{@site.title} (#{@site.domain})" %>
 
 <section id="content" class="main full">
-  <h2><%= @title %></h2>
-  <%= render "form" %>
+  <% cache(["header", @site]) do %>
+    <%= render 'sites/header' %>
+  <% end %>
+  <%= render 'sites/nav' %>
+  
+  <section class="tab">
+    <%= render "form" %>
+  </section>
 </section>
 
-<sidebar>
-  <aside>
-    <h3>Related Links</h3>
-    <ul>
-      <li><%= link_to "Main Page for #{@site.title}", @site %></li>
-    </ul>
-  </aside>
-</sidebar>
+<% cache(["sidebar", @site]) do %>
+  <%= render 'sites/show_sidebar' %>
+<% end %>

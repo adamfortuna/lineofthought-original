@@ -28,10 +28,23 @@
     </ul>
   </aside>
   <% end %>
+  
+  <% cache("featured_tools", :expires_in => 15.minutes) do %>
+    <%= render :partial => "tools/featured", :object => @featured if @featured.length > 0 %>
+  <% end %>
+  
+  
   <aside>
-    <ul class="lst">
-      <li><%= link_to "Add a New Tool", new_tool_path %></li>
-      <li><%= link_to "Add Tool to LoT", "javascript:(function(){f='#{new_tool_url(:format => "popup")}?tool[url]='+encodeURIComponent(window.location.href)+'&tool[name]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=850'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %></li>
-    </ul>
+    <h3>Add a Tool</h3>
+    <% if user_signed_in? %>
+      <p>Can't find something you use?<br/><%= link_to "Add a Tool", new_tool_path %></p>
+      <p>Add a tool from anywhere using this bookmarklet. Drag this to your bookmarks bar.
+        <br/>
+        <%= link_to "Add Tool to LoT", "javascript:(function(){f='#{new_tool_url(:format => "popup")}?tool[url]='+encodeURIComponent(window.location.href)+'&tool[name]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=850'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
+      </p>
+    <% else %>
+      <p>Logged in users can add their own tools to LineOfThought, or manage the tools used on existing sites.</p>
+      <p><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to get started.</p>
+    <% end %>
   </aside>
 </sidebar>

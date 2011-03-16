@@ -2,11 +2,12 @@
 
 <sidebar>
   <aside>
-    <h3>Admin Options</h3>
-    <ul class="lst">
-      <li><%= link_to "Edit Tool", edit_tool_path(@tool) %></li>
-      <li><%= link_to "Add sites", new_tool_site_path(@tool) %></li>
-      <li><%= link_to "Delete Tool", @tool, :method => :delete, :confirm => "Are you sure you want to delete this tool?" %></li>
-    </ul>
+    <h3>Similar Tools</h3>
+    <div><p>Similar tools here...</p></div>
   </aside>
+  
+  <% cache("featured_tools", :expires_in => 15.minutes) do %>
+    <%= render :partial => "tools/featured", :object => @featured if @featured.length > 0 %>
+  <% end %>
+  
 </sidebar>

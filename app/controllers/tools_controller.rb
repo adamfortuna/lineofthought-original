@@ -13,12 +13,14 @@ class ToolsController < ApplicationController
     #              .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
     @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 10))
     @categories = Category.order(:name).where("tools_count > 0")
+    @featured = Tool.featured.limit(5)
     respond_with @tools
   end
   
   def show
     @tool = Tool.find_by_cached_slug!(params[:id])
     @usings = @tool.usings.joins(:site).includes(:site).order("coalesce(alexa_global_rank, 100000000)").paginate(:page => 1, :per_page => 25)
+    @featured = Tool.featured.limit(5)
     params[:sort] = "alexa"
     respond_with @tool
   rescue ActiveRecord::RecordNotFound
@@ -36,14 +38,40 @@ class ToolsController < ApplicationController
     end    
   end
 
+  # GET /tools.new
   def new
-    @tool = Tool.new(params[:tool])
-    @tool.load_by_url unless @tool.url.blank?
+    params[:tool] ||= {}
+    url = params[:tool][:url]
+    if url
+      @link = Link.find_or_create_by_url(url)
+      @tool = Tool.new_from_link(@link)
+    else
+      @tool = Tool.new(params[:tool])
+    end
+  end
+  
+  # POST /tools/lookup
+  def lookup
+    link = Link.find_or_create_by_url(params[:tool][:url])
+    respond_to do |format|
+      format.js do
+        if link.source
+          render :js => "alert('already exists');"
+        elsif link.parsed?
+          @tool = Tool.new_from_link(link)
+          render :lookup_complete
+        else
+          render :js => ""
+          # no response, lookup in progress
+        end
+      end
+    end
   end
   
   def create
     @tool = Tool.create(params[:tool])
     if @tool.new_record?
+      @link = Link.find_or_create_by_url(params[:tool][:url])
       flash[:error] = "There was a problem creating this tool."
       respond_to do |format|
         format.html { render :new }
@@ -77,7 +105,7 @@ class ToolsController < ApplicationController
     end
   end
 
-  def articles
+  def bookmarks
     @tool = Tool.find_by_cached_slug(params[:id])
     @articles = @tool.articles.order("created_at desc")
                      .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 15)
@@ -98,8 +126,8 @@ class ToolsController < ApplicationController
   
   def redirect_to_tool
     return true unless params[:tool] && params[:tool][:url]
-    url = FriendlyUrl.new(params[:tool][:url])
-    tool = Tool.find_by_friendly_url(url)
+    url = HandyUrl.new(params[:tool][:url])
+    tool = Tool.find_by_handy_url(url)
     redirect_to tool_path(tool, :format => params[:format]) if tool
   end
 end

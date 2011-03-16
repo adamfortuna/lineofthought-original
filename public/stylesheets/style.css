@@ -100,24 +100,6 @@ ul.tabs li.current a:link, ul.tabs li.current a:visited {
 ul.tabs a:hover {
   background-color: #fff; }
 
-ul.tabs a.arcades {
-  background-color: #dde; }
-
-ul.tabs a.arcades:hover {
-  background-color: #ccf; }
-
-ul.tabs a.games {
-  background-color: #fdd; }
-
-ul.tabs a.games:hover {
-  background-color: #fcc; }
-
-ul.tabs a.users {
-  background-color: #ded; }
-
-ul.tabs a.users:hover {
-  background-color: #cec; }
-
 /* Sorting options */
 #sorting {
   float: right;
@@ -213,3 +195,15 @@ ul.tabs a.users:hover {
 div.disqus_wrapper {
   padding: 1em;
   font-size: 1.4em; }
+
+body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited,
+body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited,
+body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited,
+body.site_tools-manage li.site_tools-manage a:link, body.site_tools-manage li.site_tools-manage a:visited,
+body.tools-show li.tools-show a:link, body.tools-show li.tools-show a:visited,
+body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited,
+body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited,
+body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited {
+  border-bottom: 1px solid #fff;
+  background: #fff;
+  color: #000; }

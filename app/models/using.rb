@@ -11,7 +11,7 @@ class Using < ActiveRecord::Base
   
   private
   def update_caches
-    site.update_top_tools!
-    tool.update_top_sites!
+    site.update_cached_tools_in_background!
+    tool.update_cached_sites_in_background!
   end
 end

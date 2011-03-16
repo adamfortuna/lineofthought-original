@@ -1,14 +1,4 @@
-##
-# This class makes URI parsing "friendly", including automatically adding
-# missing http:// schemes, stripping whitespace, and relying on Ruby's URI
-# normalization.
-# 
-# It will also accept an invalid URL, in which case none of the URI methods
-# (#host, #port, #path and friends) will be available.  This allows you to use
-# it in a composed_of macro without having to deal with URI::InvalidURIError
-# being raised when a user enters a bad URL.
-# 
-class FriendlyUrl
+class HandyUrl
   def ==(other)
     return true if super                # same object
     return true if @uri == other.to_uri # same URI (cheaper test)
@@ -72,7 +62,7 @@ class FriendlyUrl
   end
   
   def uid
-    [tld, domain, subdomain].compact.join(".")
+    [tld, domain].compact.join(".")
   end
   
   def full_uid
@@ -82,7 +72,7 @@ class FriendlyUrl
   end
   
   ##
-  # Checks to see if another FriendlyUrl exists on this Url.
+  # Checks to see if another HandyUrl exists on this Url.
   # Can be used to check if a specific page exists on a site.
   #
   # @returns boolean
@@ -96,7 +86,7 @@ class FriendlyUrl
   # Returns an array of possible variations on this URL (with "www." in the
   # host, with "https", etc.).
   # 
-  # @return [Array<FriendlyUrl>]
+  # @return [Array<HandyUrl>]
   # 
   def variants
     [with_www, without_www].compact.collect do |uri|
@@ -108,7 +98,7 @@ class FriendlyUrl
   # Returns a variant of this URL with an http:// scheme.  If this URL is
   # already using the http:// scheme, this method returns self.
   # 
-  # @return [FriendlyUrl, nil]
+  # @return [HandyUrl, nil]
   # 
   def with_http
     return unless valid?
@@ -120,7 +110,7 @@ class FriendlyUrl
   # Returns a variant of this URL with an https:// scheme.  If this URL is
   # already using the https:// scheme, this method returns self.
   # 
-  # @return [FriendlyUrl, nil]
+  # @return [HandyUrl, nil]
   # 
   def with_https
     return unless valid?
@@ -132,7 +122,7 @@ class FriendlyUrl
   # Returns a variant of this URL with a leading "www." in the host name.  If
   # this URL's host already begins with "www.", this method returns self.
   # 
-  # @return [FriendlyUrl, nil]
+  # @return [HandyUrl, nil]
   # 
   def with_www
     return unless valid?
@@ -147,7 +137,7 @@ class FriendlyUrl
   # stripped out.  If this URL's host doesn't begin with "www.", this method
   # returns self.
   # 
-  # @return [FriendlyUrl, nil]
+  # @return [HandyUrl, nil]
   # 
   def without_www
     return unless valid?
@@ -158,7 +148,7 @@ class FriendlyUrl
   ##
   # Returns a variant of this URL without query params and with 
   # 
-  # @return [FriendlyUrl, nil]
+  # @return [HandyUrl, nil]
   #
   def without_params(comparison_path = nil)
     return unless valid?

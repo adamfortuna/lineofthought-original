@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
   has_friendly_id :title, :use_slug => true
-  has_attached_file :favicon, :styles => { :medium => "32x32>", :thumb => "16x16>" }
+  include HasFavicon
 
   validates_presence_of :title, :url
   
@@ -9,6 +9,8 @@ class Article < ActiveRecord::Base
   serialize :cached_tools
   serialize :cached_sites
   serialize :cached_connections
+  
+  scope :recent, lambda { |n=5| order("created_at desc").limit(n) }
 
   def tool_ids
     annotations.where(["annotateable_type=?", 'Tool']).select(:annotateable_id).collect(&:annotateable_id)
@@ -48,8 +50,8 @@ class Article < ActiveRecord::Base
     cached_sites ? cached_sites.count : 0
   end
 
-  def self.find_by_friendly_url(friendly_url)
-    Article.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
+  def self.find_by_handy_url(handy_url)
+    Article.find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
   end
   
   def has_tool?(id)

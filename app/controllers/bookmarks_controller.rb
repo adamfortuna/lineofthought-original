@@ -1,4 +1,4 @@
-class ArticlesController < ApplicationController
+class BookmarksController < ApplicationController
   before_filter :load_or_redirect_by_url, :only => [:new]
   before_filter :load_or_url, :only => [:edit, :update]
   respond_to :html, :json, :xml
@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
   
   def load_or_redirect_by_url
     return true unless params[:url] && params[:url]
-    friendly_url = FriendlyUrl.new(params[:article][:url])
-    @article = Article.find_by_friendly_url(friendly_url)
+    handy_url = HandyUrl.new(params[:article][:url])
+    @article = Article.find_by_handly_url(handy_url)
   end
 end

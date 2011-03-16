@@ -1,3 +1,3 @@
-Paperclip::Attachment.interpolations[:uid] = proc do |attachment, style|
+Paperclip.interpolates :uid do |attachment, style|
   attachment.instance.uid.downcase
 end

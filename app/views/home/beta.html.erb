@@ -9,9 +9,11 @@
       <%= render @sites %>
     </ul>
 
-    <section class="announcement">
-      <p>Check out all <%= link_to "#{Site.count} sites", sites_path %> or <%= link_to "#{Tool.count} tools", tools_path %>.</p>
-    </section>
+    <% cache("home-announcement", :expires_in => 15.minutes) do %>
+      <section class="announcement">
+        <p>Check out all <%= link_to "#{Site.count} sites", sites_path %> or <%= link_to "#{Tool.count} tools", tools_path %>.</p>
+      </section>
+    <% end %>
 </section>
 
 <sidebar>

@@ -1,0 +1,8 @@
+<aside class="admin">
+  <h3>Related Articles</h3>
+  <ul class="lst">
+    <% related.each do |article| %>
+      <li><%= link_to truncate(article.title, :length => 40), article %></li>
+    <% end %>
+  </ul>
+</aside>

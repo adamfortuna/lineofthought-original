@@ -2,16 +2,10 @@
 
 <% cache(["show", @tool], :expires_in => 15.minutes) do %>
 <section id="content" class="main tool">
-  <% cache(["full", @tool], :expires_in => 15.minutes) do %>
+  <% cache(["header", @tool], :expires_in => 15.minutes) do %>
     <%= render 'header' %>
   <% end %>
-  
-  <ul class="tabs">
-    <li class="current"><a href="#" class="sites">Sites</a></li> 
-    <% if @tool.articles_count > 0 %><li><a href="<%= articles_tool_path(@tool) %>" class="articles">Articles</a></li><% end %>
-    <% if @tool.jobs_count > 0 %><li><a href="<%= jobs_tool_path(@tool) %>" class="jobs">Jobs</a></li><% end %>
-    <% if @tool.books_count > 0 %><li><a href="<%= books_tool_path(@tool) %>" class="books">Books</a></li><% end %>    
-  </ul>
+  <%= render 'tools/nav' %>
   
   <%= render :partial => "sites", :object => @usings %>
 </section>

@@ -1,15 +1,9 @@
 <% title "About #{@site.title} using #{@tool.name}" %>
 <section id="content" class="main site">
-  <% cache(["full", @site]) do %>
+  <% cache(["header", @site]) do %>
     <%= render 'sites/header' %>
   <% end %>
-  
-  <ul class="tabs">
-    <li class="current"><%= link_to "Tools", @site, :class => "sites" %></li>
-    <% if @site.articles_count > 0 %>
-      <li><a href="<%= articles_site_path(@site)%>" class="articles">Articles</a></li> 
-    <% end %>
-  </ul>
+  <%= render 'sites/nav' %>
 
   <section class="tab">
     <ul class="usings sites single">
@@ -19,3 +13,7 @@
     <%= render :partial => 'shared/disqus', :object => "site_#{@site.id}_tool_#{@tool.id}" %>
   </section>
 </section>
+
+<% cache(["sidebar", @site]) do %>
+  <%= render 'sites/show_sidebar' %>
+<% end %>

@@ -1,9 +1,11 @@
+require 'digest/md5'
 class Site < ActiveRecord::Base
   has_friendly_id :full_uid, :use_slug => true
   acts_as_mappable
   include HasFavicon
+  attr_accessor :skip_ranks
 
-  validates_presence_of :title, :url, :uid
+  validates_presence_of :url, :uid
   validate :validate_uri, :if => :url_changed?
   
   
@@ -16,17 +18,18 @@ class Site < ActiveRecord::Base
 
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
   scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
+  scope :featured, where("alexa_global_rank < 2500 AND tools_count > 5").order("tools_count desc")
 
   before_validation :default_title_to_domain, :on => :create
 
   composed_of :uri,
-    :class_name => 'FriendlyUrl',
+    :class_name => 'HandyUrl',
     :mapping    => %w(url to_s),
     :allow_nil  => true,
     :converter  => :new
 
   delegate :host, :path, :port, :domain, :full_uid, :to => :uri
-  serialize :top_tools
+  serialize :cached_tools
     
   def update_ranks!
     ranks = PageRankr.ranks(url, :alexa, :google) #=> {:alexa=>{:us=>1, :global=>1}, :google=>10}
@@ -35,23 +38,23 @@ class Site < ActiveRecord::Base
                              :google_pagerank => ranks[:google]}) if ranks
   end
   handle_asynchronously :update_ranks!
-  after_create :update_ranks!
+  after_create :update_ranks!, :if => :should_update_ranks?
   
-  def update_top_tools!
-    self.top_tools = { :generated => Time.now, :tools => [] }
-    tools.where("sites_count > 0").limit(20).order("sites_count desc").each do |tool|
-      self.top_tools[:tools] << { :name => tool.name, :param => tool.to_param }
+  def update_cached_tools!
+    self.cached_tools = []
+    tools.limit(20).order("sites_count desc").each do |tool|
+      self.cached_tools << { :name => tool.name, :param => tool.to_param }
     end
-    save
+    save!
   end
   
-  def update_top_tools_in_background!
-    update_top_tools!
+  def update_cached_tools_in_background!
+    update_cached_tools!
   end
-  handle_asynchronously :update_top_tools_in_background!
+  handle_asynchronously :update_cached_tools_in_background!
     
-  def self.find_by_friendly_url(friendly_url)
-    Site.find(:first, :conditions => ['url IN (?)', friendly_url.variants.collect(&:to_s)])
+  def self.find_by_handy_url(handy_url)
+    Site.find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
   end
   
   def self.cached_count(reload = false)
@@ -74,16 +77,6 @@ class Site < ActiveRecord::Base
     save
   end
 
-  def load_by_url
-    self.title ||= loader.title
-    self.description = loader.description if self.description.blank?
-    set_uid
-  end
-
-  def loader
-    @loader ||= Loader.new(url)
-  end
-    
   private
   
   def validate_uri
@@ -99,12 +92,16 @@ class Site < ActiveRecord::Base
     end
   end
   
+  after_save :create_or_update_link, :if => :url_changed?
+  def create_or_update_link
+    Link.find_or_create_by_url(url)
+  end
+  
   def default_title_to_domain
     self.title = full_uid unless self.title
   end
-  
-  before_validation :set_uid, :on => :create
-  before_validation :set_uid, :on => :update, :if => :url_changed?
+
+  before_validation :set_uid, :if => :url_changed?
   def set_uid
     self.uid = self.uri.uid
   end
@@ -117,4 +114,16 @@ class Site < ActiveRecord::Base
     save
   end
   handle_asynchronously :update_lat_and_lng
+  
+  before_save :update_tools_cached_tools, :if => :title_changed?
+  def update_tools_cached_tools
+    tools.find_each(:batch_size => 200) do |tool|
+      tool.update_cached_sites!
+    end
+  end
+  handle_asynchronously :update_tools_cached_tools
+  
+  def should_update_ranks?
+    !skip_ranks
+  end
 end

@@ -83,6 +83,20 @@ nav ul li a {
 nav ul li a:hover {
   background-color: #4b81b4; }
 
+#current_user {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 30px; }
+
+#current_user li {
+  font-size: 1.4em;
+  float: right;
+  padding-left: 1em; }
+
+#current_user li a:hover {
+  color: #ccc; }
+
 /* Main */
 section, aside {
   display: block; }
@@ -142,6 +156,10 @@ sidebar aside p.more {
 sidebar aside ul li {
   font-size: 1.2em; }
 
+sidebar aside p {
+  margin-top: 12px;
+  font-size: 1.2em; }
+
 /* Sidebar - Right - List of text */
 ul.txt li {
   padding: 7px;
@@ -171,6 +189,13 @@ ul.lst li em {
   font-style: normal;
   font-weight: normal;
   color: #9c836e; }
+
+ul.lst li a img.favicon {
+  float: left;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  padding-right: 8px; }
 
 /* Sidebar - Right - List with ratings*/
 ul.lst-rating li {

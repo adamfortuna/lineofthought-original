@@ -1,0 +1,28 @@
+<% title "Claim site #{@site.title}" %>
+<section id="content" class="main site">
+  <% cache(["full", @site]) do %>
+    <%= render 'sites/header' %>
+  <% end %>
+  
+  <%= render 'sites/nav', :object => @site %>
+
+
+  <section class="tab">
+    <p>There are two ways to claim a site:</p>    
+
+    <div>
+      <p>Add the following tag anywhere on the URL <%= @site.url%></p>
+      <pre><%= current_user.claim_id %></pre>
+      <p><%= link_to "Claim Using code", site_claims_path(@site, :using => "tag"), :method => :post %></p>
+    </div>
+    
+    <div>
+      <p>Upload a new file to this site in the root directory with the file name below:</p>
+      <pre><%= current_user.claim_file %></pre>
+      <p><%= link_to "Claim using file", site_claims_path(@site, :using => "file"), :method => :post %></p>
+    </div>
+    
+  </section>
+</section>
+
+<%= render 'sites/show_sidebar' %>

@@ -24,6 +24,9 @@ nav ul li a:link, nav ul li a:visited  { display:block; background-color:$header
 nav ul li a { padding:.6em 1.4em; font-size:1.4em; margin-left:1em; }
 nav ul li a:hover { background-color:$nav-link-hover; }
 
+#current_user { display:block; position:absolute; right:0; top:30px; }
+#current_user li { font-size:1.4em; float:right; padding-left:1em;}
+#current_user li a:hover { color:#ccc; }
 
 /* Main */
 section, aside { display:block; }
@@ -43,6 +46,7 @@ sidebar aside { margin-bottom:2em; padding: 15px; }
 sidebar aside h3 { margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 1.6em; font-weight: bold; color:#365B81; border-bottom: 2px solid #ecebe1; }
 sidebar aside p.more { margin-top:12px; text-align:center; }
 sidebar aside ul li { font-size:1.2em; }
+sidebar aside p { margin-top:12px; font-size:1.2em; }
 
 /* Sidebar - Right - List of text */
 ul.txt li { padding:7px; border-bottom: 1px solid #f3f2e8; overflow: hidden; }
@@ -53,6 +57,7 @@ ul.lst li a { display:block; padding:7px; border-bottom: 1px solid #f3f2e8; over
 ul.lst li.last a { border: none; }
 ul.lst a:hover { background: #EFF2F7; }
 ul.lst li em { float: right; margin: 0 0 0 5px; font-size: 1em; font-style: normal; font-weight: normal; color: #9c836e; }
+ul.lst li a img.favicon { float:left; margin:0; width:16px; height:16px; padding-right:8px; }
 
 /* Sidebar - Right - List with ratings*/
 ul.lst-rating li { margin: 0 0 2px 0; position: relative;	 }

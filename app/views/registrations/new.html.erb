@@ -8,7 +8,7 @@
         <%= form.input :email, :as => :string, :required => true %>
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>
-        <%= form.input :invite_code, :as => :string, :required => true %>
+        <%= form.input :invite_code, :as => :string, :required => true, :hint => raw("Right now we're invite only while working out the kinks. If you'd like to get an invite code, please #{link_to 'let us know!', root_path}") %>
       <% end %>
       <%= form.buttons do %>
         <%= form.commit_button :label => "Register" %>
@@ -19,4 +19,9 @@
 
 <sidebar>
   <%= render :partial => "devise/shared/links" %>
+  <aside>
+    <h3>Looking for an Invite?</h3>
+    <p>We're still trying to get the basics of the system down, so for now we're trying to work closely with those using the system to create an awesome site.</p>
+    <p>Add your name to the <%= link_to "subscriptions lists", root_path %> in order to get an invite.</p>
+  </aside>
 </sidebar>

@@ -4,9 +4,10 @@ Snaps::Application.routes.draw do
   resources :tools do
     collection do 
       get :autocomplete
+      post :lookup
     end
     member do
-      get :articles, :books, :jobs
+      get :bookmarks, :books, :jobs
     end
     resources :sites, :controller => "tool_sites", :only => [:index, :new, :create]
   end
@@ -16,22 +17,18 @@ Snaps::Application.routes.draw do
       get :autocomplete
     end
     member do
-      get :articles
+      get :bookmarks
     end
+    resources :claims, :controller => "site_claims", :only => [:new, :create]
     resources :tools, :controller => "site_tools", :only => [:index, :create, :show] do
       collection do 
         get :autocomplete, :manage
       end
     end
-    # resources :tools, :controller => "sites_tools", :only => [:index, :edit, :create, :destroy] do
-    #   collection do 
-    #     get :autocomplete
-    #   end
-    # end
   end
   
-  resources :articles, :only => [:new, :create, :index, :show]
-  resources :usings, :only => [:update, :create, :delete]
+  resources :bookmarks, :only => [:new, :create, :index, :show, :edit, :update]
+  resources :usings, :only => [:update, :create, :destroy]
 
   # resources :jobs
 #  resources :books
@@ -48,8 +45,6 @@ Snaps::Application.routes.draw do
   
   resources :categories, :only => [:show]
   resources :subscriptions, :only => [:create]
-  
-  resources :articles, :only => [:new, :create, :edit, :update]
   
   match '/new' => 'home#new', :as => 'new'
   match '/beta' => 'home#beta', :as => 'beta'

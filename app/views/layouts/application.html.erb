@@ -6,18 +6,27 @@
   <%= raw stylesheet_link_merged :all %>
   <%= csrf_meta_tag %>
 </head>
-<body>  
+<body class="<%= yield(:body_classes) %> <%= [params[:controller], params[:action]].join("-") %>">
 <header class="group">
   <div class="container">
     <hgroup id="title">
       <p><a href="/beta">Line Of <span>Thought</span></a></p>
       <span>Tracking what the web uses!</span>
     </hgroup>
+    <ul id="current_user">
+      <% if user_signed_in? %>
+        <li><%= link_to raw("<strong>Logout</strong>"), destroy_user_session_path %></li>
+        <li><a href="<%= edit_registration_path(current_user) %>"><strong>Account</strong></a></li>
+      <% else %>
+        <li><a href="<%= new_user_session_path %>"><strong>Sign In</strong></a></li>
+        <li><a href="<%= new_user_registration_path %>"><strong>Sign Up</strong></a></li>
+      <% end %>
+    </ul>
     <nav>
       <ul>
         <li><a href="<%= sites_path %>"><strong>Sites</strong></a></li>
         <li><a href="<%= tools_path %>"><strong>Tools</strong></a></li>
-        <li><a href="<%= articles_path %>"><strong>Articles</strong></a></li>
+        <li><a href="<%= bookmarks_path %>"><strong>Bookmarks</strong></a></li>
       </ul>
     </nav>
   </div>
