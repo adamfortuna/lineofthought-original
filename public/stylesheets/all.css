@@ -160,6 +160,9 @@ nav ul li {float: left}
 nav ul li a:link, nav ul li a:visited {display: block; background-color: #68aff3; color: #fff}
 nav ul li a {padding: .6em 1.4em; font-size: 1.4em; margin-left: 1em}
 nav ul li a:hover {background-color: #4b81b4}
+#current_user {display: block; position: absolute; right: 0; top: 30px}
+#current_user li {font-size: 1.4em; float: right; padding-left: 1em}
+#current_user li a:hover {color: #ccc}
  section, aside {display: block}
 #main {background-color: #E3E3E3; color: #1B1B1B; padding: 2em 0}
 #content, #content_with_nav, sidebar aside {background-color: #fff; padding: .6em; border: 1px solid #ccc}
@@ -173,12 +176,14 @@ sidebar aside {margin-bottom: 2em; padding: 15px}
 sidebar aside h3 {margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 1.6em; font-weight: bold; color: #365B81; border-bottom: 2px solid #ecebe1}
 sidebar aside p.more {margin-top: 12px; text-align: center}
 sidebar aside ul li {font-size: 1.2em}
+sidebar aside p {margin-top: 12px; font-size: 1.2em}
  ul.txt li {padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
 ul.txt li:hover {background: #EFF2F7}
  ul.lst li a {display: block; padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
 ul.lst li.last a {border: none}
 ul.lst a:hover {background: #EFF2F7}
 ul.lst li em {float: right; margin: 0 0 0 5px; font-size: 1em; font-style: normal; font-weight: normal; color: #9c836e}
+ul.lst li a img.favicon {float: left; margin: 0; width: 16px; height: 16px; padding-right: 8px}
  ul.lst-rating li {margin: 0 0 2px 0; position: relative}
 ul.lst-rating li a {position: relative; display: block; padding: 7px; z-index: 2; font-size: 1.1em}
 ul.lst-rating li em {float: right; margin: 0 0 0 5px; font-style: normal; font-weight: normal; color: #9c836e}
@@ -212,12 +217,6 @@ ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 
 ul.tabs a {background-color: #f3f3f3; font-size: 1.6em; position: relative; top: 1px}
 ul.tabs li.current a:link, ul.tabs li.current a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
 ul.tabs a:hover {background-color: #fff}
-ul.tabs a.arcades {background-color: #dde}
-ul.tabs a.arcades:hover {background-color: #ccf}
-ul.tabs a.games {background-color: #fdd}
-ul.tabs a.games:hover {background-color: #fcc}
-ul.tabs a.users {background-color: #ded}
-ul.tabs a.users:hover {background-color: #cec}
  #sorting {float: right; position: relative; width: 250px}
 #sorting p {float: right; width: 100%; text-align: right}
 #sorting p a {background: url(/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
@@ -235,6 +234,7 @@ ul.tabs a.users:hover {background-color: #cec}
 * html .pagination {height: 1%}
 *:first-child + html .pagination {overflow: hidden}
 div.disqus_wrapper {padding: 1em; font-size: 1.4em}
+body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited, body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited, body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited, body.site_tools-manage li.site_tools-manage a:link, body.site_tools-manage li.site_tools-manage a:visited, body.tools-show li.tools-show a:link, body.tools-show li.tools-show a:visited, body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited, body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited, body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
  form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
 form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
 form.formtastic fieldset ol li.nolabel label {display: none}
