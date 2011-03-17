@@ -2,7 +2,7 @@
   <% cache("featured_tools", :expires_in => 15.minutes) do %>
     <%= render :partial => "tools/featured", :object => @featured if @featured && @featured.length > 0 %>
   <% end %>
-  <%= render :partial => "bookmarks/related", :object => @articles if (@tool.articles.size > 0) && @articles && @articles.length > 0 %>
+  <%= render :partial => "bookmarks/related", :object => @tool.cached_bookmarks if (@tool.bookmarks_count.size > 0) && @tool.cached_bookmarks && @tool.cached_bookmarks > 0 %>
   <%= render :partial => "tools/similar", :object => @similar_tools if @similar_tools %>  
   <% if user_signed_in? %>
   <aside>

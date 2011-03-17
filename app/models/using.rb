@@ -8,6 +8,7 @@ class Using < ActiveRecord::Base
   scope :by_alexa_site, joins(:site).order(:alexa_global_rank).includes(:site)
   
   after_create :update_caches
+  after_destroy :update_caches
   
   private
   def update_caches

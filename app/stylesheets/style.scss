@@ -14,7 +14,7 @@ section.announcement p.title  { font-size:2.4em; color:#666; margin:.5em 0; }
 section.announcement p a { font-weight:bold; font-style:normal; }
 section.announcement p a:hover { text-decoration:underline; }
 section.tab { clear:both; }
-section.tab p.empty_message { color:#444; text-align:center; font-size:1.6em; margin-bottom:1.5em; }
+section.tab p.empty_message, section.tab p.main_message { color:#444; text-align:center; font-size:1.6em; margin:1.5em 0 1em; }
 
 
 /* Tabs */
@@ -60,7 +60,9 @@ body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited,
 body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited,
 body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited,
 body.site_claims-create li.site_claims-create a:link, body.site_claims-create li.site_claims-create a:visited,
-body.tool_sites-manage li.tool_sites-manage a:link, body.tool_sites-manage li.tool_sites-manage a:visited
+body.tool_sites-manage li.tool_sites-manage a:link, body.tool_sites-manage li.tool_sites-manage a:visited,
+body.sites-edit li.sites-edit a:link, body.sites-edit li.sites-edit a:visited
+
 
 
 

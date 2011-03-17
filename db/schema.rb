@@ -10,18 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110317032721) do
+ActiveRecord::Schema.define(:version => 20110317053739) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "annotateable_type"
     t.integer  "annotateable_id"
-    t.integer  "article_id"
+    t.integer  "bookmark_id"
     t.text     "description"
   end
 
-  create_table "articles", :force => true do |t|
+  create_table "bookmarks", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
@@ -30,12 +30,8 @@ ActiveRecord::Schema.define(:version => 20110317032721) do
     t.text     "cached_tools"
     t.text     "cached_sites"
     t.text     "cached_connections"
-    t.string   "cached_slug"
     t.boolean  "has_favicon",        :default => false
   end
-
-  add_index "articles", ["cached_slug"], :name => "index_articles_on_cached_slug"
-  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
 
   create_table "buildables", :force => true do |t|
     t.integer "tool_id"
@@ -176,8 +172,8 @@ ActiveRecord::Schema.define(:version => 20110317032721) do
     t.integer  "tools_count",                                                    :default => 0
     t.text     "cached_tools"
     t.string   "uid"
-    t.integer  "articles_count",                                                 :default => 0
-    t.text     "cached_articles"
+    t.integer  "bookmarks_count",                                                :default => 0
+    t.text     "cached_bookmarks"
     t.string   "display_location"
     t.string   "location"
     t.decimal  "lat",                            :precision => 15, :scale => 10
@@ -236,8 +232,8 @@ ActiveRecord::Schema.define(:version => 20110317032721) do
     t.text     "cached_sites"
     t.text     "cached_categories"
     t.string   "cached_language"
-    t.integer  "articles_count",    :default => 0
-    t.text     "cached_articles"
+    t.integer  "bookmarks_count",   :default => 0
+    t.text     "cached_bookmarks"
     t.integer  "jobs_count",        :default => 0
     t.string   "keyword"
     t.boolean  "has_favicon",       :default => false

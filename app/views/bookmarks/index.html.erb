@@ -1,4 +1,4 @@
-<% title "Recent Articles" %>
+<% title "Recent Bookmarks" %>
 
 <section id="content" class="main">
   <div class="title_bar group">
@@ -6,9 +6,9 @@
   </div>
   <section>
     <ul class="tools">
-      <%= render @articles %>
+      <%= render @bookmarks %>
     </ul>
-    <%= will_paginate @articles %>
+    <%= will_paginate @bookmarks %>
   </section>
 </section>
 

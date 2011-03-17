@@ -3,7 +3,6 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
     session[:omniauth] = nil unless @user.new_record?
-    redirect_to beta_path if user_signed_in?
   end
   
   private

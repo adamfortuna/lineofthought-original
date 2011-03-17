@@ -17,18 +17,4 @@
   </section>
 </section>
 
-<sidebar>
-  <aside>
-    <h3>My Account</h3>
-    <ul class="lst">
-      <li><a href="#">My Sites</a></li>
-      <li><a href="#">My Tools</a></li>
-      <li><a href="#">My Bookmarks</a></li>
-    </ul>
-  </aside>
-  <aside>
-    <h3>Delete My Account</h3>
-    <p>Unhappy? <%= link_to "Delete my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-    <p>Canceling your account will not remove your work. It'll de-associate it with you, and all traces of your identify will be erased.
-  </aside>
-</sidebar>
+<%= render 'users/sidebar' %>

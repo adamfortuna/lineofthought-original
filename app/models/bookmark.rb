@@ -1,4 +1,4 @@
-class Article < ActiveRecord::Base
+class Bookmark < ActiveRecord::Base
   has_friendly_id :title, :use_slug => true
   include HasFavicon
 
@@ -51,7 +51,7 @@ class Article < ActiveRecord::Base
   end
 
   def self.find_by_handy_url(handy_url)
-    Article.find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
+    find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
   end
   
   def has_tool?(id)

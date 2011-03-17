@@ -18,6 +18,6 @@
   <%= will_paginate sites %>
   <% else %>
     <p class="empty_message">We don't know of any sites using <%= @tool.name %>.</p>
-    <p class="empty_message">You can <%= link_to "add some sites now", new_tool_site_path(@tool, :format => params[:format]) %> if you know of any.</p>
+    <p class="empty_message">You can <%= link_to "add some sites now", manage_tool_sites_path(@tool, :format => params[:format]) %> if you know of any.</p>
   <% end %>
 </section>

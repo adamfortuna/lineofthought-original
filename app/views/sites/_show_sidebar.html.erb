@@ -1,5 +1,5 @@
 <sidebar>
-  <%= render :partial => "bookmarks/related", :object => @articles if (@site.articles.size > 0) && @articles && @articles.length > 0 %>
+  <%= render :partial => "bookmarks/related", :object => @site.cached_bookmarks if (@site.bookmarks.size > 0) && @site.cached_bookmarks && @site.cached_bookmarks.length > 0 %>
   <%= render :partial => "sites/similar", :object => @similar_sites if @similar_sites %>  
   <% if user_signed_in? %>
   <aside>

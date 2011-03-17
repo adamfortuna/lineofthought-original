@@ -1,6 +1,6 @@
 <ul class="tabs">
   <li class="sites-show site_tools-index"><%= link_to "Tools", site_tools_path(@site) %></li> 
-  <% if @site.articles_count > 0 %>
+  <% if @site.bookmarks_count > 0 %>
     <li class="sites-bookmarks"><a href="<%= bookmarks_site_path(@site)%>" class="bookmarks">Bookmarks</a></li> 
   <% end %>
   <% if @tool %>
@@ -8,8 +8,8 @@
   <% end %>
 
   <% if user_signed_in? %>
-    <% if current_user.claimed?(@site) %>
-      <li class="right site-edit"><%= link_to "Edit", edit_site_path(@site) %></li>
+    <% if current_user.claimed?(@site) || current_user.admin? %>
+      <li class="right sites-edit"><%= link_to "Edit", edit_site_path(@site) %></li>
       <li class="right site_tools-manage"><%= link_to "Manage Tools", manage_site_tools_path(@site) %></li>
     <% else %>
       <li class="right site_tools-manage"><%= link_to "Add Tools", manage_site_tools_path(@site) %></li>

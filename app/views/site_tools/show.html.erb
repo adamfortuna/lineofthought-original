@@ -9,7 +9,7 @@
     <ul class="usings sites single">
       <%= render :partial => 'usings/using_tool', :object => @using %>
     </ul>
-
+    <p class="main_message">Discuss how <strong><%= @site.title %></strong> is using <strong><%= @tool.name %></strong>.
     <%= render :partial => 'shared/disqus', :object => "site_#{@site.id}_tool_#{@tool.id}" %>
   </section>
 </section>

@@ -1,0 +1,30 @@
+<% title "Admin - List Delayed Jobs" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= page_entries_info @delayed_jobs %>
+    
+    <table>
+      <tr>
+        <th>Created At</th>
+        <th>Handler</th>
+        <th>Attempts</th>
+        <th>Last Error</th>
+      </tr>
+      <tbody>
+        <% @delayed_jobs.each do |job| %>
+          <tr>
+            <td><%= job.created_at %></td>
+            <td><%= truncate(job.handler[/method_name: :(.*)/, 1], :length => 40) %></td>
+            <td><%= job.attempts %></td>
+            <td><%= truncate(job.last_error, :length => 40) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @delayed_jobs %>
+  </section>
+</section>
+
+<%= render 'users/sidebar' %>

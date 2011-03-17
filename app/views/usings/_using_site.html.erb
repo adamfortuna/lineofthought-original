@@ -11,5 +11,5 @@
       <li><%= link_to "comments", site_tool_path(using_site.site, @tool), :class => "comments" %></li>
     </ul>
   </div>
-  <% unless using_site.description.blank? %><p><%= using_site.description %> <%= link_to "edit", manage_site_tools_path(using_site.site), :class => "manage_site_tools" %></p><% end %>
+  <% unless using_site.description.blank? %><p><%= using_site.description %></p><% end %>
 </li>

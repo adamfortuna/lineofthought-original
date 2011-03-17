@@ -1,0 +1,28 @@
+<% title "Admin - List Of Subscriptions" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= page_entries_info @subscriptions %>
+    
+    <table>
+      <tr>
+        <th>Created At</th>
+        <th>Email</th>
+        <th>Referrer</th>
+      </tr>
+      <tbody>
+        <% @subscriptions.each do |subscription| %>
+          <tr>
+            <td><%= subscription.created_at %></td>
+            <td><%= subscription.email %></td>
+            <td><%= subscription.referrer %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @subscriptions %>
+  </section>
+</section>
+
+<%= render 'users/sidebar' %>

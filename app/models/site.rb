@@ -13,13 +13,14 @@ class Site < ActiveRecord::Base
   has_many :tools, :through => :usings
   belongs_to :link
 
-  # Articles
+  # Bookmarks
   has_many :annotations, :as => :annotateable
-  has_many :articles, :through => :annotations
+  has_many :bookmarks, :through => :annotations
 
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
   scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
   scope :featured, where("alexa_global_rank < 2500 AND tools_count > 5").order("tools_count desc")
+  scope :highlighted, order('alexa_global_rank').where(["tools_count > ? AND alexa_global_rank IS NOT NULL AND description IS NOT NULL and description != ''", 3])
 
   before_validation :default_title_to_domain, :on => :create
 
@@ -70,10 +71,10 @@ class Site < ActiveRecord::Base
     end
   end
   
-  def update_articles!
+  def update_bookmarks!
     self.cached_articles = []
-    self.articles.each do |article|
-      self.cached_articles << { :id => article.id, :title => article.title}
+    self.bookmarks.recent.each do |bookmark|
+      self.cached_bookmarks << { :id => bookmark.id, :title => bookmark.title}
     end
     save
   end

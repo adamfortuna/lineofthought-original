@@ -1,9 +1,7 @@
 <section id="content" class="main">
   <section class="announcement">
     <p class="title">Discover what tools power the sites you visit</p>
-    <p>We're an <em>open resource</em> for what runs the web.
-      You can <%= link_to "see what tools a site uses", sites_path %>. 
-      Fill in what tools other sites are using or <%= link_to "add your own site", new_site_path %> or <%= link_to "tool", new_tool_path %>.</p>
+    <p>Fill in what tools other sites are using or <%= link_to "add your own site", new_site_path %> or <%= link_to "tool", new_tool_path %>.</p>
   </section>
     <ul class="sites">
       <%= render @sites %>
@@ -17,5 +15,7 @@
 </section>
 
 <sidebar>
-  <% cache("top-tools", :expires_in => 15.minutes) do %><%= render :partial => "layouts/sidebar/top_tools" %><% end %>
+  <% cache("featured_tools", :expires_in => 15.minutes) do %>
+    <%= render :partial => "tools/featured", :object => @featured if @featured && @featured.length > 0 %>
+  <% end %>
 </sidebar>

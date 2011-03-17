@@ -7,7 +7,8 @@ class SitesController < ApplicationController
   @@order = { "google" => "google_pagerank", 
               "alexa" => "coalesce(alexa_global_rank, 100000000)", 
               "tools" => "tools_count", 
-              "sitename" => "title"
+              "sitename" => "title",
+              "bookmarks" => "sites.bookmarks_count"
             }
 
   def index
@@ -20,7 +21,6 @@ class SitesController < ApplicationController
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
     @usings = @site.usings.includes(:tool).joins(:tool).order(:name)
-    @articles = @site.articles.recent(5)
     params[:sort] = "toolname"
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
@@ -73,12 +73,6 @@ class SitesController < ApplicationController
     render :json => sites
   end
 
-  def articles
-    @site = Site.find_by_cached_slug(params[:id])
-    @articles = @site.articles.order("created_at desc")
-                     .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 15)
-  end
-
   def destroy
     if @site.destroy
       flash[:notice] = "Delete successful"
@@ -91,7 +85,6 @@ class SitesController < ApplicationController
 
   def claim
     @site = Site.find_by_cached_slug(params[:id])
-    @articles = @site.articles.recent(5)
   end
 
   private

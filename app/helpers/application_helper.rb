@@ -40,6 +40,7 @@ module ApplicationHelper
       when 'google' then 'Google PageRank'
       when 'tools' then 'Tools Count'
       when 'jobs' then 'Jobs Count'
+      when 'bookmarks' then 'Bookmarks Count'
     end
   end
 end

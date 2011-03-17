@@ -21,7 +21,7 @@
       <%= render :partial => 'usings/using_tool', :collection => @usings %>
     </ul>
     <% else %>
-      <p>We don't know of any tools that <%= @site.title %> is using.</p>
+      <p class="main_message">We don't know of any tools used by <strong><%= @site.title %></strong>.</p>
     <% end %>
   </section>
 </section>

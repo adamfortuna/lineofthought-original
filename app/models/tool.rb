@@ -18,7 +18,7 @@ class Tool < ActiveRecord::Base
   
   # Bookmarks
   has_many :annotations, :as => :annotateable, :dependent => :destroy
-  has_many :articles, :through => :annotations
+  has_many :bookmarks, :through => :annotations
 
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :sources
@@ -27,7 +27,7 @@ class Tool < ActiveRecord::Base
   validates_uniqueness_of :url
   validate :validate_uri
 
-  scope :languages, :conditions => "buildables.category_id = categories.id AND categories.name='Programming Language'", :joins => { :buildables => :category }
+  scope :languages, :conditions => "buildables.category_id = categories.id AND categories.name='Programming Langauge'", :joins => { :buildables => :category }
   scope :featured, where("sites_count > 5").order("sites_count desc")
 
   serialize :cached_sites
@@ -109,10 +109,10 @@ class Tool < ActiveRecord::Base
     save!
   end
   
-  def update_articles!
-    self.cached_articles = []
-    self.articles.each do |article|
-      self.cached_articles << { :id => article.id, :title => article.title}
+  def update_bookmarks!
+    self.cached_bookmarks = []
+    self.bookmarks.recent.limit(5).each do |bookmark|
+      self.cached_bookmarks << { :id => bookmark.id, :title => bookmark.title}
     end
     save
   end

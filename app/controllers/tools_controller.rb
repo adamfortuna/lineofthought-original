@@ -5,7 +5,7 @@ class ToolsController < ApplicationController
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name",
-              "articles" => "tools.articles_count",
+              "bookmarks" => "tools.bookmarks_count",
               "jobs" => "tools.jobs_count" }
 
   def index
@@ -52,7 +52,12 @@ class ToolsController < ApplicationController
   
   # POST /tools/lookup
   def lookup
-    link = Link.find_or_create_by_url(params[:tool][:url])
+    link = Link.find_or_create_by_url(params[:tool][:url], true)
+    if !link.parsed
+      Timeout::timeout(20) do
+        link.load_by_url_without_delay
+      end
+    end
     respond_to do |format|
       format.js do
         if link.source
@@ -66,6 +71,8 @@ class ToolsController < ApplicationController
         end
       end
     end
+  rescue
+    render :js => ""    
   end
   
   def create
@@ -103,12 +110,6 @@ class ToolsController < ApplicationController
       flash[:error] = "There was a problem deleting this tool."
       redirect_to tool_path(@tool)
     end
-  end
-
-  def bookmarks
-    @tool = Tool.find_by_cached_slug(params[:id])
-    @articles = @tool.articles.order("created_at desc")
-                     .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 15)
   end
 
   private

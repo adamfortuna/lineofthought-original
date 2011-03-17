@@ -1,6 +1,6 @@
 <ul class="tabs">
   <li class="tools-show tool_sites-index"><%= link_to "Sites", tool_sites_path(@tool) %></li> 
-  <% if @tool.articles_count > 0 %><li><a href="<%= bookmarks_tool_path(@tool) %>" class="bookmarks">Bookmarks</a></li><% end %>
+  <% if @tool.bookmarks_count > 0 %><li><a href="<%= bookmarks_tool_path(@tool) %>" class="bookmarks">Bookmarks</a></li><% end %>
   <% if user_signed_in? %>
     <li class="right tools-edit"><%= link_to "Edit", edit_tool_path(@tool) %></li> 
     <li class="right tool_sites-manage"><%= link_to "Add sites", manage_tool_sites_path(@tool) %></li> 

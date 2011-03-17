@@ -1,0 +1,25 @@
+<sidebar>
+  <aside>
+    <h3>My Account</h3>
+    <ul class="lst">
+      <li><a href="#">My Sites</a></li>
+      <li><a href="#">My Tools</a></li>
+      <li><a href="#">My Bookmarks</a></li>
+    </ul>
+  </aside>
+  <% if current_user.admin? %>
+  <aside>
+    <h3>Admin</h3>
+    <ul class="lst">
+      <li><%= link_to "Delayed Job Queue (#{Delayed::Job.count})", admin_jobs_path %></li>
+      <li><%= link_to "Subscriptions (#{Subscription.count})", subscriptions_path %></li>
+    </ul>
+  </aside>  
+  <% else %>
+  <aside>
+    <h3>Delete My Account</h3>
+    <p>Unhappy? <%= link_to "Delete my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+    <p>Canceling your account will not remove your work. It'll de-associate it with you, and all traces of your identify will be erased.
+  </aside>
+  <% end %>
+</sidebar>
