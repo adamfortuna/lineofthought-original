@@ -142,6 +142,13 @@ class Tool < ActiveRecord::Base
     tool.description = link.description
     tool
   end
+  
+  def sites_hash
+    self.sites.collect do |site|
+      { "id" => site.id.to_s, "name" => "#{site.title} (#{site.url})"}
+    end
+  end
+  
 
   private
   def categories_changed?

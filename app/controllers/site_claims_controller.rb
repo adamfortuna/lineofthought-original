@@ -22,7 +22,7 @@ class SiteClaimsController < ApplicationController
     if current_user.claimed?(@site)
       redirect_to site_path(@site), :notice => "You've now claimed this site! You can now fully edit it's contents."
     else
-      flash[:error] = "We weren't able to verify this claim, please try again."
+      flash[:error] = "We weren't able to verify your claim, please try again."
       render :new
     end
   end

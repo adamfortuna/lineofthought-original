@@ -1,13 +1,4 @@
 <%= render 'show' %>
-
-<sidebar>
-  <aside>
-    <h3>Similar Tools</h3>
-    <div><p>Similar tools here...</p></div>
-  </aside>
-  
-  <% cache("featured_tools", :expires_in => 15.minutes) do %>
-    <%= render :partial => "tools/featured", :object => @featured if @featured.length > 0 %>
-  <% end %>
-  
-</sidebar>
+<% cache(["sidebar", @tool], :expires_in => 15.minutes) do %>
+  <%= render 'tools/show_sidebar' %>
+<% end %>

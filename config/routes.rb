@@ -6,18 +6,17 @@ Snaps::Application.routes.draw do
       get :autocomplete
       post :lookup
     end
-    member do
-      get :bookmarks, :books, :jobs
+    resources :sites, :controller => "tool_sites", :only => [:index, :new, :create] do
+      collection do
+        get :autocomplete, :manage
+      end
     end
-    resources :sites, :controller => "tool_sites", :only => [:index, :new, :create]
+    resources :bookmarks, :controller => "tool_bookmarks", :only => [:index]
   end
 
   resources :sites do
     collection do 
       get :autocomplete
-    end
-    member do
-      get :bookmarks
     end
     resources :claims, :controller => "site_claims", :only => [:new, :create]
     resources :tools, :controller => "site_tools", :only => [:index, :create, :show] do

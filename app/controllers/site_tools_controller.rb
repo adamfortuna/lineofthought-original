@@ -1,5 +1,5 @@
 class SiteToolsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :only => [:manage, :create]
   before_filter :load_record, :only => [:create, :manage, :autocomplete]
   respond_to :html, :json, :xml
 

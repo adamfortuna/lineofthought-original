@@ -9,7 +9,8 @@ class Link < ActiveRecord::Base
   serialize :cached_links
 
   has_one :source, :dependent => :destroy
-
+  has_one :site
+  has_one :tool
 
   composed_of :uri,
     :class_name => 'HandyUrl',
@@ -29,6 +30,7 @@ class Link < ActiveRecord::Base
       self.html = page.send(:html_body)
     end
     parse_html!
+    update_site_description
   rescue
     update_attribute(:parsed, true)
   end
@@ -59,7 +61,7 @@ class Link < ActiveRecord::Base
   end
   
   def self.find_or_create_by_url(url, skip_load = false)
-    handy_url = FriendlyUrl.new(url)
+    handy_url = HandyUrl.new(url)
     link = Link.where(["canonical = ? OR original_url = ?", handy_url.canonical, url])
     if link.empty?
       Link.create({:url => url, :skip_load => skip_load})
@@ -103,5 +105,11 @@ class Link < ActiveRecord::Base
   
   def skip_load?
     skip_load
+  end
+  
+  def update_site_description
+    if site && site.description.blank?
+      site.update_attribute(:description, self.description)
+    end
   end
 end

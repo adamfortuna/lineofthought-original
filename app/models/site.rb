@@ -11,6 +11,7 @@ class Site < ActiveRecord::Base
   
   has_many :usings
   has_many :tools, :through => :usings
+  belongs_to :link
 
   # Articles
   has_many :annotations, :as => :annotateable
@@ -77,6 +78,14 @@ class Site < ActiveRecord::Base
     save
   end
 
+  def self.create_from_url(url)
+    handy_url = HandyUrl.new(url)
+    site = where(["uid = ?", handy_url.uid])
+    return site.first.id unless site.blank?
+    site = Site.create(:url => url, :title => handy_url.full_uid.capitalize)
+    return site.id
+  end
+
   private
   
   def validate_uri
@@ -92,9 +101,9 @@ class Site < ActiveRecord::Base
     end
   end
   
-  after_save :create_or_update_link, :if => :url_changed?
+  after_validation :create_or_update_link, :if => :url_changed?
   def create_or_update_link
-    Link.find_or_create_by_url(url)
+    self.link = Link.find_or_create_by_url(url)
   end
   
   def default_title_to_domain

@@ -1,0 +1,66 @@
+<section>
+  <%= semantic_form_for Using.new, :as => Using.new, :url => tool_sites_path(@tool), :remote => true, :html => { :id => "new_using" } do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :site_id, :as => :string, :wrapper_html => { :class => "tokeninput" }, :label => "Site Name or URL", :hint => "Start typing a tool name, or type the complete name." %>
+      <li class="countdown"><span>140</span></li>
+      <%= form.input :description, :label => "How is this tool being used?", :as => :text, :required => false, :input_html => { :rows => 3 } %>
+      <%= form.commit_button :button_html => { :value => "add this tool", :class => "right" } %>
+    <% end %>
+  <% end %>
+  
+  <div>
+    <h3>Manage Tools used on <%= @tool.name %></h3>
+    <ul class="usings">
+      <%= render :partial => 'using', :collection => @usings %>
+    </ul>
+  </div>
+</section>
+
+<% javascript do %>
+var token_options = {
+    hintText: "Start typing the a site name or URL. If the URL doesn't exist, we'll automatically add it.",
+    noResultsText: "No sites found with the given URL. We'll try to add it anyways and create the site.",
+    allowNewValues: true,
+    canCreate: true,
+    tokenLimit: 1
+};
+
+
+$(function() {
+  $("#using_site_id").tokenInput('<%= autocomplete_tool_sites_path(@tool) %>', token_options).focus();
+  $("#using_description").keyup(function() {
+    var count = 140 - $(this).val().length;
+    $(".countdown span").html(count);
+    if(count < 0) { $(".countdown span").addClass("alert"); }
+    else { $(".countdown span").removeClass("alert"); }
+  });
+  
+  $('textarea.using_description').autoResize({
+      // On resize:
+      onResize : function() {
+          $(this).css({opacity:0.8});
+      },
+      // After resize:
+      animateCallback : function() {
+          $(this).css({opacity:1});
+      },
+      // Quite slow animation:
+      animateDuration : 300,
+      // More extra space:
+      extraSpace : 40
+  });
+  
+  $('.edit-in-place-edit').click(function() {
+    console.log("edit clicked");
+    $(this).parents('.edit-in-place').addClass('editing').find(".edit-in-place-cancel").show();
+    $(this).hide();
+    return false;
+  });
+
+  $('.edit-in-place-cancel, .edit-in-place-cancel a').click(function() {
+    $(this).parents('.edit-in-place').removeClass('editing').find(".edit-in-place-cancel").hide();
+    $(this).parents('.edit-in-place').find(".edit-in-place-edit").show();
+    return false;
+  });
+});
+<% end %>

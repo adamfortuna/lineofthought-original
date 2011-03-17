@@ -8,6 +8,7 @@ class ToolSitesController < ApplicationController
                    "jobs" => "jobs_count"
                  }
 
+  # GET /tools
   def index
     @tool = Tool.find_by_cached_slug(params[:tool_id])
     @usings = @tool.usings.joins(:site)
@@ -17,16 +18,48 @@ class ToolSitesController < ApplicationController
     respond_with [@tool, @usings]
   end
   
+  # GET /tools/new
   def new
     @tool = Tool.find_by_cached_slug(params[:tool_id])
+  end
+  
+  # GET /tools/:tool_id/sites/manage
+  def manage
+    @tool = Tool.find_by_cached_slug(params[:tool_id])
+    @usings = @tool.usings.all(:include => :site, :order => "sites.title")
+    respond_to do |format|
+      format.html
+      format.popup
+    end
   end
 
   # POST /tools/:tool_id/sites
   def create
     @tool = Tool.find_by_cached_slug(params[:tool_id])
-    @tool.add_sites!(params[:tool][:csv])
-    redirect_to new_tool_site_path(@tool), :notice => "We're processing your tools. They should be added soon!"
+    params[:using][:site_id] = Site.create_from_url(params[:using][:site_id]) unless params[:using][:site_id].to_i > 0
+    respond_to do |format|
+      format.js {
+        if @using = @tool.usings.create(params[:using].merge(:user_id => current_user.id))
+          render
+        else
+          render :js => "alert('problem');"
+        end
+      }
+    end   
   end
+  
+  # GET /tools/:tool_id/sites/autocomplete
+  def autocomplete
+    @tool = Tool.find_by_cached_slug(params[:tool_id])
+    tags = Site.limit(50)
+               .order('alexa_global_rank')
+               .select([:id, :title, :url])
+               .where(['sites.url LIKE ? OR sites.title LIKE ?', "#{params[:q]}%", "#{params[:q]}%"]).collect do |site|
+      { "name" => "#{site.title} (#{site.url})", "id" => site.id.to_s }
+    end.compact
+    render :json => (tags - @tool.sites_hash)
+  end
+  
 
   private
   def build_order

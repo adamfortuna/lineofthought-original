@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110316192859) do
+ActiveRecord::Schema.define(:version => 20110317032721) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20110316192859) do
     t.decimal  "lng",                            :precision => 15, :scale => 10
     t.integer  "jobs_count",                                                     :default => 0
     t.boolean  "has_favicon",                                                    :default => false
+    t.integer  "link_id"
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
@@ -241,6 +242,7 @@ ActiveRecord::Schema.define(:version => 20110316192859) do
     t.string   "keyword"
     t.boolean  "has_favicon",       :default => false
     t.string   "uid"
+    t.integer  "link_id"
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true

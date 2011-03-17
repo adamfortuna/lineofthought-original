@@ -13,7 +13,7 @@
       <li class="right site_tools-manage"><%= link_to "Manage Tools", manage_site_tools_path(@site) %></li>
     <% else %>
       <li class="right site_tools-manage"><%= link_to "Add Tools", manage_site_tools_path(@site) %></li>
-      <li class="right site_claims-new"><%= link_to "Claim", new_site_claim_path(@site) %></li>  
+      <li class="right site_claims-new site_claims-create"><%= link_to "Claim", new_site_claim_path(@site) %></li>  
     <% end %>
 
     <% if current_user.admin? %>

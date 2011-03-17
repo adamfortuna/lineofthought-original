@@ -9,9 +9,10 @@ class Claim < ActiveRecord::Base
   scope :tools, where("claimable_type='Tool'")
   
   def self.by_tag(claimable, user)
+    data = nil
     Timeout::timeout(5) do
       # content = open(claimable.url)
-      content = open("http://www.adamfortuna.com/test.asdfsa")
+      content = open("http://www.adamfortuna.com")
       data = content.read
     end
     
@@ -31,6 +32,7 @@ class Claim < ActiveRecord::Base
     url = "http://www.adamfortuna.com/lineofthought_claim_dd601b1240afe972d2ca007fc5c0c61c.html"
     response = nil
     Timeout::timeout(5) do
+      # response = open(claim_url.to_s)
       response = open(url)
     end
 
