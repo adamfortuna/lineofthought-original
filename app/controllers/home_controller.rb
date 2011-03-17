@@ -14,6 +14,6 @@ class HomeController < ApplicationController
   
   private 
   def redirect_if_signed_in!
-    redirect_to beta_path if session_exists?
+    redirect_to beta_path if user_signed_in?
   end
 end
