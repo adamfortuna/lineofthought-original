@@ -8,11 +8,11 @@ p.breadcrumbs {
   font-size: .8em; }
 
 a.add {
-  background: url(http://s.lineofthought.com.s3.amazonaws.com/images/icons/13-plus.png) no-repeat;
+  background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat;
   padding-left: 20px; }
 
 a.remove {
-  background: url(http://s.lineofthought.com.s3.amazonaws.com/images/icons/14-minus.png) no-repeat 0 7px;
+  background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat 0 7px;
   padding-left: 20px; }
 
 img.screenshot, .screenshot img {
@@ -112,7 +112,7 @@ ul.tabs a:hover {
   text-align: right; }
 
 #sorting p a {
-  background: url(http://s.lineofthought.com.s3.amazonaws.com/images/icons/13-plus.png) no-repeat right;
+  background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat right;
   display: block;
   width: 14px;
   height: 14px;
@@ -120,7 +120,7 @@ ul.tabs a:hover {
   margin-left: 10px; }
 
 #sorting p a.active {
-  background: url(http://s.lineofthought.com.s3.amazonaws.com/images/icons/14-minus.png) no-repeat right; }
+  background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat right; }
 
 #sorting ul.options {
   background-color: #F1F1F1;
