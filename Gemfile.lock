@@ -77,6 +77,9 @@ GEM
     geokit-rails3 (0.1.2)
       geokit (~> 1.5.0)
       rails (~> 3.0.0)
+    goalie (0.0.4)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     haml (3.0.25)
     hoptoad_notifier (2.4.7)
       activesupport
@@ -180,6 +183,7 @@ DEPENDENCIES
   formtastic (= 1.2.2)
   friendly_id
   geokit-rails3
+  goalie
   haml
   hoptoad_notifier
   mechanize
