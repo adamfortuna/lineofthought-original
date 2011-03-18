@@ -1,0 +1,3 @@
+clearTimeout(checkForLookup);
+$("#lookup_bookmark").hide();
+$("#edit_bookmark_form").html("<%= escape_javascript(render(:partial => 'form')) %>").show();

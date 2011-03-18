@@ -2,10 +2,17 @@
   <%= f.inputs do %>
     <%= f.input :url, :as => :string, :required => true, :label => "Bookmark URL" %>
     <%= f.input :title, :as => :string, :required => true, :label => "Site Title" %>
-    <%= f.input :description, :as => :text, :required => false, :label => "About this Site", :input_html => { :rows => 3 } %>
+    <%= f.input :description, :as => :text, :required => false, :label => "Bookmark Description", :input_html => { :rows => 3 } %>
     <%= f.input :tool_ids, :as => :string, :wrapper_html => { :class => "tokeninput inline-tokenlist" }, :label => "Tools Mentioned", :hint => "Start typing a tool name, or type the complete name.", :input_html => { :name => "bookmark[tool_ids][]" } %>
     <%= f.input :site_ids, :as => :string, :wrapper_html => { :class => "tokeninput inline-tokenlist" }, :label => "Sites Mentioned", :hint => "Start typing a site URL or site name.", :input_html => { :name => "bookmark[site_ids][]" } %>
   <% end %>
+  
+  <%= f.inputs do %>
+    <li>
+      This bookmark talks about how <select></select> is using <select></select>.
+    </li>
+  <% end %>
+
   <%= f.buttons do %>
     <%= f.commit_button %>
   <% end %>
@@ -14,12 +21,14 @@
 <% javascript do %>
 var site_token_options = {
     hintText: "Start typing the a site URL or site name.",
-    noResultsText: "No sites found. You can <a href='<%= new_site_path %>' target='_blank'>add a site</a> at anytime."
+    noResultsText: "No sites found. You can <a href='<%= new_site_path %>' target='_blank'>add a site</a> at anytime.",
+    initialValues: <%= raw @bookmark.sites_for_display.to_json %>
 };
 var tool_token_options = {
     hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
     noResultsText: "No tools found. Check out our <a href='#' class='defaultOptions'>popular tools</a>.",
-    defaultOptions: <%= raw Tool.for_autocomplete.to_json %>
+    defaultOptions: <%= raw Tool.for_autocomplete.to_json %>,
+    initialValues: <%= raw @bookmark.tools_for_display.to_json %>
 };
 $(function() {
   $("#bookmark_tool_ids").tokenInput('<%= autocomplete_tools_path %>', tool_token_options).focus();

@@ -52,9 +52,9 @@ class Favicon < ActiveRecord::Base
   
   after_save :update_associated_items, :if => :favicon_file_name_changed?
   def update_associated_items
-    Site.update_all "has_favicon=1", ["uid = ?", uid]
-    Tool.update_all "has_favicon=1", ["uid = ?", uid]
-    Link.update_all "has_favicon=1", ["uid = ?", uid]
+    Site.update_all "has_favicon=true", ["uid = ?", uid]
+    Tool.update_all "has_favicon=true", ["uid = ?", uid]
+    Link.update_all "has_favicon=true", ["uid = ?", uid]
   end
   
 end

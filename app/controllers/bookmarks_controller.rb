@@ -13,14 +13,20 @@ class BookmarksController < ApplicationController
   # GET /bookmarks/new
   def new
     params[:bookmark] ||= {}
-    @bookmark ||= Bookmark.new(:url => params[:bookmark][:url], :title => params[:bookmark][:title])
+    url = params[:bookmark][:url]
+    if url
+      @link = Link.find_or_create_by_url(url)
+      @bookmark = Bookmark.new_from_link(@link)
+    else
+      @bookmark = Bookmark.new(params[:bookmark])
+    end
   end
 
   # POST /bookmarks/lookup
   def lookup
-    link = Link.find_or_create_by_url(params[:tool][:url], true)
+    link = Link.find_or_create_by_url(params[:bookmark][:url], true)
     if !link.parsed
-      Timeout::timeout(20) do
+      Timeout::timeout(5) do
         link.load_by_url_without_delay
       end
     end
@@ -29,7 +35,7 @@ class BookmarksController < ApplicationController
         if link.source
           render :js => "alert('already exists');"
         elsif link.parsed?
-          @tool = Tool.new_from_link(link)
+          @bookmark = Bookmark.new_from_link(link)
           render :lookup_complete
         else
           render :js => ""

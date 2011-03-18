@@ -80,6 +80,23 @@ class Link < ActiveRecord::Base
   end
   memoize :categories
 
+  def tools
+    tool_keywords = cached_keywords.collect do |keyword|
+      keyword[0] if known_tool_keywords.include?(keyword[0])
+    end.compact
+    return [] if tool_keywords.blank?
+    Tool.where(["tools.keyword IN (?)", tool_keywords])
+  end
+  memoize :tools
+  
+  def sites
+    uids = cached_links.collect do |url|
+      HandyUrl.new(url).uid
+    end
+    return [] if uids.empty?
+    Site.where(["uid IN (?)", uids])
+  end
+
   private
 
   def known_category_keywords
@@ -94,6 +111,19 @@ class Link < ActiveRecord::Base
     end
   end
   memoize :known_category_keywords
+
+  def known_tool_keywords
+    Rails.cache.fetch("known_tool_keywords", :expires_in => 1.hour) do
+      all_keywords = []
+      Tool.find_in_batches(:conditions => "keyword IS NOT NULL", :select => :keyword) do |tools|
+        tools.each do |tool|
+          all_keywords << tool.keyword
+        end
+      end
+      all_keywords
+    end
+  end
+  memoize :known_tool_keywords
 
   before_validation :set_urls, :if => :url_changed?
   def set_urls
