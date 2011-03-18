@@ -29,14 +29,12 @@
   </aside>
   <% end %>
   
-  <% cache("featured_tools", :expires_in => 15.minutes) do %>
-    <%= render :partial => "tools/featured", :object => @featured if @featured.length > 0 %>
-  <% end %>
+  <%= render :partial => "tools/featured" %>
   
   
   <aside>
     <h3>Add a Tool</h3>
-    <% if user_signed_in? %>
+    <% if logged_in? %>
       <p>Can't find something you use?<br/><%= link_to "Add a Tool", new_tool_path %></p>
       <p>Add a tool from anywhere using this bookmarklet. Drag this to your bookmarks bar.
         <br/>

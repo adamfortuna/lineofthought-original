@@ -49,6 +49,7 @@ Snaps::Application.routes.draw do
   match '/admin_data' => "admin_data/home#index"
   namespace :admin do
     resources :jobs, :only => [:index]
+    resources :users, :only => [:index]
     resource :home
   end
   match '/admin' => 'admin/home#index'

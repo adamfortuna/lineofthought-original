@@ -1,4 +1,2 @@
 <%= render 'show' %>
-<% cache(["sidebar", @tool], :expires_in => 15.minutes) do %>
-  <%= render 'tools/show_sidebar' %>
-<% end %>
+<%= render 'tools/show_sidebar' %>

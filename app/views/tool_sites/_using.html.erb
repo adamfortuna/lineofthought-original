@@ -1,6 +1,6 @@
 <li class="edit-in-place group ind using" id="using_<%= using.id %>" data-id="<%= using.id %>">
   <h4><%= link_to using.site.title, using.site %></h4>
-  <% if current_user.claimed?(@tool) || using.user_id == current_user.id || current_user.admin? %>
+  <% if current_user.claimed_tool?(@tool) || using.user_id == current_user.id || current_user.admin? %>
     <ul class="actions">
       <li><%= link_to "edit", "#", :class => "edit-in-place-edit" %></li>
       <li class="edit-in-place-cancel"><%= link_to "cancel", "#" %></li>

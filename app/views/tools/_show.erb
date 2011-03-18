@@ -1,12 +1,7 @@
 <% title "List of sites using #{@tool.name}" %>
 
-<% cache(["show", @tool], :expires_in => 15.minutes) do %>
 <section id="content" class="main tool">
-  <% cache(["header", @tool], :expires_in => 15.minutes) do %>
-    <%= render 'header' %>
-  <% end %>
+  <%= render 'header' %>
   <%= render 'tools/nav' %>
-  
   <%= render :partial => "sites", :object => @usings %>
 </section>
-<% end %>

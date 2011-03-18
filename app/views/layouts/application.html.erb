@@ -14,9 +14,9 @@
       <span>Tracking what the web uses!</span>
     </hgroup>
     <ul id="current_user">
-      <% if user_signed_in? %>
+      <% if logged_in? %>
         <li><%= link_to raw("<strong>Logout</strong>"), destroy_user_session_path %></li>
-        <li><a href="<%= edit_registration_path(current_user) %>"><strong>Account</strong></a></li>
+        <li><a href="/users/edit"><strong>Account</strong></a></li>
       <% else %>
         <li><a href="<%= new_user_session_path %>"><strong>Sign In</strong></a></li>
         <li><a href="<%= new_user_registration_path %>"><strong>Sign Up</strong></a></li>

@@ -1,9 +1,7 @@
 <% title "List of sites using #{@tool.name}" %>
 
 <section id="content" class="main tool">
-  <% cache(["full", @tool], :expires_in => 15.minutes) do %>
-    <%= render 'header' %>
-  <% end %>
+  <%= render 'header' %>
   
   <ul class="tabs">
     <li><a href="<%= tool_path(@tool) %>" class="sites">Sites</a></li> 

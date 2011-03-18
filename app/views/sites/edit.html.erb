@@ -9,7 +9,4 @@
     <%= render 'form' %>
   </section>
 </section>
-
-<% cache(["sidebar", @site]) do %>
-  <%= render 'sites/show_sidebar' %>
-<% end %>
+<%= render 'sites/show_sidebar' %>

@@ -24,7 +24,7 @@
 <sidebar>
   <aside>
     <h3>Add a Site</h3>
-    <% if user_signed_in? %>
+    <% if logged_in? %>
       <p>Want to add your own site?<br/><%= link_to "Add a Site", new_site_path %></p>
       <p>Add a site from anywhere using this bookmarklet. Drag this to your bookmarks bar.
         <br/>
@@ -36,7 +36,5 @@
     <% end %>
   </aside>
   
-  <% cache("featured_sites", :expires_in => 15.minutes) do %>
-    <%= render :partial => "sites/featured", :object => @featured if @featured.length > 0 %>
-  <% end %>
+  <%= render :partial => "sites/featured" %>
 </sidebar>

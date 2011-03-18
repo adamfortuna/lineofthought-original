@@ -1,10 +1,8 @@
 <sidebar>
-  <% cache("featured_tools", :expires_in => 15.minutes) do %>
-    <%= render :partial => "tools/featured", :object => @featured if @featured && @featured.length > 0 %>
-  <% end %>
+  <%= render :partial => "tools/featured" %>
   <%= render :partial => "bookmarks/related", :object => @tool.cached_bookmarks if (@tool.bookmarks_count.size > 0) && @tool.cached_bookmarks && @tool.cached_bookmarks > 0 %>
   <%= render :partial => "tools/similar", :object => @similar_tools if @similar_tools %>  
-  <% if user_signed_in? %>
+  <% if logged_in? %>
   <aside>
     <h3>Add an Bookmark</h3>
     <p>Know of a blog post or video about <%= @tool.name %>?</p>

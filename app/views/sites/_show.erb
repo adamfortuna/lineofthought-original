@@ -1,10 +1,8 @@
 <% title "Tools used by #{@site.title}" %>
 <section id="content" class="main site">
-  <% cache(["header", @site]) do %>
-    <%= render 'sites/header' %>
-  <% end %>
+  <%= render 'sites/header' %>
   <%= render 'sites/nav' %>
-  
+
   <section class="tab">
     <% if @site.tools_count > 0 %>
     <div class="title_bar group">

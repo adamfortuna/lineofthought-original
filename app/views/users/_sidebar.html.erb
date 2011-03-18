@@ -13,6 +13,7 @@
     <ul class="lst">
       <li><%= link_to "Delayed Job Queue (#{Delayed::Job.count})", admin_jobs_path %></li>
       <li><%= link_to "Subscriptions (#{Subscription.count})", subscriptions_path %></li>
+      <li><%= link_to "Users (#{User.count})", admin_users_path %></li>
     </ul>
   </aside>  
   <% else %>

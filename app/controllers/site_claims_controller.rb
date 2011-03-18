@@ -5,7 +5,7 @@ class SiteClaimsController < ApplicationController
 
   # GET /sites/:site_id/claims/new
   def new
-    @articles = @site.articles.recent(5)
+    #@articles = @site.articles.recent(5)
   end
 
   # POST /sites/:site_id/claims
@@ -19,7 +19,7 @@ class SiteClaimsController < ApplicationController
       Claim.by_file(@site, current_user)
     end
     
-    if current_user.claimed?(@site)
+    if current_user.claimed_site?(@site)
       redirect_to site_path(@site), :notice => "You've now claimed this site! You can now fully edit it's contents."
     else
       flash[:error] = "We weren't able to verify your claim, please try again."

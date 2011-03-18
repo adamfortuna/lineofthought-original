@@ -1,0 +1,28 @@
+<% title "Admin - List Users" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= page_entries_info @users %>
+    
+    <table>
+      <tr>
+        <th>Created At</th>
+        <th>Username</th>
+        <th>Email</th>
+      </tr>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.created_at %></td>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @users %>
+  </section>
+</section>
+
+<%= render 'users/sidebar' %>

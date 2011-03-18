@@ -9,12 +9,6 @@
   <%= render :partial => "tools/sites", :object => @usings %>
 </section>
 
-
-<sidebar>
-  <aside>
-    <h3>Admin Options</h3>
-    <ul class="lst">
-      <li><%= link_to "edit", edit_tool_path(@tool) %></li>
-    </ul>
-  </aside>
-</sidebar>
+<% cache(["sidebar", @tool], :expires_in => 15.minutes) do %>
+  <%= render 'tools/show_sidebar' %>
+<% end %>

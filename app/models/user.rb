@@ -27,18 +27,38 @@ class User < ActiveRecord::Base
   end
 
   def update_cached_site_claims!
-    update_attribute(:cached_site_claims, claims.sites.select(:claimable_id).collect(&:claimable_id))
+    cached_site_claims = []
+    claims.includes(:claimable).each do |claim|
+      cached_site_claims << claim.claimable.id
+      cached_site_claims << claim.claimable.cached_slug
+    end
+    save
   end
 
   def update_cached_tool_claims!
-    update_attribute(:cached_tool_claims, claims.tools.select(:claimable_id).collect(&:claimable_id))
+    cached_tool_claims = []
+    claims.includes(:claimable).each do |claim|
+      cached_tool_claims << claim.claimable.id
+      cached_tool_claims << claim.claimable.cached_slug
+    end
+    save
   end
 
-  def claimed?(object)
+  def claimed_site?(object)
+    return false if cached_site_claims.nil? || cached_site_claims.empty?
     if object.is_a?(Site)
-      cached_site_claims && cached_site_claims.include?(object.id)
-    elsif object.is_a?(Site)
-      cached_tool_claims && cached_tool_claims.include?(object.id)
+      cached_site_claims.include?(object.id)
+    elsif
+      cached_site_claims.include?(object)
+    end
+  end
+
+  def claimed_tool?(object)
+    return false if cached_tool_claims.nil? || cached_tool_claims.empty?
+    if object.is_a?(Tool)
+      cached_tool_claims.include?(object.id)
+    elsif object_type == 'Tool'
+      cached_tool_claims.include?(object)
     end
   end
   

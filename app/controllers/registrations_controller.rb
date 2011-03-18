@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   private
-  
+    
   def build_resource(*args)
     super
     if session[:omniauth]

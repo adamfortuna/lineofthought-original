@@ -19,7 +19,7 @@ class Site < ActiveRecord::Base
 
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
   scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
-  scope :featured, where("alexa_global_rank < 2500 AND tools_count > 5").order("tools_count desc")
+  scope :featured, where("alexa_global_rank < 2500 AND tools_count > 3").order("tools_count desc")
   scope :highlighted, order('alexa_global_rank').where(["tools_count > ? AND alexa_global_rank IS NOT NULL AND description IS NOT NULL and description != ''", 3])
 
   before_validation :default_title_to_domain, :on => :create

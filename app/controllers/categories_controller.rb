@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   respond_to :html, :json, :xml
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 15.minutes
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name" }

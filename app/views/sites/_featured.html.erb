@@ -1,8 +1,10 @@
+<% cache("featured_sites", :expires_in => 15.minutes) do %>
 <aside class="admin">
   <h3>Featured Sites</h3>
   <ul class="lst">
-    <% featured.each do |site| %>
+    <% Site.featured.limit(5).each do |site| %>
       <li><a href="<%= site_path(site) %>"><% if site.has_favicon? %><img src="<%= site.full_favicon_url %>" class="favicon" /><% end %><em><%= pluralize(site.tools_count, "tool") %></em><%= truncate(site.title, :length => 80) %></a></li>
     <% end %>
   </ul>
 </aside>
+<% end %>

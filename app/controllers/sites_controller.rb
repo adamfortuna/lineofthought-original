@@ -3,6 +3,8 @@ class SitesController < ApplicationController
   before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_site_tools, :only => [:new]
   respond_to :html, :json, :xml
+  caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 15.minutes
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_site?(params[:id])) ? true : false) ) }, :expires_in => 15.minutes
 
   @@order = { "google" => "google_pagerank", 
               "alexa" => "coalesce(alexa_global_rank, 100000000)", 
@@ -14,7 +16,6 @@ class SitesController < ApplicationController
   def index
     @sites = Site.order(build_order)
                  .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 10)
-    @featured = Site.featured.limit(5)
     respond_with(@sites)
   end
 
