@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110317053739) do
+ActiveRecord::Schema.define(:version => 20110318194158) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(:version => 20110317053739) do
     t.integer  "bookmark_id"
     t.text     "description"
   end
+
+  create_table "bookmark_connections", :force => true do |t|
+    t.datetime "created_at"
+    t.integer  "bookmark_id"
+    t.integer  "using_id"
+  end
+
+  add_index "bookmark_connections", ["bookmark_id"], :name => "index_bookmark_connections_on_bookmark_id"
+  add_index "bookmark_connections", ["using_id"], :name => "index_bookmark_connections_on_using_id"
 
   create_table "bookmarks", :force => true do |t|
     t.datetime "created_at"
@@ -31,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20110317053739) do
     t.text     "cached_sites"
     t.text     "cached_connections"
     t.boolean  "has_favicon",        :default => false
+    t.integer  "link_id"
+    t.string   "cached_slug"
   end
 
   create_table "buildables", :force => true do |t|
@@ -280,8 +291,10 @@ ActiveRecord::Schema.define(:version => 20110317053739) do
     t.datetime "updated_at"
     t.integer  "tool_id"
     t.text     "description"
-    t.integer  "site_id",     :null => false
+    t.integer  "site_id",                         :null => false
     t.integer  "user_id"
+    t.text     "cached_bookmarks"
+    t.integer  "bookmarks_count",  :default => 0
   end
 
   add_index "usings", ["site_id", "user_id"], :name => "index_usings_on_site_id_and_user_id"

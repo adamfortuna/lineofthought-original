@@ -1,6 +1,5 @@
 class BookmarksController < ApplicationController
   before_filter :load_or_redirect_by_url, :only => [:new]
-  before_filter :load_or_url, :only => [:edit, :update]
   respond_to :html, :json, :xml
 
   # GET /bookmarks
@@ -57,10 +56,24 @@ class BookmarksController < ApplicationController
       redirect_to @bookmark
     end
   end
+
+  def edit
+    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+  end
   
   def show
     @bookmark = Bookmark.find_by_cached_slug(params[:id])
     respond_with(@bookmark)
+  end
+  
+  def sites
+    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+    respond_with([@bookmark, @bookmark.sites, @bookmark.usings])
+  end
+
+  def tools
+    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+    respond_with([@bookmark, @bookmark.tools, @bookmark.usings])
   end
 
   private

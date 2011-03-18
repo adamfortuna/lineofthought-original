@@ -32,6 +32,7 @@ class Site < ActiveRecord::Base
 
   delegate :host, :path, :port, :domain, :full_uid, :to => :uri
   serialize :cached_tools
+  serialize :cached_bookmarks
     
   def update_ranks!
     ranks = PageRankr.ranks(url, :alexa, :google) #=> {:alexa=>{:us=>1, :global=>1}, :google=>10}
@@ -72,7 +73,7 @@ class Site < ActiveRecord::Base
   end
   
   def update_bookmarks!
-    self.cached_articles = []
+    self.cached_bookmarks = []
     self.bookmarks.recent.each do |bookmark|
       self.cached_bookmarks << { :id => bookmark.id, :title => bookmark.title}
     end

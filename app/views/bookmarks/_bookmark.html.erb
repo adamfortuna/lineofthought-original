@@ -1,25 +1,23 @@
-<% cache(["partial", article], :expires_in => 15.minutes) do %>
-<li class="article group ind">
+<li class="bookmark group ind">
   <div class="details">
     <div class="title">
-      <h4><%= link_to article.title, article %></h4>
-      <%= content_tag(:p, truncate(article.description, :length => 140)) unless article.description.blank? %>
+      <h4><%= link_to bookmark.title, bookmark %></h4>
+      <%= content_tag(:p, truncate(bookmark.description, :length => 140)) unless bookmark.description.blank? %>
     </div>
   
     <div class="content">
-      <% if article.sites_count > 0 %>
+      <% if bookmark.sites_count > 0 %>
         <ul class="sites">
-          <%= raw article_sites(article) %>
-          <% if article.sites_count > 2 %>
-            <li><%= link_to "#{pluralize(article.sites_count-2, 'more sites')}", article %></li>
+          <%= raw bookmark_sites(bookmark) %>
+          <% if bookmark.sites_count > 2 %>
+            <li><%= link_to "#{pluralize(bookmark.sites_count-2, 'more sites')}", bookmark %></li>
           <% end %>
         </ul>
       <% end %>
   
       <ul class="categories">
-        <%= raw article_tools(article) %>
+        <%= raw bookmark_tools(bookmark) %>
       </ul>
     </div>
   </div>
 </li>
-<% end %>

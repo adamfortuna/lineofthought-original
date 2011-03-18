@@ -117,6 +117,9 @@ ul.sites li.ind .title h4 {
 ul.usings li.ind .title h4 {
   width: 300px; }
 
+ul.bookmarks li.ind.bookmark .title h4 {
+  width: 100%; }
+
 /* sites#show, tools#show */
 section.tool section.tab ul.sites, section.sites section.tab ul.tools {
   position: relative; }

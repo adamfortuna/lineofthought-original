@@ -1,0 +1,20 @@
+<% title "Bookmarks about #{@site.title}" %>
+<section id="content" class="main site">
+  <%= render 'sites/header' %>
+  <%= render 'sites/nav' %>
+
+  <section class="tab">
+    <% if @site.bookmarks_count > 0 %>
+    <div class="title_bar group">
+      <h3>We know of <strong><%= pluralize(@site.bookmarks_count, "bookmark") %></strong> featuring <strong><%= @site.title %></strong></h3>
+    </div>
+    <ul class="bookmarks usings sites tools">
+      <%= render @site.bookmarks %>
+    </ul>
+    <% else %>
+      <p>We don't know of any bookmarks mentioning <%= @site.title %>.</p>
+    <% end %>
+  </section>
+</section>
+
+<%= render 'sites/show_sidebar' %>

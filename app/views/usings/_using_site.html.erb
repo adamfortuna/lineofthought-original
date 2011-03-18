@@ -8,7 +8,7 @@
         <% end %>
         <%= raw site_tools(using_site.site) %>
       <% end %>
-      <li><%= link_to "comments", site_tool_path(using_site.site, @tool), :class => "comments" %></li>
+      <li><%= link_to "comments", site_tool_path(using_site.site, using_site.tool), :class => "comments" %></li>
     </ul>
   </div>
   <% unless using_site.description.blank? %><p><%= using_site.description %></p><% end %>

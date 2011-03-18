@@ -1,0 +1,18 @@
+<div class="tool group ind">
+  <div class="details">
+    <div class="title">
+      <h4><%= link_to @bookmark.title, @bookmark.url, :target => "_blank", :rel => "nofollow" %></h4>
+      <%= content_tag(:p, @bookmark.description) unless @bookmark.description.blank? %>
+      <%= content_tag(:p, link_to(@bookmark.url, @bookmark.url, :target => "_blank", :rel => "nofollow")) %>
+    </div>
+
+    <div class="content tools">
+      <ul class="sites">
+        <%= raw bookmark_sites(@bookmark, 1000) %>
+      </ul>
+      <ul class="categories">
+        <%= raw bookmark_tools(@bookmark, 1000) %>
+      </ul>
+    </div>
+  </div>
+</div>

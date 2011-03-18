@@ -3,7 +3,7 @@
     <h4><a href="<%= tool_path(using_tool.tool) %>"><% if using_tool.tool.has_favicon? %><img src="<%= using_tool.tool.full_favicon_url %>"   class="favicon" /><% end %><%= using_tool.tool.name%></a></h4>
     <ul class="categories">
       <%= raw tool_categories(using_tool.tool) %>
-      <li><%= link_to "comments", site_tool_path(@site, using_tool.tool), :class => "comments" %></li>
+      <li><%= link_to "comments", site_tool_path(using_tool.site, using_tool.tool), :class => "comments" %></li>
     </ul>
   </div>
   <% unless using_tool.description.blank? %><p><%= using_tool.description %></p><% end %>

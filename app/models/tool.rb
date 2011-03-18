@@ -33,6 +33,7 @@ class Tool < ActiveRecord::Base
   serialize :cached_sites
   serialize :cached_categories
   serialize :cached_language
+  serialize :cached_bookmarks
 
   before_save :update_cached_categories, :if => :categories_changed?
   before_save :update_sites_cached_tools, :if => :name_changed?
@@ -45,7 +46,7 @@ class Tool < ActiveRecord::Base
   delegate :host, :path, :port, :domain, :full_uid, :uid, :to => :uri
 
   def self.for_autocomplete(count = 20)
-    order('sites_count desc').limit(count).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name} (#{t.sites_count})", "description" => "(#{t.combined_category_names.join(", ")})"}}
+    order('sites_count desc').limit(count).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name}#{" (#{t.cached_language[:name]})" if t.cached_language}", "description" => "(#{t.combined_category_names.join(", ")})"}}
   end
   
   def combined_category_names

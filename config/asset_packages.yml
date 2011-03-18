@@ -4,6 +4,7 @@ javascripts:
   - jquery/jquery.tokeninput
   - jquery/autoresize.jquery.min
   - rails
+  - handlebars-0.9.0.pre.4
   - application
 stylesheets: 
 - all: 

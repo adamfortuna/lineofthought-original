@@ -1,0 +1,13 @@
+<% title "Bookmark - Tools listed on #{@bookmark.title}" %>
+
+<section id="content" class="main tool">
+  <%= render 'header' %>
+  <%= render 'nav' %>
+
+  <section class="tab">
+    <ul class="usings tools">
+      <%= render :partial => 'usings/using_tool', :collection => @bookmark.bookmark_connections.collect(&:using) %>
+    </ul>
+  </section>
+</section>
+<%= render 'show_sidebar' %>

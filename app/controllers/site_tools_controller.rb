@@ -5,7 +5,7 @@ class SiteToolsController < ApplicationController
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name",
-              "articles" => "tools.articles_count",
+              "bookmarks" => "tools.bookmarks_count",
               "jobs" => "tools.jobs_count" }
 
   # GET /sites/:site_id/tools

@@ -122,29 +122,25 @@ dl dd {margin-bottom: 0em}
 dd {margin-left: 0.5em}
 li {line-height: 1.4}
 ol ol, ol ul, ul ul, ul ol {margin-left: 1em}
- ul.token-input-list {overflow: hidden; height: auto !important; height: 1%; width: 99%; border: 1px solid #999; cursor: text; font-size: 16px; font-family: Verdana; z-index: 999; margin: 0; padding: 0; background-color: #fff}
-ul.token-input-list li {list-style-type: none; margin: 5px 5px 0px 0; padding: 2px 0}
-ul.token-input-list li input {border: 0; width: 300px; padding: 3px 8px; background-color: white}
-ul.token-input-list li.token-input-token {overflow: hidden; height: auto !important; height: 1%; margin: 0px; padding: 3px 5px; color: #eee; font-weight: normal; cursor: default; display: block; background-color: #5670A6; font-size: 12px}
-ul.token-input-list li.token-input-input-token {padding: 0; margin: 0}
-ul.token-input-list li.token-input-input-token input {padding: 3px 5px; margin: 5px 5px 0px 0}
-li.token-input-token p {float: left; padding: 0 0 4px 0; margin: 0 10px; font-size: 16px}
-li.token-input-token span {float: right; color: #bbb; cursor: pointer; padding-right: 10px}
-li.token-input-selected-token {background-color: #eff2f7; color: #fff}
-li.token-input-selected-token span {color: #bbb}
-div.token-input-dropdown {position: absolute; width: 99%; background-color: #fff; overflow: hidden; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; cursor: default; font-size: 16px; font-family: Verdana; z-index: 1}
-div.token-input-dropdown p {margin: 0; padding: 5px; font-weight: bold; color: #777; font-size: 14px}
+ ul.token-input-list {overflow: hidden; height: auto !important; height: 1%; border: 1px solid #888; width: 98%; cursor: text; font-size: 12px; font-family: Verdana; min-height: 1px; z-index: 999; margin: 0; padding: 0; background-color: #fff}
+ul.token-input-list {list-style-type: none}
+ul.token-input-list li input {border: 0; width: 100px; padding: 3px 8px; background-color: white; margin: 2px 0}
+li.token-input-token {overflow: hidden; height: auto !important; height: 1%; margin: 3px; padding: 1px 3px; background-color: #eff2f7; color: #000; cursor: default; border: 1px solid #ccd5e4; font-size: 11px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; float: left}
+li.token-input-token p {display: inline; padding: 0; margin: 0}
+li.token-input-token span {color: #a6b3cf; margin-left: 5px; font-weight: bold; cursor: pointer}
+li.token-input-selected-token {background-color: #5670a6; border: 1px solid #3b5998; color: #fff}
+li.token-input-input-token {float: left}
+div.token-input-dropdown {position: absolute; width: 98%; background-color: #fff; overflow: hidden; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; cursor: default; font-size: 11px; font-family: Verdana; z-index: 1}
+div.token-input-dropdown p {margin: 0; padding: 5px; font-weight: bold; color: #777}
 div.token-input-dropdown ul {margin: 0; padding: 0}
-div.token-input-dropdown ul li {background-color: #fff; padding: 5px; list-style-type: none; margin: 0}
-div.token-input-dropdown ul li.token-input-dropdown-item {background-color: #fafafa}
+div.token-input-dropdown ul li {background-color: #fff; padding: 3px}
+div.token-input-dropdown ul li.token-input-dropdown-item {background-color: #fff}
 div.token-input-dropdown ul li.token-input-dropdown-item2 {background-color: #fff}
-div.token-input-dropdown ul li em {font-weight: bold; font-style: normal}
-div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #5670A6; color: #eee}
-.inline-tokenlist ul.token-input-list li input {width: 200px}
-.inline-tokenlist ul.token-input-list li.token-input-token {float: left}
+div.token-input-dropdown ul li em {font-weight: bold; font-style: none}
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #3b5998; color: #fff}
 body {font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background: #222}
 body.popup {background-color: #E3E3E3}
-.container {max-width: 1100px; margin: 0 auto; position: relative; height: 100%}
+.container {max-width: 1024px; margin: 0 auto; position: relative; height: 100%}
 body.popup .container {max-width: 600px}
 .group:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
 ul {list-style: none; margin: 0; padding: 0}
@@ -154,7 +150,7 @@ ul {list-style: none; margin: 0; padding: 0}
 #title p a span {color: #68aff3; font-size: 100%}
 #title p a:hover span {color: #4B81B4}
 #title span {font-size: 2em; color: #9c9c9c}
- nav {display: block; position: absolute; right: 0; bottom: 0; width: 800px}
+ nav {display: block; position: absolute; right: 0; bottom: 0; width: 724px}
 nav ul {float: right}
 nav ul li {float: left}
 nav ul li a:link, nav ul li a:visited {display: block; background-color: #68aff3; color: #fff}
@@ -166,7 +162,7 @@ nav ul li a:hover {background-color: #4b81b4}
  section, aside {display: block}
 #main {background-color: #E3E3E3; color: #1B1B1B; padding: 2em 0}
 #content, #content_with_nav, sidebar aside {background-color: #fff; padding: .6em; border: 1px solid #ccc}
- #content {width: 800px; float: left; padding: 1em}
+ #content {width: 724px; float: left; padding: 1em}
 body.popup #content {width: 550px}
 #content_with_nav {width: 670px; float: left; min-height: 500px; margin-left: -1px}
 #content_with_nav.no_sidebar {margin-left: 4px}
@@ -234,7 +230,7 @@ ul.tabs a:hover {background-color: #fff}
 * html .pagination {height: 1%}
 *:first-child + html .pagination {overflow: hidden}
 div.disqus_wrapper {padding: 1em; font-size: 1.4em}
-body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited, body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited, body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited, body.site_tools-manage li.site_tools-manage a:link, body.site_tools-manage li.site_tools-manage a:visited, body.tools-show li.tools-show a:link, body.tools-show li.tools-show a:visited, body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited, body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited, body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited, body.site_claims-create li.site_claims-create a:link, body.site_claims-create li.site_claims-create a:visited, body.tool_sites-manage li.tool_sites-manage a:link, body.tool_sites-manage li.tool_sites-manage a:visited, body.sites-edit li.sites-edit a:link, body.sites-edit li.sites-edit a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
+body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited, body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited, body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited, body.site_tools-manage li.site_tools-manage a:link, body.site_tools-manage li.site_tools-manage a:visited, body.tools-show li.tools-show a:link, body.tools-show li.tools-show a:visited, body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited, body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited, body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited, body.site_claims-create li.site_claims-create a:link, body.site_claims-create li.site_claims-create a:visited, body.tool_sites-manage li.tool_sites-manage a:link, body.tool_sites-manage li.tool_sites-manage a:visited, body.sites-edit li.sites-edit a:link, body.sites-edit li.sites-edit a:visited, body.bookmarks-show li.bookmarks-show a:link, body.bookmarks-show li.bookmarks-show a:visited, body.bookmarks-edit li.bookmarks-edit a:link, body.bookmarks-edit li.bookmarks-edit a:visited, body.bookmarks-sites li.bookmarks-sites a:link, body.bookmarks-sites li.bookmarks-sites a:visited, body.bookmarks-tools li.bookmarks-tools a:link, body.bookmarks-tools li.bookmarks-tools a:visited, body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bookmarks a:visited, body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
  form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
 form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
 form.formtastic fieldset ol li.nolabel label {display: none}
@@ -292,6 +288,7 @@ a.favicon {width: 16px; height: 16px; float: left; padding-right: 8px}
 a.favicon img {margin: 0; width: 16px; height: 16px}
 ul.sites li.ind .title h4 {width: 590px}
 ul.usings li.ind .title h4 {width: 300px}
+ul.bookmarks li.ind.bookmark .title h4 {width: 100%}
  section.tool section.tab ul.sites, section.sites section.tab ul.tools {position: relative}
 .sites .tools li a, .tools .sites li a {display: block; padding: .3em; margin-right: .4em; font-size: 1.2em}
 .sites .tools, .tools .sites {margin: .4em 0}

@@ -5,6 +5,7 @@ class ToolsController < ApplicationController
 
   caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
   caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 2.minutes
+  caches_action :autocomplete, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name",
@@ -98,9 +99,9 @@ class ToolsController < ApplicationController
   def autocomplete
     tags = Tool.limit(50)
                .order('sites_count DESC')
-               .select([:id, :name, :sites_count])
+               .select([:id, :name, :sites_count, :cached_language])
                .where(['tools.name LIKE ?', "#{params[:q]}%"]).collect do |tool|
-      { "name" => "#{tool.name} (#{tool.sites_count})", "id" => tool.id.to_s }
+      { "name" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", "id" => tool.id.to_s }
     end
     render :json => tags
   end
@@ -113,6 +114,11 @@ class ToolsController < ApplicationController
       flash[:error] = "There was a problem deleting this tool."
       redirect_to tool_path(@tool)
     end
+  end
+
+  def bookmarks
+    @tool = Tool.find_by_cached_slug!(params[:id])
+    @bookmarks = @tool.bookmarks
   end
 
   private

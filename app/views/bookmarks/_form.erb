@@ -3,14 +3,16 @@
     <%= f.input :url, :as => :string, :required => true, :label => "Bookmark URL" %>
     <%= f.input :title, :as => :string, :required => true, :label => "Site Title" %>
     <%= f.input :description, :as => :text, :required => false, :label => "Bookmark Description", :input_html => { :rows => 3 } %>
-    <%= f.input :tool_ids, :as => :string, :wrapper_html => { :class => "tokeninput inline-tokenlist" }, :label => "Tools Mentioned", :hint => "Start typing a tool name, or type the complete name.", :input_html => { :name => "bookmark[tool_ids][]" } %>
+    <%= f.input :tool_ids, :as => :string, :wrapper_html => { :class => "tokeninput row-list" }, :label => "Tools Mentioned", :hint => "Start typing a tool name, or type the complete name.", :input_html => { :name => "bookmark[tool_ids][]" } %>
     <%= f.input :site_ids, :as => :string, :wrapper_html => { :class => "tokeninput inline-tokenlist" }, :label => "Sites Mentioned", :hint => "Start typing a site URL or site name.", :input_html => { :name => "bookmark[site_ids][]" } %>
   <% end %>
   
   <%= f.inputs do %>
-    <li>
-      This bookmark talks about how <select></select> is using <select></select>.
-    </li>
+    <div id="new_connection">
+      <p>This bookmark talks about how <select id="site_connection"></select> is using <select id='tool_connection'></select>.
+        <a href="#" id="add_connection">Add</a></p>
+      <ul id="connections"></ul>
+    </div>
   <% end %>
 
   <%= f.buttons do %>
@@ -26,12 +28,58 @@ var site_token_options = {
 };
 var tool_token_options = {
     hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
-    noResultsText: "No tools found. Check out our <a href='#' class='defaultOptions'>popular tools</a>.",
+    noResultsText: "No tools found. You can <a href='<%= new_tool_path %>' target='_blank'>add a tool</a> at anytime.",
     defaultOptions: <%= raw Tool.for_autocomplete.to_json %>,
     initialValues: <%= raw @bookmark.tools_for_display.to_json %>
 };
 $(function() {
   $("#bookmark_tool_ids").tokenInput('<%= autocomplete_tools_path %>', tool_token_options).focus();
-  $("#bookmark_site_ids").tokenInput('<%= autocomplete_sites_path %>', site_token_options)
+  $("#bookmark_site_ids").tokenInput('<%= autocomplete_sites_path %>', site_token_options);
+  update_tool_connection();
+  update_site_connection();
+  
+  $("#add_connection").click(function(){
+    var source = "<li class='connection-{{site.id}}-{{tool.id}}'><strong>{{site.name}}</strong> is using <strong>{{tool.name}}</strong>." +
+                 "<input type='hidden' name='bookmark[usings][{{val}}][site_id]' value='{{site.id}}'>" + 
+                 "<input type='hidden' name='bookmark[usings][{{val}}][tool_id]' value='{{tool.id}}'>" + 
+                 " <a href='#' onclick='$(this).parent().remove();return false;'>remove</a>";
+    var template = Handlebars.compile(source);
+    var data = { "tool": { "name": $("#tool_connection option:selected").html(), "id": $("#tool_connection").val() },
+                 "site": { "name": $("#site_connection option:selected").html(), "id": $("#site_connection").val()} };
+    var result = template(data);
+    var identifier = ".connection-"+data["site"]["id"]+"-"+data["tool"]["id"];
+    if($(identifier).length > 0) {
+      alert("Already added");
+    } else {
+      $("#connections").append(result);
+    }
+    return false;
+  });
 });
+
+function update_tool_connection() {
+  var source = "{{#tools}}<option value='{{id}}'>{{name}}</option>{{/tools}}";
+  var template = Handlebars.compile(source);
+
+  var ids = $("#bookmark_tool_ids").val().split(",");
+  var data = { "tools" : [] };
+  $("#bookmark_tool_ids_input li.token-input-token p").each(function(i) {
+    data["tools"].push({ "name": $(this).html(), "id": ids[i] });
+  });
+  var result = template(data);
+  $("#tool_connection").html(result);
+}
+
+function update_site_connection() {
+  var source = "{{#sites}}<option value='{{id}}'>{{name}}</option>{{/sites}}";
+  var template = Handlebars.compile(source);
+
+  var ids = $("#bookmark_site_ids").val().split(",");
+  var data = { "sites" : [] };
+  $("#bookmark_site_ids_input li.token-input-token p").each(function(i) {
+    data["sites"].push({ "name": $(this).html(), "id": ids[i] });
+  });
+  var result = template(data);
+  $("#site_connection").html(result);
+}
 <% end %>
