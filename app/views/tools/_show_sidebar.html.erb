@@ -1,6 +1,6 @@
 <sidebar>
   <%= render :partial => "tools/featured" %>
-  <%= render :partial => "bookmarks/related", :object => @tool.cached_bookmarks if (@tool.bookmarks_count.size > 0) && @tool.cached_bookmarks && @tool.cached_bookmarks > 0 %>
+  <%= render :partial => "bookmarks/related", :object => @tool.cached_bookmarks if (@tool.bookmarks_count > 0) && @tool.cached_bookmarks %>
   <%= render :partial => "tools/similar", :object => @similar_tools if @similar_tools %>  
   <% if logged_in? %>
   <aside>
