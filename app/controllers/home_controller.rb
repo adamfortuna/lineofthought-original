@@ -11,7 +11,11 @@ class HomeController < ApplicationController
     @sites = Site.highlighted.limit(5)
   end
   def subscribed; end
-  
+
+  def fail
+    Aasdfa
+  end
+
   private 
   def redirect_if_signed_in!
     redirect_to beta_path if user_signed_in?

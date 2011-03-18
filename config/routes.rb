@@ -43,6 +43,7 @@ Snaps::Application.routes.draw do
   match '/new' => 'home#new', :as => 'new'
   match '/beta' => 'home#beta', :as => 'beta'
   match '/about' => 'home#about', :as => 'about'
+  match '/fail' => 'home#fail', :as => 'fail'
   
 
   # Admin related
