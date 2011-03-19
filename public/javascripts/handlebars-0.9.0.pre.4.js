@@ -634,7 +634,7 @@ Handlebars.SafeString.prototype.toString = function() {
   };
 
   var badChars = /&(?!\w+;)|[<>]/g;
-  var possible = /[&<>]/
+  var possible = /[&<>]/;
 
   var escapeChar = function(chr) {
     return escape[chr] || "&amp;"
