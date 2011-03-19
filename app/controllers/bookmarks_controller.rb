@@ -23,15 +23,23 @@ class BookmarksController < ApplicationController
 
   # POST /bookmarks/lookup
   def lookup
-    link = Link.find_or_create_by_url(params[:bookmark][:url], true)
-    if !link.parsed
-      Timeout::timeout(5) do
-        link.load_by_url_without_delay
+    params[:bookmark] ||= {}
+    url = params[:bookmark][:url]
+    if url
+      link = Link.find_or_create_by_url(url, true)
+      if !link.parsed
+        Timeout::timeout(5) do
+          link.load_by_url_without_delay
+        end
       end
+    else
+      link = nil
     end
     respond_to do |format|
       format.js do
-        if link.source
+        if link.nil?
+          render :js => "alert('must provide a link');"
+        elsif link.source
           render :js => "alert('already exists');"
         elsif link.parsed?
           @bookmark = Bookmark.new_from_link(link)
