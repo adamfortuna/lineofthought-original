@@ -12,4 +12,5 @@
     </ul>
   </div>
   <% unless using_site.description.blank? %><p><%= using_site.description %></p><% end %>
+  <%= raw using_bookmarks(using_site) if using_site.bookmarks_count > 0 %>
 </li>

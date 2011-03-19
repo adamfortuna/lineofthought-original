@@ -16,12 +16,14 @@ class Using < ActiveRecord::Base
   serialize :cached_bookmarks
   
   def update_cached_bookmarks!
-    cached_bookmarks = []
-    cached_bookmarks = bookmarks.order("created_at desc").limit(5).collect do |bookmark|
+    self.cached_bookmarks = []
+    self.cached_bookmarks = bookmarks.order("created_at desc").limit(5).collect do |bookmark|
       { :title => bookmark.title, 
         :description => bookmark.description, 
+        :param => bookmark.cached_slug,
         :id => bookmark.id }
     end
+    save
   end
 
   private

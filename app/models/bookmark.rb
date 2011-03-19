@@ -4,8 +4,8 @@ class Bookmark < ActiveRecord::Base
 
   validates_presence_of :title, :url
   
-  has_many :annotations
-  has_many :bookmark_connections
+  has_many :annotations, :dependent => :destroy
+  has_many :bookmark_connections, :dependent => :destroy
   has_many :usings, :through => :bookmark_connections
   belongs_to :link
 
@@ -14,6 +14,8 @@ class Bookmark < ActiveRecord::Base
   serialize :cached_connections
   
   scope :recent, lambda { |n=5| order("created_at desc").limit(n) }
+
+  before_destroy :update_remote_caches!
 
   attr_accessor :tools, :sites, :usings
 
@@ -52,6 +54,10 @@ class Bookmark < ActiveRecord::Base
       annotations.where(["annotateable_type=?", 'Tool']).select(:annotateable_id).collect(&:annotateable_id)
     end
   end
+  
+  def tools
+    annotations.where(["annotateable_type=?", 'Tool']).select(:annotateable_id).includes(:tool).collect(&:tool)
+  end
   # 
   # def tools=(tools)
   #   self.tool_ids = tools.collect(&:id)
@@ -59,16 +65,15 @@ class Bookmark < ActiveRecord::Base
   # 
   def tool_ids=(ids)
     transaction do
-      if new_record?
-        self.annotations = []
-        self.cached_tools = []
-      else
+      self.cached_tools = []
+      if !new_record?
         annotations.where(["annotateable_type=? AND annotateable_id NOT IN (?)", 'Tool', ids]).each do |annotation|
           annotation.destroy
         end
       end
       Tool.where(["id IN (?)", ids]).each  do |tool|
         self.annotations.build({:annotateable => tool}) unless has_tool?(tool.id)
+        self.cached_tools << { :id => tool.id, :name => tool.name, :param => tool.cached_slug }
       end
     end
   end
@@ -78,7 +83,7 @@ class Bookmark < ActiveRecord::Base
   end
 
   def site_ids
-    annotations.where(["annotateable_type=?", 'Site']).select(:annotateable_id).collect(&:annotateable_id)
+    annotations.where(["annotateable_type=?", 'Site']).collect(&:annotateable_id)
   end
   
   def sites_for_display
@@ -86,15 +91,18 @@ class Bookmark < ActiveRecord::Base
       { :name => "#{site.title} (#{site.url})", :id => site.id.to_s }
     end
   end
-  
-  
+
   def site_ids=(ids)
     transaction do
-      annotations.where(["annotateable_type=? AND annotateable_id NOT IN (?)", 'Site', ids]).each do |annotation|
-        annotation.destroy
+      self.cached_sites = []
+      if !new_record?
+        annotations.where(["annotateable_type=? AND annotateable_id NOT IN (?)", 'Site', ids]).each do |annotation|
+          annotation.destroy
+        end
       end
       Site.where(["id IN (?)", ids]).each  do |site|
         self.annotations.build({:annotateable => site}) unless has_site?(site.id)
+        self.cached_sites << { :id => site.id, :name => site.title, :param => site.cached_slug }
       end
     end
   end
@@ -115,21 +123,30 @@ class Bookmark < ActiveRecord::Base
     cached_sites ? (cached_sites.count { |site| site[:id] == id } > 0) : false
   end
   
-  def update_caches
-    self.cached_tools = []
-    self.cached_sites = []
-    self.cached_connections = []
-    annotations.includes(:annotateable).each do |annotation|
-      if annotation.annotateable_type == "Tool"
-        self.cached_tools << { :id => annotation.annotateable.id, :name => annotation.annotateable.name, :param => annotation.annotateable.cached_slug }
-      else
-        self.cached_sites << { :id => annotation.annotateable.id, :name => annotation.annotateable.title, :param => annotation.annotateable.cached_slug }
-      end
-    end
+  def sites
+    annotations.where(["annotateable_type=?", 'Site']).includes(:site).collect(&:site)
   end
   
-  def update_caches!
-    update_caches
-    save
+  # def update_caches
+  #   self.cached_tools = []
+  #   self.cached_sites = []
+  #   self.cached_connections = []
+  #   annotations.includes(:annotateable).each do |annotation|
+  #     if annotation.annotateable_type == "Tool"
+  #       self.cached_tools << { :id => annotation.annotateable.id, :name => annotation.annotateable.name, :param => annotation.annotateable.cached_slug }
+  #     else
+  #       self.cached_sites << { :id => annotation.annotateable.id, :name => annotation.annotateable.title, :param => annotation.annotateable.cached_slug }
+  #     end
+  #   end
+  # end
+  # 
+  # def update_caches!
+  #   update_caches
+  #   save
+  # end
+  
+  def update_remote_caches!
+    sites.collect(&:update_bookmarks!)
+    tools.collect(&:update_bookmarks!)
   end
 end

@@ -4,10 +4,13 @@ class Annotation < ActiveRecord::Base
 
   validates_uniqueness_of :bookmark_id, :scope => [:annotateable_id, :annotateable_type]
   after_create :update_caches
+  after_destroy :update_annotateable_cache!
 
   private
   def update_caches
     annotateable.update_bookmarks!
-    bookmark.update_caches!
+  end
+  def update_annotateable_cache!
+    annotateable.update_bookmarks!    
   end
 end

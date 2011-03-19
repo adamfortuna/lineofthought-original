@@ -23,7 +23,7 @@ class ToolsController < ApplicationController
   
   def show
     @tool = Tool.find_by_cached_slug!(params[:id])
-    @usings = @tool.usings.joins(:site).includes(:site).order("coalesce(alexa_global_rank, 100000000)").paginate(:page => 1, :per_page => 25)
+    @usings = @tool.usings.joins(:site).includes([:site, :tool]).order("coalesce(alexa_global_rank, 100000000)").paginate(:page => 1, :per_page => 25)
     @featured = Tool.featured.limit(5)
     params[:sort] = "alexa"
     respond_with @tool

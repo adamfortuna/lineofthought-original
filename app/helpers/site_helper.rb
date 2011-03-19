@@ -25,4 +25,18 @@ module SiteHelper
     return nil unless bookmark.cached_tools
     bookmark.cached_tools.sample(count).collect { |tool| "<li><a href='/tools/#{tool[:param]}'>#{tool[:name]}</a></li>" }.join
   end
+  
+  def using_bookmarks(using, count=2)
+    return "" unless using.cached_bookmarks
+    
+    content_tag :ul  do
+      raw(
+        using.cached_bookmarks.collect do |bookmark|
+          content_tag :li do
+            link_to bookmark[:title], "/bookmarks/#{bookmark[:param]}"
+          end
+        end.join
+      )
+    end
+  end
 end

@@ -22,7 +22,7 @@ class SitesController < ApplicationController
 
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
-    @usings = @site.usings.includes(:tool).joins(:tool).order(:name)
+    @usings = @site.usings.includes([:tool, :site]).joins(:tool).order(:name)
     params[:sort] = "toolname"
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound

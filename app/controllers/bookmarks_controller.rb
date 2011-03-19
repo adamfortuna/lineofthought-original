@@ -76,6 +76,16 @@ class BookmarksController < ApplicationController
     respond_with([@bookmark, @bookmark.tools, @bookmark.usings])
   end
 
+  def destroy
+    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+    if @bookmark.destroy
+      redirect_to bookmarks_path, :notice => "This bookmark was removed."
+    else
+      flash[:error] = "There was a problem removing this bookmark."
+      redirect_to @bookmark
+    end
+  end
+
   private
   def load_record; end
   

@@ -75,7 +75,7 @@ class Site < ActiveRecord::Base
   def update_bookmarks!
     self.cached_bookmarks = []
     self.bookmarks.recent.each do |bookmark|
-      self.cached_bookmarks << { :id => bookmark.id, :title => bookmark.title}
+      self.cached_bookmarks << { :id => bookmark.id, :title => bookmark.title, :param => bookmark.cached_slug }
     end
     save
   end

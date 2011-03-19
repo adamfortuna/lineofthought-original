@@ -7,4 +7,5 @@
     </ul>
   </div>
   <% unless using_tool.description.blank? %><p><%= using_tool.description %></p><% end %>
+  <%= raw using_bookmarks(using_tool) if using_tool.bookmarks_count > 0 %>
 </li>
