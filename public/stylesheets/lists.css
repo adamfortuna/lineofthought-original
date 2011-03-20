@@ -21,9 +21,6 @@ ul.categories, ul.sites, ul.tools, ul.usings {
   border-top: 1px solid #ccc;
   padding: 1em 0; }
 
-.ind:hover {
-  background-color: #efefef; }
-
 div.ind:hover {
   background-color: #fff; }
 
@@ -34,6 +31,9 @@ div.ind {
 div.ind h2 {
   width: 640px;
   float: left; }
+
+.ind a:hover {
+  text-decoration: underline; }
 
 .ind a.screenshot {
   float: left;
@@ -95,7 +95,7 @@ div.ind h2 {
 
 .ind .title p, .ind .title h4 {
   clear: none;
-  width: 540px; }
+  width: 525px; }
 
 ul.sites li.ind:last-child, ul.usings li.ind:last-child {
   border-bottom: 1px solid #ccc; }
@@ -280,7 +280,7 @@ ul.usings li.ind:hover a.comments {
 ul.usings li.ind ul.tools, ul.usings li.ind ul.categories {
   min-height: 0;
   margin: 0;
-  min-width: 400px;
+  max-width: 400px;
   float: right;
   position: relative; }
 
@@ -309,3 +309,13 @@ ul.usings li.ind p a.manage_site_tools {
 ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child {
   border-top: none;
   border-bottom: 1px solid #ccc; }
+
+ul.usings ul.bookmarks {
+  clear: both; }
+
+ul.usings ul.bookmarks li {
+  border-bottom: 1px solid #e7e7e7;
+  padding: 4px 0; }
+
+ul.usings ul.bookmarks li:last-child {
+  border-bottom: none; }

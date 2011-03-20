@@ -29,7 +29,7 @@ module SiteHelper
   def using_bookmarks(using, count=2)
     return "" unless using.cached_bookmarks
     
-    content_tag :ul  do
+    content_tag :ul, :class => "bookmarks"  do
       raw(
         using.cached_bookmarks.collect do |bookmark|
           content_tag :li do

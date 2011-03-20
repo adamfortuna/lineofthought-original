@@ -17,7 +17,7 @@ class Bookmark < ActiveRecord::Base
 
   before_destroy :update_remote_caches!
 
-  attr_accessor :tools, :sites, :usings
+  attr_accessor :tools, :sites, :using_params
 
   def self.new_from_link(link)
     Bookmark.new({ :url => link.url,
@@ -28,17 +28,23 @@ class Bookmark < ActiveRecord::Base
                    :sites => link.sites })
   end
 
-  after_save :create_usings, :if => :has_usings?
+  after_save :create_usings, :if => :has_new_usings?
   def create_usings
-    self.usings.each do |using|
-      found_using = Using.find(:first, :conditions => ["tool_id = ? AND site_id = ?", using["tool_id"], using["site_id"]])
-      found_using = Using.create({ :tool_id => using["tool_id"], :site_id => using["site_id"] }) if !found_using
-      self.bookmark_connections.create({:using => found_using})
+    new_using_ids = self.using_params.collect { |u| u["using_id"].to_i }.compact
+    self.bookmark_connections.each do |connection|
+      connection.destroy if new_using_ids.include?(connection.using_id)
+    end
+    self.using_params.each do |using|
+      if using["tool_id"] && using["site_id"]
+        new_using = Using.find(:first, :conditions => ["tool_id = ? AND site_id = ?", using["tool_id"], using["site_id"]])
+        new_using = Using.create({ :tool_id => using["tool_id"], :site_id => using["site_id"] }) if !new_using
+        self.bookmark_connections.create({:using => new_using})
+      end
     end
   end
 
-  def has_usings?
-    !self.usings.nil?
+  def has_new_usings?
+    !self.using_params.nil?
   end
 
   def tools_for_display
@@ -56,7 +62,7 @@ class Bookmark < ActiveRecord::Base
   end
   
   def tools
-    annotations.where(["annotateable_type=?", 'Tool']).select(:annotateable_id).includes(:tool).collect(&:tool)
+    annotations.where(["annotateable_type=?", 'Tool']).includes(:annotateable).collect(&:annotateable)
   end
   # 
   # def tools=(tools)
@@ -72,7 +78,9 @@ class Bookmark < ActiveRecord::Base
         end
       end
       Tool.where(["id IN (?)", ids]).each  do |tool|
-        self.annotations.build({:annotateable => tool}) unless has_tool?(tool.id)
+        if !annotations.exists?(["annotateable_type=? AND annotateable_id = ?", 'Tool', tool.id])
+          self.annotations.build({:annotateable => tool})
+        end
         self.cached_tools << { :id => tool.id, :name => tool.name, :param => tool.cached_slug }
       end
     end
@@ -101,7 +109,9 @@ class Bookmark < ActiveRecord::Base
         end
       end
       Site.where(["id IN (?)", ids]).each  do |site|
-        self.annotations.build({:annotateable => site}) unless has_site?(site.id)
+        if !annotations.exists?(["annotateable_type=? AND annotateable_id = ?", 'Site', site.id])
+          self.annotations.build({:annotateable => site}) unless has_site?(site.id)
+        end
         self.cached_sites << { :id => site.id, :name => site.title, :param => site.cached_slug }
       end
     end
@@ -124,7 +134,7 @@ class Bookmark < ActiveRecord::Base
   end
   
   def sites
-    annotations.where(["annotateable_type=?", 'Site']).includes(:site).collect(&:site)
+    annotations.where(["annotateable_type=?", 'Site']).collect(&:annotateable)
   end
   
   # def update_caches

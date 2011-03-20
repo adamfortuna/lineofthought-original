@@ -2,7 +2,7 @@
   <h3>Related Bookmark</h3>
   <ul class="lst">
     <% related.each do |bookmark| %>
-      <li><%= link_to truncate(bookmark[:title], :length => 40), bookmark %></li>
+      <li><%= link_to truncate(bookmark[:title], :length => 40), "/bookmarks/#{bookmark[:param]}" %></li>
     <% end %>
   </ul>
 </aside>

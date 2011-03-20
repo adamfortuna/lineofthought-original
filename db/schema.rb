@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110319174120) do
+ActiveRecord::Schema.define(:version => 20110320171918) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
     t.integer  "bookmark_id"
     t.text     "description"
   end
+
+  create_table "articles", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.text     "url"
+    t.text     "description"
+    t.text     "cached_tools"
+    t.text     "cached_sites"
+    t.text     "cached_connections"
+    t.string   "cached_slug"
+    t.boolean  "has_favicon",        :default => false
+  end
+
+  add_index "articles", ["cached_slug"], :name => "index_articles_on_cached_slug"
+  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
 
   create_table "bookmark_connections", :force => true do |t|
     t.datetime "created_at"
@@ -92,6 +108,16 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
   add_index "delayed_jobs", ["locked_by"], :name => "delayed_jobs_locked_by"
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "emails", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "email"
+    t.string   "name"
+    t.string   "claim_code"
+    t.boolean  "confirmed",  :default => false
+  end
+
   create_table "favicons", :force => true do |t|
     t.string   "url"
     t.string   "uid"
@@ -102,6 +128,10 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
   end
 
   add_index "favicons", ["uid"], :name => "index_favicons_on_uid"
+
+  create_table "importances", :force => true do |t|
+    t.string "importance"
+  end
 
   create_table "invites", :force => true do |t|
     t.string   "code"
@@ -133,8 +163,6 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
     t.integer  "views_count"
   end
 
-  add_index "jobs", ["lat", "lng"], :name => "index_jobs_on_lat_and_lng"
-
   create_table "links", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -159,6 +187,21 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
   end
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"
+
+  create_table "open_id_authentication_associations", :force => true do |t|
+    t.integer "issued"
+    t.integer "lifetime"
+    t.string  "handle"
+    t.string  "assoc_type"
+    t.binary  "server_url"
+    t.binary  "secret"
+  end
+
+  create_table "open_id_authentication_nonces", :force => true do |t|
+    t.integer "timestamp",  :null => false
+    t.string  "server_url"
+    t.string  "salt",       :null => false
+  end
 
   create_table "owners", :force => true do |t|
     t.datetime "created_at"
@@ -213,7 +256,6 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
     t.datetime "created_at"
   end
 
-  add_index "slugs", ["name", "sluggable_type", "sequence", "scope"], :name => "index_slugs_on_n_s_s_and_s", :unique => true
   add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
 
   create_table "sources", :force => true do |t|
@@ -259,13 +301,24 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
   add_index "tools", ["name"], :name => "index_tools_on_name"
   add_index "tools", ["sites_count"], :name => "index_tools_on_sites_count"
 
+  create_table "usables", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "usable_id"
+    t.integer  "tool_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.integer  "importance_id"
+    t.string   "usable_type"
+  end
+
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "email",                                              :null => false
+    t.string   "encrypted_password",   :limit => 128,                :null => false
+    t.string   "password_salt",                                      :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
@@ -299,6 +352,7 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
     t.integer  "bookmarks_count",  :default => 0
   end
 
+  add_index "usings", ["site_id", "tool_id"], :name => "index_usings_on_site_id_and_tool_id"
   add_index "usings", ["site_id", "user_id"], :name => "index_usings_on_site_id_and_user_id"
   add_index "usings", ["site_id"], :name => "index_usings_on_site_id"
   add_index "usings", ["tool_id"], :name => "index_usings_on_tool_id"
@@ -311,6 +365,5 @@ ActiveRecord::Schema.define(:version => 20110319174120) do
   end
 
   add_index "workables", ["job_id"], :name => "index_workables_on_job_id"
-  add_index "workables", ["workable_type", "workable_id"], :name => "index_workables_on_workable_type_and_workable_id"
 
 end

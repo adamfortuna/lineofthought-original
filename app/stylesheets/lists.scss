@@ -8,10 +8,10 @@ ul.categories, ul.sites, ul.tools, ul.usings { list-style:none; margin:1em; min-
 
 /* Lists of sites or tools */
 .ind { border-top:1px solid #ccc; padding:1em 0; }
-.ind:hover { background-color:#efefef; }
 div.ind:hover { background-color:#fff; }
 div.ind { border:none; margin: .2em 1em 1em 1em; }
 div.ind h2 { width:640px; float:left; }
+.ind a:hover { text-decoration:underline; }
 .ind a.screenshot { float:left; margin-right:24px; width:110px; height:100px; max-width:110px; max-height:100px; }
 .ind a.screenshot img { max-height:95px; max-width:120px;}
 .ind .title { min-height:66px; margin-left:0px; }
@@ -26,7 +26,7 @@ div.ind h2 { width:640px; float:left; }
 .ind ul.count li.links a { background-color:#FFA500; }
 .ind ul.count li.links a:hover { background-color:#ccA500; }
 .ind p { font-size:1.4em; clear:left; }
-.ind .title p, .ind .title h4 { clear:none; width:540px; }
+.ind .title p, .ind .title h4 { clear:none; width:525px; }
 ul.sites li.ind:last-child, ul.usings li.ind:last-child { border-bottom:1px solid #ccc; }
 a.favicon { width:16px; height:16px; float:left; padding-right:8px; }
 a.favicon img { margin:0; width:16px; height:16px; }
@@ -97,7 +97,7 @@ ul.usings li.ind:hover h4 span.url { display:inline; margin-left:1em; }
 ul.usings li.ind h4 img.favicon { margin:0 .5em 0 0; }
 ul.usings li.ind a.comments { float:right; display:none; }
 ul.usings li.ind:hover a.comments { display:block; }
-ul.usings li.ind ul.tools, ul.usings li.ind ul.categories { min-height:0; margin:0; min-width:400px; float:right; position:relative;}
+ul.usings li.ind ul.tools, ul.usings li.ind ul.categories { min-height:0; margin:0; max-width:400px; float:right; position:relative;}
 ul.usings li.ind ul.tools li, ul.usings li.ind ul.categories li { float:right;}
 ul.usings li.ind ul.tools li a, ul.usings li.ind ul.categories li a { margin:0 0 0 .4em; }
 ul.usings li.ind ul.tools li a.comments, ul.usings li.ind ul.categories li a.comments { background-color:#ff0; }
@@ -108,3 +108,7 @@ ul.usings li.ind p a.manage_site_tools { display:none; }
 
 
 ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child { border-top:none; border-bottom:1px solid #ccc; }
+
+ul.usings ul.bookmarks { clear:both; }
+ul.usings ul.bookmarks li { border-bottom:1px solid #e7e7e7; padding:4px 0; }
+ul.usings ul.bookmarks li:last-child { border-bottom:none; }

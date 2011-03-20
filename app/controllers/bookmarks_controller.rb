@@ -68,20 +68,20 @@ class BookmarksController < ApplicationController
   def edit
     @bookmark = Bookmark.find_by_cached_slug(params[:id])
   end
+
+  def update
+    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+    if @bookmark.update_attributes(params[:bookmark])
+      redirect_to @bookmark, :notice => "This bookmark was updated."
+    else
+      flash[:error] = "There was an error updating this bookmark"
+      render :edit
+    end
+  end
   
   def show
     @bookmark = Bookmark.find_by_cached_slug(params[:id])
     respond_with(@bookmark)
-  end
-  
-  def sites
-    @bookmark = Bookmark.find_by_cached_slug(params[:id])
-    respond_with([@bookmark, @bookmark.sites, @bookmark.usings])
-  end
-
-  def tools
-    @bookmark = Bookmark.find_by_cached_slug(params[:id])
-    respond_with([@bookmark, @bookmark.tools, @bookmark.usings])
   end
 
   def destroy

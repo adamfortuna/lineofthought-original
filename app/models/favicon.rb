@@ -8,7 +8,7 @@ class Favicon < ActiveRecord::Base
                     },
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root}/config/s3.yml",
-                    :path => "/favicons/:uid.:style.:extension"
+                    :path => "/favicons/:uid/:uid.:style.:extension"
   validates_presence_of :url
 
   composed_of :uri,

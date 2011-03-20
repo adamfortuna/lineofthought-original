@@ -7,7 +7,12 @@
 
 
   <section class="tab">
-    <p class="main_message">Discuss this bookmark</strong>.
+    <ul class="usings sites tools">
+      <%= render :partial => 'usings/using_site', :collection => @bookmark.bookmark_connections.collect(&:using) %>
+      <%= render :partial => 'usings/using_tool', :collection => @bookmark.bookmark_connections.collect(&:using) %>
+    </ul>
+    
+    
     <%= render :partial => 'shared/disqus', :object => "bookmark_#{@bookmark.id}" %>
   </section>
 </section>

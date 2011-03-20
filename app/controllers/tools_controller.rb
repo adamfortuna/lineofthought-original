@@ -15,7 +15,7 @@ class ToolsController < ApplicationController
   def index
     # @tools = Tool.order(build_order).includes(:categories, :language)
     #              .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
-    @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 10))
+    @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 25))
     @categories = Category.order(:name).where("tools_count > 0")
     @featured = Tool.featured.limit(5)
     respond_with @tools

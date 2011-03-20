@@ -8,13 +8,19 @@
     
     <%= f.input :tool_ids, :as => :string, :wrapper_html => { :class => "tokeninput row-list" }, :label => "Tools Mentioned", :hint => "Start typing a tool name, or type the complete name.", :input_html => { :name => "bookmark[tool_ids][]" } %>
     <%= f.input :site_ids, :as => :string, :wrapper_html => { :class => "tokeninput inline-tokenlist" }, :label => "Sites Mentioned", :hint => "Start typing a site URL or site name.", :input_html => { :name => "bookmark[site_ids][]" } %>
-  <% end %>
-  
-  <%= f.inputs do %>
+    
     <div id="new_connection">
+      <h3>Relate Sites to Tools</h3>
       <p>This bookmark talks about how <select id="site_connection"></select> is using <select id='tool_connection'></select>.
         <a href="#" id="add_connection">Add</a></p>
-      <ul id="connections"></ul>
+      <ul id="connections">
+        <% @bookmark.bookmark_connections.each do |connection| %>
+          <li class='connection-<%= connection.using.site_id %>-<%= connection.using.tool_id %>'><strong><%= connection.using.site.title %></strong> is using <strong><%= connection.using.tool.name %></strong>
+            <input type='hidden' name='bookmark[using_params][][using_id]' value='<%= connection.using_id %>'>
+            <a href='#' onclick='$(this).parent().remove();return false;'>remove</a>
+          </li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
@@ -23,7 +29,7 @@
   <% end %>
 <% end %>
 
-<script type="text/javascript">
+<% javascript do %>
 var site_token_options = {
     hintText: "Start typing the a site URL or site name.",
     noResultsText: "No sites found. You can <a href='<%= new_site_path %>' target='_blank'>add a site</a> at anytime.",
@@ -41,14 +47,14 @@ $(function() {
   update_tool_connection();
   update_site_connection();
   
-  $("#bookmark_tool_ids").change(function(e){ update_tool_connection(); });
-  $("#bookmark_site_ids").change(function(e){ update_site_connection(); });
+  $("#bookmark_tool_ids_input .token-input-input-token input").blur(function(e){ console.log("tool"); update_tool_connection(); });
+  $("#bookmark_site_ids_input .token-input-input-token input").blur(function(e){ console.log("site"); update_site_connection(); });
   
   $("#add_connection").click(function(){
     var source = "<li class='connection-{{site.id}}-{{tool.id}}'><strong>{{site.name}}</strong> is using <strong>{{tool.name}}</strong>." +
-                 "<input type='hidden' name='bookmark[usings][{{val}}][site_id]' value='{{site.id}}'>" + 
-                 "<input type='hidden' name='bookmark[usings][{{val}}][tool_id]' value='{{tool.id}}'>" + 
-                 " <a href='#' onclick='$(this).parent().remove();return false;'>remove</a>";
+                 "<input type='hidden' name='bookmark[using_params][][site_id]' value='{{site.id}}'>" + 
+                 "<input type='hidden' name='bookmark[using_params][][tool_id]' value='{{tool.id}}'>" + 
+                 " <a href='#' onclick='$(this).parent().remove();return false;'>remove</a></li>";
     var template = Handlebars.compile(source);
     var data = { "tool": { "name": $("#tool_connection option:selected").html(), "id": $("#tool_connection").val() },
                  "site": { "name": $("#site_connection option:selected").html(), "id": $("#site_connection").val()} };
@@ -88,4 +94,4 @@ function update_site_connection() {
   var result = template(data);
   $("#site_connection").html(result);
 }
-</script>
+<% end %>

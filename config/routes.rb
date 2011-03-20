@@ -35,9 +35,6 @@ Snaps::Application.routes.draw do
     collection do
       post :lookup
     end
-    member do
-      get :sites, :tools
-    end
   end
   resources :usings, :only => [:update, :create, :destroy]
 

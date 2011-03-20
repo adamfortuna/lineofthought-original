@@ -1,7 +1,5 @@
 <ul class="tabs">
   <li class="bookmarks-show"><%= link_to "Comments", bookmark_path(@bookmark) %></li> 
-  <% if @bookmark.sites_count > 0 %><li class="bookmarks-sites"><%= link_to "Sites", sites_bookmark_path(@bookmark) %></li><% end %>
-  <% if @bookmark.tools_count > 0 %><li class="bookmarks-tools"><%= link_to "Tools", tools_bookmark_path(@bookmark) %></li><% end %>
   <% if logged_in? %>
     <li class="right bookmarks-edit"><%= link_to "Edit", edit_bookmark_path(@bookmark) %></li> 
   <% end %>
