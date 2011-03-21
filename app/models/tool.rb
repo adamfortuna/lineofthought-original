@@ -36,7 +36,7 @@ class Tool < ActiveRecord::Base
   serialize :cached_bookmarks
 
   before_save :update_cached_categories, :if => :categories_changed?
-  before_save :update_sites_cached_tools, :if => :name_changed?
+  after_save :update_sites_cached_tools, :if => :name_changed?
   
   composed_of :uri,
     :class_name => 'HandyUrl',
