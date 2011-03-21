@@ -66,7 +66,7 @@ class HandyUrl
   end
   
   def full_uid
-    new_tld = ["com", "new", "org"].include?(tld) ? nil : tld
+    new_tld = ["com", "net", "org"].include?(tld) ? nil : tld
     sub = (subdomain == "www") ? nil : subdomain
     [sub, [domain, new_tld].compact.join("")].compact.join("-").downcase
   end
