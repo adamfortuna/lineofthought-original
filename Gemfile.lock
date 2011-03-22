@@ -164,6 +164,7 @@ GEM
     tzinfo (0.3.24)
     warden (1.0.3)
       rack (>= 1.0.0)
+    whois (2.0.1)
     will_paginate (3.0.pre2)
     xml-simple (1.0.14)
 
@@ -197,4 +198,5 @@ DEPENDENCIES
   ruby-debug19
   settingslogic
   shoulda-matchers
+  whois (= 2.0.1)
   will_paginate (= 3.0.pre2)

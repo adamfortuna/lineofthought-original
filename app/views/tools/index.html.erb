@@ -38,7 +38,7 @@
       <p>Can't find something you use?<br/><%= link_to "Add a Tool", new_tool_path %></p>
       <p>Add a tool from anywhere using this bookmarklet. Drag this to your bookmarks bar.
         <br/>
-        <%= link_to "Add Tool to LoT", "javascript:(function(){f='#{new_tool_url(:format => "popup")}?tool[url]='+encodeURIComponent(window.location.href)+'&tool[name]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=850'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
+        <%= link_to "Add Tool to LoT", "javascript:(function(){f='#{new_tool_url(:format => "popup")}?tool[url]='+encodeURIComponent(window.location.href)+'&tool[name]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=yes,toolbar=no,width=700,height=850'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
       </p>
     <% else %>
       <p>Logged in users can add their own tools to LineOfThought, or manage the tools used on existing sites.</p>

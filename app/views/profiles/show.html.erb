@@ -1,8 +1,10 @@
-<% title "New Tool" %>
+<% title "Profile for #{@user.username}" %>
 
 <section id="content" class="main">
   <h2><%= @title %></h2>
   <section>
-    <%= render 'form' %>
+
   </section>
 </section>
+
+<%= render 'users/sidebar' %>

@@ -31,7 +31,6 @@ class SitesController < ApplicationController
 
   def new
     @site = Site.new(params[:site])
-    @site.load_by_url unless @site.url.blank?
     respond_with(@site)
   end
 
@@ -39,12 +38,11 @@ class SitesController < ApplicationController
     @site = Site.create(params[:site])
     if @site.new_record?
       flash[:error] = "There was a problem creating this site."
-      debugger
       render :new
     else
       respond_to do |format|
         format.html { redirect_to @site }
-        format.popup { redirect_to edit_site_tools_path(@site, :format => :popup) }
+        format.popup { redirect_to manage_site_tools_path(@site, :format => :popup) }
       end
     end
   end
@@ -52,6 +50,8 @@ class SitesController < ApplicationController
   def edit
     @site = Site.find_by_cached_slug(params[:id]) 
     respond_with(@site)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
   end
   
   def update
@@ -109,6 +109,6 @@ class SitesController < ApplicationController
     return true unless params[:site] && params[:site][:url]
     url = HandyUrl.new(params[:site][:url])
     site = Site.find_by_uid(url.uid)
-    redirect_to edit_site_tools_path(site, :format => params[:format]) if site
+    redirect_to manage_site_tools_path(site, :format => params[:format]) if site
   end
 end

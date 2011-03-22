@@ -1,0 +1,27 @@
+<% title "Lookup for URL #{@link.url}" %>
+<section id="content" class="main site">
+  <% if @link.new_record? %>
+    <h2>We don't have this link on file</h2>
+    <p>URL: <%= link_to @link.url, @link.url %></p>
+    <p>Would you like to create it?</p>
+    <ul>
+      <li><%= link_to "Create as a Site", new_site_path(:"site[url]" => @link.url, :format => params[:format]) %></li>
+      <li><%= link_to "Create as a Tool", new_tool_path(:"tool[url]" => @link.url, :format => params[:format]) %></li>
+    </ul>
+  <% end %>
+  
+  
+  <% if !@sites.empty? %>
+  <h3>Matching Sites</h3>
+  <ul class="sites">
+    <%= render @sites %>
+  </ul>
+  <% end %>
+  
+  <% if !@tools.empty? %>
+  <h3>Matching Tools</h3>
+  <ul class="tools">
+    <%= render @tools %>
+  </ul>
+  <% end %>
+</section>

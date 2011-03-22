@@ -1,5 +1,6 @@
 require 'digest/md5'
 class Site < ActiveRecord::Base
+  extend ActiveSupport::Memoizable
   has_friendly_id :full_uid, :use_slug => true
   acts_as_mappable
   include HasFavicon
@@ -19,7 +20,7 @@ class Site < ActiveRecord::Base
 
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
   scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
-  scope :featured, where("alexa_global_rank < 2500 AND tools_count > 3").order("tools_count desc")
+  scope :featured, where(:featured => true).order("tools_count desc")
   scope :highlighted, order('alexa_global_rank').where(["tools_count > ? AND alexa_global_rank IS NOT NULL AND description IS NOT NULL and description != ''", 3])
 
   before_validation :default_title_to_domain, :on => :create
@@ -45,6 +46,40 @@ class Site < ActiveRecord::Base
   handle_asynchronously :update_ranks!
   after_create :update_ranks!, :if => :should_update_ranks?
   
+  after_create :set_location_from_domain!
+  def set_location_from_domain!
+    existing_site = Site.find(:first, :conditions => ["uid = ? AND id != ? AND lat IS NOT NULL AND lng IS NOT NULL", self.uid, self.id])
+    if existing_site
+      self.update_attributes({
+        :display_location => existing_site.display_location,
+        :location => existing_site.location,
+        :lat => existing_site.lat,
+        :lng => existing_site.lng
+      })
+    else
+      Timeout::timeout(10) do
+        contact = [whois.technical_contact, 
+                   whois.registrant_contact, 
+                   whois.admin_contact].compact.first
+        if contact
+          location = [r.technical_contact.address, r.technical_contact.city, r.technical_contact.state, r.technical_contact.zip, r.technical_contact.country_code].compact
+          display_location = [r.technical_contact.city, r.technical_contact.state, r.technical_contact.country_code].compact
+          self.update_attributes({
+            :display_location => display_location.join(", "),
+            :location => location.join(", ")
+          })
+        end
+      end
+    end
+  end
+  handle_asynchronously :set_location_from_domain!
+  
+  
+  def whois
+    Whois.query(uri.domain_with_tld)
+  end
+  memoize :whois
+
   def update_cached_tools!
     self.cached_tools = []
     tools.limit(20).order("sites_count desc").each do |tool|

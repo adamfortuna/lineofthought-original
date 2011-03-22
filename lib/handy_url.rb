@@ -10,11 +10,19 @@ class HandyUrl
   end
 
   def domainatrix
-    Domainatrix.parse(@uri.to_s)  if valid?
+    @domainatrix ||= Domainatrix.parse(@uri.to_s)  if valid?
+  end
+
+  def root_domainatrix
+    @root_domainatrix ||= Domainatrix.parse("#{domainatrix.scheme}://#{domainatrix.host}")
   end
 
   def canonical
     domainatrix.canonical
+  end
+  
+  def root_canonical
+    root_domainatrix.canonical
   end
 
   def host
@@ -55,6 +63,10 @@ class HandyUrl
   
   def subdomain
     domainatrix.subdomain.blank? ? nil : domainatrix.subdomain
+  end
+  
+  def domain_with_tld
+    [domain, tld].join(".")
   end
 
   def tld

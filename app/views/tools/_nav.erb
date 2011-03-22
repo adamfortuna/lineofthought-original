@@ -1,0 +1,8 @@
+<ul class="tabs">
+  <li class="tools-show tool_sites-index"><%= link_to "Sites", tool_path(@tool, :format => params[:format]) %></li> 
+  <% if @tool.bookmarks_count > 0 %><li class="tools-bookmarks"><a href="<%= bookmarks_tool_path(@tool, :format => params[:format]) %>" class="bookmarks">Bookmarks</a></li><% end %>
+  <% if logged_in? %>
+    <li class="right tools-edit"><%= link_to "Edit", edit_tool_path(@tool, :format => params[:format]) %></li> 
+    <li class="right tool_sites-manage"><%= link_to "Add sites", manage_tool_sites_path(@tool, :format => params[:format]) %></li> 
+  <% end %>
+</ul>

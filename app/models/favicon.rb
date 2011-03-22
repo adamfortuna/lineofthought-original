@@ -18,7 +18,7 @@ class Favicon < ActiveRecord::Base
     :converter  => :new
 
 
-  def self.create_by_favion_url(favicon, uri)
+  def self.create_by_favicon_url(favicon, uri)
     parsed_favicon_url = favicon || "#{uri.scheme}://#{uri.host}/favicon.ico"
     if Util.relative_url?(parsed_favicon_url)
       favicon = "/#{favicon}" unless favicon[0] == "/"

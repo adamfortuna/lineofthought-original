@@ -19,6 +19,7 @@ gem 'pismo'
 gem 'rails', '3.0.3'
 gem 'settingslogic'
 gem 'will_paginate', '3.0.pre2'
+gem 'whois', '2.0.1'
 
 group :development, :test do
   gem 'factory_girl_rails'

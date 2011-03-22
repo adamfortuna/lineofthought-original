@@ -1,0 +1,27 @@
+<% cache(["partial", tool], :expires_in => 15.minutes) do %>
+<li class="tool group ind">
+  <div class="details">
+    <div class="title">
+      <h4><% if tool.has_favicon? %><a href="<%= tool_path(tool, :format => params[:format]) %>" class="favicon"><img src="<%= tool.full_favicon_url %>" /></a><% end %><%= link_to tool.name, tool_path(tool, :format => params[:format]) %></h4>
+      <ul class="count">
+        <li class="sites"><a href="<%= tool_path(tool, :format => params[:format]) %>"><em><%= tool.sites_count %></em> sites</a></li>
+        <li class="links"><a href="<%= bookmarks_tool_path(tool, :format => params[:format]) %>"><em><%= tool.bookmarks_count %></em>bookmarks</a></li>
+      </ul>
+      <% if !tool.description.blank? %><p><%= truncate(tool.description, :length => 140) %></p><% end %>
+    </div>
+  
+    <div class="content group">
+      <ul class="sites">
+        <%= raw tool_sites(tool, 2, params[:format]) %>
+        <% if tool.sites_count > 2 %>
+          <li><%= link_to "#{pluralize(tool.sites_count-2, 'more site')}", tool_path(tool, :format => params[:format]) %></li>
+        <% end %>
+      </ul>
+  
+      <ul class="categories">
+        <%= raw tool_categories(tool, params[:format]) %>
+      </ul>
+    </div>
+  </div>
+</li>
+<% end %>

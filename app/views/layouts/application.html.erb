@@ -45,6 +45,7 @@
   <div class="container">
     <section class="main-footer">
       <h3>Copyright &copy; 2011 Line Of Thought.</h3>
+      <p>Drag this bookmark to your bookmarks bar to lookup info on any website: <%= link_to "Line Of Thought", "javascript:(function(){f='#{lookup_url(:format => "popup")}?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-lookup','location=yes,links=no,scrollbars=yes,toolbar=no,width=700,height=650'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %></p>
     </section>
     <section class="sidebar">
       <h3>Quick Nav</h3>

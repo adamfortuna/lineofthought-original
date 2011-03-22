@@ -133,6 +133,9 @@ body.popup #content {
   padding: .4em; }
 
 /* Right sidebar */
+body.popup sidebar {
+  display: none; }
+
 sidebar {
   width: 260px;
   float: right; }
@@ -254,3 +257,6 @@ footer section h3 {
   color: #E2DDDC;
   font-size: 10px;
   text-transform: uppercase; }
+
+footer section.main-footer p {
+  color: #bbb; }

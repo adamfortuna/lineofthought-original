@@ -28,7 +28,7 @@
       <p>Want to add your own site?<br/><%= link_to "Add a Site", new_site_path %></p>
       <p>Add a site from anywhere using this bookmarklet. Drag this to your bookmarks bar.
         <br/>
-        <%= link_to "Add Site to LoT", "javascript:(function(){f='#{new_site_url(:format => "popup")}?site[url]='+encodeURIComponent(window.location.href)+'&site[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=no,toolbar=no,width=700,height=650'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
+        <%= link_to "Add Site to LoT", "javascript:(function(){f='#{new_site_url(:format => "popup")}?site[url]='+encodeURIComponent(window.location.href)+'&site[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=yes,toolbar=no,width=700,height=650'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
       </p>
     <% else %>
       <p>Logged in users can add their own sites to LineOfThought, or manage the tools used on existing sites.</p>

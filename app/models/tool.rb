@@ -28,7 +28,7 @@ class Tool < ActiveRecord::Base
   validate :validate_uri
 
   scope :languages, :conditions => "buildables.category_id = categories.id AND categories.name='Programming Langauge'", :joins => { :buildables => :category }
-  scope :featured, where("sites_count > 5").order("sites_count desc")
+  scope :featured, where(:featured => true).order("sites_count desc")
 
   serialize :cached_sites
   serialize :cached_categories

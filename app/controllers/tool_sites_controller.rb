@@ -10,12 +10,14 @@ class ToolSitesController < ApplicationController
 
   # GET /tools
   def index
-    @tool = Tool.find_by_cached_slug(params[:tool_id])
+    @tool = Tool.find_by_cached_slug!(params[:tool_id])
     @usings = @tool.usings.joins(:site)
                           .includes(:site)
                           .order(build_order)
                           .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
     respond_with [@tool, @usings]
+  rescue ActiveRecord::RecordNotFound
+    redirect_to tools_path, :flash => { :error => "Unable to find a tool matching #{params[:id]}" }
   end
   
   # GET /tools/new

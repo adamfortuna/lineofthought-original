@@ -31,7 +31,9 @@ class ToolsController < ApplicationController
     redirect_to tools_path, :flash => { :error => "Unable to find a tool matching #{params[:id]}" }
   end
 
-  def edit; end
+  def edit
+    respond_with(@tool)
+  end
 
   def update
     if @tool.update_attributes(params[:tool])
@@ -59,7 +61,7 @@ class ToolsController < ApplicationController
     link = Link.find_or_create_by_url(params[:tool][:url], true)
     if !link.parsed
       Timeout::timeout(20) do
-        link.load_by_url_without_delay
+        link.load_by_url_and_parse_without_delay
       end
     end
     respond_to do |format|
@@ -76,6 +78,7 @@ class ToolsController < ApplicationController
       end
     end
   rescue
+    debugger
     render :js => ""    
   end
   
@@ -119,6 +122,7 @@ class ToolsController < ApplicationController
   def bookmarks
     @tool = Tool.find_by_cached_slug!(params[:id])
     @bookmarks = @tool.bookmarks
+    respond_with([@tool, @bookmarks])
   end
 
   private

@@ -38,9 +38,19 @@ Snaps::Application.routes.draw do
   end
   resources :usings, :only => [:update, :create, :destroy]
 
+
+
   match '/auth/:provider/callback' => 'authentications#create'
   devise_for :users, :only => [:new, :create, :edit, :update],
     :controllers => { :registrations => 'registrations', :sessions => 'sessions' }
+  
+  resources :profiles, :only => [:show] do
+    member do
+      get :sites
+      get :tools
+      get :bookmarks
+    end
+  end
   
   resources :categories, :only => [:show]
   resources :subscriptions, :only => [:index, :create]
@@ -49,7 +59,7 @@ Snaps::Application.routes.draw do
   match '/beta' => 'home#beta', :as => 'beta'
   match '/about' => 'home#about', :as => 'about'
   match '/fail' => 'home#fail', :as => 'fail'
-  
+  match '/lookup' => 'lookup#new', :as => 'lookup'
 
   # Admin related
   match '/admin_data' => "admin_data/home#index"

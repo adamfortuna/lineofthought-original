@@ -167,7 +167,8 @@ body.popup #content {width: 550px}
 #content_with_nav {width: 670px; float: left; min-height: 500px; margin-left: -1px}
 #content_with_nav.no_sidebar {margin-left: 4px}
 .main section {padding: .4em}
- sidebar {width: 260px; float: right}
+ body.popup sidebar {display: none}
+sidebar {width: 260px; float: right}
 sidebar aside {margin-bottom: 2em; padding: 15px}
 sidebar aside h3 {margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 1.6em; font-weight: bold; color: #365B81; border-bottom: 2px solid #ecebe1}
 sidebar aside p.more {margin-top: 12px; text-align: center}
@@ -192,6 +193,7 @@ footer section li {margin: .4em 1em}
 footer section.main-footer {width: 700px}
 footer section.sidebar {width: 260px; float: right}
 footer section h3 {color: #E2DDDC; font-size: 10px; text-transform: uppercase}
+footer section.main-footer p {color: #bbb}
 .clear {clear: both}
 .right {float: right}
 p.breadcrumbs {font-size: .8em}

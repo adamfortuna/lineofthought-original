@@ -58,7 +58,7 @@ class Link < ActiveRecord::Base
     self.cached_links    = Nokogiri::XML::Document.parse(doc.html_body).css("a").collect do |link|
       link["href"] if !Util.relative_url?(link["href"])
     end.compact
-    Favicon.create_by_favion_url(doc.favicon, uri)
+    Favicon.create_by_favicon_url(doc.favicon, uri)
     self.parsed          = true
     save!
   end

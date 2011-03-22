@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322041518) do
+ActiveRecord::Schema.define(:version => 20110322200824) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -185,9 +185,11 @@ ActiveRecord::Schema.define(:version => 20110322041518) do
     t.string   "canonical"
     t.string   "original_url"
     t.text     "lede"
+    t.string   "root_canonical"
   end
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"
+  add_index "links", ["root_canonical"], :name => "index_links_on_root_canonical"
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
@@ -238,13 +240,16 @@ ActiveRecord::Schema.define(:version => 20110322041518) do
     t.integer  "jobs_count",                                                     :default => 0
     t.boolean  "has_favicon",                                                    :default => false
     t.integer  "link_id"
+    t.boolean  "featured",                                                       :default => false
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
   add_index "sites", ["cached_slug"], :name => "index_sites_on_cached_slug", :unique => true
+  add_index "sites", ["featured"], :name => "index_sites_on_featured"
   add_index "sites", ["google_pagerank"], :name => "index_sites_on_google_pagerank"
   add_index "sites", ["jobs_count"], :name => "index_sites_on_jobs_count"
   add_index "sites", ["lat", "lng"], :name => "index_sites_on_lat_and_lng"
+  add_index "sites", ["link_id"], :name => "index_sites_on_link_id"
   add_index "sites", ["title"], :name => "index_sites_on_title"
   add_index "sites", ["tools_count"], :name => "index_sites_on_tools_count"
 
@@ -295,10 +300,13 @@ ActiveRecord::Schema.define(:version => 20110322041518) do
     t.boolean  "has_favicon",       :default => false
     t.string   "uid"
     t.integer  "link_id"
+    t.boolean  "featured",          :default => false
   end
 
   add_index "tools", ["cached_slug"], :name => "index_tools_on_cached_slug", :unique => true
+  add_index "tools", ["featured"], :name => "index_tools_on_featured"
   add_index "tools", ["jobs_count"], :name => "index_tools_on_jobs_count"
+  add_index "tools", ["link_id"], :name => "index_tools_on_link_id"
   add_index "tools", ["name"], :name => "index_tools_on_name"
   add_index "tools", ["sites_count"], :name => "index_tools_on_sites_count"
 
