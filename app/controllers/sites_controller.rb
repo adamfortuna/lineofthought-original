@@ -51,7 +51,6 @@ class SitesController < ApplicationController
   
   def edit
     @site = Site.find_by_cached_slug(params[:id]) 
-    @site.load_by_url if @site.description.blank?
     respond_with(@site)
   end
   

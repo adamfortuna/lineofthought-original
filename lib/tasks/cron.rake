@@ -7,7 +7,6 @@ task :cron => :environment do
     # Update cached_tools for all sites
     puts "Updating sites..."
     Site.find_each do |site|
-      puts "updating site #{site.title}"
       site.update_cached_tools!
     end
     puts "sites updated!"

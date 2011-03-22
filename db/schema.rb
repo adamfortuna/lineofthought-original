@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110320171918) do
+ActiveRecord::Schema.define(:version => 20110322041518) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(:version => 20110320171918) do
   add_index "claims", ["user_id"], :name => "index_claims_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
+    t.integer  "priority",                         :default => 0
+    t.integer  "attempts",                         :default => 0
+    t.text     "handler",    :limit => 2147483647
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20110320171918) do
     t.boolean  "parsed",          :default => false
     t.string   "canonical"
     t.string   "original_url"
+    t.text     "lede"
   end
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"

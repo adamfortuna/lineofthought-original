@@ -18,7 +18,14 @@ class Link < ActiveRecord::Base
     :allow_nil  => true,
     :converter  => :new  
   
-  after_create :load_by_url, :unless => :skip_load?
+  after_create :load_by_url_and_parse, :unless => :skip_load?
+  def load_by_url_and_parse
+    load_by_url
+    parse_html!
+    update_site_description
+  end
+  handle_asynchronously :load_by_url_and_parse
+  
   def load_by_url
     Timeout::timeout(20) do
       agent = Mechanize.new
@@ -29,12 +36,10 @@ class Link < ActiveRecord::Base
       self.url = page.uri.to_s if self.destination_url != page.uri.to_s
       self.html = page.send(:html_body)
     end
-    parse_html!
-    update_site_description
+    save!
   rescue
     update_attribute(:parsed, true)
   end
-  handle_asynchronously :load_by_url
   
   def doc
     @doc ||= Pismo::Document.new(self.html)
@@ -44,7 +49,8 @@ class Link < ActiveRecord::Base
     self.title           = doc.title
     self.html_body       = doc.html_body
     self.body            = doc.body
-    self.description     = doc.lede
+    self.description     = doc.description
+    self.lede            = doc.lede
     self.cached_keywords = doc.keywords
     self.author          = doc.author
     self.feed            = doc.feed
@@ -55,9 +61,6 @@ class Link < ActiveRecord::Base
     Favicon.create_by_favion_url(doc.favicon, uri)
     self.parsed          = true
     save!
-  rescue
-    self.parsed = true
-    save
   end
   
   def self.find_or_create_by_url(url, skip_load = false)
@@ -138,8 +141,8 @@ class Link < ActiveRecord::Base
   end
   
   def update_site_description
-    if site && site.description.blank?
-      site.update_attribute(:description, self.description)
+    if site && site.description.blank? && (self.description || self.lede)
+      site.update_attribute(:description, self.description || self.lede)
     end
   end
 end
