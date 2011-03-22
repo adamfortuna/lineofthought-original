@@ -78,7 +78,6 @@ class ToolsController < ApplicationController
       end
     end
   rescue
-    debugger
     render :js => ""    
   end
   
