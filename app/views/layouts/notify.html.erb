@@ -12,10 +12,10 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script>
     <script src='/javascripts/notify-me.js'></script>
     
+    <% if Rails.env == "production" %>
     <script type="text/javascript">
-
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-90326-13']);
+      _gaq.push(['_setAccount', 'UA-90326-14']);
       _gaq.push(['_trackPageview']);
 
       (function() {
@@ -23,7 +23,7 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-
     </script>
+    <% end %>
   </body>
 </html>
