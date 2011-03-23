@@ -20,6 +20,7 @@ class Tool < ActiveRecord::Base
     boolean :featured, :using => :featured?
     boost { featured? ? 2.0 : 1.0 }
   end
+  handle_asynchronously :solr_index
     
   attr_accessible :name, :url, :description, :category_ids, :language_id
   
