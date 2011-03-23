@@ -11,6 +11,13 @@ class ToolsController < ApplicationController
               "bookmarks" => "bookmarks_count",
               "jobs" => "jobs_count" }
 
+  @@site_order = { "google" => "google_pagerank", 
+                   "alexa" => "coalesce(alexa_global_rank, 100000000)", 
+                   "tools" => "tools_count", 
+                   "sitename" => "title",
+                   "jobs" => "jobs_count"
+                 }
+
   def index
     @search = Sunspot.search(Tool) do
       keywords params[:search] if params[:search]
@@ -28,9 +35,8 @@ class ToolsController < ApplicationController
   
   def show
     @tool = Tool.find_by_cached_slug!(params[:id])
-    @usings = @tool.usings.joins(:site).includes([:site, :tool]).order("coalesce(alexa_global_rank, 100000000)").paginate(:page => 1, :per_page => 25)
+    @usings = @tool.usings.joins(:site).includes([:site, :tool]).order(build_site_order).paginate(:page => 1, :per_page => 25)
     @featured = Tool.featured.limit(5)
-    params[:sort] = "alexa"
     respond_with @tool
   rescue ActiveRecord::RecordNotFound
     redirect_to tools_path, :flash => { :error => "Unable to find a tool matching #{params[:id]}" }
@@ -142,6 +148,14 @@ class ToolsController < ApplicationController
   def order_direction
     build_order.split(" ").last
   end
+
+  def build_site_order
+    params[:sort] ||= "alexa_asc"
+    order = params[:sort]
+    sort_order = @@site_order[order.split("_").first] rescue "alexa_global_rank"
+    direction = order.split("_").last rescue "asc"
+    return "#{sort_order} #{direction}, sites.title"    
+  end  
   
   def load_record
     @tool = Tool.find_by_cached_slug(params[:id])

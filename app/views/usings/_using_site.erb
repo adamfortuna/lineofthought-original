@@ -2,6 +2,8 @@
   <div class="title">
     <h4><a href="<%= site_path(using_site.site, :format => params[:format]) %>"><% if using_site.site.has_favicon? %><img src="<%= using_site.site.full_favicon_url %>"   class="favicon" /><% end %><%= using_site.site.title%></a><span class="url"><%= using_site.site.url %></span></h4>
     <ul class="tools group">
+      <li class="alexa">Alexa <%= using_site.site.alexa_global_rank %></li>
+      <li class="pagerank">Pagerank <%= using_site.site.google_pagerank %></li>
       <% if using_site.site.tools_count > 0 %>
         <% if using_site.site.tools_count > 2 %>
           <li><%= link_to "#{pluralize(using_site.site.tools_count-2, 'more tool')}", site_path(using_site.site, :format => params[:format]) %></li>

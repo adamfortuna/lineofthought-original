@@ -5,14 +5,14 @@
     <div id="sorting">
       <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
       <ul class="options" style="display:none;">
-        <li><%= link_to "Sort by Alexa Rank", tool_sites_path(@tool, :sort => :alexa_asc) %></li>
-        <li><%= link_to "Sort by Google PageRank", tool_sites_path(@tool, :sort => :google_desc) %></li>
-        <li><%= link_to "Sort by Site Name", tool_sites_path(@tool, :sort => :sitename_asc) %></li>
-        <li><%= link_to "Sort by Number of Tools", tool_sites_path(@tool, :sort => :tools_desc) %></li>
+        <li><%= link_to "Sort by Alexa Rank", tool_path(@tool, :sort => :alexa_asc, :format => params[:format]) %></li>
+        <li><%= link_to "Sort by Google PageRank", tool_path(@tool, :sort => :google_desc, :format => params[:format]) %></li>
+        <li><%= link_to "Sort by Site Name", tool_path(@tool, :sort => :sitename_asc, :format => params[:format]) %></li>
+        <li><%= link_to "Sort by Number of Tools", tool_path(@tool, :sort => :tools_desc, :format => params[:format]) %></li>
       </ul>
     </div>
   </div>
-  <ul class="usings sites">
+  <ul class="usings sites <%= sorting_class(params[:sort]) %>">
     <%= render :partial => 'usings/using_site', :collection => sites %>
   </ul>
   <%= will_paginate sites %>

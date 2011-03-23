@@ -1,0 +1,12 @@
+<% cache("recent-usings", :expires_in => 15.minutes) do %>
+<aside class="admin">
+  <h3>Recent Activity</h3>
+  <ul class="txt">
+    <% Using.recent.limit(5).includes(:site, :tool).each do |using| %>
+      <li>
+        <%= link_to using.site.title, using.site %> is using <%= link_to using.tool.name, using.tool %>.
+      </li>
+    <% end %>
+  </ul>
+</aside>
+<% end %>

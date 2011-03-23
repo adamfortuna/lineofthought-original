@@ -1,11 +1,9 @@
 class SitesController < ApplicationController
-  # Logged in: claim, edit, new, create
   before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_site_tools, :only => [:new]
   respond_to :html, :json, :xml
-  caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
+
   caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_site?(params[:id])) ? true : false) ) }, :expires_in => 2.minutes
-  caches_action :autocomplete, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@order = { "google" => "google_pagerank", 
               "alexa" => "alexa_global_rank", 
@@ -13,6 +11,11 @@ class SitesController < ApplicationController
               "sitename" => "lower_title",
               "bookmarks" => "bookmarks_count"
             }
+
+  @@tool_order = { "sites" => "sites_count", 
+                   "toolname" => "tools.name",
+                   "bookmarks" => "tools.bookmarks_count",
+                   "jobs" => "tools.jobs_count" }
 
   def index
     @search = Site.search do
@@ -25,8 +28,7 @@ class SitesController < ApplicationController
 
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
-    @usings = @site.usings.includes([:tool, :site]).joins(:tool).order(:name)
-    params[:sort] = "toolname"
+    @usings = @site.usings.includes([:tool, :site]).joins(:tool).order(build_tool_order)
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
@@ -116,6 +118,14 @@ class SitesController < ApplicationController
     build_order.split(" ").last
   end
   
+  def build_tool_order
+    params[:sort] ||= "sites_desc"
+    order = params[:sort]
+    sort_order = @@tool_order[order.split("_").first] rescue "sites_count"
+    direction = order.split("_").last rescue "desc"
+    return "#{sort_order} #{direction}"
+  end
+
   def redirect_to_site_tools
     return true unless params[:site] && params[:site][:url]
     url = HandyUrl.new(params[:site][:url])

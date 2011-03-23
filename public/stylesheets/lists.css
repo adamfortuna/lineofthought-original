@@ -221,11 +221,13 @@ ul.count {
   color: #fff;
   width: 120px; }
 
-ul.count li.alexa {
-  background-color: blue; }
+ul.count li.alexa, ul.sort-alexa li.ind li.alexa {
+  background-color: blue;
+  color: #eee; }
 
-ul.count li.pagerank {
-  background-color: green; }
+ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
+  background-color: green;
+  color: #fff; }
 
 ul.count li {
   margin: 0;
@@ -270,10 +272,6 @@ ul.usings li.ind:hover h4 span.url {
 ul.usings li.ind h4 img.favicon {
   margin: 0 .5em 0 0; }
 
-ul.usings li.ind a.comments {
-  float: right;
-  display: none; }
-
 ul.usings li.ind:hover a.comments {
   display: block; }
 
@@ -282,13 +280,17 @@ ul.usings li.ind ul.tools, ul.usings li.ind ul.categories {
   margin: 0;
   max-width: 400px;
   float: right;
-  position: relative; }
+  position: relative;
+  margin-top: 2px; }
 
 ul.usings li.ind ul.tools li, ul.usings li.ind ul.categories li {
   float: right; }
 
 ul.usings li.ind ul.tools li a, ul.usings li.ind ul.categories li a {
-  margin: 0 0 0 .4em; }
+  display: block;
+  font-size: 1.1em;
+  margin-right: 0.2em;
+  padding: 0.3em; }
 
 ul.usings li.ind ul.tools li a.comments, ul.usings li.ind ul.categories li a.comments {
   background-color: #ff0; }
@@ -305,6 +307,27 @@ ul.usings li.ind:hover p a.manage_site_tools {
 
 ul.usings li.ind p a.manage_site_tools {
   display: none; }
+
+ul.usings li.pagerank, ul.usings li.alexa, ul.usings li.popularity {
+  display: none;
+  font-size: 1.2em;
+  margin-left: .4em;
+  padding: .3em; }
+
+ul.usings li.ind ul.categories li a.comments, ul.usings li.ind ul.tools li a.comments {
+  float: right;
+  display: none; }
+
+ul.usings li.ind:hover ul.categories li a.comments, ul.usings li.ind:hover ul.tools li a.comments {
+  display: block; }
+
+ul.sort-alexa li.ind li.alexa, ul.sort-pagerank li.ind li.pagerank {
+  display: inline; }
+
+ul.sort-sites li.ind li.popularity {
+  display: inline;
+  background-color: #bbb;
+  font-size: 1.1em; }
 
 ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child {
   border-top: none;

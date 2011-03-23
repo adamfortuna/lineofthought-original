@@ -10,12 +10,12 @@
       <div id="sorting">
         <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
         <ul class="options" style="display:none;">
-          <li><a href="<%= site_tools_path(@site, :sort => :toolname_asc) %>">Sort by Tool Name</a></li>
-          <li><a href="<%= site_tools_path(@site, :sort => :sites_desc) %>">Sort by number of Sites</a></li>
+          <li><a href="<%= site_path(@site, :sort => :toolname_asc) %>">Sort by tool</a></li>
+          <li><a href="<%= site_path(@site, :sort => :sites_desc) %>">Sort by tool popularity</a></li>
         </ul>
       </div>
     </div>
-    <ul class="usings sites">
+    <ul class="usings sites <%= sorting_class(params[:sort]) %>">
       <%= render :partial => 'usings/using_tool', :collection => @usings %>
     </ul>
     <% else %>

@@ -8,15 +8,6 @@ class SiteToolsController < ApplicationController
               "bookmarks" => "tools.bookmarks_count",
               "jobs" => "tools.jobs_count" }
 
-  # GET /sites/:site_id/tools
-  def index
-    @site = Site.find_by_cached_slug!(params[:site_id]) 
-    @usings = @site.usings.includes(:tool).joins(:tool).order(build_order)
-    respond_with([@site, @usings])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
-  end
-  
   # GET /sites/:site_id/tools/:id
   def show
     @site = Site.find_by_cached_slug!(params[:site_id]) 
@@ -50,32 +41,16 @@ class SiteToolsController < ApplicationController
 
   # GET /sites/:site_id/tools/autocomplete
   def autocomplete
+    @site = Site.find_by_cached_slug(params[:site_id])
     tags = Tool.autocomplete(params[:q]).collect do |tool|
       { "name" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", "id" => tool.id.to_s }
     end
-    # 
-    # tags = Tool.limit(50)
-    #            .order('sites_count DESC')
-    #            .select([:id, :name, :sites_count])
-    #            .where(['tools.name LIKE ?', "#{params[:q]}%"]).collect do |tool|
-    #   { "name" => "#{tool.name} (#{tool.sites_count})", "id" => tool.id.to_s }
-    # end
-    render :json => tags
-    
-    # render :json => (tags - @site.tools_hash)
+    render :json => (tags - @site.tools_hash)
   end
 
 
   private
   def load_record
     @site = Site.find_by_cached_slug(params[:site_id])
-  end
-  
-  def build_order
-    params[:sort] ||= "sites_desc"
-    order = params[:sort]
-    sort_order = @@order[order.split("_").first] rescue "sites_count"
-    direction = order.split("_").last rescue "desc"
-    return "#{sort_order} #{direction}"
   end
 end

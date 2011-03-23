@@ -12,10 +12,14 @@
     </div>
   </div>
   <section>
-    <ul class="tools">
-      <%= render @search.results %>
-    </ul>
-    <%= will_paginate @search.hits %>
+    <% if @search.hits.empty? %>
+      <p>There were no matching sites for your search.</p>
+    <% else %>
+      <ul class="tools">
+        <%= render @search.results %>
+      </ul>
+      <%= will_paginate @search.hits %>
+    <% end %>
   </section>
 </section>
 
@@ -30,7 +34,7 @@
     </div>
   </aside>
 
-  <% cache("categories-sidebar", :expires_in => 30.minutes) do %>
+  <% cache("categories_sidebar", :expires_in => 30.minutes) do %>
     <%= render "tools/categories" %>  
   <% end %>
   <%= render "tools/featured" %>

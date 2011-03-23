@@ -43,4 +43,18 @@ module ApplicationHelper
       when 'bookmarks' then 'Bookmarks Count'
     end
   end
+
+  def sorting_class(name)
+    case name.split("_").first
+      when 'sites' then 'sort-sites'
+      when 'category' then 'sort-category'
+      when 'toolname' then 'sort-tool'
+      when 'sitename' then 'sort-site'
+      when 'alexa' then 'sort-alexa'
+      when 'google' then 'sort-pagerank'
+      when 'tools' then 'sort-tools-count'
+      when 'jobs' then 'sort-jobs-count'
+      when 'bookmarks' then 'sort-bookmarks-count'
+    end
+  end
 end

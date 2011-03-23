@@ -9,7 +9,7 @@ Snaps::Application.routes.draw do
     member do
       get :bookmarks
     end
-    resources :sites, :controller => "tool_sites", :only => [:index, :new, :create] do
+    resources :sites, :controller => "tool_sites", :only => [:create] do
       collection do
         get :autocomplete, :manage
       end
@@ -24,7 +24,7 @@ Snaps::Application.routes.draw do
       get :bookmarks
     end
     resources :claims, :controller => "site_claims", :only => [:new, :create]
-    resources :tools, :controller => "site_tools", :only => [:index, :create, :show] do
+    resources :tools, :controller => "site_tools", :only => [:create, :show] do
       collection do 
         get :autocomplete, :manage
       end
