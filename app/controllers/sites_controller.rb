@@ -10,7 +10,7 @@ class SitesController < ApplicationController
   @@order = { "google" => "google_pagerank", 
               "alexa" => "alexa_global_rank", 
               "tools" => "tools_count", 
-              "sitename" => "title",
+              "sitename" => "lower_title",
               "bookmarks" => "bookmarks_count"
             }
 

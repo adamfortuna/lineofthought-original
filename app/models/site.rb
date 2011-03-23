@@ -11,7 +11,6 @@ class Site < ActiveRecord::Base
     string :lower_title do
       title.downcase
     end
-
     string :url
     text :description
 
