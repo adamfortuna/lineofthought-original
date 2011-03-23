@@ -5,10 +5,13 @@ class Tool < ActiveRecord::Base
 
   searchable do
     text :name, :default_boost => 2
-    string :name
+    string :lower_name do
+      name.downcase
+    end
+
     string :url
     text :description
-    
+
     integer :sites_count
     integer :bookmarks_count
     integer :jobs_count
@@ -16,6 +19,7 @@ class Tool < ActiveRecord::Base
     text :categories do
       cached_categories.map { |category| category[:name] }
     end
+    
     
     boolean :featured, :using => :featured?
     boost { featured? ? 2.0 : 1.0 }
@@ -65,7 +69,22 @@ class Tool < ActiveRecord::Base
   delegate :host, :path, :port, :domain, :full_uid, :uid, :to => :uri
 
   def self.for_autocomplete(count = 20)
-    order('sites_count desc').limit(count).collect { |t| {"id" => t.id.to_s, "name" => "#{t.name}#{" (#{t.cached_language[:name]})" if t.cached_language}", "description" => "(#{t.combined_category_names.join(", ")})"}}
+    search_results = search do
+      order_by(:sites_count, :desc)
+      paginate(:page => 1, :per_page => 15)
+    end
+    
+    search_results.results.collect { |t| {"id" => t.id.to_s, "name" => "#{t.name}#{" (#{t.cached_language[:name]})" if t.cached_language}", "description" => "(#{t.combined_category_names.join(", ")})"}}
+  end
+  
+  def self.autocomplete(q = "")
+    search_results = search do
+      any_of do
+        with(:lower_name).starting_with(q.downcase)
+        with(:url, q)
+      end
+    end
+    search_results.results
   end
   
   def combined_category_names

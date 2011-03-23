@@ -5,7 +5,6 @@ class ToolsController < ApplicationController
 
   # caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
   caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 2.minutes
-  caches_action :autocomplete, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "name",
@@ -105,10 +104,7 @@ class ToolsController < ApplicationController
   end
 
   def autocomplete
-    tags = Tool.limit(50)
-               .order('sites_count DESC')
-               .select([:id, :name, :sites_count, :cached_language])
-               .where(['tools.name LIKE ?', "#{params[:q]}%"]).collect do |tool|
+    @tools = Tool.autocomplete(params[:q]).collect do |tool|
       { "name" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", "id" => tool.id.to_s }
     end
     render :json => tags
@@ -142,6 +138,7 @@ class ToolsController < ApplicationController
   def order_field
     build_order.split(" ").first
   end
+
   def order_direction
     build_order.split(" ").last
   end

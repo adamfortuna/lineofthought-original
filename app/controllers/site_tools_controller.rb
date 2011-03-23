@@ -50,13 +50,19 @@ class SiteToolsController < ApplicationController
 
   # GET /sites/:site_id/tools/autocomplete
   def autocomplete
-    tags = Tool.limit(50)
-               .order('sites_count DESC')
-               .select([:id, :name, :sites_count])
-               .where(['tools.name LIKE ?', "#{params[:q]}%"]).collect do |tool|
-      { "name" => "#{tool.name} (#{tool.sites_count})", "id" => tool.id.to_s }
+    tags = Tool.autocomplete(params[:q]).collect do |tool|
+      { "name" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", "id" => tool.id.to_s }
     end
-    render :json => (tags - @site.tools_hash)
+    # 
+    # tags = Tool.limit(50)
+    #            .order('sites_count DESC')
+    #            .select([:id, :name, :sites_count])
+    #            .where(['tools.name LIKE ?', "#{params[:q]}%"]).collect do |tool|
+    #   { "name" => "#{tool.name} (#{tool.sites_count})", "id" => tool.id.to_s }
+    # end
+    render :json => tags
+    
+    # render :json => (tags - @site.tools_hash)
   end
 
 

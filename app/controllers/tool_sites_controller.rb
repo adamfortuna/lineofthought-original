@@ -52,13 +52,11 @@ class ToolSitesController < ApplicationController
   
   # GET /tools/:tool_id/sites/autocomplete
   def autocomplete
-    @tool = Tool.find_by_cached_slug(params[:tool_id])
-    tags = Site.limit(50)
-               .order('alexa_global_rank')
-               .select([:id, :title, :url])
-               .where(['sites.url LIKE ? OR sites.title LIKE ?', "#{params[:q]}%", "#{params[:q]}%"]).collect do |site|
+    tags = Site.autocomplete(params[:q]).collect do |site|
       { "name" => "#{site.title} (#{site.url})", "id" => site.id.to_s }
     end.compact
+    @tool = Tool.find_by_cached_slug(params[:tool_id])
+
     render :json => (tags - @tool.sites_hash)
   end
   

@@ -6,6 +6,28 @@ class Site < ActiveRecord::Base
   include HasFavicon
   attr_accessor :skip_ranks
 
+  searchable do
+    text :title, :default_boost => 2
+    string :lower_title do
+      title.downcase
+    end
+
+    string :url
+    text :description
+
+    integer :tools_count
+    integer :bookmarks_count
+    integer :jobs_count
+    integer :google_pagerank
+    integer :alexa_global_rank do
+      (alexa_global_rank.nil? || alexa_global_rank == 0) ? 100000000 : alexa_global_rank
+    end
+    
+    boolean :featured, :using => :featured?
+    boost { featured? ? 2.0 : 1.0 }
+  end
+  handle_asynchronously :solr_index
+  
   validates_presence_of :url, :uid
   validate :validate_uri, :if => :url_changed?
   
@@ -102,6 +124,17 @@ class Site < ActiveRecord::Base
       Site.count
     end
   end
+
+  def self.autocomplete(q = "")
+    search_results = search do
+      any_of do
+        with(:lower_title).starting_with(q.downcase)
+        with(:url, q)
+      end
+    end
+    search_results.results
+  end
+
   
   def tools_hash
     self.tools.collect do |tool|

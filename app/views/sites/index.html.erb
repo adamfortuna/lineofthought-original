@@ -6,22 +6,31 @@
     <div id="sorting">
       <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
       <ul class="options" style="display:none;">
-        <li><%= link_to "Sort by Alexa Rank", sites_path(:sort => :alexa_asc) %></li>
-        <li><%= link_to "Sort by Google PageRank", sites_path(:sort => :google_desc) %></li>
-        <li><%= link_to "Sort by Site Name", sites_path(:sort => :sitename_asc) %></li>
-        <li><%= link_to "Sort by Number of Tools", sites_path(:sort => :tools_desc) %></li>
+        <li><%= link_to "Sort by Alexa Rank", sites_path(:sort => :alexa_asc, :search => params[:search]) %></li>
+        <li><%= link_to "Sort by Google PageRank", sites_path(:sort => :google_desc, :search => params[:search]) %></li>
+        <li><%= link_to "Sort by Site Name", sites_path(:sort => :sitename_asc, :search => params[:search]) %></li>
+        <li><%= link_to "Sort by Number of Tools", sites_path(:sort => :tools_desc, :search => params[:search]) %></li>
       </ul>
     </div>
   </div>
   <section>
     <ul class="sites">
-      <%= render @sites %>
+      <%= render @search.results %>
     </ul>
-    <%= will_paginate @sites %>
+    <%= will_paginate @search.hits %>
   </section>
 </section>
 
 <sidebar>
+  <aside>
+    <h3>Search for a Site</h3>
+    <div>
+      <form action="<%= sites_path %>" method="get">
+        <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a site" />
+        <input type="submit" value="Search" />
+      </form>
+    </div>
+  </aside>
   <aside>
     <h3>Add a Site</h3>
     <% if logged_in? %>

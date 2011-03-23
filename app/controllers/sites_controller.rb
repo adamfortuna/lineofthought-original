@@ -8,16 +8,19 @@ class SitesController < ApplicationController
   caches_action :autocomplete, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@order = { "google" => "google_pagerank", 
-              "alexa" => "coalesce(alexa_global_rank, 100000000)", 
+              "alexa" => "alexa_global_rank", 
               "tools" => "tools_count", 
               "sitename" => "title",
-              "bookmarks" => "sites.bookmarks_count"
+              "bookmarks" => "bookmarks_count"
             }
 
   def index
-    @sites = Site.order(build_order)
-                 .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 10)
-    respond_with(@sites)
+    @search = Site.search do
+      keywords params[:search] if params[:search]
+      order_by(order_field.to_sym, order_direction.to_sym)
+      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 30)
+    end
+    respond_with(@search.results)
   end
 
   def show
@@ -103,6 +106,14 @@ class SitesController < ApplicationController
     sort_order = @@order[order.split("_").first] rescue "alexa_global_rank"
     direction = order.split("_").last rescue "asc"
     return "#{sort_order} #{direction}"
+  end
+  
+  def order_field
+    build_order.split(" ").first
+  end
+
+  def order_direction
+    build_order.split(" ").last
   end
   
   def redirect_to_site_tools

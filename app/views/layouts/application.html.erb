@@ -2,7 +2,7 @@
 <html>
 <head>
   <%- title = yield(:title) %>
-  <title><%=  title || "Line Of Thought - Find out what powers the web!" %><%= " - Line Of Thought" if title && !title.blank? %></title>
+  <title><%=  title || "Line Of Thought - Tracking what powers the web" %><%= " - Line Of Thought" if title && !title.blank? %></title>
   <%= raw stylesheet_link_merged :all %>
   <%= csrf_meta_tag %>
 </head>
@@ -11,7 +11,7 @@
   <div class="container">
     <hgroup id="title">
       <p><a href="/beta">Line Of <span>Thought</span></a></p>
-      <span>Tracking what the web uses!</span>
+      <span>Tracking what powers the web</span>
     </hgroup>
     <ul id="current_user">
       <% if logged_in? %>
