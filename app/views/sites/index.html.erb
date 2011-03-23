@@ -10,6 +10,7 @@
         <li><%= link_to "Sort by Google PageRank", sites_path(:sort => :google_desc, :search => params[:search]) %></li>
         <li><%= link_to "Sort by Site Name", sites_path(:sort => :sitename_asc, :search => params[:search]) %></li>
         <li><%= link_to "Sort by Number of Tools", sites_path(:sort => :tools_desc, :search => params[:search]) %></li>
+        <li><%= link_to "Sort by date", sites_path(:sort => :created_desc, :search => params[:search]) %></li>
       </ul>
     </div>
   </div>

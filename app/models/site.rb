@@ -21,6 +21,7 @@ class Site < ActiveRecord::Base
     integer :alexa_global_rank do
       (alexa_global_rank.nil? || alexa_global_rank == 0) ? 100000000 : alexa_global_rank
     end
+    time :created_at
     
     boolean :featured, :using => :featured?
     boost { featured? ? 2.0 : 1.0 }

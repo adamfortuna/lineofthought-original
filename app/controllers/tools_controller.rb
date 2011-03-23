@@ -7,9 +7,10 @@ class ToolsController < ApplicationController
   caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 2.minutes
 
   @@order = { "sites" => "sites_count", 
-              "toolname" => "name",
+              "toolname" => "lower_name",
               "bookmarks" => "bookmarks_count",
-              "jobs" => "jobs_count" }
+              "jobs" => "jobs_count",
+              "created" => "created_at" }
 
   @@site_order = { "google" => "google_pagerank", 
                    "alexa" => "coalesce(alexa_global_rank, 100000000)", 
@@ -71,14 +72,14 @@ class ToolsController < ApplicationController
   def lookup
     link = Link.find_or_create_by_url(params[:tool][:url], true)
     if !link.parsed
-      Timeout::timeout(20) do
-        link.load_by_url_and_parse_without_delay
+      Timeout::timeout(5) do
+        link.parse_html_without_delay
       end
     end
     respond_to do |format|
       format.js do
-        if link.source
-          render :js => "alert('already exists');"
+        if @tool = link.tool
+          render :duplicate
         elsif link.parsed?
           @tool = Tool.new_from_link(link)
           render :lookup_complete

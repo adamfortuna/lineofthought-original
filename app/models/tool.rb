@@ -20,13 +20,13 @@ class Tool < ActiveRecord::Base
       cached_categories.map { |category| category[:name] }
     end
     
-    
+    time :created_at
     boolean :featured, :using => :featured?
     boost { featured? ? 2.0 : 1.0 }
   end
   handle_asynchronously :solr_index
     
-  attr_accessible :name, :url, :description, :category_ids, :language_id
+  attr_accessible :name, :url, :description, :category_ids, :language_id, :link_id
   
   belongs_to :language, :class_name => 'Tool'
   has_many :buildables, :dependent => :destroy
@@ -38,6 +38,7 @@ class Tool < ActiveRecord::Base
   # Used to get all links that are considered this Tools main pages
   has_many :sources, :as => :sourceable
   has_many :links, :through => :sources
+  belongs_to :link
   
   # Bookmarks
   has_many :annotations, :as => :annotateable, :dependent => :destroy
@@ -170,15 +171,18 @@ class Tool < ActiveRecord::Base
 
 
   def self.new_from_link(link)
-    tool = Tool.new
-    tool.url = link.url
-    tool.categories = link.categories
+    tool = Tool.new({
+      :url => link.url,
+      :categories => link.categories,
+      :description => link.description,
+      :link => link,
+      :link_id => link.id
+    })
     if link.cached_keywords && link.cached_keywords.length > 0
-      tool.name = link.cached_keywords.first.first
+      tool.name = link.cached_keywords.first.first.capitalize
     else
       tool.name = link.title
     end
-    tool.description = link.description
     tool
   end
   
@@ -186,8 +190,7 @@ class Tool < ActiveRecord::Base
     self.sites.collect do |site|
       { "id" => site.id.to_s, "name" => "#{site.title} (#{site.url})"}
     end
-  end
-  
+  end  
 
   private
   def categories_changed?
@@ -197,6 +200,12 @@ class Tool < ActiveRecord::Base
   def validate_uri
     errors.add(:url, "is not a valid URL") if !uri.valid?
     errors.empty?
+  end
+  
+  before_validation :set_url_from_link, :on => :create
+  def set_url_from_link
+    debugger
+    self.url = link.url if link
   end
   
   after_save :create_or_update_link, :if => :url_changed?

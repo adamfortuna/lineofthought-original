@@ -1,6 +1,8 @@
+<% debugger %>
 <%= semantic_form_for @tool do |f| %>
   <%= f.inputs do %>
-    <%= f.input :url, :as => :string, :required => true, :label => "Enter the definitive URL for this Tool" %>
+    <%= f.input :link_id, :as => :hidden %>
+    <%= f.input :url, :as => :string, :required => true, :label => "Enter the definitive URL for this Tool", :input_html => { :disabled => true } %>
     <%= f.input :name, :as => :string, :required => true, :label => "Tool Name", :hint => "Just the name here." %>
     <%= f.input :language, :as => :select, :collection => Tool.languages.find(:all, :order => :name), 
                 :label => "Programming Language", :hint => "Primary language used. If multiple, select the main one." %>

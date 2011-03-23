@@ -4,8 +4,7 @@
   <h2><%= @title %></h2>
   <p>All tools in our system need a unique URL associated with them. This helps minimize duplicates and makes it easier for everyone to lookup more information about each tool.</p>
   <section>
-    
-    <% if @link && @link.parsed? %>
+    <% if @tool.link %>
       <%= render :partial => "form" %>
     <% else%>
       <%= semantic_form_for @tool, :url => lookup_tools_path, :html => { :id => "lookup_tool", :remote => true } do |f| %>
@@ -16,23 +15,10 @@
         <% end %>
       <% end %>
       <div id="edit_tool_form"></div>
-      
-      <% javascript do %>
-      var checkForLookup = false
-      $(function() {
-        $("#lookup_tool").submit(function() {
-          if(!checkForLookup) {
-            $("#lookup_tool input.create").attr("disabled", "disabled");
-            $("#lookup_loading").show();
-            checkForLookup = setInterval("resubmit_lookup()", 5000);
-          }
-        });
-      })
-      
-      function resubmit_lookup() {
-        $("#lookup_tool").submit();
-      }
-      <% end %>
+      <div id="existing_tool" style="display:none;">
+        <h3>Found Tools</h3>
+        <ul class="tools"></ul>
+      </div>
     <% end %>
   </section>
 </section>

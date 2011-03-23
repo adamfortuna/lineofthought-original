@@ -9,13 +9,15 @@ class SitesController < ApplicationController
               "alexa" => "alexa_global_rank", 
               "tools" => "tools_count", 
               "sitename" => "lower_title",
-              "bookmarks" => "bookmarks_count"
+              "bookmarks" => "bookmarks_count",
+              "created" => "created_at"
             }
 
   @@tool_order = { "sites" => "sites_count", 
                    "toolname" => "tools.name",
                    "bookmarks" => "tools.bookmarks_count",
-                   "jobs" => "tools.jobs_count" }
+                   "jobs" => "tools.jobs_count",
+                   "created" => "created_at" }
 
   # GET /sites
   def index
@@ -46,7 +48,7 @@ class SitesController < ApplicationController
   def lookup
     link = Link.find_or_create_by_domain(params[:site][:url], true)
     if !link.parsed
-      Timeout::timeout(20) do
+      Timeout::timeout(5) do
         link.parse_html_without_delay
       end
     end
@@ -69,7 +71,6 @@ class SitesController < ApplicationController
   def create
     @site = Site.create(params[:site])
     if @site.new_record?
-      debugger
       flash[:error] = "There was a problem creating this site."
       render :new
     else

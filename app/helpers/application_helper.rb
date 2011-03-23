@@ -41,15 +41,16 @@ module ApplicationHelper
   
   def sorting_name(name)
     case name.split("_").first
-      when 'sites' then 'Sites Using'
-      when 'category' then 'Category'
-      when 'toolname' then 'Tool Name'
-      when 'sitename' then 'Site Name'
+      when 'sites' then 'popularity'
+      when 'category' then 'category'
+      when 'toolname' then 'tool'
+      when 'sitename' then 'site'
       when 'alexa' then 'Alexa Rank'
       when 'google' then 'Google PageRank'
-      when 'tools' then 'Tools Count'
+      when 'tools' then 'popularity'
       when 'jobs' then 'Jobs Count'
       when 'bookmarks' then 'Bookmarks Count'
+      when 'created' then 'date'  
     end
   end
 
@@ -64,6 +65,7 @@ module ApplicationHelper
       when 'tools' then 'sort-tools-count'
       when 'jobs' then 'sort-jobs-count'
       when 'bookmarks' then 'sort-bookmarks-count'
+      when 'created' then 'sort-created-at'  
     end
   end
 end
