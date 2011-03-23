@@ -3,22 +3,28 @@ class ToolsController < ApplicationController
   before_filter :redirect_to_tool, :only => [:new]
   respond_to :html, :json, :xml
 
-  caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
+  # caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
   caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 2.minutes
   caches_action :autocomplete, :cache_path => Proc.new { |controller| controller.params }, :expires_in => 15.minutes
 
   @@order = { "sites" => "sites_count", 
-              "toolname" => "tools.name",
-              "bookmarks" => "tools.bookmarks_count",
-              "jobs" => "tools.jobs_count" }
+              "toolname" => "name",
+              "bookmarks" => "bookmarks_count",
+              "jobs" => "jobs_count" }
 
   def index
-    # @tools = Tool.order(build_order).includes(:categories, :language)
-    #              .paginate(:page => (params[:page] || 1), :per_page => (params[:page] || 25))
-    @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 25))
+    @search = Sunspot.search(Tool) do
+      keywords params[:search] if params[:search]
+      
+      keywords params[:category], :fields => [:categories] if params[:category]
+      order_by(order_field.to_sym, order_direction.to_sym)
+      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 30)
+    end
+    
+    # @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 25))
     @categories = Category.order(:name).where("tools_count > 0")
     @featured = Tool.featured.limit(5)
-    respond_with @tools
+    respond_with @search.results
   end
   
   def show
@@ -131,6 +137,13 @@ class ToolsController < ApplicationController
     sort_order = @@order[order.split("_").first] rescue "sites_count"
     direction = order.split("_").last rescue "desc"
     return "#{sort_order} #{direction}"
+  end
+  
+  def order_field
+    build_order.split(" ").first
+  end
+  def order_direction
+    build_order.split(" ").last
   end
   
   def load_record

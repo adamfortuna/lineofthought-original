@@ -6,30 +6,34 @@
     <div id="sorting">
       <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
       <ul class="options" style="display:none;">
-        <li><a href="<%= tools_path(:sort => :sites_desc) %>">Sort by number of Sites</a></li>
-        <li><a href="<%= tools_path(:sort => :toolname_asc) %>">Sort by Tool Name</a></li>
+        <li><a href="<%= tools_path(:sort => :sites_desc, :search => params[:search], :category => params[:category]) %>">Sort by popularity</a></li>
+        <li><a href="<%= tools_path(:sort => :toolname_asc, :search => params[:search], :category => params[:category]) %>">Sort by tool</a></li>
       </ul>
     </div>
   </div>
   <section>
     <ul class="tools">
-      <%= render @tools %>
+      <%= render @search.results %>
     </ul>
-    <%= will_paginate @tools %>
+    <%= will_paginate @search.hits %>
   </section>
 </section>
 
 <sidebar>
-  <% cache("categories-sidebar", :expires_in => 30.minutes) do %>
   <aside>
-    <h3>Categories</h3>
-    <ul class="lst">
-      <%= render :partial => "categories/category_small", :collection => @categories %>
-    </ul>
+    <h3>Search for a Tool</h3>
+    <div>
+      <form action="<%= tools_path %>" method="get">
+        <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a tool" />
+        <input type="submit" value="Search" />
+      </form>
+    </div>
   </aside>
+
+  <% cache("categories-sidebar", :expires_in => 30.minutes) do %>
+    <%= render "tools/categories" %>  
   <% end %>
-  
-  <%= render :partial => "tools/featured" %>
+  <%= render "tools/featured" %>
   
   
   <aside>

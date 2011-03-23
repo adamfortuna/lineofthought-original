@@ -1,0 +1,8 @@
+<aside>
+  <h3>Categories</h3>
+  <ul class="lst">
+    <% @categories.each do |category| %>
+    <li class="<%= cycle 'odd', 'even' %>"><a href="<%= tools_path(:category => category.cached_slug) %>"><em><%= pluralize(category.tools_count, "tool") %></em><%= category.name %></a></li>
+    <% end %>
+  </ul>
+</aside>

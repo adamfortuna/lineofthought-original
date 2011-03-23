@@ -51,8 +51,7 @@ Snaps::Application.routes.draw do
       get :bookmarks
     end
   end
-  
-  resources :categories, :only => [:show]
+
   resources :subscriptions, :only => [:index, :create]
   
   match '/new' => 'home#new', :as => 'new'

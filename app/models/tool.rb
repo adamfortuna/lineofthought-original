@@ -3,6 +3,24 @@ class Tool < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true
   include HasFavicon
 
+  searchable do
+    text :name, :default_boost => 2
+    string :name
+    string :url
+    text :description
+    
+    integer :sites_count
+    integer :bookmarks_count
+    integer :jobs_count
+    
+    text :categories do
+      cached_categories.map { |category| category[:name] }
+    end
+    
+    boolean :featured, :using => :featured?
+    boost { featured? ? 2.0 : 1.0 }
+  end
+    
   attr_accessible :name, :url, :description, :category_ids, :language_id
   
   belongs_to :language, :class_name => 'Tool'
