@@ -196,6 +196,9 @@ div.disqus_wrapper {
   padding: 1em;
   font-size: 1.4em; }
 
+sidebar aside.search input[type='text'] {
+  width: 160px; }
+
 body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited,
 body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited,
 body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited,

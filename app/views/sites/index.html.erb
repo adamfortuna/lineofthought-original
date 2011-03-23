@@ -26,14 +26,11 @@
 </section>
 
 <sidebar>
-  <aside>
-    <h3>Search for a Site</h3>
-    <div>
-      <form action="<%= sites_path %>" method="get">
-        <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a site" />
-        <input type="submit" value="Search" />
-      </form>
-    </div>
+  <aside class="search">
+    <form action="<%= sites_path %>" method="get">
+      <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a site..." />
+      <input type="submit" value="Search" />
+    </form>
   </aside>
   <aside>
     <h3>Add a Site</h3>

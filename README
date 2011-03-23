@@ -3,3 +3,6 @@ ActionController::Base.cache_store.clear
 
 reindex solr
 heroku rake sunspot:reindex
+
+regenerate css
+rake asset:packager:build_all
