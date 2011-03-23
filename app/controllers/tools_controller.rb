@@ -88,8 +88,6 @@ class ToolsController < ApplicationController
         end
       end
     end
-  rescue
-    render :js => ""    
   end
   
   def create

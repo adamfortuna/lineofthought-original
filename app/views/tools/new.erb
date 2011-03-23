@@ -12,7 +12,7 @@
         <%= f.inputs do %>
           <%= f.input :url, :as => :string, :required => true, :label => "Enter the definitive URL for this Tool" %>
           <%= f.commit_button :label => "Step 2 >>", :id => "lookup_submit" %>
-          <li id="lookup_loading" style="display:none;"> <img src="/images/spinner.gif"/> We're looking up this tool, just a sec.</li>
+          <li id="lookup_loading" style="display:none;"> <img src="/images/indicator.gif"/> We're looking up this tool, just a sec.</li>
         <% end %>
       <% end %>
       <div id="edit_tool_form"></div>

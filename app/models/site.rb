@@ -39,6 +39,7 @@ class Site < ActiveRecord::Base
   has_many :annotations, :as => :annotateable
   has_many :bookmarks, :through => :annotations
 
+  scope :recent, order("created_at desc")
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
   scope :with_tools, lambda { |count| { :conditions => ["tools_count > ?", count] } }
   scope :featured, where(:featured => true).order("tools_count desc")
@@ -56,6 +57,17 @@ class Site < ActiveRecord::Base
   serialize :cached_tools
   serialize :cached_bookmarks
     
+  def self.new_from_link(link)
+    site = Site.new({
+      :link => link,
+      :url => link.url,
+      :title => link.title,
+      :description => link.description
+    })
+    site.set_location_from_whois
+    site
+  end
+  
   def update_ranks!
     ranks = PageRankr.ranks(url, :alexa, :google) #=> {:alexa=>{:us=>1, :global=>1}, :google=>10}
     if ranks && ranks[:alexa][:us] != 0 && ranks[:alexa][:global] != 0 && ranks[:google] != 0
@@ -78,22 +90,11 @@ class Site < ActiveRecord::Base
         :lng => existing_site.lng
       })
     else
-      Timeout::timeout(10) do
-        contact = [whois.technical_contact, 
-                   whois.registrant_contact, 
-                   whois.admin_contact].compact.first
-        if contact
-          location = [r.technical_contact.address, r.technical_contact.city, r.technical_contact.state, r.technical_contact.zip, r.technical_contact.country_code].compact
-          display_location = [r.technical_contact.city, r.technical_contact.state, r.technical_contact.country_code].compact
-          self.update_attributes({
-            :display_location => display_location.join(", "),
-            :location => location.join(", ")
-          })
-        end
-      end
+      set_location_from_whois
+      save
     end
   end
-  handle_asynchronously :set_location_from_domain!
+  # handle_asynchronously :set_location_from_domain!
   
   
   def whois
@@ -156,6 +157,26 @@ class Site < ActiveRecord::Base
     site = Site.create(:url => url, :title => handy_url.full_uid.capitalize)
     return site.id
   end
+  
+  def set_location_from_whois(timeout = 5)
+    Timeout::timeout(timeout) do
+      contact = [self.whois.technical_contact, 
+                 self.whois.registrant_contact, 
+                 self.whois.admin_contact].compact.first
+      if contact
+        self.display_location = [contact.city, 
+                                 contact.state, 
+                                 contact.country_code].compact.join(", ")
+        self.location = [contact.address, 
+                         contact.city, 
+                         contact.state, 
+                         contact.zip, 
+                         contact.country_code].compact.join(", ")
+      end
+    end
+  rescue 
+    # OK if not able to fetch whois info
+  end
 
   private
   
@@ -172,9 +193,16 @@ class Site < ActiveRecord::Base
     end
   end
   
+  before_validation :set_url_from_link, :on => :create
+  def set_url_from_link
+    self.url = link.url if link
+  end
+  
   after_validation :create_or_update_link, :if => :url_changed?
   def create_or_update_link
-    self.link = Link.find_or_create_by_url(url)
+    if !link || (link.url != self.url)
+      self.link = Link.find_or_create_by_url(url)
+    end
   end
   
   def default_title_to_domain

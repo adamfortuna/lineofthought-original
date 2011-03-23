@@ -19,6 +19,11 @@ class Favicon < ActiveRecord::Base
 
 
   def self.create_by_favicon_url(favicon, uri)
+    favicon = Favicon.find_by_uri(:uri)
+    if favicon
+      favicon.update_associated_items
+      return true
+    end
     parsed_favicon_url = favicon || "#{uri.scheme}://#{uri.host}/favicon.ico"
     if Util.relative_url?(parsed_favicon_url)
       favicon = "/#{favicon}" unless favicon[0] == "/"
@@ -38,6 +43,13 @@ class Favicon < ActiveRecord::Base
   handle_asynchronously :download_favicon!
   after_save :download_favicon!, :if => :should_download?
   
+  after_save :update_associated_items, :if => :favicon_file_name_changed?
+  def update_associated_items
+    Site.update_all "has_favicon=true", ["uid = ?", uid]
+    Tool.update_all "has_favicon=true", ["uid = ?", uid]
+    Link.update_all "has_favicon=true", ["uid = ?", uid]
+  end
+  
   private
   def download_remote_image
     io = open(URI.parse(url))
@@ -48,13 +60,5 @@ class Favicon < ActiveRecord::Base
   
   def should_download?
     url_changed? && !skip_load
-  end
-  
-  after_save :update_associated_items, :if => :favicon_file_name_changed?
-  def update_associated_items
-    Site.update_all "has_favicon=true", ["uid = ?", uid]
-    Tool.update_all "has_favicon=true", ["uid = ?", uid]
-    Link.update_all "has_favicon=true", ["uid = ?", uid]
-  end
-  
+  end  
 end

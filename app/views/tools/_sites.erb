@@ -1,5 +1,6 @@
 <section class="tab">
   <% if @tool.sites_count > 0 %>
+  <% description "We know of #{pluralize(@tool.sites_count, "site")} using #{@tool.name} (#{@tool.url})." %>
   <div class="title_bar group">
     <h3>We know of <%= pluralize(@tool.sites_count, "site") %> using <%= @tool.name %>.</h3>
     <div id="sorting">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322200824) do
+ActiveRecord::Schema.define(:version => 20110323191127) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(:version => 20110322200824) do
   add_index "claims", ["user_id"], :name => "index_claims_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",                         :default => 0
-    t.integer  "attempts",                         :default => 0
-    t.text     "handler",    :limit => 2147483647
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -167,29 +167,26 @@ ActiveRecord::Schema.define(:version => 20110322200824) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url"
-    t.string   "destination_url"
+    t.string   "original_url"
     t.string   "uid"
-    t.integer  "clicks_count",    :default => 0
+    t.string   "uid_with_subdomain"
+    t.string   "canonical"
+    t.integer  "clicks_count",       :default => 0
     t.string   "title"
     t.string   "author"
     t.text     "description"
-    t.text     "html"
-    t.text     "html_body"
-    t.text     "body"
+    t.text     "lede"
     t.text     "cached_keywords"
     t.text     "cached_links"
     t.string   "feed"
     t.datetime "date_posted"
-    t.boolean  "has_favicon",     :default => false
-    t.boolean  "parsed",          :default => false
-    t.string   "canonical"
-    t.string   "original_url"
-    t.text     "lede"
-    t.string   "root_canonical"
+    t.boolean  "has_favicon",        :default => false
+    t.boolean  "parsed",             :default => false
+    t.integer  "page_id"
   end
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"
-  add_index "links", ["root_canonical"], :name => "index_links_on_root_canonical"
+  add_index "links", ["uid_with_subdomain"], :name => "index_links_on_root_canonical"
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
@@ -216,6 +213,13 @@ ActiveRecord::Schema.define(:version => 20110322200824) do
   end
 
   add_index "owners", ["user_id", "ownable_id", "ownable_type"], :name => "index_owners_on_user_id_and_ownable_id_and_ownable_type"
+
+  create_table "pages", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "html",       :limit => 2147483647
+    t.text     "url"
+  end
 
   create_table "sites", :force => true do |t|
     t.datetime "created_at"

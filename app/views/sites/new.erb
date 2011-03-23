@@ -1,0 +1,39 @@
+<% title "Add a Site to Line Of Thought" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <p>All sites in our system need a unique URL associated with them. It's possible to add multiple sites on the same domain if they are on different subdomains, otherwise they should all be under the same root domain listing.</p>
+  <p>For example, if there's an entry <a href="/sites/twitter">http://twitter.com</a> it'll show up on the <a href="/sites">sites</a> list. If a subdomain of Twitter is added, say <a href="/sites/dev-twitter">http://dev.twitter.com</a>, it'll be visible from the <a href="/sites/twitter">Twitter site page</a>, but won't show up on the general sites list.
+  <section>
+    
+    <% if @site.link %>
+      <%= render 'form' %>
+    <% else %>
+      <%= semantic_form_for @site, :url => lookup_sites_path, :html => { :id => "lookup_site", :remote => true } do |f| %>
+        <%= f.inputs do %>
+          <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
+          <%= f.commit_button :label => "Step 2 >>", :id => "lookup_submit" %>
+          <li id="lookup_loading" style="display:none;"> <img src="/images/indicator.gif"/> We're looking up this site, just a sec.</li>
+        <% end %>
+      <% end %>
+      <div id="edit_site_form"></div>
+      <div id="existing_site" style="display:none;">
+        <h3>Found Sites</h3>
+        <ul class="sites"></ul>
+      </div>
+    <% end %>
+  </section>
+</section>
+
+<% cache("recent_sites", :expires_in => 15.minutes) do %>
+<sidebar>
+  <aside>
+    <h3>Recently Added Sites</h3>
+    <ul class="lst">
+      <% Site.recent.limit(5).each do |site| %>
+        <li><%= link_to site.title, site_path(site, :format => params[:format]) %></li>
+      <% end %>
+    </ul>
+  </aside>
+</sidebar>
+<% end %>

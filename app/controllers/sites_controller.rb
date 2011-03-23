@@ -17,6 +17,7 @@ class SitesController < ApplicationController
                    "bookmarks" => "tools.bookmarks_count",
                    "jobs" => "tools.jobs_count" }
 
+  # GET /sites
   def index
     @search = Site.search do
       keywords params[:search] if params[:search]
@@ -26,6 +27,7 @@ class SitesController < ApplicationController
     respond_with(@search.results)
   end
 
+  # GET /sites/:id
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
     @usings = @site.usings.includes([:tool, :site]).joins(:tool).order(build_tool_order)
@@ -34,14 +36,40 @@ class SitesController < ApplicationController
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
   end
 
+  # GET /sites/new
   def new
     @site = Site.new(params[:site])
     respond_with(@site)
   end
+  
+  # POST /sites/lookup
+  def lookup
+    link = Link.find_or_create_by_domain(params[:site][:url], true)
+    if !link.parsed
+      Timeout::timeout(20) do
+        link.parse_html_without_delay
+      end
+    end
+    respond_to do |format|
+      format.js do
+        if @site = link.site
+          render :duplicate
+        elsif link.parsed?
+          @site = Site.new_from_link(link)
+          render :lookup_complete
+        else
+          render :js => ""
+          # no response, lookup in progress
+        end
+      end
+    end
+  end
 
+  # POST /sites
   def create
     @site = Site.create(params[:site])
     if @site.new_record?
+      debugger
       flash[:error] = "There was a problem creating this site."
       render :new
     else
@@ -52,6 +80,7 @@ class SitesController < ApplicationController
     end
   end
   
+  # GET /sites/:id/edit
   def edit
     @site = Site.find_by_cached_slug(params[:id]) 
     respond_with(@site)
@@ -59,6 +88,7 @@ class SitesController < ApplicationController
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
   end
   
+  # PUT /sites/:id
   def update
     @site = Site.find_by_cached_slug(params[:id])
     if @site.update_attributes(params[:site])

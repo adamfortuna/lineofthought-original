@@ -6,6 +6,7 @@
   <section class="tab">
     <% if @site.tools_count > 0 %>
     <div class="title_bar group">
+      <% description "We know of #{pluralize(@site.tools_count, "tool")} used #{@site.title} (#{@site.url})." %>
       <h3>We know of <strong><%= pluralize(@site.tools_count, "tool") %></strong> used on <strong><%= @site.title %></strong></h3>
       <div id="sorting">
         <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>

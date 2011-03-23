@@ -21,10 +21,6 @@ class HandyUrl
     domainatrix.canonical
   end
   
-  def root_canonical
-    root_domainatrix.canonical
-  end
-
   def host
     @uri.host if valid?
   end
@@ -77,12 +73,23 @@ class HandyUrl
     [tld, domain].compact.join(".")
   end
   
+  def uid_with_subdomain
+    sub = (subdomain == "www") ? nil : subdomain
+    [tld, domain, sub].compact.join(".").downcase
+  end
+  
   def full_uid
     new_tld = ["com", "net", "org"].include?(tld) ? nil : tld
     sub = (subdomain == "www") ? nil : subdomain
     [sub, [domain, new_tld].compact.join("")].compact.join("-").downcase
   end
-  
+    
+  def root_url_with_subdomain
+    return nil unless valid?
+    HandyUrl.new("#{scheme}://#{host}/")
+  end
+    
+    
   ##
   # Checks to see if another HandyUrl exists on this Url.
   # Can be used to check if a specific page exists on a site.

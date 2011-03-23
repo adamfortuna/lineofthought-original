@@ -6,6 +6,15 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
   
+  def description(page_description)
+    @description = page_description
+    content_for(:description) { page_description }
+  end
+  
+  def page_description
+    @description || "Line Of Thought tracks what powers the web. Find out what tools power the sites you visit, or add your own site or tools."
+  end
+  
   def body_class(classes)
     @classes = classes
     content_for(:body_classes) { classes }

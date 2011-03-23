@@ -2,6 +2,15 @@ class Link < ActiveRecord::Base
   extend ActiveSupport::Memoizable
   attr_accessor :skip_load
 
+  searchable do
+    string :url # The actual URL visited
+    string :original_url # The URL entered by the user
+    string :uid # for favicons
+    string :uid_with_subdomain
+    string :canonical
+  end
+  handle_asynchronously :solr_index
+  
   validates_presence_of :url, :uid, :canonical
   validates_uniqueness_of :url, :canonical
 
@@ -11,6 +20,7 @@ class Link < ActiveRecord::Base
   has_one :source, :dependent => :destroy
   has_one :site
   has_one :tool
+  belongs_to :page, :dependent => :destroy
 
   composed_of :uri,
     :class_name => 'HandyUrl',
@@ -18,59 +28,43 @@ class Link < ActiveRecord::Base
     :allow_nil  => true,
     :converter  => :new  
   
-  after_create :load_by_url_and_parse, :unless => :skip_load?
-  def load_by_url_and_parse
-    load_by_url
-    parse_html!
-    update_site_description
-  end
-  handle_asynchronously :load_by_url_and_parse
-  
-  def load_by_url
-    Timeout::timeout(20) do
-      agent = Mechanize.new
-      agent.redirection_limit     = 3             # only follow 3 redirect
-      agent.redirect_ok           = true          # follow redirects
-      agent.user_agent_alias      = 'Mac Safari'  # cloak it
-      page = agent.get(original_url)
-      self.url = page.uri.to_s if self.destination_url != page.uri.to_s
-      self.html = page.send(:html_body)
-    end
-    save!
-  rescue
-    update_attribute(:parsed, true)
-  end
-  
-  def doc
-    @doc ||= Pismo::Document.new(self.html)
-  end
-  
-  def parse_html!
-    self.title           = doc.title
-    self.html_body       = doc.html_body
-    self.body            = doc.body
-    self.description     = doc.description
-    self.lede            = doc.lede
-    self.cached_keywords = doc.keywords
-    self.author          = doc.author
-    self.feed            = doc.feed
-    self.date_posted     = doc.datetime
-    self.cached_links    = Nokogiri::XML::Document.parse(doc.html_body).css("a").collect do |link|
-      link["href"] if !Util.relative_url?(link["href"])
-    end.compact
-    Favicon.create_by_favicon_url(doc.favicon, uri)
+  def parse_html
+    self.title           = current_page.title
+    self.description     = current_page.description
+    self.lede            = current_page.lede
+    self.cached_keywords = current_page.keywords
+    self.author          = current_page.author
+    self.feed            = current_page.feed
+    self.date_posted     = current_page.datetime
+    self.cached_links    = current_page.links
+    Favicon.create_by_favicon_url(current_page.favicon, uri)
     self.parsed          = true
     save!
+    update_related_description
+  end
+  handle_asynchronously :parse_html
+  after_create :parse_html, :unless => :skip_load?
+  
+  
+  def current_page(reload = false)
+    return page if page && page.loaded?
+    new_page = Page.create({:url => url })
+    self.update_attribute(:page_id, new_page.id)
+    new_page
+  end
+  memoize :current_page
+
+
+  def self.find_or_create_by_domain(url, skip_load = false)
+    h = HandyUrl.new(url).root_url_with_subdomain
+    find_or_create_by_url(h.to_s, skip_load)
   end
   
   def self.find_or_create_by_url(url, skip_load = false)
-    handy_url = HandyUrl.new(url)
-    link = Link.where(["canonical = ? OR original_url = ?", handy_url.canonical, url])
-    if link.empty?
-      Link.create({:url => url, :skip_load => skip_load})
-    else
-      link.first
-    end
+    h = HandyUrl.new(url)
+    link = Link.find(:first, :conditions => ["url IN (?) OR original_url IN (?)", h.variants, h.variants])
+    return link if link
+    return Link.create({:url => h.to_s, :skip_load => skip_load})
   end
 
   def categories
@@ -133,6 +127,7 @@ class Link < ActiveRecord::Base
     self.original_url ||= self.url
     self.url = Util.normalize_url(self.url).to_s
     self.canonical = self.uri.canonical
+    self.uid_with_subdomain = self.uri.uid_with_subdomain
     self.uid = self.uri.uid
   end
   
@@ -140,9 +135,12 @@ class Link < ActiveRecord::Base
     skip_load
   end
   
-  def update_site_description
+  def update_related_description
     if site && site.description.blank? && (self.description || self.lede)
       site.update_attribute(:description, self.description || self.lede)
+    end
+    if tool && tool.description.blank? && (self.description || self.lede)
+      tool.update_attribute(:description, self.description || self.lede)
     end
   end
 end

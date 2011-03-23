@@ -35,4 +35,5 @@ class LookupController < ApplicationController
       respond_with(@link, @sites, @tools)
     end
   end
+  
 end
