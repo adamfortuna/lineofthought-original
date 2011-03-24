@@ -70,22 +70,19 @@ class ToolsController < ApplicationController
   
   # POST /tools/lookup
   def lookup
-    link = Link.find_or_create_by_url(params[:tool][:url], true)
-    if !link.parsed
-      Timeout::timeout(5) do
-        link.parse_html_without_delay
-      end
-    end
+    @link = Link.find_or_create_by_url(params[:tool][:url])
     respond_to do |format|
       format.js do
-        if @tool = link.tool
+        if @link.nil?
+          render :lookup_failed
+        elsif @tool = @link.tool
           render :duplicate
-        elsif link.parsed?
-          @tool = Tool.new_from_link(link)
+        elsif @link.parsed? && (@tool = Tool.new_from_link(@link))
           render :lookup_complete
+        elsif @link.unparseable? || @link.unreachable?
+          render :lookup_failed
         else
-          render :js => ""
-          # no response, lookup in progress
+          render :js => "console.log('create in progress');"
         end
       end
     end

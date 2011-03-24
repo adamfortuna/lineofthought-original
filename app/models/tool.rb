@@ -204,7 +204,6 @@ class Tool < ActiveRecord::Base
   
   before_validation :set_url_from_link, :on => :create
   def set_url_from_link
-    debugger
     self.url = link.url if link
   end
   

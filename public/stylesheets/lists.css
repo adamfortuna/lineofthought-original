@@ -21,6 +21,9 @@ ul.categories, ul.sites, ul.tools, ul.usings {
   border-top: 1px solid #ccc;
   padding: 1em 0; }
 
+body.tools-index .ind {
+  border-top: none; }
+
 div.ind:hover {
   background-color: #fff; }
 
@@ -174,7 +177,7 @@ ul.tools li.tool .content {
   padding: 0; }
 
 .tool .categories li {
-  margin-left: 10px;
+  margin-left: .2em;
   float: right; }
 
 .tool .categories li a {
@@ -275,6 +278,9 @@ ul.usings li.ind h4 img.favicon {
 ul.usings li.ind:hover a.comments {
   display: block; }
 
+ul.usings li.ind ul li {
+  margin: 0; }
+
 ul.usings li.ind ul.tools, ul.usings li.ind ul.categories {
   min-height: 0;
   margin: 0;
@@ -321,14 +327,10 @@ ul.usings li.ind ul.categories li a.comments, ul.usings li.ind ul.tools li a.com
 ul.usings li.ind:hover ul.categories li a.comments, ul.usings li.ind:hover ul.tools li a.comments {
   display: block; }
 
-ul.sort-alexa li.ind li.alexa, ul.sort-pagerank li.ind li.pagerank {
-  display: inline; }
-
-ul.sort-sites li.ind li.popularity {
-  display: inline;
-  background-color: #bbb;
-  font-size: 1.1em; }
-
+/* 
+ul.sort-alexa li.ind li.alexa, ul.sort-pagerank li.ind li.pagerank { display:inline; }
+ul.sort-sites li.ind li.popularity { display:inline; background-color:#bbb; font-size:1.1em;}
+*/
 ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child {
   border-top: none;
   border-bottom: 1px solid #ccc; }

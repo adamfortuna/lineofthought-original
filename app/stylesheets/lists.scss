@@ -8,6 +8,7 @@ ul.categories, ul.sites, ul.tools, ul.usings { list-style:none; margin:1em; min-
 
 /* Lists of sites or tools */
 .ind { border-top:1px solid #ccc; padding:1em 0; }
+body.tools-index .ind { border-top:none; }
 div.ind:hover { background-color:#fff; }
 div.ind { border:none; margin: .2em 1em 1em 1em; }
 div.ind h2 { width:640px; float:left; }
@@ -57,7 +58,7 @@ ul.tools li.tool .content { position:relative; }
 .tools .sites li a:hover { background-color:#dddd11; }
 /* tools#index categories list */
 .tool .categories { position:absolute; bottom:0; right:0; margin:0; padding:0; }
-.tool .categories li { margin-left:10px; float:right; }
+.tool .categories li { margin-left:.2em; float:right; }
 .tool .categories li a { background-color:#ccc; }
 .tool .categories li a:hover { background-color:#aaa; }
 /* tools#show list of sites using  */
@@ -96,6 +97,7 @@ ul.usings li.ind h4 span.url { display:none; font-size:.8em; color:#888; }
 ul.usings li.ind:hover h4 span.url { display:inline; margin-left:1em; }
 ul.usings li.ind h4 img.favicon { margin:0 .5em 0 0; }
 ul.usings li.ind:hover a.comments { display:block; }
+ul.usings li.ind ul li { margin:0; }
 ul.usings li.ind ul.tools, ul.usings li.ind ul.categories { min-height:0; margin:0; max-width:400px; float:right; position:relative; margin-top:2px; }
 ul.usings li.ind ul.tools li, ul.usings li.ind ul.categories li { float:right;}
 ul.usings li.ind ul.tools li a, ul.usings li.ind ul.categories li a { display: block; font-size: 1.1em; margin-right: 0.2em; padding: 0.3em; }
@@ -112,9 +114,10 @@ ul.usings li.ind:hover ul.categories li a.comments, ul.usings li.ind:hover ul.to
 
     
     
-    
+/* 
 ul.sort-alexa li.ind li.alexa, ul.sort-pagerank li.ind li.pagerank { display:inline; }
 ul.sort-sites li.ind li.popularity { display:inline; background-color:#bbb; font-size:1.1em;}
+*/
 
 ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child { border-top:none; border-bottom:1px solid #ccc; }
 

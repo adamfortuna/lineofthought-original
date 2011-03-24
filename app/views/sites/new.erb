@@ -5,23 +5,24 @@
   <p>All sites in our system need a unique URL associated with them. It's possible to add multiple sites on the same domain if they are on different subdomains, otherwise they should all be under the same root domain listing.</p>
   <p>For example, if there's an entry <a href="/sites/twitter">http://twitter.com</a> it'll show up on the <a href="/sites">sites</a> list. If a subdomain of Twitter is added, say <a href="/sites/dev-twitter">http://dev.twitter.com</a>, it'll be visible from the <a href="/sites/twitter">Twitter site page</a>, but won't show up on the general sites list.
   <section>
-    
-    <% if @site.link %>
-      <%= render 'form' %>
-    <% else %>
-      <%= semantic_form_for @site, :url => lookup_sites_path, :html => { :id => "lookup_site", :remote => true } do |f| %>
-        <%= f.inputs do %>
-          <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
-          <%= f.commit_button :label => "Step 2 >>", :id => "lookup_submit" %>
-          <li id="lookup_loading" style="display:none;"> <img src="/images/indicator.gif"/> We're looking up this site, just a sec.</li>
-        <% end %>
+    <%= semantic_form_for @site, :html => { :id => "new_site", :remote => true } do |f| %>
+      <%= f.inputs do %>
+        <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
       <% end %>
-      <div id="edit_site_form"></div>
-      <div id="existing_site" style="display:none;">
-        <h3>Found Sites</h3>
-        <ul class="sites"></ul>
-      </div>
+      <% f.buttons do %>
+      <li id="lookup_loading" class="response" style="display:none;"> <img src="/images/indicator.gif"/>We're looking up this site, just a sec.</li>
+        <%= f.commit_button :label => "Add URL", :wrapper_html => { :id => "submit_lookup" } %>
+        <%= f.commit_button :label => "Cancel", :id => "lookup_cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_lookup", :class => "response" } %>
+      <% end %>
     <% end %>
+    
+    <div id="site_error" class="error response" style="display:none;">
+      <p>Unable to lookup this URL</p>
+    </div>
+    <div id="existing_site" class="response" style="display:none;">
+      <h3>Matching Site</h3>
+      <ul class="sites"></ul>
+    </div>
   </section>
 </section>
 
@@ -36,4 +37,40 @@
     </ul>
   </aside>
 </sidebar>
+<% end %>
+
+<% javascript do %>
+var checkForLookup = false
+$(function() {
+  $("#new_site").submit(function() {
+    if(!checkForLookup) {
+      $("#submit_lookup input").attr("disabled", "disabled");
+      $("#cancel_lookup").show();
+      $("#lookup_loading").show();
+      checkForLookup = setInterval("resubmit_lookup()", 3000);
+    }
+  });
+  
+  $("#cancel_lookup input").click(function(e) {
+    cancel_lookup();
+    e.preventDefault();
+    return false;
+  });
+})
+
+function resubmit_lookup() {
+  $("#new_site").submit();
+}
+
+function cancel_lookup() {
+  clearInterval(checkForLookup);
+  checkForLookup = false;
+  $(".response").hide();
+  $("#submit_lookup input").removeAttr("disabled");
+}
+
+function site_error() {
+  cancel_lookup();
+  $("#site_error").show();
+}
 <% end %>

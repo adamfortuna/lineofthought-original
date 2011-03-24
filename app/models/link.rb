@@ -1,6 +1,5 @@
 class Link < ActiveRecord::Base
   extend ActiveSupport::Memoizable
-  attr_accessor :skip_load
 
   searchable do
     string :url # The actual URL visited
@@ -28,7 +27,37 @@ class Link < ActiveRecord::Base
     :allow_nil  => true,
     :converter  => :new  
   
-  def parse_html
+  state_machine :status, :initial => :new do
+    state :new do
+    end
+
+    state :loaded do
+    end
+
+    state :unreachable do
+    end
+
+    state :parsed do
+    end
+    
+    state :unparseable do
+    end
+
+    before_transition :on => :load, :do => :load_html!
+    event :load do
+      transition [:new, :parsed, :unreachable] => :loaded, :if => :content_loaded?
+      transition :new => :unreachable
+    end
+    
+    before_transition :loaded => :parsed, :do => :parse_html!
+    after_transition :to => :parsed, :do => :update_related_description
+    event :parse do
+      transition :loaded => :parsed, :if => :content_parsed?
+      transition :loaded => :unparseable
+    end
+  end
+  
+  def parse_html!
     self.title           = current_page.title
     self.description     = current_page.description
     self.lede            = current_page.lede
@@ -38,13 +67,7 @@ class Link < ActiveRecord::Base
     self.date_posted     = current_page.datetime
     self.cached_links    = current_page.links
     Favicon.create_by_favicon_url(current_page.favicon, uri)
-    self.parsed          = true
-    save!
-    update_related_description
-  end
-  handle_asynchronously :parse_html
-  after_create :parse_html, :unless => :skip_load?
-  
+  end  
   
   def current_page(reload = false)
     return page if page && page.loaded?
@@ -53,18 +76,34 @@ class Link < ActiveRecord::Base
     new_page
   end
   memoize :current_page
+  
+  def load_html!
+    current_page
+  end
 
-
-  def self.find_or_create_by_domain(url, skip_load = false)
-    h = HandyUrl.new(url).root_url_with_subdomain
-    find_or_create_by_url(h.to_s, skip_load)
+  def content_loaded?
+    current_page && current_page.success?
   end
   
-  def self.find_or_create_by_url(url, skip_load = false)
-    h = HandyUrl.new(url)
-    link = Link.find(:first, :conditions => ["url IN (?) OR original_url IN (?)", h.variants, h.variants])
+  def content_parsed?
+    current_page && current_page.parsed?
+  end
+
+  def self.find_or_create_by_domain(url)
+    h = HandyUrl.new(url).root_url_with_subdomain
+    find_or_create_by_url(h.to_s)
+  end
+  
+  def self.find_or_create_by_url(url)
+    h = HandyUrl.new(Util.parse_uri(url))
+    link = Link.find_by_entered_url(h)
     return link if link
-    return Link.create({:url => h.to_s, :skip_load => skip_load})
+    return Link.create({:url => h.to_s})
+  end
+  
+  def self.find_by_entered_url(url)
+    url = HandyUrl.new(Util.parse_uri(url)) unless url.is_a?(HandyUrl)
+    find(:first, :conditions => ["url IN (?) OR original_url IN (?)", url.variants, url.variants])
   end
 
   def categories
@@ -131,16 +170,20 @@ class Link < ActiveRecord::Base
     self.uid = self.uri.uid
   end
   
-  def skip_load?
-    skip_load
-  end
-  
   def update_related_description
-    if site && site.description.blank? && (self.description || self.lede)
+    return unless (self.description || self.lede)
+    if site && site.description.blank?
       site.update_attribute(:description, self.description || self.lede)
     end
-    if tool && tool.description.blank? && (self.description || self.lede)
+    if tool && tool.description.blank?
       tool.update_attribute(:description, self.description || self.lede)
     end
   end
+  
+  def initial_load!
+    load!
+    parse! if loaded?
+  end
+  after_create :initial_load!
+  handle_asynchronously :initial_load!
 end

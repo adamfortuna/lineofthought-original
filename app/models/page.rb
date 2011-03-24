@@ -56,7 +56,14 @@ class Page < ActiveRecord::Base
   end
   
   def loaded?
-    !html.blank?
+    success?
+  end
+  
+  def parsed?
+    doc.title
+    true
+  rescue
+    false
   end
 
   private
@@ -70,7 +77,11 @@ class Page < ActiveRecord::Base
       page = agent.get(self.uri)
       self.url = page.uri.to_s if self.url != page.uri.to_s
       self.html = page.send(:html_body)
+      self.code = page.code
+      self.success = true
     end
     save!
+  rescue Mechanize::ResponseCodeError => e
+    self.update_attribute(:success, false)
   end
 end

@@ -43,40 +43,23 @@ class SitesController < ApplicationController
     @site = Site.new(params[:site])
     respond_with(@site)
   end
-  
-  # POST /sites/lookup
-  def lookup
-    link = Link.find_or_create_by_domain(params[:site][:url], true)
-    if !link.parsed
-      Timeout::timeout(5) do
-        link.parse_html_without_delay
-      end
-    end
-    respond_to do |format|
-      format.js do
-        if @site = link.site
-          render :duplicate
-        elsif link.parsed?
-          @site = Site.new_from_link(link)
-          render :lookup_complete
-        else
-          render :js => ""
-          # no response, lookup in progress
-        end
-      end
-    end
-  end
 
   # POST /sites
   def create
-    @site = Site.create(params[:site])
-    if @site.new_record?
-      flash[:error] = "There was a problem creating this site."
-      render :new
-    else
-      respond_to do |format|
-        format.html { redirect_to @site }
-        format.popup { redirect_to manage_site_tools_path(@site, :format => :popup) }
+    @link = Link.find_or_create_by_url(params[:site][:url])
+    respond_to do |format|
+      format.js do
+        if @link.nil?
+          render :create_failed
+        elsif @site = @link.site
+          render :duplicate
+        elsif @link.parsed? && (@site = Site.create_from_link(@link)) && !@site.new_record?
+          render :create_success
+        elsif (@site && @site.new_record?) || @link.unparseable? || @link.unreachable?
+          render :create_failed
+        else
+          render :js => "console.log('create in progress');"
+        end
       end
     end
   end

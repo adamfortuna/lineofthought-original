@@ -19,7 +19,6 @@ Snaps::Application.routes.draw do
   resources :sites do
     collection do 
       get :autocomplete
-      post :lookup
     end
     member do
       get :bookmarks

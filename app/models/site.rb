@@ -62,10 +62,16 @@ class Site < ActiveRecord::Base
     site = Site.new({
       :link => link,
       :url => link.url,
-      :title => link.title,
+      :title => link.uri.full_uid.capitalize,
       :description => link.description
     })
     site.set_location_from_whois
+    site
+  end
+  
+  def self.create_from_link(link)
+    site = new_from_link(link)
+    site.save
     site
   end
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323191127) do
+ActiveRecord::Schema.define(:version => 20110324051928) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20110323191127) do
   create_table "links", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
     t.string   "url"
     t.string   "original_url"
     t.string   "uid"
@@ -181,7 +182,6 @@ ActiveRecord::Schema.define(:version => 20110323191127) do
     t.string   "feed"
     t.datetime "date_posted"
     t.boolean  "has_favicon",        :default => false
-    t.boolean  "parsed",             :default => false
     t.integer  "page_id"
   end
 
@@ -217,8 +217,10 @@ ActiveRecord::Schema.define(:version => 20110323191127) do
   create_table "pages", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "html",       :limit => 2147483647
+    t.text     "html"
     t.text     "url"
+    t.integer  "code"
+    t.boolean  "success",    :default => false
   end
 
   create_table "sites", :force => true do |t|

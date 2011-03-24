@@ -10,15 +10,55 @@
       <%= semantic_form_for @tool, :url => lookup_tools_path, :html => { :id => "lookup_tool", :remote => true } do |f| %>
         <%= f.inputs do %>
           <%= f.input :url, :as => :string, :required => true, :label => "Enter the definitive URL for this Tool" %>
-          <%= f.commit_button :label => "Step 2 >>", :id => "lookup_submit" %>
-          <li id="lookup_loading" style="display:none;"> <img src="/images/indicator.gif"/> We're looking up this tool, just a sec.</li>
+          <%= f.commit_button :label => "Lookup URL", :wrapper_html => { :id => "submit_lookup" } %>
+          <%= f.commit_button :label => "Cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_lookup", :class => "response" } %>
+          <li id="lookup_loading" style="display:none;" class="response"> <img src="/images/indicator.gif"/> We're looking up this tool, just a sec.</li>
         <% end %>
       <% end %>
-      <div id="edit_tool_form"></div>
-      <div id="existing_tool" style="display:none;">
+      <div id="edit_tool_form" class="response"></div>
+      <div id="existing_tool" style="display:none;" class="response">
         <h3>Found Tools</h3>
         <ul class="tools"></ul>
+      </div>
+      <div id="site_error" class="error response" style="display:none;">
+        <p>Unable to lookup this URL</p>
       </div>
     <% end %>
   </section>
 </section>
+
+<% javascript do %>
+var checkForLookup = false
+$(function() {
+  $("#lookup_tool").submit(function() {
+    if(!checkForLookup) {
+      $("#submit_lookup input").attr("disabled", "disabled");
+      $("#cancel_lookup").show();
+      $("#lookup_loading").show();
+      checkForLookup = setInterval("resubmit_lookup()", 3000);
+    }
+  });
+  
+  $("#cancel_lookup input").click(function(e) {
+    cancel_lookup();
+    e.preventDefault();
+    return false;
+  });
+})
+
+function resubmit_lookup() {
+  $("#lookup_tool").submit();
+}
+
+function cancel_lookup() {
+  clearInterval(checkForLookup);
+  checkForLookup = false;
+  $(".response").hide();
+  $("#submit_lookup input").removeAttr("disabled");
+}
+
+function lookup_failed() {
+  cancel_lookup();
+  $("#site_error").show();
+}
+<% end %>

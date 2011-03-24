@@ -162,6 +162,7 @@ GEM
     settingslogic (2.0.6)
     shoulda (2.11.3)
     shoulda-matchers (1.0.0.beta1)
+    state_machine (0.10.1)
     sunspot (1.2.1)
       escape (= 0.0.4)
       pr_geohash (~> 1.0)
@@ -209,6 +210,7 @@ DEPENDENCIES
   ruby-debug19
   settingslogic
   shoulda-matchers
+  state_machine
   sunspot_rails (= 1.2.1)
   whois (= 2.0.1)
   will_paginate (= 3.0.pre2)

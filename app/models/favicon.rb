@@ -37,20 +37,24 @@ class Favicon < ActiveRecord::Base
     Timeout::timeout(20) do
       fav = self.favicon = download_remote_image
       # If not able to save the favicon, just delete it from favicons
-      Favicon.delete_all "id=#{self.id}" if fav.nil? || !save
+      if fav.nil? || !save
+        Favicon.delete_all "id=#{self.id}" 
+      else
+        update_associated_items
+      end
     end
   end
   handle_asynchronously :download_favicon!
   after_save :download_favicon!, :if => :should_download?
-  
-  after_save :update_associated_items, :if => :favicon_file_name_changed?
+
   def update_associated_items
     Site.update_all "has_favicon=true", ["uid = ?", uid]
     Tool.update_all "has_favicon=true", ["uid = ?", uid]
     Link.update_all "has_favicon=true", ["uid = ?", uid]
   end
-  
+    
   private
+  
   def download_remote_image
     io = open(URI.parse(url))
     def io.original_filename; base_uri.path.split('/').last; end
