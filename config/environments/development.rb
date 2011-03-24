@@ -35,4 +35,3 @@ Snaps::Application.configure do
   config.action_controller.perform_caching = false
   config.cache_classes = false
 end
-
