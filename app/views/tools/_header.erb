@@ -1,19 +1,16 @@
-<div class="tool group ind">
-  <div class="details">
-    <div class="title">
-      <h4><% if @tool.has_favicon? %><a href="<%=@tool.url%>" rel="nofollow" class="favicon"><img src="<%= @tool.full_favicon_url %>" /></a><% end %><%= link_to @tool.name, @tool.url, :target => "_blank", :rel => "nofollow" %></h4>
-      <ul class="count">
-        <li class="sites"><%= link_to pluralize(@tool.sites_count, "site"), @tool %></li>
-        <li class="links"><%= link_to pluralize(@tool.bookmarks_count, "bookmark"), @tool %></li>
-      </ul>
-      <%= content_tag(:p, @tool.description) unless @tool.description.blank? %>
-      <%= content_tag(:p, link_to(@tool.url, @tool.url, :target => "_blank", :rel => "nofollow")) unless @tool.url.blank? %>
-    </div>
-  
-    <div class="content">
-      <ul class="categories">
-        <%= raw tool_categories(@tool, params[:format]) %>
-      </ul>
-    </div>
+<div id="tool-header" class="show-header">
+  <div class="content">
+    <h2><% if @tool.has_favicon? %><a href="<%=@tool.url%>" rel="nofollow" class="favicon"><img src="<%= @tool.full_favicon_url %>" /></a><% end %><%= @tool.name %></h2>
+    <ul class="count">
+      <li class="sites"><%= link_to pluralize(@tool.sites_count, "site"), @tool %></li>
+      <li class="links"><%= link_to pluralize(@tool.bookmarks_count, "bookmark"), @tool %></li>
+    </ul>
+    
+    <%= content_tag(:p, @tool.description) unless @tool.description.blank? %>
+    <%= content_tag(:p, link_to(@tool.url, @tool.url, :target => "_blank", :rel => "nofollow")) unless @tool.url.blank? %>
+
+    <ul class="mini-categories">
+      <%= raw tool_categories(@tool, params[:format]) %>
+    </ul>
   </div>
 </div>

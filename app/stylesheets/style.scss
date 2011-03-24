@@ -1,20 +1,20 @@
 .clear { clear:both; }
 .right { float:right; }
-p.breadcrumbs { font-size:.8em; }
+p.breadcrumbs { font-size:8px; }
 a.add { background:url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat; padding-left:20px; }
 a.remove { background:url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat 0 7px; padding-left:20px; }
 img.screenshot, .screenshot img { border: 1px solid #ccc; float:left; }
-a.external { font-size:1em; }
+a.external { font-size:10px; }
 a:link, a:visited { color:#3792B3; font-weight:bold; outline-color:-moz-use-text-color; outline-style:none; outline-width:medium; text-decoration:none; }
 
 /* home */
 section.announcement { margin-bottom:1em; }
-section.announcement p { font-size:1.8em; color:#333; margin:.5em 1em; text-align:center; }
-section.announcement p.title  { font-size:2.4em; color:#666; margin:.5em 0; }
+section.announcement p { font-size:18px; color:#333; margin:.5em 1em; text-align:center; }
+section.announcement p.title  { font-size:24px; color:#666; margin:.5em 0; }
 section.announcement p a { font-weight:bold; font-style:normal; }
 section.announcement p a:hover { text-decoration:underline; }
 section.tab { clear:both; }
-section.tab p.empty_message, section.tab p.main_message { color:#444; text-align:center; font-size:1.6em; margin:1.5em 0 1em; }
+section.tab p.empty_message, section.tab p.main_message { color:#444; text-align:center; font-size:16px; margin:1.5em 0 1em; }
 
 
 /* Tabs */
@@ -22,7 +22,7 @@ section.tab p.empty_message, section.tab p.main_message { color:#444; text-align
 ul.tabs { height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin:0; }
 ul.tabs li { margin: 0; padding: 0; display: inline; list-style-type: none; }
 ul.tabs a:link, ul.tabs a:visited { float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height:18px; }
-ul.tabs a { background-color: #f3f3f3; font-size:1.6em; position:relative; top:1px; }
+ul.tabs a { background-color: #f3f3f3; font-size:16px; position:relative; top:1px; }
 ul.tabs li.current a:link, ul.tabs li.current a:visited { border-bottom: 1px solid #fff; background: #fff; color: #000; }
 ul.tabs a:hover { background-color: #fff;	}
 
@@ -47,7 +47,7 @@ ul.tabs a:hover { background-color: #fff;	}
 * html .pagination { height: 1%; }
 *:first-child+html .pagination { overflow: hidden; }
 
-div.disqus_wrapper { padding:1em; font-size:1.4em; }
+div.disqus_wrapper { padding:1em; font-size:14px; }
 
 
 sidebar aside.search input[type='text'] { width:160px; }
@@ -70,3 +70,14 @@ body.bookmarks-tools li.bookmarks-tools a:link, body.bookmarks-tools li.bookmark
 body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bookmarks a:visited,
 body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited
 { border-bottom: 1px solid #fff; background: #fff; color: #000; }
+
+/* individual tool and site pages */
+.show-header { position:relative;}
+.show-header h2 { display:inline; }
+.show-header .content { padding:.4em .4em 1em;  }
+#site-header { min-height:88px; }
+#site-header h2, #site-header p { max-width:600px; }  
+#tool-header { min-height:110px; }
+#tool-header h2, #tool-header p { max-width:600px; }  
+#tool-header .mini-categories { bottom:20px; right:6px; }
+#bookmark-header { margin-bottom:20px; }

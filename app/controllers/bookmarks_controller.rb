@@ -1,4 +1,5 @@
 class BookmarksController < ApplicationController
+  before_filter :authenticate_user!, :only => [:new, :create]
   before_filter :load_or_redirect_by_url, :only => [:new]
   respond_to :html, :json, :xml
 
@@ -21,47 +22,23 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # POST /bookmarks/lookup
-  def lookup
-    params[:bookmark] ||= {}
-    url = params[:bookmark][:url]
-    if url
-      link = Link.find_or_create_by_url(url, true)
-      if !link.parsed
-        Timeout::timeout(5) do
-          link.load_by_url_without_delay
-        end
-      end
-    else
-      link = nil
-    end
-    respond_to do |format|
-      format.js do
-        if link.nil?
-          render :js => "alert('must provide a link');"
-        elsif link.source
-          render :js => "alert('already exists');"
-        elsif link.parsed?
-          @bookmark = Bookmark.new_from_link(link)
-          render :lookup_complete
-        else
-          render :js => ""
-          # no response, lookup in progress
-        end
-      end
-    end
-  rescue
-    render :js => ""    
-  end
-  
   # POST /bookmarks
   def create
-    @bookmark = Bookmark.create(params[:bookmark])
-    if @bookmark.new_record?
-      flash[:error] = "There was a problem creating this bookmark."
-      render :new
-    else
-      redirect_to @bookmark
+    @link = Link.find_or_create_by_url(params[:bookmark][:url])
+    respond_to do |format|
+      format.js do
+        if @link.nil?
+          render :create_failed
+        elsif @bookmark = @link.bookmark
+          render :create_success
+        elsif @link.parsed? && (@bookmark = Bookmark.create_from_link(@link)) && !@bookmark.new_record?
+          render :create_success
+        elsif (@bookmark && @bookmark.new_record?) || @link.unparseable? || @link.unreachable?
+          render :create_failed
+        else
+          render :js => "console.log('create in progress');"
+        end
+      end
     end
   end
 

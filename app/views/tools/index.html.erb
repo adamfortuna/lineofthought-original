@@ -16,7 +16,7 @@
     <% if @search.hits.empty? %>
       <p>There were no matching sites for your search.</p>
     <% else %>
-      <ul class="tools">
+      <ul id="tools-list" class="tools main-list">
         <%= render @search.results %>
       </ul>
       <%= will_paginate @search.hits %>

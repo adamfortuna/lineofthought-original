@@ -84,13 +84,10 @@ class SitesController < ApplicationController
   end
   
   def autocomplete
-    sites = Site.limit(25)
-               .order('updated_at DESC')
-               .select([:id, :title, :url])
-               .where(['sites.title LIKE ? OR sites.url LIKE ?', "#{params[:q]}%", "%#{params[:q]}%"]).collect do |site|
+    tags = Site.autocomplete(params[:q]).collect do |site|
       { "name" => "#{site.title} (#{site.url})", "id" => site.id.to_s }
-    end
-    render :json => sites
+    end.compact
+    render :json => tags
   end
 
   def destroy

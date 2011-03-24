@@ -39,4 +39,13 @@ module SiteHelper
       )
     end
   end
+  
+  def bookmark_references(bookmark)
+    if bookmark.sites_count == 0 && bookmark.tools_count == 0
+      return "We don't know of any tools or sites refenced in this bookmark."
+    end
+    sites = bookmark.sites_count > 0 ? pluralize(bookmark.sites_count, "site") : nil
+    tools = bookmark.tools_count > 0 ? pluralize(bookmark.tools_count, "tool") : nil
+    return "We know of #{[sites, tools].compact.join(" and ")} referenced in this bookmark."
+  end
 end

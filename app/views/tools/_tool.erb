@@ -11,14 +11,14 @@
     </div>
   
     <div class="content group">
-      <ul class="sites">
+      <ul class="mini-sites">
         <%= raw tool_sites(tool, 2, params[:format]) %>
         <% if tool.sites_count > 2 %>
           <li><%= link_to "#{pluralize(tool.sites_count-2, 'more site')}", tool_path(tool, :format => params[:format]) %></li>
         <% end %>
       </ul>
-  
-      <ul class="categories">
+
+      <ul class="mini-categories">
         <%= raw tool_categories(tool, params[:format]) %>
       </ul>
     </div>

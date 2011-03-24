@@ -1,8 +1,7 @@
 <li class="tool group ind">
-  <div class="title">
-    <h4><a href="<%= tool_path(using_tool.tool, :format => params[:format]) %>"><% if using_tool.tool.has_favicon? %><img src="<%= using_tool.tool.full_favicon_url %>"   class="favicon" /><% end %><%= using_tool.tool.name%></a></h4>
-    <ul class="categories">
-      <li class="popularity"><%= pluralize(using_tool.tool.sites_count, "site") %></li>
+  <div class="title group">
+    <h4><% if using_tool.tool.has_favicon? %><a href="<%= tool_path(using_tool.tool) %>" class="favicon"><img src="<%= using_tool.tool.full_favicon_url %>" /></a><% end %><%= link_to using_tool.tool.name, tool_path(using_tool.tool) %></h4>
+    <ul class="mini-categories">
       <%= raw tool_categories(using_tool.tool, params[:format]) %>
       <li><%= link_to "comments", site_tool_path(using_tool.site, using_tool.tool, :format => params[:format]), :class => "comments" %></li>
     </ul>

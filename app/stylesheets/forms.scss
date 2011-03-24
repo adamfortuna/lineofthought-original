@@ -9,14 +9,14 @@ form.formtastic fieldset ol li.tokeninput { margin-bottom:2em; }
 .using .countdown { margin:0; height:30px; position:absolute; width:580px; }
 .using .countdown span { float:right; }
 
-form { font-size:1.4em; }
+form { font-size:14px; }
 
 .check_boxes { position:relative; }
 .check_boxes fieldset { margin:0 0 5px 0; }
 .check_boxes fieldset li { float:left; width:30%; }
 .check_boxes p.inline-hints { }
 
-.inline-hints { margin:0.5em .25em; font-size:.8em; }
+.inline-hints { margin:0.5em .25em; font-size:8px; }
 
 form.formtastic fieldset { border:0; background:none; }
 
@@ -30,10 +30,10 @@ li.countdown .alert { color:red; }
 .edit-in-place:hover { background-color:transparent; }
 .edit-in-place form { display:none; }
 .edit-in-place .actions { display:none; position:absolute; left:-100px; background:#fff; border:1px solid #ccc; border-right:none; width:70px; border-radius:8px; -moz-border-radius:8px; -moz-border-radius-topright:0px; -moz-border-radius-bottomright:0px; top:10px; }
-.edit-in-place .actions li a { border: 1px solid transparent; display: block; font-size: 1.4em; padding: 0.2em 0.6em; width: 70px;}
+.edit-in-place .actions li a { border: 1px solid transparent; display: block; font-size: 14px; padding: 0.2em 0.6em; width: 70px;}
 .edit-in-place .actions li a:hover { color:red; display:block; }
 .edit-in-place:hover .actions { display:block; }
-.edit-in-place h4 { font-size: 1.6em; }
+.edit-in-place h4 { font-size: 16px; }
 .edit-in-place p em { color:#777; }
 .editing form.using { display:block; margin:0; }
 .editing form.using fieldset { padding:0; }

@@ -6,7 +6,7 @@
   <%= render 'sites/nav' %>
 
   <section class="tab">
-    <ul class="usings sites single">
+    <ul id="site-tools-list" class="sublist usings sites">
       <%= render :partial => 'usings/using_tool', :object => @using %>
     </ul>
     <p class="main_message">Discuss how <strong><%= @site.title %></strong> is using <strong><%= @tool.name %></strong>.

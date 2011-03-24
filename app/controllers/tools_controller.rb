@@ -1,6 +1,7 @@
 class ToolsController < ApplicationController
   before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_tool, :only => [:new]
+  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update]
   respond_to :html, :json, :xml
 
   # caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
@@ -106,7 +107,7 @@ class ToolsController < ApplicationController
   end
 
   def autocomplete
-    @tools = Tool.autocomplete(params[:q]).collect do |tool|
+    tags = Tool.autocomplete(params[:q]).collect do |tool|
       { "name" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", "id" => tool.id.to_s }
     end
     render :json => tags

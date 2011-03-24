@@ -1,13 +1,15 @@
 <li class="bookmark group ind">
   <div class="details">
     <div class="title">
-      <h4><%= link_to bookmark.title, bookmark %></h4>
-      <%= content_tag(:p, truncate(bookmark.description, :length => 140)) unless bookmark.description.blank? %>
+      <h4><% if bookmark.has_favicon? %><a href="<%= bookmark_path(bookmark) %>" class="favicon"><img src="<%= bookmark.full_favicon_url %>" /></a><% end %><%= link_to truncate(bookmark.title, :length => 100), bookmark_path(bookmark) %>
+        <span class="url"><%= link_to "direct link", bookmark.url, :target => "_blank", :rel => "nofollow" %></span>
+        </h4>
+      <%= content_tag(:p, truncate(bookmark.description, :length => 200)) unless bookmark.description.blank? %>
     </div>
   
     <div class="content">
       <% if bookmark.sites_count > 0 %>
-        <ul class="sites">
+        <ul class="mini-sites">
           <%= raw bookmark_sites(bookmark) %>
           <% if bookmark.sites_count > 2 %>
             <li><%= link_to "#{pluralize(bookmark.sites_count-2, 'more sites')}", bookmark %></li>
@@ -15,7 +17,7 @@
         </ul>
       <% end %>
   
-      <ul class="categories">
+      <ul class="mini-tools">
         <%= raw bookmark_tools(bookmark) %>
       </ul>
     </div>

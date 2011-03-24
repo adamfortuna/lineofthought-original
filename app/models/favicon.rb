@@ -1,6 +1,4 @@
 class Favicon < ActiveRecord::Base
-  attr_accessor :skip_load
-
   has_attached_file :favicon,
                     :styles => { 
                       :small => { :geometry => "16x16>", :format => 'png' },
@@ -45,12 +43,13 @@ class Favicon < ActiveRecord::Base
     end
   end
   handle_asynchronously :download_favicon!
-  after_save :download_favicon!, :if => :should_download?
+  after_save :download_favicon!, :if => :url_changed?
 
   def update_associated_items
     Site.update_all "has_favicon=true", ["uid = ?", uid]
     Tool.update_all "has_favicon=true", ["uid = ?", uid]
     Link.update_all "has_favicon=true", ["uid = ?", uid]
+    Bookmark.update_all "has_favicon=true", ["uid = ?", uid]
   end
     
   private
@@ -61,8 +60,4 @@ class Favicon < ActiveRecord::Base
     io.original_filename.blank? ? nil : io
   rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
-  
-  def should_download?
-    url_changed? && !skip_load
-  end  
 end

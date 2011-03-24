@@ -1,0 +1,94 @@
+/* All list */
+ul.categories, ul.sites, ul.tools, ul.usings,
+ul.mini-categories, ul.mini-sites, ul.mini-tools { list-style:none; margin:0; padding:0; }
+ul.categories, ul.sites, ul.tools, ul.usings { margin:1em; min-height:1em; }
+li.ind a:hover { text-decoration:underline; }
+li.ind { border-bottom:1px solid #ccc; padding:1em 0; }
+a.favicon { width:16px; height:16px; float:left; padding-right:8px; }
+a.favicon img { margin:0; width:16px; height:16px; }
+
+/* Bar listing what's currenly shown with sorting options sites#index, tools#index */
+.title_bar { padding: 1em 1em 0 1em; }
+.title_bar h2, .title_bar h3, .title_bar h4 { float:left; }
+
+
+/* Main-list pages - tools#index, sites#index, bookmarks#index */
+ul.main-list li.ind { padding:1em 0; position:relative; }
+ul.main-list li.ind p { margin-top:4px; }
+ul.main-list li.ind .details { margin:0; padding:0 1.5em; }
+ul.main-list li.ind .content { position:relative; }
+ul.main-list li.ind .title { margin-left:0px; }
+ul.main-list li.ind .title h4 { display:inline; font-size:16px; margin-bottom:10px; }
+
+
+/* Counts - sites/bookmarks on tools#index */
+ul.main-list li.ind ul.count, .show-header ul.count  { float:right; margin:0 0 0 20px;  }
+ul.count { color:#fff; width:120px; list-style:none; font-size:11px; font-weight:bold; }
+ul.count a { display:block; padding:4px; color:#fff; }
+ul.count li { margin:0 0 .4em 0; position: relative; }
+ul.count li a { padding:4px; }
+ul.count li span, ul.count li a { display: block; }
+ul.count li span { padding:7px; }
+ul.count li em { float: right; font-style:normal; font-weight:bold; padding-left:12px; }
+ul.count li.sites a { background-color:#f00; }
+ul.count li.sites a:hover { background-color:#D00; }
+ul.count li.links a { background-color:#FFA500; }
+ul.count li.links a:hover { background-color:#ccA500; }
+ul.count li.alexa, ul.sort-alexa li.ind li.alexa { background-color: blue; color: #fff; }
+ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank { background-color: green; color: #fff; }
+
+/* Mini-lists */
+.mini-sites li a, 
+.mini-categories li a,
+.mini-tools li a { display: block; font-size: 12px; padding: 0.3em; }
+/* tools#index sites list */
+.mini-sites li { float:left; margin-right:.4em; }
+.mini-sites li a { background-color:#ff0; }
+.mini-sites li a:hover { background-color:#dddd11; }
+/* tools#index categories list */
+.mini-categories { position:absolute; bottom:0; right:0; margin:0; padding:0; }
+.mini-categories li { margin-left:.2em; float:right; }
+.mini-categories li a { background-color:#ccc; }
+.mini-categories li a:hover { background-color:#aaa; }
+/* sites#index sites list */
+.mini-tools li { float:left; margin-right:.4em; }
+.mini-tools li a { background-color:#FFA500; color:#000; }
+.mini-tools li a:hover { background-color:#ccA500; color:#000; }
+
+/* tools#index */
+#tools-list li.ind { min-height:90px; }
+#tools-list li.ind div.title { min-height:70px; }
+#tools-list li.ind div.title h4, #tools-list li.ind p { clear:none; max-width:525px; }
+#tools-list li.ind .content { position: relative; min-height:12px; }
+#tools-list li.ind .content ul.sites .tools { margin: 0.4em 0; }
+#tools-list li.ind div.title h4, #tools-list li.ind p { clear:none; max-width:525px; }
+
+/* sites#index */
+#tools-list li.ind div.title h4, #tools-list li.ind p { clear:none; max-width:525px; }
+
+/* bookmarks#index */
+#bookmarks-list li.ind { }
+#bookmarks-list li.ind span.url { float:right; display:none; color:#888; font-size:10px; }
+#bookmarks-list li.ind span.url a { color:#888; }
+#bookmarks-list li.ind:hover span.url { display:inline; }
+
+/* Sub-list pages tools#show, tools#bookmarks, sites#show, sites#bookmarks, bookmarks#show */
+.sublist li.ind { padding: 0.8em 0.8em 0.6em;  }
+.sublist li.ind:first-child { border-top:1px solid #ccc; }
+.sublist li.ind .title { margin-left:0; min-height:0px; position:relative; }
+.sublist li.ind .title h4 { float:left; font-size:16px; margin:0; padding:.3em 0; width:auto; }
+.sublist li.ind a.comments { display:none; background-color:#ff0; float:right; margin-right:6px; }
+.sublist li.ind:hover a.comments { display:block; }
+.sublist li.ind:hover a.comments:hover { background-color:#dddd11; }
+.sublist li.ind ul.mini-categories,
+.sublist li.ind ul.mini-tools { float:right; max-width:400px; position:relative; }
+.sublist li.ind ul.mini-categories li,
+.sublist li.ind ul.mini-tools li { float:right; }
+.sublist li.ind p { clear:left; padding-top:4px; }
+
+
+/* * tools#show list of sites using  *
+ul.main-list .using { clear:both; margin:1.5em 0 0 0; }
+ul.main-list .using li { float:left; margin-right:10px; }
+ul.main-list .using li a { background-color:#ccc; padding:.4em; }
+*/

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324051928) do
+ActiveRecord::Schema.define(:version => 20110324171432) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20110324051928) do
     t.string   "cached_slug"
     t.boolean  "is_video",           :default => false
     t.boolean  "is_presentation",    :default => false
+    t.string   "uid"
   end
 
   create_table "buildables", :force => true do |t|

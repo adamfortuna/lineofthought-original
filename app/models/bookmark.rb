@@ -13,9 +13,15 @@ class Bookmark < ActiveRecord::Base
   serialize :cached_sites
   serialize :cached_connections
   
-  scope :recent, lambda { |n=5| order("created_at desc").limit(n) }
+  scope :recent, order("created_at desc")
 
   before_destroy :update_remote_caches!
+
+  composed_of :uri,
+    :class_name => 'HandyUrl',
+    :mapping    => %w(url to_s),
+    :allow_nil  => true,
+    :converter  => :new
 
   attr_accessor :tools, :sites, :using_params
 
@@ -26,6 +32,12 @@ class Bookmark < ActiveRecord::Base
                    :description => link.description,
                    :tools => link.tools,
                    :sites => link.sites })
+  end
+  
+  def self.create_from_link(link)
+    bookmark = new_from_link(link)
+    bookmark.save
+    bookmark
   end
 
   after_save :create_usings, :if => :has_new_usings?
@@ -158,5 +170,11 @@ class Bookmark < ActiveRecord::Base
   def update_remote_caches!
     sites.collect(&:update_bookmarks!)
     tools.collect(&:update_bookmarks!)
+  end
+  
+  private
+  before_save :update_uid, :if => :url_changed?
+  def update_uid
+    self.uid = uri.uid if uri
   end
 end

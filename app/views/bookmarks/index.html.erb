@@ -5,7 +5,7 @@
     <h2><%= @title %></h2>
   </div>
   <section>
-    <ul class="tools">
+    <ul id="bookmarks-list" class="bookmarks main-list">
       <%= render @bookmarks %>
     </ul>
     <%= will_paginate @bookmarks %>
@@ -14,8 +14,17 @@
 
 <sidebar>
   <aside>
-    <ul class="lst">
-      <li><%= link_to "Add a New Bookmark", new_bookmark_path %></li>
-    </ul>
-  </aside>
+    <h3>Add a Bookmark</h3>
+    <% if logged_in? %>
+      <p>Want to add a bookmark?<br/><%= link_to "Add a Bookmark", new_bookmark_path %></p>
+      <p>Add a bookmark from anywhere using this bookmarklet. Drag this to your bookmarks bar.
+        <br/>
+        <%= link_to "Add Bookmark to LoT", "javascript:(function(){f='#{new_bookmark_url(:format => "popup")}?article[url]='+encodeURIComponent(window.location.href)+'&article[title]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lot-new-article','location=yes,links=no,scrollbars=no,toolbar=no,width=625,height=550'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
+      </p>
+    <% else %>
+      <p>Logged in users can add their own bookmarks to LineOfThought.</p>
+      <p><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to get started.</p>
+    <% end %>
+  </aside>  
+  <%= render 'bookmarks/recent_bookmarks' %>
 </sidebar>

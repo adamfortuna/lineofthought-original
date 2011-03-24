@@ -17,6 +17,7 @@ class Link < ActiveRecord::Base
   serialize :cached_links
 
   has_one :source, :dependent => :destroy
+  has_one :bookmark
   has_one :site
   has_one :tool
   belongs_to :page, :dependent => :destroy

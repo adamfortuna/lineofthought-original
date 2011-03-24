@@ -10,7 +10,7 @@
       <p clas="description"><%= truncate(site.description, :length => 140) %></p>
 
       <% if site.tools_count > 0 %>
-        <ul class="tools">
+        <ul class="mini-tools">
           <%= raw site_tools(site) %>
           <% if site.tools_count > 2 %>
             <li><%= link_to "#{pluralize(site.tools_count-2, 'more tool')}", site %></li>

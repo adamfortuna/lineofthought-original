@@ -28,7 +28,7 @@ form.formtastic fieldset ol li.tokeninput {
   float: right; }
 
 form {
-  font-size: 1.4em; }
+  font-size: 14px; }
 
 .check_boxes {
   position: relative; }
@@ -42,7 +42,7 @@ form {
 
 .inline-hints {
   margin: 0.5em .25em;
-  font-size: .8em; }
+  font-size: 8px; }
 
 form.formtastic fieldset {
   border: 0;
@@ -84,7 +84,7 @@ li.countdown .alert {
 .edit-in-place .actions li a {
   border: 1px solid transparent;
   display: block;
-  font-size: 1.4em;
+  font-size: 14px;
   padding: 0.2em 0.6em;
   width: 70px; }
 
@@ -96,7 +96,7 @@ li.countdown .alert {
   display: block; }
 
 .edit-in-place h4 {
-  font-size: 1.6em; }
+  font-size: 16px; }
 
 .edit-in-place p em {
   color: #777; }

@@ -302,8 +302,7 @@ csv = <<-DONE
 DONE
 
 CSV.parse(csv) do |row|
-  Favicon.create({ :skip_load => true, 
-                   :url => row[0], 
+  Favicon.create({ :url => row[0], 
                    :uid => row[1], 
                    :favicon_file_name => row[2],
                    :favicon_content_type => row[3], 

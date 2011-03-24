@@ -3,13 +3,14 @@
     <p class="title">Discover what tools power the sites you visit</p>
     <p>Fill in what tools other sites are using or <%= link_to "add your own site", new_site_path %> or <%= link_to "tool", new_tool_path %>.</p>
   </section>
-    <ul class="sites">
-      <%= render @sites %>
-    </ul>
 
-    <section class="announcement">
-      <p>Check out all <%= link_to "#{Site.count} sites", sites_path %> or <%= link_to "#{Tool.count} tools", tools_path %>.</p>
-    </section>
+  <ul id="sites-list" class="sites main-list">
+    <%= render @sites %>
+  </ul>
+
+  <section class="announcement">
+    <p>Check out all <%= link_to "#{Site.count} sites", sites_path %> or <%= link_to "#{Tool.count} tools", tools_path %>.</p>
+  </section>
 </section>
 
 <sidebar>
