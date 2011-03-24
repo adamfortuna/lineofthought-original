@@ -140,12 +140,12 @@ div.token-input-dropdown ul li em {font-weight: bold; font-style: none}
 div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #3b5998; color: #fff}
 body {font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background: #222}
 body.popup {background-color: #E3E3E3}
-.container {max-width: 1024px; margin: 0 auto; position: relative; height: 100%}
+.container {max-width: 960px; margin: 0 auto; position: relative; height: 100%}
 body.popup .container {max-width: 600px}
 .group:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
 ul {list-style: none; margin: 0; padding: 0}
  header {display: block; background-color: #222; border-top: 6px solid #68aff3; height: 100px; border-bottom: 3px solid #68aff3}
-#title p a {display: block; color: #eee; font-size: 30px; padding-top: .4em}
+#title p a {display: block; color: #eee; font-size: 30px; padding-top: 12px}
 #title p a:hover {color: #ccc}
 #title p a span {color: #68aff3; font-size: 100%}
 #title p a:hover span {color: #4B81B4}
@@ -160,16 +160,14 @@ nav ul li a:hover {background-color: #4b81b4}
 #current_user li {font-size: 14px; float: right; padding-left: 1em}
 #current_user li a:hover {color: #ccc}
  section, aside {display: block}
-#main {background-color: #E3E3E3; color: #1B1B1B; padding: 2em 0}
-#content, #content_with_nav, sidebar aside {background-color: #fff; padding: .6em; border: 1px solid #ccc; font-size: 14px}
- #content {width: 724px; float: left; padding: 1em}
+#main {background-color: #E3E3E3; color: #1B1B1B; padding: 1em 0}
+#content, sidebar aside {background-color: #fff; padding: .6em; border: 1px solid #ccc; font-size: 14px}
+ #content {width: 620px; float: left; padding: 1em}
 body.popup #content {width: 550px}
-#content_with_nav {width: 670px; float: left; min-height: 500px; margin-left: -1px}
-#content_with_nav.no_sidebar {margin-left: 4px}
 .main section {padding: .4em}
  body.popup sidebar {display: none}
-sidebar {width: 260px; float: right}
-sidebar aside {margin-bottom: 2em; padding: 15px}
+sidebar {width: 300px; float: right}
+sidebar aside {margin-bottom: 10px; padding: 15px}
 sidebar aside h3 {margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #365B81; border-bottom: 2px solid #ecebe1}
 sidebar aside p.more {margin-top: 12px; text-align: center}
 sidebar aside p {margin-top: 12px}
@@ -271,16 +269,17 @@ li.countdown .alert {color: red}
 .editing .edit-in-place-show {display: none}
 .edit-in-place-cancel {display: none}
  ul.categories, ul.sites, ul.tools, ul.usings, ul.mini-categories, ul.mini-sites, ul.mini-tools {list-style: none; margin: 0; padding: 0}
-ul.categories, ul.sites, ul.tools, ul.usings {margin: 1em; min-height: 1em}
+ul.categories, ul.sites, ul.tools, ul.usings {min-height: 1em}
 li.ind a:hover {text-decoration: underline}
 li.ind {border-bottom: 1px solid #ccc; padding: 1em 0}
+li.ind:first-child {border-top: 1px solid #ccc}
 a.favicon {width: 16px; height: 16px; float: left; padding-right: 8px}
 a.favicon img {margin: 0; width: 16px; height: 16px}
- .title_bar {padding: 1em 1em 0 1em}
+ .title_bar {padding: 1em 1em 0 .5em}
 .title_bar h2, .title_bar h3, .title_bar h4 {float: left}
  ul.main-list li.ind {padding: 1em 0; position: relative}
 ul.main-list li.ind p {margin-top: 4px}
-ul.main-list li.ind .details {margin: 0; padding: 0 1.5em}
+ul.main-list li.ind .details {margin: 0; padding: 0 .5em}
 ul.main-list li.ind .content {position: relative}
 ul.main-list li.ind .title {margin-left: 0px}
 ul.main-list li.ind .title h4 {display: inline; font-size: 16px; margin-bottom: 10px}
@@ -320,7 +319,6 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {background-color: gre
 #bookmarks-list li.ind span.url a {color: #888}
 #bookmarks-list li.ind:hover span.url {display: inline}
  .sublist li.ind {padding: 0.8em 0.8em 0.6em}
-.sublist li.ind:first-child {border-top: 1px solid #ccc}
 .sublist li.ind .title {margin-left: 0; min-height: 0px; position: relative}
 .sublist li.ind .title h4 {float: left; font-size: 16px; margin: 0; padding: .3em 0; width: auto}
 .sublist li.ind a.comments {display: none; background-color: #ff0; float: right; margin-right: 6px}

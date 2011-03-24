@@ -6,7 +6,6 @@ ul.mini-categories, ul.mini-sites, ul.mini-tools {
   padding: 0; }
 
 ul.categories, ul.sites, ul.tools, ul.usings {
-  margin: 1em;
   min-height: 1em; }
 
 li.ind a:hover {
@@ -15,6 +14,9 @@ li.ind a:hover {
 li.ind {
   border-bottom: 1px solid #ccc;
   padding: 1em 0; }
+
+li.ind:first-child {
+  border-top: 1px solid #ccc; }
 
 a.favicon {
   width: 16px;
@@ -29,7 +31,7 @@ a.favicon img {
 
 /* Bar listing what's currenly shown with sorting options sites#index, tools#index */
 .title_bar {
-  padding: 1em 1em 0 1em; }
+  padding: 1em 1em 0 .5em; }
 
 .title_bar h2, .title_bar h3, .title_bar h4 {
   float: left; }
@@ -44,7 +46,7 @@ ul.main-list li.ind p {
 
 ul.main-list li.ind .details {
   margin: 0;
-  padding: 0 1.5em; }
+  padding: 0 .5em; }
 
 ul.main-list li.ind .content {
   position: relative; }
@@ -206,9 +208,6 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
 /* Sub-list pages tools#show, tools#bookmarks, sites#show, sites#bookmarks, bookmarks#show */
 .sublist li.ind {
   padding: 0.8em 0.8em 0.6em; }
-
-.sublist li.ind:first-child {
-  border-top: 1px solid #ccc; }
 
 .sublist li.ind .title {
   margin-left: 0;

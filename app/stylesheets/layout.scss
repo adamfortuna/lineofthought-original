@@ -3,14 +3,14 @@ $nav-link-hover: #4B81B4;
 
 body { font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background:#222; }
 body.popup { background-color:#E3E3E3; }
-.container { max-width:1024px; margin:0 auto; position:relative; height:100%; }
+.container { max-width:960px; margin:0 auto; position:relative; height:100%; }
 body.popup .container { max-width:600px; }
 .group:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 ul { list-style:none; margin:0; padding:0; }
 
 /* header */
 header { display:block; background-color:#222; border-top:6px solid #68aff3; height:100px; border-bottom:3px solid #68aff3; }
-#title p a { display:block; color:#eee; font-size:30px; padding-top:.4em; }
+#title p a { display:block; color:#eee; font-size:30px; padding-top:12px; }
 #title p a:hover { color:#ccc; }
 #title p a span { color:#68aff3; font-size:100%; }
 #title p a:hover span { color:#4B81B4; }
@@ -30,20 +30,18 @@ nav ul li a:hover { background-color:$nav-link-hover; }
 
 /* Main */
 section, aside { display:block; }
-#main { background-color:#E3E3E3; color:#1B1B1B; padding:2em 0; }
-#content, #content_with_nav, sidebar aside { background-color:#fff; padding:.6em; border:1px solid #ccc; font-size:14px; }
+#main { background-color:#E3E3E3; color:#1B1B1B; padding:1em 0; }
+#content, sidebar aside { background-color:#fff; padding:.6em; border:1px solid #ccc; font-size:14px; }
 
 /* main content */
-#content { width:724px; float:left; padding:1em; }
+#content { width:620px; float:left; padding:1em; }
 body.popup #content { width:550px; }
-#content_with_nav { width:670px; float:left; min-height:500px; margin-left:-1px; }
-#content_with_nav.no_sidebar { margin-left:4px; }
 .main section { padding:.4em; }
 
 /* Right sidebar */
 body.popup sidebar { display:none; }
-sidebar { width:260px; float:right;}
-sidebar aside { margin-bottom:2em; padding: 15px; }
+sidebar { width:300px; float:right;}
+sidebar aside { margin-bottom:10px; padding: 15px; }
 sidebar aside h3 { margin: 0 0 6px 0; padding: 0 0 4px 0; font-size:16px; font-weight: bold; color:#365B81; border-bottom: 2px solid #ecebe1; }
 sidebar aside p.more { margin-top:12px; text-align:center; }
 sidebar aside ul li { }

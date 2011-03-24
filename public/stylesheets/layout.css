@@ -8,7 +8,7 @@ body.popup {
   background-color: #E3E3E3; }
 
 .container {
-  max-width: 1024px;
+  max-width: 960px;
   margin: 0 auto;
   position: relative;
   height: 100%; }
@@ -40,7 +40,7 @@ header {
   display: block;
   color: #eee;
   font-size: 30px;
-  padding-top: .4em; }
+  padding-top: 12px; }
 
 #title p a:hover {
   color: #ccc; }
@@ -104,9 +104,9 @@ section, aside {
 #main {
   background-color: #E3E3E3;
   color: #1B1B1B;
-  padding: 2em 0; }
+  padding: 1em 0; }
 
-#content, #content_with_nav, sidebar aside {
+#content, sidebar aside {
   background-color: #fff;
   padding: .6em;
   border: 1px solid #ccc;
@@ -114,21 +114,12 @@ section, aside {
 
 /* main content */
 #content {
-  width: 724px;
+  width: 620px;
   float: left;
   padding: 1em; }
 
 body.popup #content {
   width: 550px; }
-
-#content_with_nav {
-  width: 670px;
-  float: left;
-  min-height: 500px;
-  margin-left: -1px; }
-
-#content_with_nav.no_sidebar {
-  margin-left: 4px; }
 
 .main section {
   padding: .4em; }
@@ -138,11 +129,11 @@ body.popup sidebar {
   display: none; }
 
 sidebar {
-  width: 260px;
+  width: 300px;
   float: right; }
 
 sidebar aside {
-  margin-bottom: 2em;
+  margin-bottom: 10px;
   padding: 15px; }
 
 sidebar aside h3 {
