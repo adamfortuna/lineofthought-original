@@ -64,9 +64,4 @@ Snaps::Application.routes.draw do
     resource :home
   end
   match '/admin' => 'admin/home#index'
-  
-
-  # Route for tools without the tool part
-  #   ie: http://sitesusing.com/rails
-  match '/:id' => 'tools#show'
 end

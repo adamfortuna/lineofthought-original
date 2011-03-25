@@ -9,6 +9,7 @@ gem 'domainatrix'
 gem 'geokit-rails3'
 gem 'goalie'
 gem 'formtastic', '1.2.2'
+gem 'flutie', '~> 1.1'
 gem 'friendly_id'
 gem 'hoptoad_notifier'
 gem 'mechanize'
@@ -23,7 +24,7 @@ gem 'state_machine'
 gem 'sunspot_rails', '1.2.1'
 gem 'will_paginate', '3.0.pre2'
 gem 'whois', '2.0.1'
-gem "workless"
+gem 'workless'
 
 group :development, :test do
   gem 'factory_girl_rails'

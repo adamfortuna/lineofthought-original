@@ -50,14 +50,14 @@ $(function() {
       extraSpace : 40
   });
   
-  $('.edit-in-place-edit').click(function() {
+  $('.edit-in-place-edit').live("click", function() {
     console.log("edit clicked");
     $(this).parents('.edit-in-place').addClass('editing').find(".edit-in-place-cancel").show();
     $(this).hide();
     return false;
   });
 
-  $('.edit-in-place-cancel, .edit-in-place-cancel a').click(function() {
+  $('.edit-in-place-cancel, .edit-in-place-cancel a').live("click", function() {
     $(this).parents('.edit-in-place').removeClass('editing').find(".edit-in-place-cancel").hide();
     $(this).parents('.edit-in-place').find(".edit-in-place-edit").show();
     return false;

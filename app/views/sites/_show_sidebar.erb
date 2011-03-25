@@ -10,5 +10,10 @@
     <p>Know of a blog post or video about <%= @site.title %>?</p>
     <p><%= link_to "Add an Bookmark about #{@site.title}", new_bookmark_path %></p>
   </aside>
+  <aside>
+    <h3>Add a Tool</h3>
+    <p>Want to add a tool?</p>
+    <p><%= link_to "Add an Tool", new_tool_path %></p>
+  </aside>
   <% end %>
 </sidebar>

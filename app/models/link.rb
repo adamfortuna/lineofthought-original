@@ -1,14 +1,5 @@
 class Link < ActiveRecord::Base
   extend ActiveSupport::Memoizable
-
-  searchable do
-    string :url # The actual URL visited
-    string :original_url # The URL entered by the user
-    string :uid # for favicons
-    string :uid_with_subdomain
-    string :canonical
-  end
-  handle_asynchronously :solr_index
   
   validates_presence_of :url, :uid, :canonical
   validates_uniqueness_of :url, :canonical
