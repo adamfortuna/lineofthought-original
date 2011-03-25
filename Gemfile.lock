@@ -70,7 +70,6 @@ GEM
       railties (>= 3.0.0)
     fast-stemmer (1.0.0)
     fattr (2.2.0)
-    flutie (1.1.5)
     formtastic (1.2.2)
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
@@ -222,7 +221,6 @@ DEPENDENCIES
   devise
   domainatrix
   factory_girl_rails
-  flutie (~> 1.1)
   formtastic (= 1.2.2)
   friendly_id
   geokit-rails3
