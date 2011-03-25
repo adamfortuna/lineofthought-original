@@ -1,12 +1,12 @@
 defaults: &defaults
-  admin_password: "test"
-  root_url: "http://lineofthought.com"
-  root_image_url: "http://s.lineofthought.com"
+  root_url: "https://www.lineofthought.com"
+  root_domain: "www.lineofthought.com"
+  root_image_url: "https://s3.amazonaws.com/s.lineofthought.com"
 
 development:
  <<: *defaults
- root_url: "http://lineofthought.local"
- root_image_url: "http://lineofthought.local"
+ root_domain: "lineofthought.local:3000"
+ root_url: "http://lineofthought.local:3000"
 
 test:
  <<: *defaults

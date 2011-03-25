@@ -8,18 +8,22 @@ regenerate css
 rake asset:packager:build_all
 
 Financials:
-  $36   1 Job runner
+  $6    1 Job runner (not always running)
   $20   Websolr Silver
-  $5    SNI SSL
+  $20   SNI SSL
   $15   15gb Shared database
   $2    Hoptoad Plus
- = $78
+ = $53
 
 Realistic:
 $36   1 Job runner
 $20   Websolr Silver
-$5    SNI SSL
+$20   SNI SSL
 $15   15gb Shared database
 $7    Hoptoad Plus
 $20   Memcached
-  = $103
+  = $118
+  
++1 job
++1 dyno
+= $190
