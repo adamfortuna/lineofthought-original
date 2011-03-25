@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_filter :ensure_domain
   protect_from_forgery
   include FastSessions
+  include SslRequirement
   
   protected  
   
