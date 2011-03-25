@@ -7,7 +7,7 @@ module HasFavicon
   end
 
   def full_favicon_url(style = "small")
-    "https://s3.amazonaws.com/s.lineofthought.com/favicons/#{uid}/#{uid}.#{style}.png"
+    "https://d1mr7he6yibwdu.cloudfront.net/favicons/#{uid}/#{uid}.#{style}.png"
   end
 
   def small_favicon_url
