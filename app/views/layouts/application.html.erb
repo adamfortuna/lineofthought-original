@@ -26,13 +26,13 @@
 <header class="group">
   <div class="container">
     <hgroup id="title">
-      <p><a href="<%= beta_url(:secure => false) %>">Line Of <span>Thought</span></a></p>
+      <p><a href="<%= beta_url %>">Line Of <span>Thought</span></a></p>
       <span>Tracking what powers the web</span>
     </hgroup>
     <ul id="current_user">
       <% if logged_in? %>
-        <li><%= link_to "Logout", destroy_user_session_path(:secure => false) %></li>
-        <li><%= link_to "Account", edit_user_registration(:secure => false) %></li>
+        <li><%= link_to "Logout", destroy_user_session_path %></li>
+        <li><%= link_to "Account", edit_user_registration %></li>
       <% else %>
         <li><a href="<%= new_user_session_url(:secure => Settings.force_ssl) %>">Sign In</a></li>
         <li><a href="<%= new_user_registration_url(:secure => Settings.force_ssl) %>">Sign Up</a></li>
@@ -40,9 +40,9 @@
     </ul>
     <nav>
       <ul>
-        <li><a href="<%= sites_url(:secure => false) %>">Sites</a></li>
-        <li><a href="<%= tools_url(:secure => false) %>">Tools</a></li>
-        <li><a href="<%= bookmarks_url(:secure => false) %>">Bookmarks</a></li>
+        <li><a href="<%= sites_url %>">Sites</a></li>
+        <li><a href="<%= tools_url %>">Tools</a></li>
+        <li><a href="<%= bookmarks_url %>">Bookmarks</a></li>
       </ul>
     </nav>
   </div>
@@ -66,8 +66,8 @@
     <section class="sidebar">
       <h3>Quick Nav</h3>
       <ul>
-        <li><a href="<%= about_url(:secure => false) %>">About Line Of Thought</a></li>
-        <li><a href="<%= lineofthought_url(:secure => false) %>">Tools We Use</a></li>
+        <li><a href="<%= about_url %>">About Line Of Thought</a></li>
+        <li><a href="<%= lineofthought_url %>">Tools We Use</a></li>
         <li><a href="http://blog.lineofthought.com">Blog</a></li>
       </ul>
     </section>
