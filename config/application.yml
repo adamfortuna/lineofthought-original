@@ -10,8 +10,8 @@ development:
  <<: *defaults
  root_domain: "dev.lineofthought.com:3000"
  root_url: "http://dev.lineofthought.com:3000"
- ssl_root_domain: "dev.lineofthought.com:3000"
- ssl_root_url: "http://dev.lineofthought.com"
+ ssl_root_domain: "ssl.dev.lineofthought.com:3000"
+ ssl_root_url: "http://ssl.dev.lineofthought.com"
  ssl_schema: "http"
 
 test:

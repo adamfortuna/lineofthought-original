@@ -26,13 +26,13 @@
 <header class="group">
   <div class="container">
     <hgroup id="title">
-      <p><a href="<%= beta_url %>">Line Of <span>Thought</span></a></p>
+      <p><a href="<%= beta_url(:host => Settings.root_domain) %>">Line Of <span>Thought</span></a></p>
       <span>Tracking what powers the web</span>
     </hgroup>
     <ul id="current_user">
       <% if logged_in? %>
-        <li><%= link_to "Logout", destroy_user_session_path %></li>
-        <li><a href="/users/edit">Account</a></li>
+        <li><%= link_to "Logout", destroy_user_session_path(:host => Settings.root_domain) %></li>
+        <li><%= link_to "Account", edit_user_registration(:user, :host => Settings.root_domain) %></li>
       <% else %>
         <li><a href="<%= new_user_session_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema) %>">Sign In</a></li>
         <li><a href="<%= new_user_registration_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema) %>">Sign Up</a></li>
@@ -40,9 +40,9 @@
     </ul>
     <nav>
       <ul>
-        <li><a href="<%= sites_url %>">Sites</a></li>
-        <li><a href="<%= tools_url %>">Tools</a></li>
-        <li><a href="<%= bookmarks_url %>">Bookmarks</a></li>
+        <li><a href="<%= sites_url(:host => Settings.root_domain) %>">Sites</a></li>
+        <li><a href="<%= tools_url(:host => Settings.root_domain) %>">Tools</a></li>
+        <li><a href="<%= bookmarks_url(:host => Settings.root_domain) %>">Bookmarks</a></li>
       </ul>
     </nav>
   </div>
@@ -66,8 +66,8 @@
     <section class="sidebar">
       <h3>Quick Nav</h3>
       <ul>
-        <li><a href="<%= about_url %>">About Line Of Thought</a></li>
-        <li><a href="<%= lineofthought_url %>">Tools We Use</a></li>
+        <li><a href="<%= about_url(:host => Settings.root_domain) %>">About Line Of Thought</a></li>
+        <li><a href="<%= lineofthought_url(:host => Settings.root_domain) %>">Tools We Use</a></li>
         <li><a href="http://blog.lineofthought.com">Blog</a></li>
       </ul>
     </section>
