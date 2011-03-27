@@ -4,6 +4,8 @@ defaults: &defaults
   ssl_root_domain: "www.lineofthought.com"
   ssl_root_url: "https://www.lineofthought.com"
   root_image_url: "https://s3.amazonaws.com/s.lineofthought.com"
+  ssl_schema: "https"
+  default_port: 80
 
 development:
  <<: *defaults
@@ -11,6 +13,8 @@ development:
  root_url: "http://dev.lineofthought.com:3000"
  ssl_root_domain: "dev.lineofthought.com"
  ssl_root_url: "http://dev.lineofthought.com"
+ ssl_schema: "http"
+ default_port: 3000
 
 test:
  <<: *defaults

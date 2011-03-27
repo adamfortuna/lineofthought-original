@@ -57,6 +57,7 @@ Snaps::Application.routes.draw do
   match '/about' => 'home#about', :as => 'about'
   match '/fail' => 'home#fail', :as => 'fail'
   match '/lookup' => 'lookup#new', :as => 'lookup'
+  match '/sites/lineofthought' => 'sites#show', :as => 'lineofthought', :id => 'lineofthought'
 
   # Admin related
   namespace :admin do

@@ -26,7 +26,7 @@
 <header class="group">
   <div class="container">
     <hgroup id="title">
-      <p><a href="/beta">Line Of <span>Thought</span></a></p>
+      <p><a href="<%= beta_url %>">Line Of <span>Thought</span></a></p>
       <span>Tracking what powers the web</span>
     </hgroup>
     <ul id="current_user">
@@ -34,15 +34,15 @@
         <li><%= link_to "Logout", destroy_user_session_path %></li>
         <li><a href="/users/edit">Account</a></li>
       <% else %>
-        <li><a href="<%= new_user_session_url(:protocol => "https") %>">Sign In</a></li>
-        <li><a href="<%= new_user_registration_url(:protocol => "https") %>">Sign Up</a></li>
+        <li><a href="<%= new_user_session_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema, :port => Settings.default_port) %>">Sign In</a></li>
+        <li><a href="<%= new_user_registration_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema, :port => Settings.default_port) %>">Sign Up</a></li>
       <% end %>
     </ul>
     <nav>
       <ul>
-        <li><a href="<%= sites_path %>">Sites</a></li>
-        <li><a href="<%= tools_path %>">Tools</a></li>
-        <li><a href="<%= bookmarks_path %>">Bookmarks</a></li>
+        <li><a href="<%= sites_url %>">Sites</a></li>
+        <li><a href="<%= tools_url %>">Tools</a></li>
+        <li><a href="<%= bookmarks_url %>">Bookmarks</a></li>
       </ul>
     </nav>
   </div>
@@ -66,8 +66,8 @@
     <section class="sidebar">
       <h3>Quick Nav</h3>
       <ul>
-        <li><a href="/about">About Line Of Thought</a></li>
-        <li><a href="/sites/lineofthought">Tools We Use</a></li>
+        <li><a href="<%= about_url %>">About Line Of Thought</a></li>
+        <li><a href="<%= lineofthought_url %>">Tools We Use</a></li>
         <li><a href="http://blog.lineofthought.com">Blog</a></li>
       </ul>
     </section>
