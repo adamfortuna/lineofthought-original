@@ -45,6 +45,7 @@ GEM
       mime-types
       xml-simple
     babosa (0.2.1)
+    bartt-ssl_requirement (1.2.5)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
     chronic (0.3.0)
@@ -231,7 +232,6 @@ GEM
     settingslogic (2.0.6)
     shoulda (2.11.3)
     shoulda-matchers (1.0.0.beta1)
-    ssl_requirement (0.1.0)
     state_machine (0.10.1)
     sunspot (1.2.1)
       escape (= 0.0.4)
@@ -270,6 +270,7 @@ DEPENDENCIES
   admin_data
   autotest
   aws-s3
+  bartt-ssl_requirement
   dalli
   delayed_job
   devise
@@ -294,7 +295,6 @@ DEPENDENCIES
   ruby-debug19
   settingslogic
   shoulda-matchers
-  ssl_requirement
   state_machine
   sunspot_rails (= 1.2.1)
   whois (= 2.0.1)

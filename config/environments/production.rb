@@ -49,5 +49,8 @@ Snaps::Application.configure do
   config.active_support.deprecation = :notify
   
   config.action_mailer.default_url_options = { :host => 'lineofthought.com' }
-  config.action_view.default_url_options   = {:host => 'lineofthought.com'}
+  config.after_initialize do
+    SslRequirement.ssl_host     = "www.lineofthought.com"
+    SslRequirement.non_ssl_host = "lineofthought.com"
+  end
 end

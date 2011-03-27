@@ -1,23 +1,30 @@
 defaults: &defaults
-  root_url: "http://lineofthought.com"
-  root_domain: "lineofthought.com"
+  force_ssl: true
   root_domain_with_port: "lineofthought.com"
+  root_url: "http://lineofthought.com"
   ssl_root_domain: "www.lineofthought.com"
-  ssl_root_domain_with_port: "www.lineofthought.com"
-  ssl_root_url: "https://www.lineofthought.com"
-  root_image_url: "https://s3.amazonaws.com/s.lineofthought.com"
+  root_domain: "lineofthought.com"
   ssl_schema: "https"
   default_schema: "http"
+  ssl_root_domain_with_port: "www.lineofthought.com"
+
+
+  # ssl_root_url: "https://www.lineofthought.com"
+  # root_image_url: "https://s3.amazonaws.com/s.lineofthought.com"
+  
 
 development:
  <<: *defaults
- root_domain: "dev.lineofthought.com"
+ force_ssl: false
  root_domain_with_port: "dev.lineofthought.com:3000"
+ root_domain: "dev.lineofthought.com"
  root_url: "http://dev.lineofthought.com:3000"
  ssl_root_domain: "ssl.dev.lineofthought.com"
- ssl_root_domain_with_port: "ssl.dev.lineofthought.com:3000"
- ssl_root_url: "http://ssl.dev.lineofthought.com:3000"
  ssl_schema: "http"
+ ssl_root_domain_with_port: "ssl.dev.lineofthought.com:3000"
+
+ # ssl_root_url: "http://ssl.dev.lineofthought.com:3000"
+ # ssl_schema: "http"
 
 test:
  <<: *defaults

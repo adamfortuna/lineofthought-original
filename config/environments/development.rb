@@ -23,7 +23,6 @@ Snaps::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   
   config.action_mailer.default_url_options = { :host => "lineofthought.com" }
-  config.action_view.default_url_options   = {:host => 'dev.lineofthought.com'}
     
   # caching
   # config.cache_store = :mem_cache_store, "localhost"
@@ -35,4 +34,9 @@ Snaps::Application.configure do
   # dev
   config.action_controller.perform_caching = false
   config.cache_classes = false
+  
+  config.after_initialize do
+    SslRequirement.ssl_host     = "ssl.dev.lineofthought.com:3000"
+    SslRequirement.non_ssl_host = "dev.lineofthought.com:3000"
+  end
 end

@@ -64,7 +64,6 @@ Backtrace:
 /Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/hoptoad_notifier-2.4.7/lib/hoptoad_notifier/user_informer.rb:12:in `call'
 /Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/application.rb:168:in `call'
 /Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/application.rb:77:in `method_missing'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/rack/debugger.rb:21:in `call'
 /Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/rack/log_tailer.rb:14:in `call'
 /Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/content_length.rb:13:in `call'
 /Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/handler/webrick.rb:52:in `service'

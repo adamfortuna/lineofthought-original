@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
-  before_filter :ensure_domain
   protect_from_forgery
   include FastSessions
-  include SslRequirement
-  
+  include ::SslRequirement
+  before_filter :ensure_domain
+  ssl_allowed :all
+
   protected  
   
   def require_admin!
@@ -17,8 +18,9 @@ class ApplicationController < ActionController::Base
     return false if ["development", "test"].include?(Rails.env)
     super
   end
-
+  
   def ensure_domain
+    # redirect if not on lineofthought
     schema = request.env['HTTP_X_FORWARDED_PROTO'] || "http"
     # If not on a secure page, make sure the scheme is http
     puts "Server Name: #{request.env['SERVER_NAME']}, Host Name: #{request.env['HTTP_HOST']}"
