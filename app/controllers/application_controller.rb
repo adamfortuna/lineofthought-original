@@ -20,13 +20,13 @@ class ApplicationController < ActionController::Base
 
   def ensure_domain
     # If not on a secure page, make sure the scheme is http
-    puts "Server Name: #{request.env['SERVER_NAME']}, request schema: #{current_handy_url.scheme}"
-    if request.env['SERVER_NAME'] == Settings.root_domain
+    puts "Server Name: #{request.env['SERVER_NAME']}, Host Name: #{request.env['HTTP_HOST']}, request schema: #{current_handy_url.scheme}"
+    if request.env['HTTP_HOST'] == Settings.root_domain_with_port
+      puts "required schema: SSL - #{Settings.ssl_schema}"
       redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301 unless current_handy_url.scheme == Settings.ssl_schema
-      puts "required schema: #{Settings.ssl_schema}"
     # If on a secure page, make sure the scheme is https
-    elsif request.env['SERVER_NAME'] == Settings.ssl_root_domain
-      puts "required schema: #{Settings.default_schema}"
+    elsif request.env['HTTP_HOST'] == Settings.ssl_root_domain_with_port
+      puts "required schema: Non-SSL - #{Settings.default_schema}"
       redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301 unless current_handy_url.scheme == Settings.default_schema
     # If not on a known host ["www.lineofthought.com", "lineofthought.com"], redirect to lineofthought.com
     else
