@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   
   # Disable SSL in Development and Test mode
   def ssl_required?
-    !["development", "test"].include?(Rails.env)
+    return false if ["development", "test"].include?(Rails.env)
+    super
   end
 
   def ensure_domain
