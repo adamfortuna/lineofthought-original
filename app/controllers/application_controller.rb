@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_domain
     # If not on a secure page, make sure the scheme is http
+    puts "Server Name: #{request.env['SERVER_NAME']}"
     if request.env['SERVER_NAME'] == Settings.root_domain
       redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301 unless current_handy_url.scheme == Settings.ssl_schema
     # If on a secure page, make sure the scheme is https
