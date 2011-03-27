@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_filter :redirect_if_signed_in!, :only => :index
   layout lambda { |res| ["index","subscribed"].include?(params[:action]) ? "notify" : "application" }
   caches_action :index, :expires_in => 15.minutes
-  caches_action :beta, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
+  caches_action :beta, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 1.hour
 
 
   def index; end

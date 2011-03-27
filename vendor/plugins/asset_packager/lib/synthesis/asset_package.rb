@@ -100,7 +100,7 @@ module Synthesis
       @asset_type = asset_type
       @asset_path = "#{self.class.asset_base_path}/#{@asset_type}#{@target_dir.gsub(/^(.+)$/, '/\1')}"
       @extension = get_extension
-      @file_name = "#{@target}_packaged.#{@extension}"
+      @file_name = "all.#{@extension}"
       @full_path = File.join(@asset_path, @file_name)
     end
   
