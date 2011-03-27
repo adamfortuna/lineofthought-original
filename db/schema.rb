@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324171432) do
+ActiveRecord::Schema.define(:version => 20110327042439) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(:version => 20110324171432) do
 
   add_index "articles", ["cached_slug"], :name => "index_articles_on_cached_slug"
   add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
+
+  create_table "authentications", :force => true do |t|
+    t.integer "user_id"
+    t.string  "provider"
+    t.string  "uid"
+  end
+
+  add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid"
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "bookmark_connections", :force => true do |t|
     t.datetime "created_at"
@@ -350,6 +359,7 @@ ActiveRecord::Schema.define(:version => 20110324171432) do
     t.string   "invite_code"
     t.text     "cached_site_claims"
     t.text     "cached_tool_claims"
+    t.string   "time_zone"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

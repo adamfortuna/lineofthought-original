@@ -1,18 +1,43 @@
 class User < ActiveRecord::Base
+  extend ActiveSupport::Memoizable
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :invite_code
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :invite_code, :time_zone
 
   has_many :claims
+  has_many :authentications
   
   validate :validate_invite, :on => :create
   after_create :increment_invite, :if => :invite_code?
   serialize :cached_site_claims
   serialize :cached_tool_claims
+
+  def apply_omniauth(omniauth)
+    self.email = omniauth['extra']['user_hash']['email'] if email.blank?
+    self.username = omniauth['user_info']['nickname'] if username.blank?
+    self.time_zone = ActiveSupport::TimeZone[-5] if time_zone.blank? # omniauth['extra']['user_hash']['timezone']
+    authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  rescue
+    nil
+  end
+  
+  def auth_with_twitter?
+    authentications.collect(&:provider).include?("twitter")
+  end
+
+  def auth_with_facebook?
+    authentications.collect(&:provider).include?("facebook")
+  end
+
+  def authentication_services
+    authentications.collect(&:provider).compact.uniq
+  end
+  memoize :authentication_services
+
 
   def claim_id
     "<meta name=\"lineofthought-claim\" content=\"#{claim_code}\" />"

@@ -8,6 +8,19 @@
   <meta content="en-us" http-equiv="Content-Language" />
   <%= csrf_meta_tag %>
   <%= raw stylesheet_link_merged :all %>
+  <%- if Rails.env == "production" -%>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-90326-14']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <%- end -%>
 </head>
 <body class="<%= yield(:body_classes) %> <%= [params[:controller], params[:action]].join("-") %>">
 <header class="group">
@@ -18,18 +31,18 @@
     </hgroup>
     <ul id="current_user">
       <% if logged_in? %>
-        <li><%= link_to raw("<strong>Logout</strong>"), destroy_user_session_path %></li>
-        <li><a href="/users/edit"><strong>Account</strong></a></li>
+        <li><%= link_to "Logout", destroy_user_session_path %></li>
+        <li><a href="/users/edit">Account</a></li>
       <% else %>
-        <li><a href="<%= new_user_session_path %>"><strong>Sign In</strong></a></li>
-        <li><a href="<%= new_user_registration_path %>"><strong>Sign Up</strong></a></li>
+        <li><a href="<%= new_user_session_path %>">Sign In</a></li>
+        <li><a href="<%= new_user_registration_path %>">Sign Up</a></li>
       <% end %>
     </ul>
     <nav>
       <ul>
-        <li><a href="<%= sites_path %>"><strong>Sites</strong></a></li>
-        <li><a href="<%= tools_path %>"><strong>Tools</strong></a></li>
-        <li><a href="<%= bookmarks_path %>"><strong>Bookmarks</strong></a></li>
+        <li><a href="<%= sites_path %>">Sites</a></li>
+        <li><a href="<%= tools_path %>">Tools</a></li>
+        <li><a href="<%= bookmarks_path %>">Bookmarks</a></li>
       </ul>
     </nav>
   </div>
@@ -67,18 +80,5 @@
 <% end %>
 <%= raw javascript_include_merged :all %>
 <%= yield :javascript %>
-<% if Rails.env == "production" %>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-90326-14']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-<% end %>
 </body>
 </html>

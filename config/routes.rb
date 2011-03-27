@@ -37,6 +37,8 @@ Snaps::Application.routes.draw do
 
 
   match '/auth/:provider/callback' => 'authentications#create'
+  resources :authentications, :only => [:index, :create, :destroy]
+  
   devise_for :users, :only => [:new, :create, :edit, :update],
     :controllers => { :registrations => 'registrations', :sessions => 'sessions' }
   
@@ -57,11 +59,12 @@ Snaps::Application.routes.draw do
   match '/lookup' => 'lookup#new', :as => 'lookup'
 
   # Admin related
-  match '/admin_data' => "admin_data/home#index"
   namespace :admin do
     resources :jobs, :only => [:index]
     resources :users, :only => [:index]
     resource :home
   end
   match '/admin' => 'admin/home#index'
+  
+  match '/admin_data', :to => 'admin_data/home#index'
 end

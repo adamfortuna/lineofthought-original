@@ -3,6 +3,8 @@ class BookmarksController < ApplicationController
   before_filter :load_or_redirect_by_url, :only => [:new]
   respond_to :html, :json, :xml
 
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 1.hour
+
   # GET /bookmarks
   def index
     @bookmarks = Bookmark.order("created_at desc")

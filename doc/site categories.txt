@@ -1,0 +1,13 @@
+What sites do we want to allow?
+
+Don't want plain HTML, Javascript and CSS pages.
+For applications, not websites.
+
+What about blogs?
+
+Maybe different categories for sites the way there are categories for tools?
+
+Site Categories
+- Web application
+- Blog
+- 

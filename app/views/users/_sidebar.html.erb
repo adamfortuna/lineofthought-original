@@ -5,6 +5,7 @@
       <li><a href="#">My Sites</a></li>
       <li><a href="#">My Tools</a></li>
       <li><a href="#">My Bookmarks</a></li>
+      <li><%= link_to "My Login Methods", authentications_path %></li>
     </ul>
   </aside>
   <% if current_user.admin? %>
@@ -19,7 +20,7 @@
   <% else %>
   <aside>
     <h3>Delete My Account</h3>
-    <p>Unhappy? <%= link_to "Delete my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+    <p>Unhappy? <%= link_to "Delete my account", registration_path(:user), :confirm => "Are you sure?", :method => :delete %>.</p>
     <p>Canceling your account will not remove your work. It'll de-associate it with you, and all traces of your identify will be erased.
   </aside>
   <% end %>

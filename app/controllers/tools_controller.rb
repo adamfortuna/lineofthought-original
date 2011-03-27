@@ -3,9 +3,10 @@ class ToolsController < ApplicationController
   before_filter :redirect_to_tool, :only => [:new]
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update]
   respond_to :html, :json, :xml
+  cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
 
   # caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
-  caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 2.minutes
+  caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "lower_name",
@@ -26,7 +27,7 @@ class ToolsController < ApplicationController
       
       keywords params[:category], :fields => [:categories] if params[:category]
       order_by(order_field.to_sym, order_direction.to_sym)
-      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 30)
+      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
     end
     
     # @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 25))

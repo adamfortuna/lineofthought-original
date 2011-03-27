@@ -1,5 +1,6 @@
 class ToolSitesController < ApplicationController
   respond_to :html, :json, :xml
+  cache_sweeper :using_sweeper, :only => [:create]
   
   # GET /tools/:tool_id/sites/manage
   def manage

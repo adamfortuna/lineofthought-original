@@ -21,7 +21,15 @@ class AuthenticationsController < ApplicationController
         flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, user)
       else
-        session[:omniauth] = omniauth
+        email = omniauth['extra']['user_hash']['email'] rescue nil
+        nickname = omniauth['user_info']['nickname'] rescue nil
+        usable_omniauth =  {
+          'uid' => omniauth['uid'],
+          'provider' => omniauth['provider'],
+          'extra' => { 'user_hash' => { 'email' =>  email } },
+          'user_info' => { 'nickname' => nickname }
+        }
+        session[:omniauth] = usable_omniauth
         redirect_to new_user_registration_url
       end
     end

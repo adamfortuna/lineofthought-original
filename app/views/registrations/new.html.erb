@@ -2,10 +2,28 @@
 
 <section id="content" class="main">
   <h2><%= @title %></h2>
+
+  <section>
+    <% 
+      method = "Facebook" if @user.auth_with_facebook?
+      method = "Twitter" if @user.auth_with_twitter?
+    %>
+    
+    <% if method %>
+      <p>Your account is connected to <%= method %>. You will be able to login via <%= method %>, or with email/password.</p>
+    <% else %>
+      <p>Sign up using Twitter. <a href="/auth/twitter">yeah, please</a></p>
+      <p>Sign up using Facebook. <a href="/auth/facebook">yeah, please</a></p>
+    <% end %>
+  </section>
+
+  <hr />
+
   <section>
     <%= semantic_form_for resource, :as => resource_name, :url => registration_path(resource_name) do |form| %>
       <%= form.inputs do %>
         <%= form.input :email, :as => :string, :required => true %>
+        <%= form.input :username, :required => true %>
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>
         <%= form.input :invite_code, :as => :string, :required => true, :hint => raw("Right now we're invite only while working out the kinks. If you'd like to get an invite code, please #{link_to 'let us know!', root_path}") %>
@@ -19,6 +37,11 @@
 
 <sidebar>
   <%= render :partial => "devise/shared/links" %>
+  <aside>
+    <h3>Another site, Another Password?</h3>
+    <p>Oauth is awesome, but it's good to have a backup. If you connect your account with Twitter or/and Facebook, you'll be able to login from there, or use your email/password if they're down or your account is inaccessible.</p>
+    <p><strong>Passwords</strong> are encrypted with a one-way <a href="http://en.wikipedia.org/wiki/Crypt_(Unix)#Blowfish-based_scheme">bcrypt</a> for passwords, with good password filtering at a logging level, so they're secure.</p>
+  </aside>
   <aside>
     <h3>Looking for an Invite?</h3>
     <p>We're still trying to get the basics of the system down, so for now we're trying to work closely with those using the system to create an awesome site.</p>

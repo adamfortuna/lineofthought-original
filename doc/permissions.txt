@@ -1,0 +1,38 @@
+"All Users" - Everyone that's logged into the system.
+"Verified Users" - Users with verified email addresses.
+"Contributors" - "Verified Users" with some bump to show they have historically been useful.
+"Editors" - Some way of denoting that this user has a history of creating useful, verified content.
+"Super Editors" - "Editors" who have been promoted based on history.
+"Admins" - Very exclusive group for me, and maybe a few other people. Must be manually set.
+"Claimers of the site" - Anyone who has claimed this site.
+"Creator of this Using" - The user who created the using record.
+
+Site:
+  Add a new Site
+    - "All Users"
+    - Note: After creation, a "claim" record will be created denoting that person has access to edit site.
+  Edit base information about it (title, URL, description)
+    - Anyone who has claimed this site.
+    - "Editors"
+    - "Admins"
+  Delete Site
+    - "All Users" will have the ability to flag a site as spam.
+    - "Admins"
+  Add new tools to this site (Create Using)
+    - "Verified Users"
+    - "Contributors"
+    - "Editors"
+    - "Super Editors"
+    - "Admins"
+  Delete tools used on this site (Delete Using)
+    - "Editors"
+    - "Admins"
+  Edit site/tool description (Update Using)
+    - "Creator of this Using"
+    - "Admins"
+
+Flags Needed:
+  - Ability to flag a user along with a description of why they were flagged.
+    - Maybe a text field for the flagger to write why?
+  - Ability to flag a site
+    - "This site is spam"

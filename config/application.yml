@@ -5,8 +5,8 @@ defaults: &defaults
 
 development:
  <<: *defaults
- root_domain: "lineofthought.local:3000"
- root_url: "http://lineofthought.local:3000"
+ root_domain: "dev.lineofthought.com:3000"
+ root_url: "http://dev.lineofthought.com:3000"
 
 test:
  <<: *defaults

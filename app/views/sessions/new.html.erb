@@ -3,6 +3,10 @@
 <section id="content" class="main">
   <h2><%= @title %></h2>
   <section>
+    <p><a href="/auth/twitter">Sign In with Twitter</a></p>
+    <p><a href="/auth/facebook">Sign In with Facebook</a></p>
+  </section>
+  <section>
     <%= semantic_form_for resource, :as => resource_name, :url => user_session_path do |form| %>
       <%= form.inputs do %>
         <%= form.input :email, :as => :string, :required => true %>
