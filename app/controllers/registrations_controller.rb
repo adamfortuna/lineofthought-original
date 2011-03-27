@@ -1,4 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
+  ssl_required :new, :create
+
   def new
     @user = User.new
     @user.apply_omniauth(session[:omniauth])
