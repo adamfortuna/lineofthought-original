@@ -2,11 +2,11 @@
   <h3>Related Links</h3>
   <ul class="lst">
 <%- if controller_name != 'sessions' %>
-  <li><%= link_to "Sign in", new_session_path(resource_name, :host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema) %></li>
+  <li><%= link_to "Sign in", new_session_path(resource_name, :host => Settings.ssl_root_domain_with_port, :protocol => Settings.ssl_schema) %></li>
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <li><%= link_to "Sign up", new_registration_path(resource_name, :host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema) %></li>
+  <li><%= link_to "Sign up", new_registration_path(resource_name, :host => Settings.ssl_root_domain_with_port, :protocol => Settings.ssl_schema) %></li>
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
