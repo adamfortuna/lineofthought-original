@@ -23,7 +23,8 @@ Snaps::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   
   config.action_mailer.default_url_options = { :host => "lineofthought.com" }
-  
+  config.action_view.default_url_options   = {:host => 'dev.lineofthought.com'}
+    
   # caching
   # config.cache_store = :mem_cache_store, "localhost"
 

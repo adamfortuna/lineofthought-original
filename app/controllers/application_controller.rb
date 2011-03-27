@@ -20,8 +20,14 @@ class ApplicationController < ActionController::Base
 
   def ensure_domain
     if (request.env['HTTP_HOST'] != Settings.root_domain) && (request.env['HTTP_HOST'] != Settings.ssl_root_domain)
-      # HTTP 301 is a "permanent" redirect
-      redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301
+      url = HandyUrl.new(request.env['HTTP_HOST'])
+      if url.host == Settings.ssl_root_domain
+        redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301 unless url.scheme == "https"
+      elsif url.host == Settings.root_domain
+        redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301 unless url.scheme == "http"
+      else
+        redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301
+      end
     end
   end
 end
