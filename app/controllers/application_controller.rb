@@ -19,15 +19,19 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_domain
-    if (request.env['HTTP_HOST'] != Settings.root_domain) && (request.env['HTTP_HOST'] != Settings.ssl_root_domain)
-      url = HandyUrl.new(request.env['HTTP_HOST'])
-      if url.host == Settings.ssl_root_domain
-        redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301 unless url.scheme == "https"
-      elsif url.host == Settings.root_domain
-        redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301 unless url.scheme == "http"
-      else
-        redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301
-      end
+    # If not on a secure page, make sure the scheme is http
+    if request.env['SERVER_NAME'] == Settings.root_domain
+      redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301 unless current_handy_url.scheme == Settings.ssl_schema
+    # If on a secure page, make sure the scheme is https
+    elsif request.env['SERVER_NAME'] == Settings.ssl_root_domain
+      redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301 unless current_handy_url.scheme == Settings.default_schema
+    # If not on a known host ["www.lineofthought.com", "lineofthought.com"], redirect to lineofthought.com
+    elsif
+      redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301
     end
+  end
+  
+  def current_handy_url
+    @url ||= HandyUrl.new(request.env['REQUEST_URI'])
   end
 end
