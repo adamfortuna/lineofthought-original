@@ -31,7 +31,10 @@ class ApplicationController < ActionController::Base
     # If on a secure page, make sure the scheme is https
     elsif request.env['HTTP_HOST'] == Settings.ssl_root_domain_with_port
       puts "required schema: SSL - should be #{Settings.ssl_schema} / is #{schema}"
-      redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301 if schema != Settings.ssl_schema
+      if schema != Settings.ssl_schema
+        puts "schema class: "
+        redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301
+      end
     # If not on a known host ["www.lineofthought.com", "lineofthought.com"], redirect to lineofthought.com
     else
       puts "required schema: any"
