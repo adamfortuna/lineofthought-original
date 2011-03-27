@@ -34,8 +34,8 @@
         <li><%= link_to "Logout", destroy_user_session_path %></li>
         <li><a href="/users/edit">Account</a></li>
       <% else %>
-        <li><a href="<%= new_user_session_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema, :port => Settings.default_port) %>">Sign In</a></li>
-        <li><a href="<%= new_user_registration_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema, :port => Settings.default_port) %>">Sign Up</a></li>
+        <li><a href="<%= new_user_session_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema) %>">Sign In</a></li>
+        <li><a href="<%= new_user_registration_url(:host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema) %>">Sign Up</a></li>
       <% end %>
     </ul>
     <nav>
