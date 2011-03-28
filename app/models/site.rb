@@ -4,7 +4,7 @@ class Site < ActiveRecord::Base
   has_friendly_id :full_uid, :use_slug => true
   acts_as_mappable
   include HasFavicon
-  attr_accessor :skip_ranks
+  attr_accessor :skip_ranks, :claimer  
 
   searchable do
     text :title, :default_boost => 2
@@ -39,6 +39,10 @@ class Site < ActiveRecord::Base
   # Bookmarks
   has_many :annotations, :as => :annotateable
   has_many :bookmarks, :through => :annotations
+  
+  # Claims
+  has_many :claims, :as => :claimable
+  has_many :users, :through => :claims
 
   scope :recent, order("created_at desc")
   scope :popular, lambda { |limit| { :limit => limit, :order => "alexa_global_rank" }}
@@ -59,18 +63,26 @@ class Site < ActiveRecord::Base
   serialize :cached_bookmarks
     
   def self.new_from_link(link)
+    title_without_spaces = link.html_title.blank? ? "" : link.html_title.downcase.gsub(" ", "")
+    if title_without_spaces.blank? || title_without_spaces.include?(link.uri.full_uid)
+      title = link.uri.full_uid.capitalize
+    else
+      title = link.html_title || link.title
+    end
+    
     site = Site.new({
       :link => link,
       :url => link.url,
-      :title => link.uri.full_uid.capitalize,
+      :title => title,
       :description => link.description
     })
     site.set_location_from_whois
     site
   end
   
-  def self.create_from_link(link)
+  def self.create_from_link(link, user = nil)
     site = new_from_link(link)
+    site.claimer = user
     site.save
     site
   end
@@ -240,5 +252,10 @@ class Site < ActiveRecord::Base
   
   def should_update_ranks?
     !skip_ranks
+  end
+  
+  after_create :create_initial_claim
+  def create_initial_claim
+    claimer.claims.create({ :claimable => self }) if claimer
   end
 end

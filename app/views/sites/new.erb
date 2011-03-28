@@ -9,7 +9,7 @@
       <%= f.inputs do %>
         <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
       <% end %>
-      <% f.buttons do %>
+      <%= f.buttons do %>
       <li id="lookup_loading" class="response" style="display:none;"> <img src="/images/indicator.gif"/>We're looking up this site, just a sec.</li>
         <%= f.commit_button :label => "Add URL", :wrapper_html => { :id => "submit_lookup" } %>
         <%= f.commit_button :label => "Cancel", :id => "lookup_cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_lookup", :class => "response" } %>

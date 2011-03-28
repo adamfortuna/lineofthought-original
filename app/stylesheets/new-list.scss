@@ -5,8 +5,8 @@ ul.categories, ul.sites, ul.tools, ul.usings { min-height:1em; }
 li.ind a:hover { text-decoration:underline; }
 li.ind { border-bottom:1px solid #ccc; padding:1em 0; }
 li.ind:first-child { border-top:1px solid #ccc; }
-a.favicon { width:16px; height:16px; float:left; padding-right:8px; }
-a.favicon img { margin:0; width:16px; height:16px; }
+a.favicon, img.favicon { width:16px; height:16px; float:left; padding-right:8px; }
+a.favicon img, img.favicon { margin:0; width:16px; height:16px; }
 
 /* Bar listing what's currenly shown with sorting options sites#index, tools#index */
 .title_bar { padding: 1em 1em 0 .5em; }

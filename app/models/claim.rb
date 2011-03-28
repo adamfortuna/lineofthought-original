@@ -11,12 +11,11 @@ class Claim < ActiveRecord::Base
   def self.by_tag(claimable, user)
     data = nil
     Timeout::timeout(5) do
-      # content = open(claimable.url)
-      content = open("http://www.adamfortuna.com")
+      content = open(claimable.url)
       data = content.read
     end
     
-    if true || data.include?(user.claim_code)
+    if data.include?(user.claim_code)
       user.claims.create({ :claimable => claimable })
       user.reload
     else
@@ -29,11 +28,9 @@ class Claim < ActiveRecord::Base
   def self.by_file(claimable, user)
     claim_url = claimable.uri.to_uri
     claim_url.path = "/#{user.claim_file}"
-    url = "http://www.adamfortuna.com/lineofthought_claim_dd601b1240afe972d2ca007fc5c0c61c.html"
     response = nil
     Timeout::timeout(5) do
-      # response = open(claim_url.to_s)
-      response = open(url)
+      response = open(claim_url.to_s)
     end
 
     if response.status.first.to_i == 200
@@ -50,7 +47,7 @@ class Claim < ActiveRecord::Base
   def update_user_cached_claims
     if claimable.is_a?(Site)
       user.update_cached_site_claims!
-    elsif   claimable.is_a?(Tool)
+    elsif claimable.is_a?(Tool)
       user.update_cached_tool_claims!
     end
   end

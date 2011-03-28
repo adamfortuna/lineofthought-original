@@ -25,7 +25,10 @@ gem 'state_machine'
 gem 'sunspot_rails', '1.2.1'
 gem 'will_paginate', '3.0.pre2'
 gem 'whois', '2.0.1'
-gem 'workless'
+
+group :production do
+  gem 'workless'
+end
 
 group :development, :test do
   gem 'factory_girl_rails'

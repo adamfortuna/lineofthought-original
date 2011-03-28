@@ -2,6 +2,8 @@ class ToolsController < ApplicationController
   before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_tool, :only => [:new]
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update]
+  before_filter :verify_editable!, :only => [:edit, :update]
+  before_filter :verify_destroyable!, :only => [:destroy]
   respond_to :html, :json, :xml
   cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
 
@@ -38,7 +40,7 @@ class ToolsController < ApplicationController
   
   def show
     @tool = Tool.find_by_cached_slug!(params[:id])
-    @usings = @tool.usings.joins(:site).includes([:site, :tool]).order(build_site_order).paginate(:page => 1, :per_page => 25)
+    @usings = @tool.usings.joins(:site).includes(:site).order(build_site_order).paginate(:page => 1, :per_page => 25)
     @featured = Tool.featured.limit(5)
     respond_with @tool
   rescue ActiveRecord::RecordNotFound
@@ -91,7 +93,7 @@ class ToolsController < ApplicationController
   end
   
   def create
-    @tool = Tool.create(params[:tool])
+    @tool = Tool.create(params[:tool].merge(:claimer => current_user))
     if @tool.new_record?
       @link = Link.find_or_create_by_url(params[:tool][:url])
       flash[:error] = "There was a problem creating this tool."
@@ -164,5 +166,17 @@ class ToolsController < ApplicationController
     url = HandyUrl.new(params[:tool][:url])
     tool = Tool.find_by_handy_url(url)
     redirect_to tool_path(tool, :format => params[:format]) if tool
+  end
+  
+  def verify_editable!
+    return true if current_user.can_edit_tool?(@tool)
+    redirect_to tool_path(@tool, :format => params[:format]), :flash => { :error => "You don't have access to edit this tool." }
+    return false
+  end
+  
+  def verify_destroyable!
+    return true if current_user.can_destroy_tool?(@tool)
+    redirect_to tool_path(@tool, :format => params[:format]), :flash => { :error => "You don't have access to delete this tool." }
+    return false
   end
 end

@@ -51,6 +51,7 @@ class Favicon < ActiveRecord::Base
     Link.update_all "has_favicon=true", ["uid = ?", uid]
     Bookmark.update_all "has_favicon=true", ["uid = ?", uid]
   end
+  handle_asynchronously :update_associated_items
     
   private
   

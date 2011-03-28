@@ -1,6 +1,7 @@
 class SitesController < ApplicationController
   before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_site_tools, :only => [:new]
+  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :claim]
   respond_to :html, :json, :xml
   cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
 
@@ -33,7 +34,7 @@ class SitesController < ApplicationController
   # GET /sites/:id
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
-    @usings = @site.usings.includes([:tool, :site]).joins(:tool).order(build_tool_order)
+    @usings = @site.usings.includes(:tool).joins(:tool).order(build_tool_order)
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
@@ -47,14 +48,14 @@ class SitesController < ApplicationController
 
   # POST /sites
   def create
-    @link = Link.find_or_create_by_url(params[:site][:url])
+    @link = Link.find_or_create_by_domain(params[:site][:url])
     respond_to do |format|
       format.js do
         if @link.nil?
           render :create_failed
         elsif @site = @link.site
           render :duplicate
-        elsif @link.parsed? && (@site = Site.create_from_link(@link)) && !@site.new_record?
+        elsif @link.parsed? && (@site = Site.create_from_link(@link, current_user)) && !@site.new_record?
           render :create_success
         elsif (@site && @site.new_record?) || @link.unparseable? || @link.unreachable?
           render :create_failed

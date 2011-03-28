@@ -18,13 +18,13 @@ li.ind {
 li.ind:first-child {
   border-top: 1px solid #ccc; }
 
-a.favicon {
+a.favicon, img.favicon {
   width: 16px;
   height: 16px;
   float: left;
   padding-right: 8px; }
 
-a.favicon img {
+a.favicon img, img.favicon {
   margin: 0;
   width: 16px;
   height: 16px; }

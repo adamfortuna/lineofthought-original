@@ -18,4 +18,5 @@
     </ul>
   </aside>
   <% end %>
+  <%= render :partial => "tools/add_bookmark", :locals => { :tool => @tool } if logged_in? %>
 </sidebar>

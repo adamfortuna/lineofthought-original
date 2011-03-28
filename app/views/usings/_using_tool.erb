@@ -1,9 +1,13 @@
+<%
+  site = @site || using_site.site
+  tool = @tool || using_tool.tool
+%>
 <li class="tool group ind">
   <div class="title group">
-    <h4><% if using_tool.tool.has_favicon? %><a href="<%= tool_path(using_tool.tool) %>" class="favicon"><img src="<%= using_tool.tool.full_favicon_url %>" /></a><% end %><%= link_to using_tool.tool.name, tool_path(using_tool.tool) %></h4>
+    <h4><% if tool.has_favicon? %><a href="<%= tool_path(tool) %>" class="favicon"><img src="<%= tool.full_favicon_url %>" /></a><% end %><%= link_to tool.name, tool %></h4>
     <ul class="mini-categories">
-      <%= raw tool_categories(using_tool.tool, params[:format]) %>
-      <li><%= link_to "comments", site_tool_path(using_tool.site, using_tool.tool, :format => params[:format]), :class => "comments" %></li>
+      <%= raw tool_categories(tool, params[:format]) %>
+      <li><%= link_to "comments", site_tool_path(site, tool, :format => params[:format]), :class => "comments" %></li>
     </ul>
   </div>
   <% unless using_tool.description.blank? %><p><%= using_tool.description %></p><% end %>

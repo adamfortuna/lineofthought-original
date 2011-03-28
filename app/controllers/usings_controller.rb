@@ -6,10 +6,10 @@ class UsingsController < ApplicationController
   def update
     respond_to do |format|
       format.js {
-        if @using.update_attributes(params[:using])
+        if current_user.can_edit_using?(@using) && @using.update_attributes(params[:using])
           render 'update.js'
         else
-          render :js => "alert('problem');"
+          render :js => "alert('Cannot edit.');"
         end
       }
     end
@@ -19,10 +19,10 @@ class UsingsController < ApplicationController
   def destroy
     respond_to do |format|
       format.js {
-        if @using.destroy
+        if current_user.can_destroy_using?(@using) && @using.destroy
           render 'destroy.js'
         else
-          render :js => "alert('problem');"
+          render :js => "alert('Cannot delete.');"
         end
       }
     end

@@ -2,11 +2,6 @@
   <%= render :partial => "tools/featured" %>
   <%= render :partial => "bookmarks/related", :object => @tool.cached_bookmarks if (@tool.bookmarks_count > 0) && @tool.cached_bookmarks %>
   <%= render :partial => "tools/similar", :object => @similar_tools if @similar_tools %>  
-  <% if logged_in? %>
-  <aside>
-    <h3>Add an Bookmark</h3>
-    <p>Know of a blog post or video about <%= @tool.name %>?</p>
-    <p><%= link_to "Add an Bookmark about #{@tool.name}", new_bookmark_path %></p>
-  </aside>
-  <% end %>
+  
+  <%= render :partial => "tools/add_bookmark", :locals => { :tool => @tool } if logged_in? %>
 </sidebar>

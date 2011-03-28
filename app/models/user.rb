@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :invite_code, :time_zone
+  attr_accessible :email, :username, :password, :password_confirmation, :remember_me, :invite_code, :time_zone
 
   has_many :claims
   has_many :authentications
@@ -15,6 +15,12 @@ class User < ActiveRecord::Base
   after_create :increment_invite, :if => :invite_code?
   serialize :cached_site_claims
   serialize :cached_tool_claims
+
+  validates_presence_of :username
+  validates_uniqueness_of :username
+  validates_length_of :username, :in => 1..25
+
+
 
   def apply_omniauth(omniauth)
     self.email = omniauth['extra']['user_hash']['email'] if email.blank?
@@ -52,19 +58,19 @@ class User < ActiveRecord::Base
   end
 
   def update_cached_site_claims!
-    cached_site_claims = []
-    claims.includes(:claimable).each do |claim|
-      cached_site_claims << claim.claimable.id
-      cached_site_claims << claim.claimable.cached_slug
+    self.cached_site_claims = []
+    claims.where("claimable_type='Site'").includes(:claimable).each do |claim|
+      self.cached_site_claims << claim.claimable.id
+      self.cached_site_claims << claim.claimable.cached_slug
     end
     save
   end
 
   def update_cached_tool_claims!
-    cached_tool_claims = []
-    claims.includes(:claimable).each do |claim|
-      cached_tool_claims << claim.claimable.id
-      cached_tool_claims << claim.claimable.cached_slug
+    self.cached_tool_claims = []
+    claims.where("claimable_type='Tool'").includes(:claimable).each do |claim|
+      self.cached_tool_claims << claim.claimable.id
+      self.cached_tool_claims << claim.claimable.cached_slug
     end
     save
   end
@@ -86,9 +92,56 @@ class User < ActiveRecord::Base
       cached_tool_claims.include?(object)
     end
   end
+
+  # Is this users email confirmed?
+  def confirmed?
+    !confirmed_at.nil?
+  end
+  
+  def contributor?
+    true
+  end
+  
+  def editor?
+    false
+  end
+
+  def super_editor?
+    false
+  end
   
   def admin?
     email.include?("@lineofthought.com")
+  end
+
+  def can_edit_tool?(tool)
+    admin? || editor? || claimed_tool?(tool)
+  end
+
+  def can_destroy_tool?(tool)
+    admin?
+  end
+
+  def can_edit_site?(site)
+    admin? || editor? || claimed_site?(site)
+  end
+
+  def can_destroy_site?(site)
+    admin?
+  end
+
+  def can_edit_using?(using, site = nil, tool = nil)
+    return using.user_id == self.id    
+    return can_edit_site?(site) if site
+    return can_edit_tool?(tool) if tool
+    return false
+  end
+
+  def can_destroy_using?(using, site = nil, tool = nil)
+    return using.user_id == self.id    
+    return can_edit_site?(site) if site
+    return can_edit_tool?(tool) if tool
+    return false
   end
 
   private

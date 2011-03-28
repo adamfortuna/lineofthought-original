@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110327042439) do
+ActiveRecord::Schema.define(:version => 20110328162216) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(:version => 20110327042439) do
     t.datetime "date_posted"
     t.boolean  "has_favicon",        :default => false
     t.integer  "page_id"
+    t.string   "html_title"
   end
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"

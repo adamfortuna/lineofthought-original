@@ -50,6 +50,7 @@ class Link < ActiveRecord::Base
   end
   
   def parse_html!
+    self.html_title      = current_page.html_title
     self.title           = current_page.title
     self.description     = current_page.description
     self.lede            = current_page.lede
@@ -173,7 +174,7 @@ class Link < ActiveRecord::Base
   end
   
   def initial_load!
-    load!
+    load! unless loaded?
     parse! if loaded?
   end
   after_create :initial_load!

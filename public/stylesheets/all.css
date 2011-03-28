@@ -273,8 +273,8 @@ ul.categories, ul.sites, ul.tools, ul.usings {min-height: 1em}
 li.ind a:hover {text-decoration: underline}
 li.ind {border-bottom: 1px solid #ccc; padding: 1em 0}
 li.ind:first-child {border-top: 1px solid #ccc}
-a.favicon {width: 16px; height: 16px; float: left; padding-right: 8px}
-a.favicon img {margin: 0; width: 16px; height: 16px}
+a.favicon, img.favicon {width: 16px; height: 16px; float: left; padding-right: 8px}
+a.favicon img, img.favicon {margin: 0; width: 16px; height: 16px}
  .title_bar {padding: 1em 1em 0 .5em}
 .title_bar h2, .title_bar h3, .title_bar h4 {float: left}
  ul.main-list li.ind {padding: 1em 0; position: relative}

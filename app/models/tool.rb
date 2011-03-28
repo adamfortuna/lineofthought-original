@@ -2,6 +2,7 @@ require 'csv'
 class Tool < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true
   include HasFavicon
+  attr_accessor :claimer
 
   searchable do
     text :name, :default_boost => 2
@@ -26,7 +27,7 @@ class Tool < ActiveRecord::Base
   end
   handle_asynchronously :solr_index
     
-  attr_accessible :name, :url, :description, :category_ids, :language_id, :link_id
+  attr_accessible :name, :url, :description, :category_ids, :language_id, :link_id, :claimer
   
   belongs_to :language, :class_name => 'Tool'
   has_many :buildables, :dependent => :destroy
@@ -43,6 +44,10 @@ class Tool < ActiveRecord::Base
   # Bookmarks
   has_many :annotations, :as => :annotateable, :dependent => :destroy
   has_many :bookmarks, :through => :annotations
+
+  # Claims
+  has_many :claims, :as => :claimable
+  has_many :users, :through => :claims
 
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :sources
@@ -221,5 +226,10 @@ class Tool < ActiveRecord::Base
   before_validation :set_uid, :if => :url_changed?
   def set_uid
     self.uid = self.uri.uid
+  end
+  
+  after_create :create_initial_claim
+  def create_initial_claim
+    claimer.claims.create({ :claimable => self }) if claimer
   end
 end

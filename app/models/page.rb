@@ -12,6 +12,10 @@ class Page < ActiveRecord::Base
   def doc
     @doc ||= Pismo::Document.new(self.html)
   end
+  
+  def html_title
+    doc.html_title
+  end
 
   def title
     doc.title
