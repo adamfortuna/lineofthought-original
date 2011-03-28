@@ -95,7 +95,7 @@ class Link < ActiveRecord::Base
   
   def self.find_by_entered_url(url)
     url = HandyUrl.new(Util.parse_uri(url)) unless url.is_a?(HandyUrl)
-    find(:first, :conditions => ["url IN (?) OR original_url IN (?)", url.variants, url.variants])
+    find(:first, :conditions => ["url IN (?) OR original_url IN (?)", url.variants.collect(&:to_s), url.variants.collect(&:to_s)])
   end
 
   def categories

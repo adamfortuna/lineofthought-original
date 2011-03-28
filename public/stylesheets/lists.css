@@ -1,77 +1,111 @@
-/*
-Syntax error: Invalid CSS after "...gs ul.bookmarks": expected "{", was ""
-        on line 62 of ./app/stylesheets/lists.scss
+/* Tools by Category */
+.category-description {
+  font-size: 1em;
+  color: #666; }
 
-57: ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child { border-top:none; border-bottom:1px solid #ccc; }
-58: 
-59: ul.usings ul.bookmarks { clear:both; }
-60: ul.usings ul.bookmarks li { border-bottom:1px solid #e7e7e7; padding:4px 0; }
-61: ul.usings ul.bookmarks li:last-child { border-bottom:none; }
-62: ul.usings ul.bookmarks
+/* Lists of sites or tools */
+body.tools-index .ind {
+  border-top: none; }
 
-Backtrace:
-./app/stylesheets/lists.scss:62
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:838:in `expected'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:813:in `expected'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:809:in `tok!'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:338:in `block'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:333:in `ruleset'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:356:in `block_child'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:350:in `block_contents'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:57:in `stylesheet'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/scss/parser.rb:26:in `parse'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/engine.rb:213:in `_to_tree'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/engine.rb:179:in `block in to_tree'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/haml/util.rb:294:in `silence_haml_warnings'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/engine.rb:179:in `to_tree'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/files.rb:44:in `tree_for'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin.rb:223:in `update_stylesheet'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin.rb:88:in `block (2 levels) in update_stylesheets'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin.rb:81:in `each'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin.rb:81:in `block in update_stylesheets'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin.rb:79:in `each'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin.rb:79:in `update_stylesheets'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin.rb:50:in `check_for_updates'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25/lib/sass/plugin/rack.rb:40:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/warden-1.0.3/lib/warden/manager.rb:35:in `block in call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/warden-1.0.3/lib/warden/manager.rb:34:in `catch'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/warden-1.0.3/lib/warden/manager.rb:34:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/head.rb:14:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/methodoverride.rb:24:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/flash.rb:182:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/cookies.rb:302:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/activerecord-3.0.5/lib/active_record/query_cache.rb:32:in `block in call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/activerecord-3.0.5/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/activerecord-3.0.5/lib/active_record/query_cache.rb:12:in `cache'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/activerecord-3.0.5/lib/active_record/query_cache.rb:31:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/activerecord-3.0.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/activesupport-3.0.5/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/sendfile.rb:107:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/rack/logger.rb:13:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/runtime.rb:17:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/activesupport-3.0.5/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/lock.rb:11:in `block in call'
-<internal:prelude>:10:in `synchronize'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.5/lib/action_dispatch/middleware/static.rb:30:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/hoptoad_notifier-2.4.7/lib/hoptoad_notifier/user_informer.rb:12:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/application.rb:168:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/application.rb:77:in `method_missing'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.5/lib/rails/rack/log_tailer.rb:14:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/content_length.rb:13:in `call'
-/Users/adam/.rvm/gems/ruby-1.9.2-p0/gems/rack-1.2.2/lib/rack/handler/webrick.rb:52:in `service'
-/Users/adam/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
-/Users/adam/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
-/Users/adam/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+div.ind:hover {
+  background-color: #fff; }
+
+div.ind {
+  border: none;
+  margin: .2em 1em 1em 1em; }
+
+div.ind h2 {
+  width: 640px;
+  float: left; }
+
+ul.sites li.ind:last-child, ul.usings li.ind:last-child {
+  border-bottom: 1px solid #ccc; }
+
+ul.sites li.ind .title h4 {
+  width: 590px; }
+
+ul.usings li.ind .title h4 {
+  width: 300px; }
+
+ul.bookmarks li.ind.bookmark .title h4 {
+  width: 100%; }
+
+/* sites#show, tools#show */
+section.tool section.tab ul.sites, section.sites section.tab ul.tools {
+  position: relative; }
+
+.sites .tools li a, .tools .sites li a {
+  display: block;
+  padding: .3em;
+  margin-right: .4em;
+  font-size: 1.2em; }
+
+.sites .tools, .tools .sites {
+  margin: .4em 0; }
+
+.sites .tools li, .tools .sites li {
+  float: left; }
+
+section.tab ul.tools .details, section.tab ul.sites .details {
+  margin-left: 140px;
+  min-height: 88px; }
+
+section.tab ul.usings div.details, ul.usings div.details, ul.sites div.details, ul.tools div.details {
+  margin-left: 0;
+  min-height: 0;
+  padding: 0 1.5em; }
+
+/* sites#show */
+section.site .site_details {
+  margin-left: 220px; }
+
+section.site ul.tools {
+  list-style: none; }
+
+section.site ul.tools li {
+  border-bottom: 1px solid #c3c0bd;
+  padding-top: 1em; }
+
+/* sites#show tools list */
+.sites .tools li a {
+  background-color: #FFA500;
+  color: #000; }
+
+.sites .tools li a:hover {
+  background-color: #ccA500;
+  color: #000; }
+
+/* Usings */
+ul.usings li.ind p {
+  padding-top: .4em; }
+
+ul.usings li.ind:hover p a.manage_site_tools {
+  display: block;
+  float: right; }
+
+ul.usings li.ind p a.manage_site_tools {
+  display: none; }
+
+ul.usings li.pagerank, ul.usings li.alexa, ul.usings li.popularity {
+  display: none;
+  font-size: 1.2em;
+  margin-left: .4em;
+  padding: .3em; }
+
+/* 
+ul.sort-alexa li.ind li.alexa, ul.sort-pagerank li.ind li.pagerank { display:inline; }
+ul.sort-sites li.ind li.popularity { display:inline; background-color:#bbb; font-size:1.1em;}
 */
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: Invalid CSS after \"...gs ul.bookmarks\": expected \"{\", was \"\"\A         on line 62 of ./app/stylesheets/lists.scss\A \A 57: ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child { border-top:none; border-bottom:1px solid #ccc; }\A 58: \A 59: ul.usings ul.bookmarks { clear:both; }\A 60: ul.usings ul.bookmarks li { border-bottom:1px solid #e7e7e7; padding:4px 0; }\A 61: ul.usings ul.bookmarks li:last-child { border-bottom:none; }\A 62: ul.usings ul.bookmarks"; }
+ul.sites.single li.ind:last-child, ul.usings.single li.ind:last-child {
+  border-top: none;
+  border-bottom: 1px solid #ccc; }
+
+ul.usings ul.bookmarks {
+  clear: both; }
+
+ul.usings ul.bookmarks li {
+  border-bottom: 1px solid #e7e7e7;
+  padding: 4px 0; }
+
+ul.usings ul.bookmarks li:last-child {
+  border-bottom: none; }
