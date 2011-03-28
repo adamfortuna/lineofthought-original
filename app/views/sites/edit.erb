@@ -1,8 +1,6 @@
 <% title "Edit Site - #{@site.title}" %>
 <section id="content" class="main">
-  <% cache(["header", @site]) do %>
-    <%= render 'sites/header' %>
-  <% end %>
+  <%= render 'sites/header' %>
   <%= render 'sites/nav' %>
   
   <section class="tab">
