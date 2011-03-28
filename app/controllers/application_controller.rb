@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include FastSessions
   include ::SslRequirement
   before_filter :ensure_domain
-  ssl_allowed :all
+  # ssl_allowed :all
 
   protected  
   
@@ -21,25 +21,14 @@ class ApplicationController < ActionController::Base
   
   def ensure_domain
     # redirect if not on lineofthought
-    schema = request.env['HTTP_X_FORWARDED_PROTO'] || "http"
-    # If not on a secure page, make sure the scheme is http
-    puts "Server Name: #{request.env['SERVER_NAME']}, Host Name: #{request.env['HTTP_HOST']}"
-    puts "Current request: #{request.env['REQUEST_URI']}, schema: #{schema}"
-    # puts "\n\nEnv: #{request.env}\n\n"
-    
+    schema = request.env['HTTP_X_FORWARDED_PROTO'] || "http"    
     if request.env['HTTP_HOST'] == Settings.root_domain_with_port
-      puts "required schema: Non-SSL - should be #{Settings.default_schema} / is #{schema}"
       redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301 if schema != Settings.default_schema
     # If on a secure page, make sure the scheme is https
     elsif request.env['HTTP_HOST'] == Settings.ssl_root_domain_with_port
-      puts "required schema: SSL - should be #{Settings.ssl_schema} / is #{schema}"
-      if schema != Settings.ssl_schema
-        puts "schema class: "
-        redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301
-      end
+      redirect_to (Settings.ssl_root_url + request.env['PATH_INFO']), :status => 301 if schema != Settings.ssl_schema
     # If not on a known host ["www.lineofthought.com", "lineofthought.com"], redirect to lineofthought.com
     else
-      puts "required schema: any"
       redirect_to (Settings.root_url + request.env['PATH_INFO']), :status => 301
     end
   end
