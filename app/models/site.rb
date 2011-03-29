@@ -183,14 +183,14 @@ class Site < ActiveRecord::Base
                  self.whois.registrant_contact, 
                  self.whois.admin_contact].compact.first
       if contact
-        self.display_location = [contact.city, 
-                                 contact.state, 
-                                 contact.country_code].compact.join(", ")
-        self.location = [contact.address, 
-                         contact.city, 
-                         contact.state, 
-                         contact.zip, 
-                         contact.country_code].compact.join(", ")
+        self.display_location = [contact.city.strip, 
+                                 contact.state.strip, 
+                                 contact.country_code.strip].compact.reject { |s| s.empty? }.join(", ")
+        self.location = [contact.address.strip, 
+                         contact.city.strip, 
+                         contact.state.strip, 
+                         contact.zip.strip, 
+                         contact.country_code.strip].compact.reject { |s| s.empty? }.join(", ")
       end
     end
   rescue 

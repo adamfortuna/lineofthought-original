@@ -1,0 +1,14 @@
+<% title "Sites for #{@user.username}" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <p>Here are all the sites that you have claimed. This includes sites you added to the system.</p>
+    <ul id="sites-list" class="sites main-list">
+      <%= render @sites %>
+    </ul>
+    <%= will_paginate @sites %>
+  </section>
+</section>
+
+<%= render 'users/sidebar' %>

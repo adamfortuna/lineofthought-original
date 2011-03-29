@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :username, :password, :password_confirmation, :remember_me, :invite_code, :time_zone
 
   has_many :claims
+  has_many :sites, :through => :claims, :source => :site,
+                   :conditions => "claims.claimable_type = 'Site'"
+  has_many :tools, :through => :claims, :source => :tool,
+                   :conditions => "claims.claimable_type = 'Tool'"
   has_many :authentications
   
   validate :validate_invite, :on => :create
@@ -21,6 +25,9 @@ class User < ActiveRecord::Base
   validates_length_of :username, :in => 1..25
 
 
+  def to_param
+    self.username
+  end
 
   def apply_omniauth(omniauth)
     self.email = omniauth['extra']['user_hash']['email'] if email.blank?
@@ -143,7 +150,7 @@ class User < ActiveRecord::Base
     return can_edit_tool?(tool) if tool
     return false
   end
-
+  
   private
   def validate_invite
     invite = Invite.find_by_code(self.invite_code)

@@ -2,9 +2,10 @@
   <aside>
     <h3>My Account</h3>
     <ul class="lst">
-      <li><a href="#">My Sites</a></li>
-      <li><a href="#">My Tools</a></li>
-      <li><a href="#">My Bookmarks</a></li>
+      <li><%= link_to "My Profile", profile_path(@user) %></li>
+      <li><%= link_to "My Sites", sites_profile_path(@user) %></li>
+      <li><%= link_to "My Tools", tools_profile_path(@user) %></li>
+      <li><%= link_to "My Bookmarks", bookmarks_profile_path(@user) %></li>
       <li><%= link_to "My Login Methods", authentications_path %></li>
     </ul>
   </aside>

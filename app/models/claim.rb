@@ -2,6 +2,9 @@ class Claim < ActiveRecord::Base
   belongs_to :user
   belongs_to :claimable, :polymorphic => true
 
+  belongs_to :site, :class_name => "Site", :foreign_key => "claimable_id"
+  belongs_to :tool, :class_name => "Tool", :foreign_key => "claimable_id"
+                          
   after_save :update_user_cached_claims
   after_destroy :update_user_cached_claims
   

@@ -1,0 +1,14 @@
+<% title "Tools for #{@user.username}" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <p>Here are all the tools that you have claimed. This includes tools you added to the system.</p>
+    <ul id="tools-list" class="tools main-list">
+      <%= render @tools %>
+    </ul>
+    <%= will_paginate @tools %>
+  </section>
+</section>
+
+<%= render 'users/sidebar' %>
