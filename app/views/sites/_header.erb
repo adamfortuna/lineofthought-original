@@ -10,3 +10,21 @@
     <%= content_tag(:p, "Based in #{@site.display_location}") unless @site.display_location.blank? %>
   </div>
 </div>
+
+<ul class="tabs">
+  <li class="sites-show site_tools-index"><%= link_to "Tools", site_path(@site, :format => params[:format]) %></li> 
+  <% if @site.bookmarks_count > 0 %>
+    <li class="sites-bookmarks"><a href="<%= bookmarks_site_path(@site, :format => params[:format])%>" class="bookmarks">Bookmarks</a></li> 
+  <% end %>
+  <% if @tool %>
+    <li class="current"><a href="#"><%= @tool.name %></a></li>
+  <% end %>
+
+  <% if logged_in? && (current_user.claimed_site?(@site) || current_user.admin?) %>
+    <li class="right sites-edit"><%= link_to "Edit", edit_site_path(@site, :format => params[:format]) %></li>
+    <li class="right site_tools-manage"><%= link_to "Manage Tools", manage_site_tools_path(@site, :format => params[:format]) %></li>
+  <% else %>
+    <li class="right site_tools-manage"><%= link_to "Add Tools", manage_site_tools_path(@site, :format => params[:format]) %></li>
+    <li class="right site_claims-new site_claims-create"><%= link_to "Claim", new_site_claim_path(@site, :format => params[:format]) %></li>  
+  <% end %>
+</ul>

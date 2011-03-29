@@ -1,10 +1,7 @@
 <% title "Edit Tools on #{@site.title} (#{@site.domain})" %>
 
 <section id="content" class="main full">
-  <% cache(["header", @site]) do %>
-    <%= render 'sites/header' %>
-  <% end %>
-  <%= render 'sites/nav' %>
+  <%= render 'sites/header' %>
   
   <section class="tab">
     <%= render "form" %>

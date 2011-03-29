@@ -1,10 +1,7 @@
 <% title "Edit Sites using #{@tool.name}" %>
 
 <section id="content" class="main full">
-  <% cache(["header", @tool]) do %>
-    <%= render 'tools/header' %>
-  <% end %>
-  <%= render 'tools/nav' %>
+  <%= render 'tools/header' %>
   
   <section class="tab">
     <%= render "form" %>

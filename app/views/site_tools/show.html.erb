@@ -1,9 +1,6 @@
 <% title "About #{@site.title} using #{@tool.name}" %>
 <section id="content" class="main site">
-  <% cache(["header", @site]) do %>
-    <%= render 'sites/header' %>
-  <% end %>
-  <%= render 'sites/nav' %>
+  <%= render 'sites/header' %>
 
   <section class="tab">
     <ul id="site-tools-list" class="sublist usings sites">
