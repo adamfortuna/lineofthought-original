@@ -172,6 +172,14 @@ class Bookmark < ActiveRecord::Base
     tools.collect(&:update_bookmarks!)
   end
   
+  def cached_site_ids
+    cached_sites.collect { |s| s[:id] }
+  end
+
+  def cached_tool_ids
+    cached_tools.collect { |t| t[:id] }
+  end
+  
   private
   before_save :update_uid, :if => :url_changed?
   def update_uid

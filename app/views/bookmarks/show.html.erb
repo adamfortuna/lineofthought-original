@@ -9,8 +9,8 @@
       <h3><%= raw bookmark_references(@bookmark) %></h3>
     </div>
     <ul class="sublist usings sites tools">
-      <%= render :partial => 'usings/using_site', :collection => @bookmark.bookmark_connections.collect(&:using) %>
-      <%= render :partial => 'usings/using_tool', :collection => @bookmark.bookmark_connections.collect(&:using) %>
+      <%= render :partial => 'usings/using_site', :collection => @bookmark.usings %>
+      <%= render :partial => 'usings/using_tool', :collection => @bookmark.usings %>
     </ul>
     
     

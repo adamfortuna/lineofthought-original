@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110328162216) do
+ActiveRecord::Schema.define(:version => 20110329053330) do
 
   create_table "annotations", :force => true do |t|
     t.datetime "created_at"
@@ -19,23 +19,8 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
     t.integer  "annotateable_id"
     t.integer  "bookmark_id"
     t.text     "description"
+    t.integer  "user_bookmark_id"
   end
-
-  create_table "articles", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title"
-    t.text     "url"
-    t.text     "description"
-    t.text     "cached_tools"
-    t.text     "cached_sites"
-    t.text     "cached_connections"
-    t.string   "cached_slug"
-    t.boolean  "has_favicon",        :default => false
-  end
-
-  add_index "articles", ["cached_slug"], :name => "index_articles_on_cached_slug"
-  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -43,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
     t.string  "uid"
   end
 
-  add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid"
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "bookmark_connections", :force => true do |t|
@@ -64,12 +48,13 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
     t.text     "cached_tools"
     t.text     "cached_sites"
     t.text     "cached_connections"
-    t.boolean  "has_favicon",        :default => false
+    t.boolean  "has_favicon",          :default => false
     t.integer  "link_id"
     t.string   "cached_slug"
-    t.boolean  "is_video",           :default => false
-    t.boolean  "is_presentation",    :default => false
+    t.boolean  "is_video",             :default => false
+    t.boolean  "is_presentation",      :default => false
     t.string   "uid"
+    t.integer  "user_bookmarks_count", :default => 0
   end
 
   create_table "buildables", :force => true do |t|
@@ -118,16 +103,6 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
   add_index "delayed_jobs", ["locked_by"], :name => "delayed_jobs_locked_by"
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "emails", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.string   "email"
-    t.string   "name"
-    t.string   "claim_code"
-    t.boolean  "confirmed",  :default => false
-  end
-
   create_table "favicons", :force => true do |t|
     t.string   "url"
     t.string   "uid"
@@ -139,10 +114,6 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
 
   add_index "favicons", ["uid"], :name => "index_favicons_on_uid"
 
-  create_table "importances", :force => true do |t|
-    t.string "importance"
-  end
-
   create_table "invites", :force => true do |t|
     t.string   "code"
     t.integer  "max_count",   :default => 1
@@ -151,27 +122,6 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
   end
 
   add_index "invites", ["code"], :name => "index_invites_on_code"
-
-  create_table "jobs", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "status"
-    t.string   "title"
-    t.string   "url"
-    t.string   "company"
-    t.text     "description"
-    t.text     "how_to_apply"
-    t.text     "cached_sites"
-    t.text     "cached_tools"
-    t.datetime "posted_at"
-    t.string   "logo"
-    t.string   "display_location"
-    t.string   "location"
-    t.string   "lat"
-    t.string   "decimal"
-    t.string   "lng"
-    t.integer  "views_count"
-  end
 
   create_table "links", :force => true do |t|
     t.datetime "created_at"
@@ -198,32 +148,6 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"
   add_index "links", ["uid_with_subdomain"], :name => "index_links_on_root_canonical"
-
-  create_table "open_id_authentication_associations", :force => true do |t|
-    t.integer "issued"
-    t.integer "lifetime"
-    t.string  "handle"
-    t.string  "assoc_type"
-    t.binary  "server_url"
-    t.binary  "secret"
-  end
-
-  create_table "open_id_authentication_nonces", :force => true do |t|
-    t.integer "timestamp",  :null => false
-    t.string  "server_url"
-    t.string  "salt",       :null => false
-  end
-
-  create_table "owners", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "ownable_id"
-    t.string   "ownable_type"
-    t.integer  "level"
-  end
-
-  add_index "owners", ["user_id", "ownable_id", "ownable_type"], :name => "index_owners_on_user_id_and_ownable_id_and_ownable_type"
 
   create_table "pages", :force => true do |t|
     t.datetime "created_at"
@@ -338,6 +262,19 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
     t.string   "usable_type"
   end
 
+  create_table "user_bookmarks", :force => true do |t|
+    t.datetime "created_at"
+    t.integer  "bookmark_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "has_video",        :default => false
+    t.boolean  "has_presentation", :default => false
+  end
+
+  add_index "user_bookmarks", ["bookmark_id"], :name => "index_user_bookmarks_on_bookmark_id"
+  add_index "user_bookmarks", ["user_id"], :name => "index_user_bookmarks_on_user_id"
+
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -383,14 +320,5 @@ ActiveRecord::Schema.define(:version => 20110328162216) do
   add_index "usings", ["site_id", "user_id"], :name => "index_usings_on_site_id_and_user_id"
   add_index "usings", ["site_id"], :name => "index_usings_on_site_id"
   add_index "usings", ["tool_id"], :name => "index_usings_on_tool_id"
-
-  create_table "workables", :force => true do |t|
-    t.integer "job_id"
-    t.string  "workable_type"
-    t.string  "workable_id"
-    t.text    "description"
-  end
-
-  add_index "workables", ["job_id"], :name => "index_workables_on_job_id"
 
 end
