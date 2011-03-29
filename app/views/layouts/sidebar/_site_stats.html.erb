@@ -3,8 +3,8 @@
   <ul class="group lst">
     <li><a href="<%= sites_path %>"><em><%= Site.count %></em>Sites</a></li>
     <li><a href="<%= tools_path %>"><em><%= Tool.count %></em>Tools</a></li>
-    <li><a href="/categories/programming-language"><em><%= Tool.languages.count %></em> Programming Languages</a></li>
-    <li><a href="#"><em><%= Article.count %></em> Articles about Sites</a></li>
-    <li><a href="#"><em>345</em> Job Postings</a></li>
+    <li><a href="<%= tools_path(:category => "programming-langauge" ) %>"><em><%= Tool.languages.count %></em> Programming Languages</a></li>
+    <li><a href="<%= bookmarks_path %>"><em><%= Bookmark.count %></em> Bookmarks</a></li>
+    <li><a href="<%= edit_user_registration_path %>"><em><%= User.count %></em> Registered Users</a></li>
   </ul>
 </aside>
