@@ -10,12 +10,6 @@ class ToolsController < ApplicationController
   # caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
   caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
 
-  @@order = { "sites" => "sites_count", 
-              "toolname" => "lower_name",
-              "bookmarks" => "bookmarks_count",
-              "jobs" => "jobs_count",
-              "created" => "created_at" }
-
   @@site_order = { "google" => "google_pagerank", 
                    "alexa" => "coalesce(alexa_global_rank, 100000000)", 
                    "tools" => "tools_count", 
@@ -24,23 +18,22 @@ class ToolsController < ApplicationController
                  }
 
   def index
-    @search = Sunspot.search(Tool) do
-      keywords params[:search] if params[:search]
-      
-      keywords params[:category], :fields => [:categories] if params[:category]
-      order_by(order_field.to_sym, order_direction.to_sym)
-      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
-    end
-    
-    # @tools = Tool.order(build_order).paginate(:page => (params[:page] || 1), :per_page => (params[:per_page] || 25))
-    @categories = Category.order(:name).where("tools_count > 0")
-    @featured = Tool.featured.limit(5)
-    respond_with @search.results
-  end
+   params[:sort] ||= "tools_desc"
+   @tools, @hits, loaded_from_solr = Tool.search_by_params(params)
+   if !loaded_from_solr && (params[:search] || params[:category])
+     params[:search] = nil
+     params[:category] = nil
+     flash[:error] = "Sorry, search is not available at the moment. Usually this means Solr is down :/ Please try again later."
+   end
+   @categories = Category.order(:name).where("tools_count > 0")
+   @featured = Tool.featured.limit(5)
+   respond_with(@tools)
+ end
   
   def show
+    params[:sort] ||= "alexa_asc"
     @tool = Tool.find_by_cached_slug!(params[:id])
-    @usings = @tool.usings.joins(:site).includes(:site).order(build_site_order).paginate(:page => 1, :per_page => 25)
+    @usings = @tool.usings.joins(:site).includes(:site).order(Site.sql_order(params[:sort])).paginate(:page => 1, :per_page => 25)
     @featured = Tool.featured.limit(5)
     respond_with @tool
   rescue ActiveRecord::RecordNotFound
@@ -132,31 +125,7 @@ class ToolsController < ApplicationController
     respond_with([@tool, @bookmarks])
   end
 
-  private
-  def build_order
-    params[:sort] ||= "sites_desc"
-    order = params[:sort]
-    sort_order = @@order[order.split("_").first] rescue "sites_count"
-    direction = order.split("_").last rescue "desc"
-    return "#{sort_order} #{direction}"
-  end
-  
-  def order_field
-    build_order.split(" ").first
-  end
-
-  def order_direction
-    build_order.split(" ").last
-  end
-
-  def build_site_order
-    params[:sort] ||= "alexa_asc"
-    order = params[:sort]
-    sort_order = @@site_order[order.split("_").first] rescue "alexa_global_rank"
-    direction = order.split("_").last rescue "asc"
-    return "#{sort_order} #{direction}, sites.title"    
-  end  
-  
+  private  
   def load_record
     @tool = Tool.find_by_cached_slug(params[:id])
   end

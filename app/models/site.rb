@@ -37,8 +37,8 @@ class Site < ActiveRecord::Base
   belongs_to :link
 
   # Bookmarks
-  has_many :annotations, :as => :annotateable
-  has_many :bookmarks, :through => :annotations
+  has_many :bookmark_annotations, :as => :annotateable
+  has_many :bookmarks, :through => :bookmark_annotations
   
   # Claims
   has_many :claims, :as => :claimable
@@ -195,6 +195,56 @@ class Site < ActiveRecord::Base
     end
   rescue 
     # OK if not able to fetch whois info
+  end
+  
+  def self.search_by_params(params)
+    search = search do
+      keywords params[:search] if params[:search]
+      order_by(Site.order_for(params[:sort]).to_sym, Site.direction_for(params[:sort]).to_sym)
+      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    end
+    puts "Loaded sites using solr"
+    return search.results, search.hits, true
+  rescue Errno::ECONNREFUSED
+    puts "Unable to Connect to Solr to retreive sites. Falling back on SQL."
+    sites = order([Site.order_for(params[:sort], "sql"), Site.direction_for(params[:sort])].join(" "))
+            .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    return sites, sites, false
+  end
+  
+  def self.sql_order(order="")
+    [Site.order_for(order, "sql"), Site.direction_for(order)].join(" ")
+  end
+  
+  def self.order_for(order="", type="solr")
+    field, direction = order.split("_")
+    if type == "solr"
+      case field
+        when "alexa" then "alexa_global_rank"
+        when "google" then "google_pagerank"
+        when "tools" then "tools_count"
+        when "sitename" then "lower_title"
+        when "bookmarks" then "bookmarks_count"
+        when "created" then "created_at"
+        else "alexa_global_rank"
+      end
+    else
+      case field
+        when "alexa" then "coalesce(alexa_global_rank, 100000000)"
+        when "google" then "google_pagerank"
+        when "tools" then "tools_count"
+        when "sitename" then "title"
+        when "bookmarks" then "bookmarks_count"
+        when "created" then "created_at"
+        else "coalesce(alexa_global_rank, 100000000)"
+      end
+    end
+  end
+  
+  def self.direction_for(order)
+    order = order.split("_").last
+    order = "asc" unless (order == "asc") || (order == "desc")
+    return order
   end
 
   private

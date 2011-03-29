@@ -13,13 +13,13 @@
     </div>
   </div>
   <section>
-    <% if @search.hits.empty? %>
+    <% if @hits.empty? %>
       <p>There were no matching sites for your search.</p>
     <% else %>
       <ul id="tools-list" class="tools main-list">
-        <%= render @search.results %>
+        <%= render @tools %>
       </ul>
-      <%= will_paginate @search.hits %>
+      <%= will_paginate @hits %>
     <% end %>
   </section>
 </section>

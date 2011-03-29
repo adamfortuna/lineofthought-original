@@ -3,38 +3,26 @@ class SitesController < ApplicationController
   before_filter :redirect_to_site_tools, :only => [:new]
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :claim]
   respond_to :html, :json, :xml
+  
   cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
-
   caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && (current_user.admin? || current_user.claimed_site?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
-
-  @@order = { "google" => "google_pagerank", 
-              "alexa" => "alexa_global_rank", 
-              "tools" => "tools_count", 
-              "sitename" => "lower_title",
-              "bookmarks" => "bookmarks_count",
-              "created" => "created_at"
-            }
-
-  @@tool_order = { "sites" => "sites_count", 
-                   "toolname" => "tools.name",
-                   "bookmarks" => "tools.bookmarks_count",
-                   "jobs" => "tools.jobs_count",
-                   "created" => "created_at" }
 
   # GET /sites
   def index
-    @search = Site.search do
-      keywords params[:search] if params[:search]
-      order_by(order_field.to_sym, order_direction.to_sym)
-      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    params[:sort] ||= "alexa_asc"
+    @sites, @hits, loaded_from_solr = Site.search_by_params(params)
+    if !loaded_from_solr && params[:search]
+      params[:search] = nil
+      flash[:error] = "Sorry, search is not available at the moment. Usually this means Solr is down :/ Please try again later."
     end
-    respond_with(@search.results)
+    respond_with(@sites)
   end
 
   # GET /sites/:id
   def show
     @site = Site.find_by_cached_slug!(params[:id]) 
-    @usings = @site.usings.includes(:tool).joins(:tool).order(build_tool_order)
+    params[:sort] ||= "sites_desc"
+    @usings = @site.usings.includes(:tool).joins(:tool).order(Tool.sql_order(params[:sort]))
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
@@ -108,27 +96,16 @@ class SitesController < ApplicationController
   
   def bookmarks
     @site = Site.find_by_cached_slug(params[:id])
+    @bookmarks = @tool.bookmarks.order("created_at desc")
+                                .paginate(:per_page => params[:per_page] || 20,
+                                          :page => params[:page])
+    respond_with([@site, @bookmarks])
+    
   end
 
   private
   def load_record
     @site = Site.find_by_cached_slug(params[:id])
-  end
-  
-  def build_order
-    params[:sort] ||= "alexa_asc"
-    order = params[:sort]
-    sort_order = @@order[order.split("_").first] rescue "alexa_global_rank"
-    direction = order.split("_").last rescue "asc"
-    return "#{sort_order} #{direction}"
-  end
-  
-  def order_field
-    build_order.split(" ").first
-  end
-
-  def order_direction
-    build_order.split(" ").last
   end
   
   def build_tool_order

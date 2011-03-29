@@ -1,6 +1,6 @@
-class BookmarkConnection < ActiveRecord::Base
+class BookmarkUser < ActiveRecord::Base
   belongs_to :bookmark
-  belongs_to :using, :counter_cache => 'bookmarks_count'
+  belongs_to :user_id, :counter_cache => 'bookmarks_count'
   after_create :update_cached_using!
   after_destroy :update_cached_using!
   

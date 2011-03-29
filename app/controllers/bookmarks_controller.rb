@@ -7,8 +7,24 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks
   def index
-    @bookmarks = Bookmark.order("created_at desc")
-                 .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 10)
+    begin
+      @search = Sunspot.search(Bookmark) do
+        keywords params[:search] if params[:search]
+        order_by(:created_at, :desc)
+        paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+      end
+      @bookmarks = @search.results
+      @hits = @search.hits
+      debugger
+      puts "Loaded bookmarks from Solr"
+    # Can't connect to solr, fallback on SQL.
+    # Note: no search ability while solr is down.
+    rescue Errno::ECONNREFUSED
+      puts "Unable to Connect to Solr to retreive bookmarks. Falling back on SQL."
+      @bookmarks = Bookmark.order("created_at desc")
+                   .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+      @hits = @bookmarks
+    end
     respond_with(@bookmarks)
   end
 

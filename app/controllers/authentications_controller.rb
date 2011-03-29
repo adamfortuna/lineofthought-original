@@ -1,5 +1,7 @@
 class AuthenticationsController < ApplicationController  
+  before_filter :authenticate_user!, :only => [:index]
   def index  
+    @user = current_user
     @authentications = current_user.authentications if user_signed_in?
   end
     

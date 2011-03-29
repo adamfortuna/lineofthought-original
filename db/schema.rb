@@ -10,17 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110329053330) do
-
-  create_table "annotations", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "annotateable_type"
-    t.integer  "annotateable_id"
-    t.integer  "bookmark_id"
-    t.text     "description"
-    t.integer  "user_bookmark_id"
-  end
+ActiveRecord::Schema.define(:version => 20110329161051) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -30,6 +20,16 @@ ActiveRecord::Schema.define(:version => 20110329053330) do
 
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
+  create_table "bookmark_annotations", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "annotateable_type"
+    t.integer  "annotateable_id"
+    t.integer  "bookmark_id"
+    t.text     "description"
+    t.integer  "user_bookmark_id"
+  end
+
   create_table "bookmark_connections", :force => true do |t|
     t.datetime "created_at"
     t.integer  "bookmark_id"
@@ -38,6 +38,19 @@ ActiveRecord::Schema.define(:version => 20110329053330) do
 
   add_index "bookmark_connections", ["bookmark_id"], :name => "index_bookmark_connections_on_bookmark_id"
   add_index "bookmark_connections", ["using_id"], :name => "index_bookmark_connections_on_using_id"
+
+  create_table "bookmark_users", :force => true do |t|
+    t.datetime "created_at"
+    t.integer  "bookmark_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "has_video",        :default => false
+    t.boolean  "has_presentation", :default => false
+  end
+
+  add_index "bookmark_users", ["bookmark_id"], :name => "index_user_bookmarks_on_bookmark_id"
+  add_index "bookmark_users", ["user_id"], :name => "index_user_bookmarks_on_user_id"
 
   create_table "bookmarks", :force => true do |t|
     t.datetime "created_at"
@@ -262,19 +275,6 @@ ActiveRecord::Schema.define(:version => 20110329053330) do
     t.string   "usable_type"
   end
 
-  create_table "user_bookmarks", :force => true do |t|
-    t.datetime "created_at"
-    t.integer  "bookmark_id"
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "description"
-    t.boolean  "has_video",        :default => false
-    t.boolean  "has_presentation", :default => false
-  end
-
-  add_index "user_bookmarks", ["bookmark_id"], :name => "index_user_bookmarks_on_bookmark_id"
-  add_index "user_bookmarks", ["user_id"], :name => "index_user_bookmarks_on_user_id"
-
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -298,6 +298,7 @@ ActiveRecord::Schema.define(:version => 20110329053330) do
     t.text     "cached_site_claims"
     t.text     "cached_tool_claims"
     t.string   "time_zone"
+    t.integer  "bookmarks_count",                     :default => 0
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

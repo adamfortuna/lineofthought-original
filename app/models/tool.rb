@@ -197,6 +197,55 @@ class Tool < ActiveRecord::Base
     end
   end  
 
+  def self.search_by_params(params)
+    search = search do
+      keywords params[:search] if params[:search]
+      keywords params[:category], :fields => [:categories] if params[:category]
+      order_by(Tool.order_for(params[:sort]).to_sym, Tool.direction_for(params[:sort]).to_sym)
+      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    end
+    puts "Loaded tools using solr"
+    return search.results, search.hits, true
+  rescue Errno::ECONNREFUSED
+    puts "Unable to Connect to Solr to retreive tools. Falling back on SQL."
+    tools = order(Tool.sql_order(params[:sort]))
+            .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    return tools, tools, false
+  end
+  
+  def self.sql_order(order="")
+    [Tool.order_for(order, "sql"), Tool.direction_for(order)].join(" ")
+  end
+  
+  def self.order_for(order="", type="solr")
+    field, direction = order.split("_")
+    if type == "solr"
+      case field
+        when "sites" then "sites_count"
+        when "toolname" then "lower_name"
+        when "bookmarks" then "bookmarks_count"
+        when "jobs" then "jobs_count"
+        when "created" then "created_at"
+        else "sites_count"
+      end
+    else
+      case field
+        when "sites" then "sites_count"
+        when "toolname" then "name"
+        when "bookmarks" then "bookmarks_count"
+        when "jobs" then "jobs_count"
+        when "created" then "created_at"
+        else "sites_count"
+      end
+    end
+  end
+  
+  def self.direction_for(order)
+    order = order.split("_").last
+    order = "desc" unless (order == "asc") || (order == "desc")
+    return order
+  end
+  
   private
   def categories_changed?
     true
