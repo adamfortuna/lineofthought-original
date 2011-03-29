@@ -15,6 +15,7 @@ class UsingSweeper < ActionController::Caching::Sweeper
 
   private
   def expire_cache_for(using)
+    return unless using
     expire_action(:controller => "tools", :action => "show", :id => using.tool.cached_slug)
     expire_action(:controller => "tools", :action => "show", :id => using.tool.cached_slug, :logged_in => true)
     expire_action(:controller => "tools", :action => "show", :id => using.tool.cached_slug, :logged_in => true, :claimed => true)

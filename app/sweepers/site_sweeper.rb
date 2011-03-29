@@ -15,6 +15,7 @@ class SiteSweeper < ActionController::Caching::Sweeper
 
   private
   def expire_cache_for(site)
+    return unless site
     expire_action(:controller => "sites", :action => "show", :id => site.cached_slug)
     expire_action(:controller => "sites", :action => "show", :id => site.cached_slug, :logged_in => true)
     expire_action(:controller => "sites", :action => "show", :id => site.cached_slug, :logged_in => true, :claimed => true)
