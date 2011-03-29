@@ -1,5 +1,4 @@
 class ToolsController < ApplicationController
-  before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_tool, :only => [:new]
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update]
   before_filter :verify_editable!, :only => [:edit, :update]
@@ -32,7 +31,7 @@ class ToolsController < ApplicationController
   
   def show
     params[:sort] ||= "alexa_asc"
-    @tool = Tool.find_by_cached_slug!(params[:id])
+    @tool = find(params[:id])
     @usings = @tool.usings.joins(:site).includes(:site).order(Site.sql_order(params[:sort])).paginate(:page => 1, :per_page => 25)
     @featured = Tool.featured.limit(5)
     respond_with @tool
@@ -41,10 +40,12 @@ class ToolsController < ApplicationController
   end
 
   def edit
+    @tool = find(params[:id])
     respond_with(@tool)
   end
 
   def update
+    @tool = find(params[:id])
     if @tool.update_attributes(params[:tool])
       redirect_to @tool
     else
@@ -110,6 +111,7 @@ class ToolsController < ApplicationController
   end
   
   def destroy
+    @tool = find(params[:id])
     if @tool.destroy
       flash[:notice] = "Delete successful"
       redirect_to tools_path
@@ -120,14 +122,14 @@ class ToolsController < ApplicationController
   end
 
   def bookmarks
-    @tool = Tool.find_by_cached_slug!(params[:id])
+    @tool = find(params[:id])
     @bookmarks = @tool.bookmarks
     respond_with([@tool, @bookmarks])
   end
 
   private  
-  def load_record
-    @tool = Tool.find_by_cached_slug(params[:id])
+  def find(cached_slug)
+    Tool.find_by_cached_slug!(cached_slug)
   end
   
   def redirect_to_tool

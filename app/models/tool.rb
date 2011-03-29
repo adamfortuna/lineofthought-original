@@ -75,22 +75,31 @@ class Tool < ActiveRecord::Base
   delegate :host, :path, :port, :domain, :full_uid, :uid, :to => :uri
 
   def self.for_autocomplete(count = 20)
-    search_results = search do
-      order_by(:sites_count, :desc)
-      paginate(:page => 1, :per_page => 15)
-    end
-    
-    search_results.results.collect { |t| {"id" => t.id.to_s, "name" => "#{t.name}#{" (#{t.cached_language[:name]})" if t.cached_language}", "description" => "(#{t.combined_category_names.join(", ")})"}}
+    begin
+      search = search do
+        order_by(:sites_count, :desc)
+        paginate(:page => 1, :per_page => 15)
+      end
+      tools = search.results
+    rescue Errno::ECONNREFUSED
+      tools = order("sites_count desc").paginate(:page => 1, :per_page => 15)
+    end    
+    tools.collect { |t| {"id" => t.id.to_s, "name" => "#{t.name}#{" (#{t.cached_language[:name]})" if t.cached_language}", "description" => "(#{t.combined_category_names.join(", ")})"}}
   end
   
   def self.autocomplete(q = "")
-    search_results = search do
-      any_of do
-        with(:lower_name).starting_with(q.downcase)
-        with(:url, q)
+    begin
+      search_results = search do
+        any_of do
+          with(:lower_name).starting_with(q.downcase)
+          with(:url, q)
+        end
       end
+      tools = search_results.results
+    rescue Errno::ECONNREFUSED
+      tools = Tool.where(["name LIKE (?)", "#{q}%"])
     end
-    search_results.results
+    tools
   end
   
   def combined_category_names
@@ -163,7 +172,8 @@ class Tool < ActiveRecord::Base
   end
     
   def self.find_by_handy_url(handy_url)
-    Tool.find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
+    link = Link.find_by_entered_url(handy_url)
+    link.tool
   end
 
   def update_sites_cached_tools

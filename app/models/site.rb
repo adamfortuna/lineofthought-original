@@ -145,15 +145,19 @@ class Site < ActiveRecord::Base
   end
 
   def self.autocomplete(q = "")
-    search_results = search do
-      any_of do
-        with(:lower_title).starting_with(q.downcase)
-        with(:url, q)
+    begin
+      search_results = search do
+        any_of do
+          with(:lower_title).starting_with(q.downcase)
+          with(:url, q)
+        end
       end
+      sites = search_results.results
+    rescue Errno::ECONNREFUSED
+      sites = Site.where(["title LIKE (?)", "#{q}%"])
     end
-    search_results.results
+    sites
   end
-
   
   def tools_hash
     self.tools.collect do |tool|

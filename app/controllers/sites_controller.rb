@@ -1,5 +1,4 @@
 class SitesController < ApplicationController
-  before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :redirect_to_site_tools, :only => [:new]
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :claim]
   respond_to :html, :json, :xml
@@ -20,7 +19,7 @@ class SitesController < ApplicationController
 
   # GET /sites/:id
   def show
-    @site = Site.find_by_cached_slug!(params[:id]) 
+    @site = find(params[:id]) 
     params[:sort] ||= "sites_desc"
     @usings = @site.usings.includes(:tool).joins(:tool).order(Tool.sql_order(params[:sort]))
     respond_with(@site)
@@ -56,7 +55,7 @@ class SitesController < ApplicationController
   
   # GET /sites/:id/edit
   def edit
-    @site = Site.find_by_cached_slug(params[:id]) 
+    @site = find(params[:id]) 
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
@@ -64,7 +63,7 @@ class SitesController < ApplicationController
   
   # PUT /sites/:id
   def update
-    @site = Site.find_by_cached_slug(params[:id])
+    @site = find(params[:id]) 
     if @site.update_attributes(params[:site])
       redirect_to @site
     else
@@ -81,6 +80,7 @@ class SitesController < ApplicationController
   end
 
   def destroy
+    @site = find(params[:id]) 
     if @site.destroy
       flash[:notice] = "Delete successful"
       redirect_to sites_path
@@ -91,11 +91,11 @@ class SitesController < ApplicationController
   end
 
   def claim
-    @site = Site.find_by_cached_slug(params[:id])
+    @site = find(params[:id]) 
   end
   
   def bookmarks
-    @site = Site.find_by_cached_slug(params[:id])
+    @site = find(params[:id]) 
     @bookmarks = @tool.bookmarks.order("created_at desc")
                                 .paginate(:per_page => params[:per_page] || 20,
                                           :page => params[:page])
@@ -104,18 +104,10 @@ class SitesController < ApplicationController
   end
 
   private
-  def load_record
-    @site = Site.find_by_cached_slug(params[:id])
+  def find(cached_slug)
+    Site.find_by_cached_slug!(cached_slug)
   end
   
-  def build_tool_order
-    params[:sort] ||= "sites_desc"
-    order = params[:sort]
-    sort_order = @@tool_order[order.split("_").first] rescue "sites_count"
-    direction = order.split("_").last rescue "desc"
-    return "#{sort_order} #{direction}"
-  end
-
   def redirect_to_site_tools
     return true unless params[:site] && params[:site][:url]
     url = HandyUrl.new(params[:site][:url])
