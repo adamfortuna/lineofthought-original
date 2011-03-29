@@ -37,6 +37,8 @@ Snaps::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :ses
+  config.action_mailer.default_url_options = { :host => 'lineofthought.com' }
 
   # Enable threaded mode
   # config.threadsafe!
@@ -46,9 +48,8 @@ Snaps::Application.configure do
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners
-  config.active_support.deprecation = :notify
-  
-  config.action_mailer.default_url_options = { :host => 'lineofthought.com' }
+  config.active_support.deprecation = :notify  
+
   config.after_initialize do
     SslRequirement.ssl_host     = "www.lineofthought.com"
     SslRequirement.non_ssl_host = "lineofthought.com"

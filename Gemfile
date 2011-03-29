@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'admin_data'
 gem 'aws-s3'
+gem 'aws-ses', :require => 'aws/ses'
 gem 'dalli'
 gem 'delayed_job'
 gem 'devise'
