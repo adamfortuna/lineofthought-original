@@ -6,7 +6,12 @@ class Bookmark < ActiveRecord::Base
   
   has_many :bookmark_annotations, :dependent => :destroy
   has_many :bookmark_connections, :dependent => :destroy
+  has_many :bookmark_users, :foreign_key => :parent_id, :dependent => :destroy
   has_many :usings, :through => :bookmark_connections
+  has_many :sites, :through => :bookmark_annotations, :source => :site,
+                   :conditions => "bookmark_annotations.annotateable_type = 'Site'"
+  has_many :tools, :through => :bookmark_annotations, :source => :tool,
+                   :conditions => "bookmark_annotations.annotateable_type = 'Tool'"
   belongs_to :link
 
   serialize :cached_tools
@@ -14,6 +19,7 @@ class Bookmark < ActiveRecord::Base
   serialize :cached_connections
   
   scope :recent, order("created_at desc")
+  scope :without_user, where("parent_id is NULL")
 
   before_destroy :update_remote_caches!
 
@@ -23,19 +29,20 @@ class Bookmark < ActiveRecord::Base
     :allow_nil  => true,
     :converter  => :new
 
-  attr_accessor :tools, :sites, :using_params
+  attr_accessor :using_params
 
   searchable do
     text :title, :default_boost => 2
     string :url
+    string :type
     text :description
     time :created_at
     
     text :tools do
-      cached_tools.map { |tool| tool[:name] }
+      cached_tools.map { |tool| tool[:name] } if cached_tools
     end
     text :sites do
-      cached_sites.map { |site| site[:name] }
+      cached_sites.map { |site| site[:name] } if cached_sites
     end
   end
   handle_asynchronously :solr_index
@@ -46,7 +53,8 @@ class Bookmark < ActiveRecord::Base
                    :title => link.title,
                    :description => link.description,
                    :tools => link.tools,
-                   :sites => link.sites })
+                   :sites => link.sites,
+                   :has_favicon => link.has_favicon })
   end
   
   def self.create_from_link(link)
@@ -54,6 +62,72 @@ class Bookmark < ActiveRecord::Base
     bookmark.save
     bookmark
   end
+  
+  def to_user
+    BookmarkUser.new({ :url => url,
+                   :link => link, 
+                   :title => title,
+                   :description => description,
+                   :is_video => is_video,
+                   :is_presentation => is_presentation,
+                   :has_favicon => has_favicon,
+                   :cached_tools => cached_tools,
+                   :cached_sites => cached_sites,
+                   :cached_connections => cached_connections
+    })
+  end
+
+
+  # Updates the various values of this bookmark based on what people have tagged it with
+  def reindex    
+    user_bookmark = bookmark_users.first
+    self.title = user_bookmark.title
+    self.description = user_bookmark.description
+    
+    # Update tools
+    self.tool_ids = BookmarkAnnotation.where(["bookmark_id = ? AND user_bookmark_id IS NOT NULL AND annotateable_type='Tool'", self.id]).select("annotateable_id, count(1) count").group([:bookmark_id, :annotateable_id]).collect(&:annotateable_id)  
+    # Update sites  
+    self.site_ids = BookmarkAnnotation.where(["bookmark_id = ? AND user_bookmark_id IS NOT NULL AND annotateable_type='Site'", self.id]).select("annotateable_id, count(1) count").group([:bookmark_id, :annotateable_id]).collect(&:annotateable_id)
+    
+    self.cached_connections = []
+  end
+  
+  def reindex!
+    reindex
+    save
+  end
+
+  def self.search_by_params(params, class_name = 'Bookmark')
+    search = search do
+      with(:type, class_name)
+      keywords params[:search] if params[:search]
+      order_by(:created_at, :desc)
+      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    end
+    puts "Loaded bookmarks using solr"
+    return search.results, search.hits, true
+  rescue Errno::ECONNREFUSED
+    puts "Unable to Connect to Solr to retreive bookmarks. Falling back on SQL."
+    bookmarks = Bookmark.order("created_at desc")
+                 .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    return bookmarks, bookmarks, false
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   after_save :create_usings, :if => :has_new_usings?
   def create_usings
@@ -74,28 +148,16 @@ class Bookmark < ActiveRecord::Base
     !self.using_params.nil?
   end
 
+
+
+
+
   def tools_for_display
     tools.collect do |tool|
       { :name => "#{tool.name}#{" (#{tool.cached_language.name})" if tool.cached_language}", :id => tool.id.to_s }
     end
   end
 
-  def tool_ids
-    if new_record?
-      bookmark_annotations.collect(&:annotateable_id)
-    else
-      bookmark_annotations.where(["annotateable_type=?", 'Tool']).select(:annotateable_id).collect(&:annotateable_id)
-    end
-  end
-  
-  def tools
-    bookmark_annotations.where(["annotateable_type=?", 'Tool']).includes(:annotateable).collect(&:annotateable)
-  end
-  # 
-  # def tools=(tools)
-  #   self.tool_ids = tools.collect(&:id)
-  # end
-  # 
   def tool_ids=(ids)
     transaction do
       self.cached_tools = []
@@ -105,7 +167,7 @@ class Bookmark < ActiveRecord::Base
         end
       end
       Tool.where(["id IN (?)", ids]).each  do |tool|
-        if !bookmark_annotations.exists?(["annotateable_type=? AND annotateable_id = ?", 'Tool', tool.id])
+        if new_record? || !bookmark_annotations.exists?(["annotateable_type=? AND annotateable_id = ?", 'Tool', tool.id])
           self.bookmark_annotations.build({:annotateable => tool})
         end
         self.cached_tools << { :id => tool.id, :name => tool.name, :param => tool.cached_slug }
@@ -117,9 +179,15 @@ class Bookmark < ActiveRecord::Base
     cached_tools ? cached_tools.count : 0
   end
 
-  def site_ids
-    bookmark_annotations.where(["annotateable_type=?", 'Site']).collect(&:annotateable_id)
+  def has_tool?(id)
+    cached_tools ? (cached_tools.count { |tool| tool[:id] == id } > 0) : false
   end
+
+  def cached_tool_ids
+    cached_tools.collect { |t| t[:id] }
+  end
+
+
   
   def sites_for_display
     sites.collect do |site|
@@ -144,56 +212,25 @@ class Bookmark < ActiveRecord::Base
     end
   end
 
-  def sites_count
-    cached_sites ? cached_sites.count : 0
+  def cached_site_ids
+    cached_sites.collect { |s| s[:id] }
   end
 
-  def self.find_by_handy_url(handy_url)
-    find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
-  end
-  
-  def has_tool?(id)
-    cached_tools ? (cached_tools.count { |tool| tool[:id] == id } > 0) : false
+  def sites_count
+    cached_sites ? cached_sites.count : 0
   end
 
   def has_site?(id)
     cached_sites ? (cached_sites.count { |site| site[:id] == id } > 0) : false
   end
-  
-  def sites
-    bookmark_annotations.where(["annotateable_type=?", 'Site']).collect(&:annotateable)
-  end
-  
-  # def update_caches
-  #   self.cached_tools = []
-  #   self.cached_sites = []
-  #   self.cached_connections = []
-  #   annotations.includes(:annotateable).each do |annotation|
-  #     if annotation.annotateable_type == "Tool"
-  #       self.cached_tools << { :id => annotation.annotateable.id, :name => annotation.annotateable.name, :param => annotation.annotateable.cached_slug }
-  #     else
-  #       self.cached_sites << { :id => annotation.annotateable.id, :name => annotation.annotateable.title, :param => annotation.annotateable.cached_slug }
-  #     end
-  #   end
-  # end
-  # 
-  # def update_caches!
-  #   update_caches
-  #   save
-  # end
+
   
   def update_remote_caches!
     sites.collect(&:update_bookmarks!)
     tools.collect(&:update_bookmarks!)
   end
   
-  def cached_site_ids
-    cached_sites.collect { |s| s[:id] }
-  end
 
-  def cached_tool_ids
-    cached_tools.collect { |t| t[:id] }
-  end
   
   private
   before_save :update_uid, :if => :url_changed?

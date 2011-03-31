@@ -50,7 +50,7 @@ ul.tabs a:hover { background-color: #fff;	}
 div.disqus_wrapper { padding:1em; font-size:14px; }
 
 
-sidebar aside.search input[type='text'] { width:200px; }
+sidebar aside.search input[type='text'] { width:200px; border-color:#bbb; }
 
 body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited,
 body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited,
@@ -68,7 +68,9 @@ body.bookmarks-edit li.bookmarks-edit a:link, body.bookmarks-edit li.bookmarks-e
 body.bookmarks-sites li.bookmarks-sites a:link, body.bookmarks-sites li.bookmarks-sites a:visited,
 body.bookmarks-tools li.bookmarks-tools a:link, body.bookmarks-tools li.bookmarks-tools a:visited,
 body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bookmarks a:visited,
-body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited
+body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited,
+body.saved_bookmark-new li.saved_bookmark-new a:link, body.saved_bookmark-new li.saved_bookmark-new a:visited,
+body.saved_bookmark-edit li.saved_bookmark-edit a:link, body.saved_bookmark-edit li.saved_bookmark-edit a:visited
 { border-bottom: 1px solid #fff; background: #fff; color: #000; }
 
 /* individual tool and site pages */

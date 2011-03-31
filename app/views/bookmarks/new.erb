@@ -6,7 +6,7 @@
     <% if @link && @link.parsed? %>
       <%= render 'form' %>
     <% else%>
-      <%= semantic_form_for @bookmark, :html => { :id => "lookup_bookmark", :remote => true } do |f| %>
+      <%= semantic_form_for @bookmark, :url => lookup_bookmarks_path, :html => { :id => "lookup_bookmark", :remote => true } do |f| %>
         <%= f.inputs do %>
           <%= f.input :url, :as => :string, :required => true, :label => "Bookmark URL" %>
           <%= f.commit_button :label => "Lookup URL", :wrapper_html => { :id => "submit_lookup" } %>

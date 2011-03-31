@@ -30,11 +30,13 @@ nav ul li a:hover { background-color:$nav-link-hover; }
 
 /* Main */
 section, aside { display:block; }
-#main { background-color:#E3E3E3; color:#1B1B1B; padding:1em 0; }
-#content, sidebar aside { background-color:#fff; padding:.6em; border:1px solid #ccc; font-size:14px; }
+#main { background-color:#E3E3E3; color:#1B1B1B; }
+#content { padding:14px; }
+#content, sidebar aside { background-color:#fff; border:1px solid #ccc; font-size:14px; }
+#main .container { padding:10px 0; }
 
 /* main content */
-#content { width:620px; float:left; padding:1em; }
+#content { width:620px; float:left; }
 body.popup #content { width:550px; }
 .main section { padding:.4em; }
 
@@ -65,6 +67,8 @@ ul.lst-rating li em { float: right; margin: 0 0 0 5px; font-style: normal; font-
 ul.lst-rating li span { position: absolute; top: 0; left: 0; display: block; height: 100%; line-height: 2.55em; text-indent: -9999px; background: #EBE6FF; } 
 ul.lst-rating li:hover span { background: #C6C8E8; }
 
+aside ul.bookmarks { font-size:11px; }
+
 /* footer */
 footer { display:block; min-height:140px; }
 footer .wrapper { }
@@ -79,5 +83,3 @@ footer section.sidebar { width:260px; float:right; }
 footer section h3 { color:#E2DDDC; font-size:10px; text-transform:uppercase; }
 footer section.main-footer p { color:#bbb; }
 footer section ul li, footer section ul { }
-
-

@@ -6,6 +6,10 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
   
+  def page_title
+    "#{@title || "Line Of Thought - Tracking what powers the web"}#{" - Line Of Thought" if @title && !@title.blank?}"
+  end
+  
   def description(page_description)
     @description = page_description
     content_for(:description) { page_description }

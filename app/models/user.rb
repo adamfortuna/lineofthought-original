@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :tools, :through => :claims, :source => :tool,
                    :conditions => "claims.claimable_type = 'Tool'"
   has_many :authentications
+  has_many :bookmarks, :class_name => "BookmarkUser"
   
   validate :validate_invite, :on => :create
   after_create :increment_invite, :if => :invite_code?

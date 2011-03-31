@@ -6,6 +6,7 @@ class Link < ActiveRecord::Base
 
   serialize :cached_keywords
   serialize :cached_links
+  serialize :lookup_urls
 
   has_one :source, :dependent => :destroy
   has_one :bookmark
@@ -18,7 +19,30 @@ class Link < ActiveRecord::Base
     :mapping    => %w(url to_s),
     :allow_nil  => true,
     :converter  => :new  
+  composed_of :original_uri,
+    :class_name => 'HandyUrl',
+    :mapping    => %w(original_url to_s),
+    :allow_nil  => true,
+    :converter  => :new  
   
+  searchable do
+    text :title, :default_boost => 2
+    text :description
+    text :url do
+      lookup_urls
+    end
+    
+    text :canonical do
+      lookup_urls.collect do |url|
+        HandyUrl.new(url).variants.collect(&:canonical)
+      end.flatten.compact.uniq if lookup_urls
+    end
+    boolean :has_tool, :using => :has_tool?
+    boolean :has_site, :using => :has_site?
+    boolean :has_bookmark, :using => :has_bookmark?
+  end
+  handle_asynchronously :solr_index
+    
   state_machine :status, :initial => :new do
     state :new do
     end
@@ -59,7 +83,9 @@ class Link < ActiveRecord::Base
     self.feed            = current_page.feed
     self.date_posted     = current_page.datetime
     self.cached_links    = current_page.links
-    Favicon.create_by_favicon_url(current_page.favicon, uri)
+    self.url             = current_page.url
+    Favicon.create_by_favicon_url(current_page.favicon, uri) if current_page.favicon
+    return true
   end  
   
   def current_page(reload = false)
@@ -89,14 +115,41 @@ class Link < ActiveRecord::Base
   
   def self.find_or_create_by_url(url)
     h = HandyUrl.new(Util.parse_uri(url))
-    link = Link.find_by_entered_url(h)
+    link, method = Link.find_by_entered_url(h)
     return link if link
-    return Link.create({:url => h.to_s})
+    link = Link.create({:url => h.to_s})
+    
+    # If we weren't able to create this bookmark, the solr index 
+    # might be out of date. Fallback on SQL.
+    if link.new_record? && method == :solr
+      link = Link.find_by_entered_url_using_sql(h)
+    end
+    return link
   end
   
   def self.find_by_entered_url(url)
     url = HandyUrl.new(Util.parse_uri(url)) unless url.is_a?(HandyUrl)
-    find(:first, :conditions => ["url IN (?) OR original_url IN (?)", url.variants.collect(&:to_s), url.variants.collect(&:to_s)])
+    begin
+      return Link.find_by_entered_url_using_solr(url), :solr
+    rescue Errno::ECONNREFUSED
+      puts "Link.find_by_entered_url - loaded from sql"
+      return Link.find_by_entered_url_using_sql(url), :sql
+    end
+  end
+  
+  def self.find_by_entered_url_using_solr(url)
+    search_results = Link.search do
+      fulltext url.canonical
+    end
+    puts "Link.find_by_entered_url - loaded from solr"
+    search_results.results.first
+  end
+
+  def self.find_by_entered_url_using_sql(url)
+    find(:first, :conditions => ["canonical = ? OR url IN (?) OR original_url IN (?)", 
+                                  url.canonical,
+                                  url.variants.collect(&:to_s),
+                                  url.variants.collect(&:to_s)])
   end
 
   def categories
@@ -113,8 +166,13 @@ class Link < ActiveRecord::Base
     tool_keywords = cached_keywords.collect do |keyword|
       keyword[0] if known_tool_keywords.include?(keyword[0])
     end.compact
-    return [] if tool_keywords.blank?
-    Tool.where(["tools.keyword IN (?)", tool_keywords])
+    
+    url_variants = cached_links.collect do |url|
+      HandyUrl.new(url).variants.collect(&:to_s)
+    end.flatten
+    
+    return [] if tool_keywords.blank? && url_variants.blank?
+    Tool.joins(:link).where(["tools.keyword IN (?) OR links.url IN (?) OR links.original_url IN (?)", tool_keywords, url_variants, url_variants])
   end
   memoize :tools
   
@@ -126,6 +184,18 @@ class Link < ActiveRecord::Base
     Site.where(["uid IN (?)", uids])
   end
 
+  def has_tool?
+    !tool.nil?
+  end
+
+  def has_site?
+    !site.nil?
+  end
+
+  def has_bookmark?
+    !bookmark.nil?
+  end
+  
   private
 
   def known_category_keywords
@@ -158,6 +228,7 @@ class Link < ActiveRecord::Base
   def set_urls
     self.original_url ||= self.url
     self.url = Util.normalize_url(self.url).to_s
+    self.lookup_urls = [self.uri.to_s, self.original_uri.to_s]
     self.canonical = self.uri.canonical
     self.uid_with_subdomain = self.uri.uid_with_subdomain
     self.uid = self.uri.uid

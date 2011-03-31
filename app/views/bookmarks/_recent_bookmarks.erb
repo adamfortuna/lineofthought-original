@@ -1,7 +1,7 @@
 <aside>
   <h3>Recent Bookmark</h3>
-  <ul class="lst">
-    <% Bookmark.recent.limit(5).each do |bookmark| %>
+  <ul class="lst bookmarks">
+    <% Bookmark.recent.without_user.limit(5).each do |bookmark| %>
       <li><%= link_to truncate(bookmark.title, :length => 40),  bookmark %></li>
     <% end %>
   </ul>

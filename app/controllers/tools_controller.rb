@@ -104,8 +104,11 @@ class ToolsController < ApplicationController
   end
 
   def autocomplete
-    tags = Tool.autocomplete(params[:q]).collect do |tool|
-      { "name" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", "id" => tool.id.to_s }
+    tags = Tool.autocomplete(params[:term]).collect do |tool|
+      { "label" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", 
+        "value" => tool.id.to_s,
+        "desc" => tool.url,
+        "icon" => tool.has_favicon? ? tool.full_favicon_url : nil }
     end
     render :json => tags
   end
@@ -123,8 +126,14 @@ class ToolsController < ApplicationController
 
   def bookmarks
     @tool = find(params[:id])
-    @bookmarks = @tool.bookmarks
+    @bookmarks = @tool.bookmarks.order("created_at desc")
+                                .paginate(:per_page => params[:per_page] || 20,
+                                          :page => params[:page] || 1)
     respond_with([@tool, @bookmarks])
+  end
+
+  def autocomplete_example
+    
   end
 
   private  

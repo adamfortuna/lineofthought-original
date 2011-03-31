@@ -1,0 +1,13 @@
+<% title "Take a Tour - Site Developers" %>
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <p>There are so many great blog posts elaborating on the technology stack used to create various sites. Those pieces of knowledge are great, but it's even better when they serve as a jumping off point to learning more about a tool or site.</p>
+  
+  <p>If you have a website and want to list out what you used to build it, you can go ahead and <%= link_to "add your site", new_site_path %> and start adding tools to it right away. If your site has already been added, you can add new tools to it, or claim it to gain full editorial control.</p>
+  
+  <p>Once your site is listed, you can comment on how you use each tool. If you claim your site, you can also choose to make your site publicly editable by other people, or lock it down so that only you can edit it.</p>
+
+  <p>Continue the tour - <%= link_to "About Tools", tools_tour_path %></p>
+</section>
+
+<%= render "tour/sidebar" %>

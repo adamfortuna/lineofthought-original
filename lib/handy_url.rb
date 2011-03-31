@@ -112,7 +112,7 @@ class HandyUrl
       [uri.with_http, uri.with_https]
     end.flatten
   end
-
+  
   ##
   # Returns a variant of this URL with an http:// scheme.  If this URL is
   # already using the http:// scheme, this method returns self.

@@ -20,6 +20,9 @@
 <ul class="tabs">
   <li class="bookmarks-show"><%= link_to "Comments", bookmark_path(@bookmark) %></li> 
   <% if logged_in? %>
-    <li class="right bookmarks-edit"><%= link_to "Edit", edit_bookmark_path(@bookmark) %></li> 
+    <li class="right saved_bookmark-new saved_bookmark-edit"><%= link_to "Save", new_bookmark_save_url(@bookmark) %></li> 
+    <% if current_user.admin? %>
+      <li class="right bookmarks-edit"><%= link_to "Edit", edit_bookmark_path(@bookmark) %></li> 
+    <% end %>
   <% end %>
 </ul>

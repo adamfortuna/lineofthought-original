@@ -13,6 +13,12 @@
 </section>
 
 <sidebar>
+  <aside class="search">
+    <form action="<%= bookmarks_path %>" method="get">
+      <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a bookmark..." />
+      <input type="submit" value="Search" />
+    </form>
+  </aside>
   <aside>
     <h3>Add a Bookmark</h3>
     <% if logged_in? %>

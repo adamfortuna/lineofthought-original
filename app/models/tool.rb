@@ -42,7 +42,7 @@ class Tool < ActiveRecord::Base
   belongs_to :link
   
   # Bookmarks
-  has_many :annotations, :as => :annotateable, :dependent => :destroy
+  has_many :annotations, :class_name => "BookmarkAnnotation", :as => :annotateable, :dependent => :destroy
   has_many :bookmarks, :through => :annotations
 
   # Claims

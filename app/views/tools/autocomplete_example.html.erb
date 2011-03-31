@@ -1,0 +1,119 @@
+<% title "Autocomplete Example" %>
+
+<style>
+	#tool-label {
+		display: block;
+		font-weight: bold;
+		margin-bottom: 1em;
+	}
+	#tool-favicon {
+		float: left;
+		height: 16px;
+		width: 16px;
+	}
+	#tool-url {
+		margin: 0;
+		padding: 0;
+	}
+	</style>
+	
+<section id="content" class="main">
+
+  <div class="demo">
+  	<div id="tool-label">Start typing a tool name (type "j" for a start):</div>
+  	<img id="tool-favicon" src="/demos/autocomplete/images/transparent_1x1.png"  class="ui-state-default" />
+  	<input id="tool"/>
+  	<input type="hidden" id="tool-id"/>
+  	<p id="tool-url"></p>
+  	<button id="add_tool">Add Tool</button>
+  </div><!-- End demo -->
+  
+  <ul id="new_tools"></ul>
+</section>
+
+<sidebar>
+  <aside class="search">
+    <form action="<%= tools_path %>" method="get">
+      <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a tool..." />
+      <input type="submit" value="Search" />
+    </form>
+  </aside>
+
+  <%= render "tools/featured" %>
+  
+  
+  <aside>
+    <h3>Add a Tool</h3>
+    <% if logged_in? %>
+      <p>Can't find something you use?<br/><%= link_to "Add a Tool", new_tool_path %></p>
+      <p>Add a tool from anywhere using this bookmarklet. Drag this to your bookmarks bar.
+        <br/>
+        <%= link_to "Add Tool to LoT", "javascript:(function(){f='#{new_tool_url(:format => "popup")}?tool[url]='+encodeURIComponent(window.location.href)+'&tool[name]='+encodeURIComponent(document.title);a=function(){if(!window.open(f,'lineofthought-new','location=yes,links=no,scrollbars=yes,toolbar=no,width=700,height=850'))location.href=f};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()" %>
+      </p>
+    <% else %>
+      <p>Logged in users can add their own tools to LineOfThought, or manage the tools used on existing sites.</p>
+      <p><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to get started.</p>
+    <% end %>
+  </aside>
+</sidebar>
+
+<% javascript do %>
+	$(function() {
+		
+    var cache = {}, lastXhr;
+		$( "#tool" ).autocomplete({
+			minLength: 0,
+			source: function(request, response) {
+				var term = request.term;
+				if (term in cache) {
+					response(cache[term]);
+					return;
+				}
+
+				lastXhr = $.getJSON("/tools/autocomplete", request, function(data, status, xhr) {
+					cache[term] = data;
+					if (xhr === lastXhr) {
+						response(data);
+					}
+				});
+			},
+      			
+      			
+			focus: function( event, ui ) {
+				$( "#tool" ).val( ui.item.label );
+				return false;
+			},
+			select: function( event, ui ) {
+				$( "#tool" ).val( ui.item.label );
+				$( "#tool-id" ).val( ui.item.value );
+				$( "#tool-url" ).html( ui.item.desc );
+				$( "#tool-favicon" ).attr( "src", ui.item.icon );
+
+				return false;
+			}
+		})
+		.data( "autocomplete" )._renderItem = function( ul, item ) {
+			return $( "<li></li>" )
+				.data( "item.autocomplete", item )
+				.append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
+				.appendTo( ul );
+		};
+		
+		$("#add_tool").click(function(e){
+		  var current_tool = "<li>" +
+		                     "  <input type='hidden' name='tool_ids[]' value='"+$("#tool-id").val()+"'/>" +
+		                     "  <p><img src='"+$("#tool-favicon").attr("src")+"' />  "+ $("#tool").val()+"</p>" +
+		                     "  <p>"+$("#tool-url").val()+"</p>" +
+		                     "</li>";
+      console.log(current_tool);
+		  reset_tool();
+		  $("#new_tools").append(current_tool);
+		});
+	});
+	
+	function reset_tool() {
+	  $("#tool-favicon").attr("src", "/demos/autocomplete/images/transparent_1x1.png");
+	  $("#tool-id, #tool").val("");
+	  $("#tool-url").html("");
+	}
+<% end %>

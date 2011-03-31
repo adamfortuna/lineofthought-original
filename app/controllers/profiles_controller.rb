@@ -15,7 +15,10 @@ class ProfilesController < ApplicationController
 
   def bookmarks
     @user = lookup_user(params[:id])
-    respond_with(@user)
+    @bookmarks = @user.bookmarks.order("created_at desc")
+                                .paginate(:per_page => params[:per_page] || 20,
+                                          :page => params[:page] || 1)
+    respond_with([@user, @bookmarks])
   end
 
   def tools

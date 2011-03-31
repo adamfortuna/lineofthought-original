@@ -7,52 +7,52 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks
   def index
-    begin
-      @search = Sunspot.search(Bookmark) do
-        keywords params[:search] if params[:search]
-        order_by(:created_at, :desc)
-        paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
-      end
-      @bookmarks = @search.results
-      @hits = @search.hits
-      debugger
-      puts "Loaded bookmarks from Solr"
-    # Can't connect to solr, fallback on SQL.
-    # Note: no search ability while solr is down.
-    rescue Errno::ECONNREFUSED
-      puts "Unable to Connect to Solr to retreive bookmarks. Falling back on SQL."
-      @bookmarks = Bookmark.order("created_at desc")
-                   .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
-      @hits = @bookmarks
+    @bookmarks, @hits, loaded_from_solr = Bookmark.search_by_params(params)
+    if !loaded_from_solr && params[:search]
+      params[:search] = nil
+      flash[:error] = "Sorry, search is not available at the moment. Usually this means Solr is down :/ Please try again later."
     end
     respond_with(@bookmarks)
   end
 
+  # GET /bookmarks/:id
+  def show
+    @bookmark = find(params[:id])
+    respond_with(@bookmark)
+  end
+
   # GET /bookmarks/new
+  # Form for adding the first bookmark at a current URL.
+  # Will be redirected to the save bookmark form if the URL they're 
+  # entering already exists as a bookmark.
   def new
     params[:bookmark] ||= {}
     url = params[:bookmark][:url]
     if url
       @link = Link.find_or_create_by_url(url)
-      @bookmark = Bookmark.new_from_link(@link)
+      if @link.bookmark
+        redirect_to new_bookmark_save_url(@link.bookmark)
+      else
+        @bookmark = Bookmark.new_from_link(@link)
+      end
     else
       @bookmark = Bookmark.new(params[:bookmark])
     end
   end
-
-  # POST /bookmarks
-  def create
+  
+  # POST /bookmarks/lookup
+  def lookup
     @link = Link.find_or_create_by_url(params[:bookmark][:url])
     respond_to do |format|
       format.js do
         if @link.nil?
-          render :create_failed
+          render :lookup_failed
         elsif @bookmark = @link.bookmark
-          render :create_success
-        elsif @link.parsed? && (@bookmark = Bookmark.create_from_link(@link)) && !@bookmark.new_record?
-          render :create_success
-        elsif (@bookmark && @bookmark.new_record?) || @link.unparseable? || @link.unreachable?
-          render :create_failed
+          render :lookup_exists
+        elsif @link.parsed? && (@bookmark = BookmarkUser.new_from_link(@link))
+          render :lookup_complete
+        elsif @link.unparseable? || @link.unreachable?
+          render :lookup_failed
         else
           render :js => "console.log('create in progress');"
         end
@@ -60,12 +60,14 @@ class BookmarksController < ApplicationController
     end
   end
 
+  # Admins only
   def edit
-    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+    @bookmark = find(params[:id])
   end
 
+  # Admins only
   def update
-    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+    @bookmark = find(params[:id])
     if @bookmark.update_attributes(params[:bookmark])
       redirect_to @bookmark, :notice => "This bookmark was updated."
     else
@@ -73,14 +75,10 @@ class BookmarksController < ApplicationController
       render :edit
     end
   end
-  
-  def show
-    @bookmark = Bookmark.find_by_cached_slug(params[:id])
-    respond_with(@bookmark)
-  end
 
+  # Admins only
   def destroy
-    @bookmark = Bookmark.find_by_cached_slug(params[:id])
+    @bookmark = find(params[:id])
     if @bookmark.destroy
       redirect_to bookmarks_path, :notice => "This bookmark was removed."
     else
@@ -90,7 +88,9 @@ class BookmarksController < ApplicationController
   end
 
   private
-  def load_record; end
+  def find(cached_slug)
+    Bookmark.find_by_cached_slug(cached_slug)
+  end
   
   def load_or_redirect_by_url
     return true unless params[:url] && params[:url]

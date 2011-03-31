@@ -1,0 +1,48 @@
+<% title "Take a Tour - Permissions" %>
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <p>Line Of Thought is a very open system, making permissions a bit of a tough task. When you signup you have some basic permissions on what you can edit that will grow as you use the system more. In your <%= link_to "my account page", edit_user_registration_path %>, you can see what your current user level is, as well as what it'll take to get to the next level.</p>
+  
+  <h3>Not logged in User</h3>
+  <p>If you're not logged in you can browse the entire site. There's no "private" data, so you can see the current copy of everything. You can't see revision history if you're not logged in, but that's about it.</p>
+    
+  <h3>Newbie</h3>
+  <p>You've signed up, but haven't yet confirmed your email address.</p>
+  <ul>
+    <li>Claim an existing tool</li>
+    <li>Add new Tools</li>
+    <li>Add new sites to the tools you've created</li>
+    <li>Claim an existing site</li>
+    <li>Add new Sites</li>
+    <li>Add new tools to the sites you've created or claimed</li>
+    <li>Add new bookmarks</li>
+  </ul>
+  
+  <h3>Contributor</h3>
+  <p>You've signed up and confirmed your email address. You can do everything a new user can do plus...</p>
+  <ul>
+    <li>Add new sites to tools other people have created</li>
+    <li>Add new tools to sites other people have created</li>
+  </ul>
+
+  <h3>Editor</h3>
+  <p>Once you've amassed 100 points and are manually approved by an admin, you'll be able to do everything an contributor can do plus...</p>
+  <ul>
+    <li>Edit the descriptions other people have given for how a site is using a tool</li>
+    <li>Edit basic information about a site including title and description</li>
+    <li>Edit basic information about a tool including name and description</li>
+    <li>Edit basic information about a bookmark including title and description</li>
+  </ul>
+  
+  <h3>Super Editor</h3>
+  <p>Once you've amassed 1000 points and are manually approved by an admin, you'll be able to...</p>
+  <ul>
+    <li>Delete bookmarks that are not relevant</li>
+    <li>Delete tools and (optionally) merge them into another</li>
+    <li>Delete sites and (optionally) merge them into another</li>
+  </ul>
+  
+  <p>Time to get started! <%= link_to "Add a site", new_site_path %> or <%= link_to "add a tool", new_tool_path %>.</p>
+</section>
+
+<%= render "tour/sidebar" %>

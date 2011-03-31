@@ -5,6 +5,7 @@ Snaps::Application.routes.draw do
     collection do 
       get :autocomplete
       post :lookup
+      get :autocomplete_example
     end
     member do
       get :bookmarks
@@ -31,7 +32,12 @@ Snaps::Application.routes.draw do
     end
   end
   
-  resources :bookmarks, :only => [:new, :create, :index, :show, :edit, :update, :destroy]
+  resources :bookmarks, :only => [:new, :create, :index, :show, :edit, :update, :destroy] do
+    collection do
+      post :lookup
+    end
+    resource :save, :controller => "saved_bookmark", :only => [:new, :create, :edit, :update, :destroy]
+  end
   resources :usings, :only => [:update, :create, :destroy]
 
 
@@ -54,12 +60,18 @@ Snaps::Application.routes.draw do
 
   resources :subscriptions, :only => [:index, :create]
   
-  match '/new' => 'home#new', :as => 'new'
-  match '/beta' => 'home#beta', :as => 'beta'
-  match '/about' => 'home#about', :as => 'about'
-  match '/fail' => 'home#fail', :as => 'fail'
-  match '/lookup' => 'lookup#new', :as => 'lookup'
-  match '/sites/lineofthought' => 'sites#show', :as => 'lineofthought', :id => 'lineofthought'
+  match '/new' => 'home#new',                       :as => 'new'
+  match '/beta' => 'home#beta',                     :as => 'beta'
+  match '/about' => 'home#about',                   :as => 'about'
+  match '/fail' => 'home#fail',                     :as => 'fail'
+  match '/lookup' => 'lookup#new',                  :as => 'lookup'
+  match '/sites/lineofthought' => 'sites#show',     :as => 'lineofthought', :id => 'lineofthought'
+
+  match '/tour' => 'tour#index',                    :as => 'tour'
+  match '/tour/sites' => 'tour#sites',              :as => 'sites_tour'
+  match '/tour/tools' => 'tour#tools',              :as => 'tools_tour'
+  match '/tour/bookmarks' => 'tour#bookmarks',      :as => 'bookmarks_tour'
+  match '/tour/permissions' => 'tour#permissions',  :as => 'permissions_tour'
 
   # Admin related
   namespace :admin do

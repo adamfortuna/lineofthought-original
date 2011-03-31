@@ -8,7 +8,7 @@
     <div class="title_bar group">
       <h3>We know of <strong><%= pluralize(@tool.bookmarks_count, "bookmark") %></strong> featuring <strong><%= @tool.name %></strong></h3>
     </div>
-    <ul class="sublist bookmarks usings">
+    <ul id="bookmarks-list" class="bookmarks main-list">
       <%= render @tool.bookmarks %>
     </ul>
     <% else %>

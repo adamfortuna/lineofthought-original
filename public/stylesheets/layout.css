@@ -103,20 +103,23 @@ section, aside {
 
 #main {
   background-color: #E3E3E3;
-  color: #1B1B1B;
-  padding: 1em 0; }
+  color: #1B1B1B; }
+
+#content {
+  padding: 14px; }
 
 #content, sidebar aside {
   background-color: #fff;
-  padding: .6em;
   border: 1px solid #ccc;
   font-size: 14px; }
+
+#main .container {
+  padding: 10px 0; }
 
 /* main content */
 #content {
   width: 620px;
-  float: left;
-  padding: 1em; }
+  float: left; }
 
 body.popup #content {
   width: 550px; }
@@ -219,6 +222,9 @@ ul.lst-rating li span {
 
 ul.lst-rating li:hover span {
   background: #C6C8E8; }
+
+aside ul.bookmarks {
+  font-size: 11px; }
 
 /* footer */
 footer {

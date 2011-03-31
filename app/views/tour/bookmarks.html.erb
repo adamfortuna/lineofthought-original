@@ -1,0 +1,17 @@
+<% title "Take a Tour - Bookmarks" %>
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <p>The same way you can add a bookmark to a social news site, you can add a bookmark to Line Of Thought using our <a href="#">bookmarklet</a>.</p>
+  
+  <p>You can tag any bookmark as being about a site, or about any tool. For instance, Digg recently wrote an <a href="http://about.digg.com/blog/how-digg-is-built">awesome post about How Digg is Built</a>. For this article, you could mark the article as being about Digg, then referencing a large number of tools (including PHP, Python, Tornado, Memcached and Redis).</p>
+  
+  <p>When we say you can mark a sites to be "about" a site, we don't mean about their business model, or about how they're taking another round of funding. There are other places for that, but articles here should be technical. In order to add a reference to a site in a bookmark, you must reference at least one tool that site uses that's mentioned in the article.</p>
+  
+  <p>You can also reference a tool in an article without referencing what site it's on. We'll show that bookmark in the bookmarks section for the site.</p>
+
+  <p>You can also reference if a bookmark contains a video or a presentation. We don't have a way to of filtering by video/presentation right now, but plan to down the line.</p>
+  
+  <p>Continue the tour - <%= link_to "About Permissions", permissions_tour_path %></p>
+</section>
+
+<%= render "tour/sidebar" %>

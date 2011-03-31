@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110329161051) do
+ActiveRecord::Schema.define(:version => 20110331160452) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -39,19 +39,6 @@ ActiveRecord::Schema.define(:version => 20110329161051) do
   add_index "bookmark_connections", ["bookmark_id"], :name => "index_bookmark_connections_on_bookmark_id"
   add_index "bookmark_connections", ["using_id"], :name => "index_bookmark_connections_on_using_id"
 
-  create_table "bookmark_users", :force => true do |t|
-    t.datetime "created_at"
-    t.integer  "bookmark_id"
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "description"
-    t.boolean  "has_video",        :default => false
-    t.boolean  "has_presentation", :default => false
-  end
-
-  add_index "bookmark_users", ["bookmark_id"], :name => "index_user_bookmarks_on_bookmark_id"
-  add_index "bookmark_users", ["user_id"], :name => "index_user_bookmarks_on_user_id"
-
   create_table "bookmarks", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -68,7 +55,12 @@ ActiveRecord::Schema.define(:version => 20110329161051) do
     t.boolean  "is_presentation",      :default => false
     t.string   "uid"
     t.integer  "user_bookmarks_count", :default => 0
+    t.integer  "user_id"
+    t.string   "type",                 :default => "Bookmark"
+    t.integer  "parent_id"
   end
+
+  add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
 
   create_table "buildables", :force => true do |t|
     t.integer "tool_id"
@@ -157,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20110329161051) do
     t.boolean  "has_favicon",        :default => false
     t.integer  "page_id"
     t.string   "html_title"
+    t.text     "lookup_urls"
   end
 
   add_index "links", ["date_posted"], :name => "index_links_on_date_posted"

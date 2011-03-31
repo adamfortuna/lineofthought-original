@@ -1,0 +1,14 @@
+<% title "Bookmarks for #{@user.username}" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <p>Here are all the bookmarks you have saved.</p>
+    <ul id="bookmarks-list" class="bookmarks main-list">
+      <%= render :partial => "bookmarks/bookmark", :collection => @bookmarks %>
+    </ul>
+    <%= will_paginate @bookmarks %>
+  </section>
+</section>
+
+<%= render 'users/sidebar' %>

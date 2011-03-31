@@ -1,0 +1,24 @@
+<% title "Take a Tour" %>
+<section id="content" class="main">
+  <h2>Take a Tour</h2>
+  <p>Line Of Thought is an open way for people to list out what technologies they use.</p>
+  <p>There's a few main goals of this site including:
+  <ul>
+    <li>Let <%= link_to "site developers", sites_tour_path %> list out what technologies power their sites.</li>
+    <li>Let <%= link_to "tool creators", tools_tour_path %> list out what sites are using their tools.</li>
+    <li>Let everyone see what sites are using a given tool, or what tools a given site is using.</li>
+    <li>Find articles about how a given tool is used on a given site.</li>
+  </ul>
+  
+  <h3>Real Examples</h3>
+  <p>If that all sounds a little too abstract for you, here's a few real examples:</p>
+  <ul>
+    <li>See a list of the technology stack behind <%= link_to "Twitter", site_path(:id => "twitter") %> or <%= link_to "Facebook", site_path(:id => "facebook") %>.</li>
+    <li>Find out which sites are using <%= link_to "MongoDB", tool_path(:id => "mongodb") %>.</li>
+    <li>View some <%= link_to "bookmarks", site_tool_path(:site_id => "digg", :id => "cassandra")%> on how <%= link_to "Digg", site_path(:id => "digg") %> is using <%= link_to "Cassandra", tool_path(:id => "cassandra") %>.</li>
+  </ul>
+  
+  <p>Continue the tour - <%= link_to "About Sites", sites_tour_path %></p>
+</section>
+
+<%= render "tour/sidebar" %>
