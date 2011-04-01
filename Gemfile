@@ -29,7 +29,7 @@ gem 'will_paginate', '3.0.pre2'
 gem 'whois', '2.0.1'
 
 group :production do
-  gem 'workless'
+  # gem 'workless'
 end
 
 group :development, :test do
