@@ -14,6 +14,8 @@ class HomeController < ApplicationController
   def fail
     Aasdfa
   end
+  
+  def stream; end
 
   private 
   def redirect_if_signed_in!

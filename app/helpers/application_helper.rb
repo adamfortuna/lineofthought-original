@@ -32,6 +32,10 @@ module ApplicationHelper
     content_for(:javascript) { raw create_template(a, b, &block) }
   end
   
+  def javascript_files(&block)
+    content_for(:javascript) { capture(&block) }
+  end
+  
 
   def create_template(header, footer, &block)
     # Get the data from the block 
