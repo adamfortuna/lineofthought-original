@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110331160452) do
+ActiveRecord::Schema.define(:version => 20110331221947) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(:version => 20110331160452) do
     t.integer  "annotateable_id"
     t.integer  "bookmark_id"
     t.text     "description"
-    t.integer  "user_bookmark_id"
   end
 
   create_table "bookmark_connections", :force => true do |t|
@@ -42,6 +41,9 @@ ActiveRecord::Schema.define(:version => 20110331160452) do
   create_table "bookmarks", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type",                 :default => "Bookmark"
+    t.integer  "parent_id"
+    t.integer  "user_id"
     t.string   "title"
     t.text     "url"
     t.text     "description"
@@ -55,9 +57,6 @@ ActiveRecord::Schema.define(:version => 20110331160452) do
     t.boolean  "is_presentation",      :default => false
     t.string   "uid"
     t.integer  "user_bookmarks_count", :default => 0
-    t.integer  "user_id"
-    t.string   "type",                 :default => "Bookmark"
-    t.integer  "parent_id"
   end
 
   add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"

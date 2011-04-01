@@ -5,7 +5,12 @@ class SavedBookmarkController < ApplicationController
   # GET /bookmarks/:bookmark_id/save/new
   def new
     @bookmark = find_bookmark(params[:bookmark_id])
-    @bookmark_user = @bookmark.to_user
+    @bookmark_user = find(@bookmark) || @bookmark.to_user
+    if @bookmark_user.new_record?
+      render :new
+    else
+      redirect_to edit_bookmark_save_path(@bookmark)
+    end
   end
   
   # POST /bookmarks/:bookmark_id/save
@@ -28,6 +33,11 @@ class SavedBookmarkController < ApplicationController
   def edit
     @bookmark = find_bookmark(params[:bookmark_id])
     @bookmark_user = find(@bookmark)
+    if !@bookmark_user
+      redirect_to new_bookmark_save_path(@bookmark)
+    else
+      respond_with([@bookmark, @bookmark_user])
+    end
   end
 
   # PUT /bookmarks/:bookmark_id/save
@@ -35,7 +45,8 @@ class SavedBookmarkController < ApplicationController
     @bookmark = find_bookmark(params[:bookmark_id])
     @bookmark_user = find(@bookmark)
     if @bookmark_user.update_attributes(params[:bookmark_user])
-      redirect_to edit_bookmark_save_path(@bookmark), :flash => { :notice => "This bookmark was saved!" }
+      @bookmark_user.update_bookmark_cache
+      redirect_to edit_bookmark_save_path(@bookmark), :flash => { :notice => "This bookmark was updated!" }
     else
       flash[:error] = "There was a problem saving this bookmark. Please check below and resubmit."
       render :edit

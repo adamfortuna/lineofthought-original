@@ -17,7 +17,7 @@
 </style>
 
 
-<%= semantic_form_for @bookmark_user, :url => bookmark_save_path(@bookmark), :format => params[:format] do |f| %>
+<%= semantic_form_for @bookmark_user, :url => bookmark_save_path(@bookmark), :format => params[:format], :method => (@bookmark_user.new_record? ? :post : :put) do |f| %>
   <%= f.inputs do %>
     <%= f.input :url, :as => :string, :required => true, :label => "Bookmark URL", :input_html => { :disabled => true } %>
     <%= f.input :title, :as => :string, :required => true, :label => "Site Title" %>
@@ -41,12 +41,16 @@
     </div><!-- End demo -->
     
     <ul id="new_tools">
-      <% @bookmark_user.tools.each do |tool| %>
+      <% @bookmark_user.annotations.for_tools.includes(:annotateable).each do |annotation| %>
       <li>
-        <input type='hidden' name='bookmark_user[tool_ids][]' value='<%= tool.id %>' />
-		    <p><% if tool.has_favicon? %><img src='<%=tool.full_favicon_url%>' /><% end %> <%= tool.name %></p>
-		    <p><%= tool.url %></p>
-		    <p><a href="#" onclick="$(this).parent().parent().remove();return false;">remove</a></p>
+        <input type='hidden' class='delete' value='' name='bookmark_user[annotations_attributes][][_destroy]' />
+        <input type='hidden' name='bookmark_user[annotations_attributes][][id]' value='<%= annotation.id %>' />
+        <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_type]' value='Tool' />
+        <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_id]' value='<%= annotation.annotateable_id %>' />
+		    <p><% if annotation.annotateable.has_favicon? %><img src='<%=annotation.annotateable.full_favicon_url%>' /><% end %> <%= annotation.annotateable.name %></p>
+		    <p><%= annotation.annotateable.url %></p>
+		    <p><textarea name="bookmark_user[annotations_attributes][][description]"><%= annotation.description %></textarea></p>
+		    <p><a href="#" onclick="$(this).parent().parent().hide().find('.delete').val('1');return false;">remove</a></p>
       </li>
       <% end %>
     </ul>
@@ -98,12 +102,15 @@
 				.append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
 				.appendTo( ul );
 		};
-		
+
+
 		$("#add_tool").click(function(e){
 		  var current_tool = "<li>" +
-		                     "  <input type='hidden' name='bookmark_user[tool_ids][]' value='"+$("#tool-id").val()+"'/>" +
+		                     "  <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_type]' value='Tool'/>" +
+		                     "  <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_id]' value='"+$("#tool-id").val()+"'/>" +
 		                     "  <p><img src='"+$("#tool-favicon").attr("src")+"' />  "+ $("#tool").val()+"</p>" +
 		                     "  <p>"+$("#tool-url").val()+"</p>" +
+		                     "  <p><textarea name='bookmark_user[annotations_attributes][][description]'></textarea></p>" +
 		                     "  <p><a href='#' onclick='$(this).parent().parent().remove();return false;'>remove</a></p>" +
 		                     "</li>";
       console.log(current_tool);

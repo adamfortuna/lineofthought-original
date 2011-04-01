@@ -43,7 +43,8 @@ class Tool < ActiveRecord::Base
   
   # Bookmarks
   has_many :annotations, :class_name => "BookmarkAnnotation", :as => :annotateable, :dependent => :destroy
-  has_many :bookmarks, :through => :annotations
+  has_many :bookmarks, :through => :annotations, :conditions => "parent_id is null"
+  has_many :bookmark_users, :through => :annotations, :source => :bookmark, :class_name => "BookmarkUser", :conditions => "parent_id is not null"
 
   # Claims
   has_many :claims, :as => :claimable
