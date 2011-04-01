@@ -249,5 +249,5 @@ class Link < ActiveRecord::Base
     parse! if loaded?
   end
   after_create :initial_load!
-  handle_asynchronously :initial_load!
+  handle_asynchronously :initial_load!, :priority => -20
 end

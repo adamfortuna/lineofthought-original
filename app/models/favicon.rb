@@ -42,7 +42,7 @@ class Favicon < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :download_favicon!
+  handle_asynchronously :download_favicon!, :priority => -10
   after_save :download_favicon!, :if => :url_changed?
 
   def update_associated_items
@@ -51,7 +51,7 @@ class Favicon < ActiveRecord::Base
     Link.update_all "has_favicon=true", ["uid = ?", uid]
     Bookmark.update_all "has_favicon=true", ["uid = ?", uid]
   end
-  handle_asynchronously :update_associated_items
+  handle_asynchronously :update_associated_items, :priority => -5
     
   private
   
