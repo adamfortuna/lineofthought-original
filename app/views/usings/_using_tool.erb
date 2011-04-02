@@ -10,6 +10,10 @@
       <li><%= link_to "comments", site_tool_path(site, tool, :format => params[:format]), :class => "comments" %></li>
     </ul>
   </div>
-  <% unless using_tool.description.blank? %><p><%= using_tool.description %></p><% end %>
+  <% if using_tool.description.blank? %>
+    <p class="about"><%= truncate(tool.description, :length => 140) %></p>
+  <% else %>
+    <p><%= using_tool.description %></p>
+  <% end %>
   <%= raw using_bookmarks(using_tool, 2, params[:format]) if using_tool.bookmarks_count > 0 %>
 </li>
