@@ -161,7 +161,11 @@ class Site < ActiveRecord::Base
   
   def tools_hash
     self.tools.collect do |tool|
-      { "id" => tool.id.to_s, "name" => "#{tool.name} (#{tool.sites_count})"}
+      { "name" => tool.name, 
+        "id" => tool.id.to_s,
+        "url" => tool.url,
+        "categories" => tool.cached_categories.collect { |c| c[:name]}.join(", "),
+        "icon" => tool.has_favicon? ? tool.full_favicon_url : nil }
     end
   end
   

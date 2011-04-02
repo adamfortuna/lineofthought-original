@@ -53,8 +53,8 @@ class Tool < ActiveRecord::Base
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :sources
 
-  validates_presence_of :url
-  validates_uniqueness_of :url
+  validates_presence_of :name
+  validates_uniqueness_of :url, :allow_nil => true
   validate :validate_uri
 
   scope :languages, :conditions => "buildables.category_id = categories.id AND categories.name='Programming Langauge'", :joins => { :buildables => :category }
@@ -172,9 +172,9 @@ class Tool < ActiveRecord::Base
     save
   end
     
-  def self.find_by_handy_url(handy_url)
-    link = Link.find_by_entered_url(handy_url)
-    link.tool
+  def self.find_by_url(url)
+    link, success = Link.find_by_entered_url(url)
+    link ? link.tool : nil
   end
 
   def update_sites_cached_tools
@@ -263,19 +263,14 @@ class Tool < ActiveRecord::Base
   end
 
   def validate_uri
+    return true if url.blank?
     errors.add(:url, "is not a valid URL") if !uri.valid?
     errors.empty?
   end
   
-  before_validation :set_url_from_link, :on => :create
-  def set_url_from_link
-    self.url = link.url if link
-  end
-  
-  after_save :create_or_update_link, :if => :url_changed?
+  before_validation :create_or_update_link, :if => :url_changed?
   def create_or_update_link
-    link = Link.find_or_create_by_url(url)
-    self.sources.create({:link => link})
+    self.link = Link.find_or_create_by_url(url)
   end
   
   after_validation :check_for_favicon, :if => :uid_changed?
@@ -285,7 +280,7 @@ class Tool < ActiveRecord::Base
   
   before_validation :set_uid, :if => :url_changed?
   def set_uid
-    self.uid = self.uri.uid
+    self.uid = self.uri.uid unless self.url.blank?
   end
   
   after_create :create_initial_claim

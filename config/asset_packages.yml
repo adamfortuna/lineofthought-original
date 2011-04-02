@@ -13,5 +13,4 @@ stylesheets:
   - layout
   - style
   - forms
-  - new-list
-  - smoothness/jquery-ui-1.8.11.custom
+  - list

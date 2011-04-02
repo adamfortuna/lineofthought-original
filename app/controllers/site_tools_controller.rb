@@ -29,12 +29,13 @@ class SiteToolsController < ApplicationController
   
   # POST /sites/:site_id/tools
   def create
+    @using = @site.usings.create(params[:using].merge(:user_id => current_user.id))
     respond_to do |format|
       format.js {
-        if @using = @site.usings.create(params[:using].merge(:user_id => current_user.id))
+        if @using.id
           render
         else
-          render :js => "alert('problem');"
+          render :create_failed
         end
       }
     end   
@@ -42,11 +43,20 @@ class SiteToolsController < ApplicationController
 
   # GET /sites/:site_id/tools/autocomplete
   def autocomplete
-    @site = Site.find_by_cached_slug(params[:site_id])
-    tags = Tool.autocomplete(params[:q]).collect do |tool|
-      { "name" => "#{tool.name}#{" (#{tool.cached_language[:name]})" if tool.cached_language}", "id" => tool.id.to_s }
+    if params[:term]
+      @site = Site.find_by_cached_slug(params[:site_id])
+      tags = Tool.autocomplete(params[:term]).collect do |tool|
+        { "name" => tool.name, 
+          "id" => tool.id.to_s,
+          "url" => tool.url,
+          "categories" => tool.cached_categories.collect { |c| c[:name]}.join(", "),
+          "icon" => tool.has_favicon? ? tool.full_favicon_url : nil }
+      end
+      tools = (tags - @site.tools_hash)
+    else
+      tools = []
     end
-    render :json => (tags - @site.tools_hash)
+    render :json => tools
   end
 
 

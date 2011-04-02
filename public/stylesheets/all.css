@@ -160,9 +160,11 @@ nav ul li a:hover {background-color: #4b81b4}
 #current_user li {font-size: 14px; float: right; padding-left: 1em}
 #current_user li a:hover {color: #ccc}
  section, aside {display: block}
-#main {background-color: #E3E3E3; color: #1B1B1B; padding: 1em 0}
-#content, sidebar aside {background-color: #fff; padding: .6em; border: 1px solid #ccc; font-size: 14px}
- #content {width: 620px; float: left; padding: 1em}
+#main {background-color: #E3E3E3; color: #1B1B1B}
+#content {padding: 14px}
+#content, sidebar aside {background-color: #fff; border: 1px solid #ccc; font-size: 14px}
+#main .container {padding: 10px 0}
+ #content {width: 620px; float: left}
 body.popup #content {width: 550px}
 .main section {padding: .4em}
  body.popup sidebar {display: none}
@@ -183,6 +185,7 @@ ul.lst-rating li a {position: relative; display: block; padding: 7px; z-index: 2
 ul.lst-rating li em {float: right; margin: 0 0 0 5px; font-style: normal; font-weight: normal; color: #9c836e}
 ul.lst-rating li span {position: absolute; top: 0; left: 0; display: block; height: 100%; line-height: 2.55em; text-indent: -9999px; background: #EBE6FF}
 ul.lst-rating li:hover span {background: #C6C8E8}
+aside ul.bookmarks {font-size: 11px}
  footer {display: block; min-height: 140px}
 footer section {float: left}
 footer section p, footer section h3 {margin: 1em}
@@ -229,8 +232,8 @@ ul.tabs a:hover {background-color: #fff}
 * html .pagination {height: 1%}
 *:first-child + html .pagination {overflow: hidden}
 div.disqus_wrapper {padding: 1em; font-size: 14px}
-sidebar aside.search input[type='text'] {width: 200px}
-body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited, body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited, body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited, body.site_tools-manage li.site_tools-manage a:link, body.site_tools-manage li.site_tools-manage a:visited, body.tools-show li.tools-show a:link, body.tools-show li.tools-show a:visited, body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited, body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited, body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited, body.site_claims-create li.site_claims-create a:link, body.site_claims-create li.site_claims-create a:visited, body.tool_sites-manage li.tool_sites-manage a:link, body.tool_sites-manage li.tool_sites-manage a:visited, body.sites-edit li.sites-edit a:link, body.sites-edit li.sites-edit a:visited, body.bookmarks-show li.bookmarks-show a:link, body.bookmarks-show li.bookmarks-show a:visited, body.bookmarks-edit li.bookmarks-edit a:link, body.bookmarks-edit li.bookmarks-edit a:visited, body.bookmarks-sites li.bookmarks-sites a:link, body.bookmarks-sites li.bookmarks-sites a:visited, body.bookmarks-tools li.bookmarks-tools a:link, body.bookmarks-tools li.bookmarks-tools a:visited, body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bookmarks a:visited, body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
+sidebar aside.search input[type='text'] {width: 200px; border-color: #bbb}
+body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited, body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited, body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited, body.site_tools-manage li.site_tools-manage a:link, body.site_tools-manage li.site_tools-manage a:visited, body.tools-show li.tools-show a:link, body.tools-show li.tools-show a:visited, body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited, body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited, body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited, body.site_claims-create li.site_claims-create a:link, body.site_claims-create li.site_claims-create a:visited, body.tool_sites-manage li.tool_sites-manage a:link, body.tool_sites-manage li.tool_sites-manage a:visited, body.sites-edit li.sites-edit a:link, body.sites-edit li.sites-edit a:visited, body.bookmarks-show li.bookmarks-show a:link, body.bookmarks-show li.bookmarks-show a:visited, body.bookmarks-edit li.bookmarks-edit a:link, body.bookmarks-edit li.bookmarks-edit a:visited, body.bookmarks-sites li.bookmarks-sites a:link, body.bookmarks-sites li.bookmarks-sites a:visited, body.bookmarks-tools li.bookmarks-tools a:link, body.bookmarks-tools li.bookmarks-tools a:visited, body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bookmarks a:visited, body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited, body.saved_bookmark-new li.saved_bookmark-new a:link, body.saved_bookmark-new li.saved_bookmark-new a:visited, body.saved_bookmark-edit li.saved_bookmark-edit a:link, body.saved_bookmark-edit li.saved_bookmark-edit a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
  .show-header {position: relative}
 .show-header h2 {display: inline}
 .show-header .content {padding: .4em .4em 1em}
@@ -251,16 +254,18 @@ form {font-size: 14px}
 .check_boxes {position: relative}
 .check_boxes fieldset {margin: 0 0 5px 0}
 .check_boxes fieldset li {float: left; width: 30%}
-.inline-hints {margin: 0.5em .25em; font-size: 8px}
+.inline-hints {margin: 0.5em .25em}
 form.formtastic fieldset {border: 0; background: none}
   li.countdown {float: right; font-size: 16px; margin: 0 14px 0 0}
 li.countdown .alert {color: red}
 .edit-in-place {position: relative}
 .edit-in-place:hover {background-color: transparent}
 .edit-in-place form {display: none}
-.edit-in-place .actions {display: none; position: absolute; left: -100px; background: #fff; border: 1px solid #ccc; border-right: none; width: 70px; border-radius: 8px; -moz-border-radius: 8px; -moz-border-radius-topright: 0px; -moz-border-radius-bottomright: 0px; top: 10px}
-.edit-in-place .actions li a {border: 1px solid transparent; display: block; font-size: 14px; padding: 0.2em 0.6em; width: 70px}
-.edit-in-place .actions li a:hover {color: red; display: block}
+.edit-in-place form textarea {font-size: 13px}
+.edit-in-place .actions {display: none; position: absolute; right: 0px; width: 120px; top: 10px}
+.edit-in-place .actions li {float: right}
+.edit-in-place .actions li a {font-size: 11px; padding: 0 0 0 20px; color: #666; float: right}
+.edit-in-place .actions li a:hover {color: red}
 .edit-in-place:hover .actions {display: block}
 .edit-in-place h4 {font-size: 16px}
 .edit-in-place p em {color: #777}
@@ -268,6 +273,29 @@ li.countdown .alert {color: red}
 .editing form.using fieldset {padding: 0}
 .editing .edit-in-place-show {display: none}
 .edit-in-place-cancel {display: none}
+.popup .using .countdown {width: auto; right: 10px}
+li.tool_name_autocomplete .inline-hints {display: none}
+input.autocomplete-toolname {padding-left: 26px; background: url(/images/placeholder.jpg) no-repeat 4px 4px; width: 520px}
+body.popup input.autocomplete-toolname {width: 452px}
+ .ui-widget-overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
+.ui-widget-content {border: 1px solid #aaaaaa; background: #ffffff; color: #222222}
+.ui-widget-content a {color: #222222}
+.ui-autocomplete {position: absolute; cursor: default}
+* html .ui-autocomplete {width: 1px}
+ .ui-autocomplete li a img {margin: 0 8px 0 0; float: left; width: 16px}
+.ui-autocomplete li:nth-child(even) {background-color: #eee}
+.ui-menu {list-style: none; padding: 2px; margin: 0; display: block; float: left; font-size: 13px}
+.ui-menu .ui-menu {margin-top: -3px}
+.ui-menu .ui-menu-item {margin: 0; padding: 0; zoom: 1; float: left; clear: left; width: 100%}
+.ui-menu .ui-menu-item a {text-decoration: none; display: block; padding: .2em .4em; line-height: 1.5; zoom: 1}
+.ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active {font-weight: normal; margin: -1px}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {border: 1px solid #d3d3d3; background: #e6e6e6; font-weight: normal; color: #555555}
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {color: #555555; text-decoration: none}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {border: 1px solid #999999; background: #dadada; font-weight: normal; color: #212121}
+.ui-state-hover a, .ui-state-hover a:hover {color: #212121; text-decoration: none}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {border: 1px solid #aaaaaa; background: #ffffff; font-weight: normal; color: #212121}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {color: #212121; text-decoration: none}
+.ui-widget :active {outline: none}
  ul.categories, ul.sites, ul.tools, ul.usings, ul.mini-categories, ul.mini-sites, ul.mini-tools {list-style: none; margin: 0; padding: 0}
 ul.categories, ul.sites, ul.tools, ul.usings {min-height: 1em}
 li.ind a:hover {text-decoration: underline}
