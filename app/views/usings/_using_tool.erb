@@ -11,7 +11,7 @@
     </ul>
   </div>
   <% if using_tool.description.blank? %>
-    <p class="about"><%= truncate(tool.description, :length => 140) %></p>
+    <p class="about"><%= truncate(tool.description, :length => 180) %></p>
   <% else %>
     <p><%= using_tool.description %></p>
   <% end %>

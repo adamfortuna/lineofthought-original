@@ -16,7 +16,7 @@
     </ul>
   </div>
   <% if using_site.description.blank? %>
-    <p class="about"><%= truncate(site.description, :length => 140) %></p>
+    <p class="about"><%= truncate(site.description, :length => 180) %></p>
   <% else %>
     <p><%= using_site.description %></p>
   <% end %>
