@@ -10,7 +10,7 @@ module SiteHelper
   end
   
   def tool_categories(tool, format=nil)
-    language = (tool.language_id? && tool.cached_language) ? "<li><a href='#{tool.cached_language[:param]}#{".#{format}" if format}'>#{tool.cached_language[:name]}</a></li>" : ""
+    language = (tool.language_id? && tool.cached_language) ? "<li><a href='/tools/#{tool.cached_language[:param]}#{".#{format}" if format}'>#{tool.cached_language[:name]}</a></li>" : ""
     language + (tool.cached_categories || []).collect do |category|
       "<li><a href='/tools#{".#{format}" if format}?category=#{category[:param]}'>#{category[:name]}</a></li>"
     end.join
