@@ -4,7 +4,7 @@ class SitesController < ApplicationController
   respond_to :html, :json, :xml
   
   cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
-  caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && current_user && (current_user.admin? || current_user.claimed_site?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
+  # caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && current_user && (current_user.admin? || current_user.claimed_site?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
 
   # GET /sites
   def index
