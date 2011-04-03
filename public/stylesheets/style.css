@@ -218,7 +218,8 @@ body.bookmarks-tools li.bookmarks-tools a:link, body.bookmarks-tools li.bookmark
 body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bookmarks a:visited,
 body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited,
 body.saved_bookmark-new li.saved_bookmark-new a:link, body.saved_bookmark-new li.saved_bookmark-new a:visited,
-body.saved_bookmark-edit li.saved_bookmark-edit a:link, body.saved_bookmark-edit li.saved_bookmark-edit a:visited {
+body.saved_bookmark-edit li.saved_bookmark-edit a:link, body.saved_bookmark-edit li.saved_bookmark-edit a:visited,
+body.site_tools-deleted li.site_tools-deleted a:link, body.site_tools-deleted li.site_tools-deleted a:visited {
   border-bottom: 1px solid #fff;
   background: #fff;
   color: #000; }
@@ -251,3 +252,6 @@ body.saved_bookmark-edit li.saved_bookmark-edit a:link, body.saved_bookmark-edit
 
 #bookmark-header {
   margin-bottom: 20px; }
+
+.titleless li.ind:first-child {
+  border-top: none; }

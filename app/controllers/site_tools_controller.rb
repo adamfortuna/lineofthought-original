@@ -13,9 +13,19 @@ class SiteToolsController < ApplicationController
   def show
     @site = Site.find_by_cached_slug!(params[:site_id]) 
     @tool = Tool.find_by_cached_slug!(params[:id]) 
-    @using = @site.usings.where(:tool_id => @tool.id).first
+    @using = @site.usings.with_deleted.where(:tool_id => @tool.id).first
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
+  end
+  
+  
+  # GET /sites/:site_id/tools/deleted
+  def deleted
+    @site = Site.find_by_cached_slug!(params[:site_id]) 
+    params[:sort] ||= "sites_desc"
+    @usings = @site.usings.only_deleted.includes(:tool).joins(:tool).order(Tool.sql_order(params[:sort]))
+  rescue ActiveRecord::RecordNotFound
+    redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }    
   end
   
   # POST /sites/:site_id/tools

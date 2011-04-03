@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110402232214) do
+ActiveRecord::Schema.define(:version => 20110403171709) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20110402232214) do
     t.integer  "user_id"
     t.text     "cached_bookmarks"
     t.integer  "bookmarks_count",  :default => 0
+    t.boolean  "deleted"
   end
 
   add_index "usings", ["site_id", "tool_id"], :name => "index_usings_on_site_id_and_tool_id"

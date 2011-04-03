@@ -190,6 +190,8 @@ GEM
       activesupport (= 3.0.5)
       bundler (~> 1.0)
       railties (= 3.0.5)
+    rails3_acts_as_paranoid (0.0.5)
+      activerecord (>= 3.0)
     railties (3.0.5)
       actionpack (= 3.0.5)
       activesupport (= 3.0.5)
@@ -283,6 +285,7 @@ DEPENDENCIES
   pismo
   pusher
   rails (= 3.0.5)
+  rails3_acts_as_paranoid
   rspec
   rspec-rails
   ruby-debug19

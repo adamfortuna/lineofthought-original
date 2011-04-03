@@ -27,7 +27,7 @@ Snaps::Application.routes.draw do
     resources :claims, :controller => "site_claims", :only => [:new, :create]
     resources :tools, :controller => "site_tools", :only => [:create, :show] do
       collection do 
-        get :autocomplete
+        get :autocomplete, :deleted
       end
     end
   end
@@ -39,6 +39,7 @@ Snaps::Application.routes.draw do
     resource :save, :controller => "saved_bookmark", :only => [:new, :create, :edit, :update, :destroy]
   end
   resources :usings, :only => [:update, :create, :destroy]
+  post '/versions/revert' => "versions#revert", :as => "revert_version"
 
 
 

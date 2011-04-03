@@ -1,0 +1,31 @@
+<section class="tab">
+  <% if @site.tools_count > 0 %>
+  <div class="title_bar group">
+    <% description "We know of #{pluralize(tools.length, "tool")} used #{@site.title} (#{@site.url})." %>
+    <h3>We know of <strong><%= pluralize(tools.length, "tool") %></strong> used on <strong><%= @site.title %></strong></h3>
+    <div id="sorting">
+      <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
+      <ul class="options" style="display:none;">
+        <li><a href="<%= site_path(@site, :sort => :toolname_asc) %>">Sort by tool</a></li>
+        <li><a href="<%= site_path(@site, :sort => :sites_desc) %>">Sort by tool popularity</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <ul id="site-tools-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>">
+    <%= render :partial => 'usings/using_tool', :collection => tools %>
+  </ul>
+  <% else %>
+    <ul id="site-tools-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>"></ul>
+    <p class="main_message">We don't know of any tools used by <strong><%= @site.title %></strong>.</p>
+  <% end %>
+  <p class="add_more">Want to add a tool used on this site? <a href="#add_new_tool" class="add_another_tool">Add it here</a></p>
+  <section id="new_using_form" style="display:none;" class="add_in_place">
+    <a name="add_new_tool"></a>
+    <% if logged_in? %>
+      <%= render 'site_tools/form' %>
+    <% else %>
+      <p class="main_message">You must <%= link_to "sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to add a tool.</p>
+    <% end %>
+  </section>
+</section>

@@ -4,6 +4,7 @@ class SubscriptionsController < ApplicationController
   layout lambda { |res| ["create"].include?(params[:action]) ? "notify" : "application" }
 
   def index
+    @user = current_user
     @subscriptions = Subscription.all.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
   end
 
