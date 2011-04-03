@@ -48,7 +48,8 @@ form.formtastic fieldset {
   background-color: transparent; }
 
 .edit-in-place form {
-  display: none; }
+  display: none;
+  clear: both; }
 
 .edit-in-place form textarea {
   font-size: 13px; }
@@ -61,7 +62,7 @@ form.formtastic fieldset {
 
 .editing form.using {
   display: block;
-  margin: 0; }
+  margin-top: 14px; }
 
 .editing form.using fieldset {
   padding: 0; }
