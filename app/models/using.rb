@@ -1,6 +1,6 @@
 class Using < ActiveRecord::Base
   attr_accessor :tool_name, :tool_url # For implicit tool creation when a tool doesn't exist
-  has_paper_trail
+  has_paper_trail :only => [:description]
   belongs_to :site, :counter_cache => 'tools_count'
   belongs_to :tool, :counter_cache => 'sites_count'
 
@@ -57,7 +57,11 @@ class Using < ActiveRecord::Base
       self.tool.save
     end
 
-    self.errors.add_to_base(self.tool.errors.full_messages.join(", ")) unless self.tool.valid?
+    if self.tool.new_record?
+      self.errors.add_to_base(self.tool.errors.full_messages.join(", "))
+    else
+      self.tool_id = self.tool.id
+    end
     return true
   end
 end

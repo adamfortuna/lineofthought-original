@@ -225,18 +225,6 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
   padding: .3em 0;
   width: auto; }
 
-.sublist li.ind a.comments {
-  display: none;
-  background-color: #ff0;
-  float: right;
-  margin-right: 6px; }
-
-.sublist li.ind:hover a.comments {
-  display: block; }
-
-.sublist li.ind:hover a.comments:hover {
-  background-color: #dddd11; }
-
 .sublist li.ind ul.mini-categories,
 .sublist li.ind ul.mini-tools {
   float: right;
@@ -260,8 +248,10 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
   position: relative;
   min-height: 20px; }
 
+body.site_tools-show .sublist li.ind .actions li.comments {
+  display: none; }
+
 .sublist li.ind .actions {
-  width: 170px;
   display: inline;
   float: right;
   margin-top: 4px; }

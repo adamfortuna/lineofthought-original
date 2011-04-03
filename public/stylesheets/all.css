@@ -340,15 +340,13 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {background-color: gre
  .sublist li.ind {padding: 0.8em 0.8em 0.6em}
 .sublist li.ind .title {margin-left: 0; min-height: 0px; position: relative}
 .sublist li.ind .title h4 {float: left; font-size: 16px; margin: 0; padding: .3em 0; width: auto}
-.sublist li.ind a.comments {display: none; background-color: #ff0; float: right; margin-right: 6px}
-.sublist li.ind:hover a.comments {display: block}
-.sublist li.ind:hover a.comments:hover {background-color: #dddd11}
 .sublist li.ind ul.mini-categories, .sublist li.ind ul.mini-tools {float: right; max-width: 400px; position: relative}
 .sublist li.ind ul.mini-categories li, .sublist li.ind ul.mini-tools li {float: right}
 .sublist li.ind p {clear: left; padding-top: 4px; display: inline}
 .sublist li.ind p.about {color: #888; font-size: 12px}
 .sublist li.ind div.description {position: relative; min-height: 20px}
-.sublist li.ind .actions {width: 170px; display: inline; float: right; margin-top: 4px}
+body.site_tools-show .sublist li.ind .actions li.comments {display: none}
+.sublist li.ind .actions {display: inline; float: right; margin-top: 4px}
 .sublist li.ind .actions li {float: right}
 .sublist li.ind .actions li a {font-size: 11px; padding: 0 0 0 10px; color: #666; float: right}
 .sublist li.ind .actions li a:hover {color: red}
