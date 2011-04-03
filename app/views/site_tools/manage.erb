@@ -4,7 +4,15 @@
   <%= render 'sites/header' %>
   
   <section class="tab">
-    <%= render "form" %>
+    <section>
+      <%= render "form" %>
+      <div>
+        <h3>Manage Tools used on <%= @site.title %></h3>
+        <ul class="usings">
+          <%= render :partial => 'using', :collection => @usings %>
+        </ul>
+      </div>
+    </section>
   </section>
 </section>
 

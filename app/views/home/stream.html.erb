@@ -26,7 +26,7 @@ $(function() {
   var channel = pusher.subscribe('stream');
   channel.bind('signup', function(data) {
     var source = '<li class="signup">User <a href="/profiles/{{username}}"><img src="{{avatar}}" />{{username}} signed up.</li>';
-    output(data, source)
+    output(data, source);
   });
   channel.bind('site', function(data) {
     var source = '<li class="site">The site <a href="/sites/{{param}}">{{title}}</a> was added.</li>';
@@ -48,7 +48,7 @@ $(function() {
   function output(data, source) {
     var template = Handlebars.compile(source);
     var result = template(data);
-    $("#activity").append(result);
+    $("#activity").prepend(result);
   }
 });
 <% end %>

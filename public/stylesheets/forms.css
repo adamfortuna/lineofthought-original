@@ -18,15 +18,6 @@ form.formtastic fieldset ol li.tokeninput {
   height: 55px;
   width: 97%; }
 
-.using .countdown {
-  margin: 0;
-  height: 30px;
-  position: absolute;
-  width: 580px; }
-
-.using .countdown span {
-  float: right; }
-
 form {
   font-size: 14px; }
 
@@ -45,18 +36,11 @@ form {
 
 form.formtastic fieldset {
   border: 0;
-  background: none; }
+  background: none;
+  padding-bottom: 0px; }
 
 /* forms */
 /* Edit tools for site page */
-li.countdown {
-  float: right;
-  font-size: 16px;
-  margin: 0 14px 0 0; }
-
-li.countdown .alert {
-  color: red; }
-
 .edit-in-place {
   position: relative; }
 
@@ -68,28 +52,6 @@ li.countdown .alert {
 
 .edit-in-place form textarea {
   font-size: 13px; }
-
-.edit-in-place .actions {
-  display: none;
-  position: absolute;
-  right: 0px;
-  width: 120px;
-  top: 10px; }
-
-.edit-in-place .actions li {
-  float: right; }
-
-.edit-in-place .actions li a {
-  font-size: 11px;
-  padding: 0 0 0 20px;
-  color: #666;
-  float: right; }
-
-.edit-in-place .actions li a:hover {
-  color: red; }
-
-.edit-in-place:hover .actions {
-  display: block; }
 
 .edit-in-place h4 {
   font-size: 16px; }
@@ -107,12 +69,8 @@ li.countdown .alert {
 .editing .edit-in-place-show {
   display: none; }
 
-.edit-in-place-cancel {
+.editing p.about {
   display: none; }
-
-.popup .using .countdown {
-  width: auto;
-  right: 10px; }
 
 li.tool_name_autocomplete .inline-hints {
   display: none; }

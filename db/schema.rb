@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110331221947) do
+ActiveRecord::Schema.define(:version => 20110402232214) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -41,9 +41,6 @@ ActiveRecord::Schema.define(:version => 20110331221947) do
   create_table "bookmarks", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type",                 :default => "Bookmark"
-    t.integer  "parent_id"
-    t.integer  "user_id"
     t.string   "title"
     t.text     "url"
     t.text     "description"
@@ -57,6 +54,9 @@ ActiveRecord::Schema.define(:version => 20110331221947) do
     t.boolean  "is_presentation",      :default => false
     t.string   "uid"
     t.integer  "user_bookmarks_count", :default => 0
+    t.integer  "user_id"
+    t.string   "type",                 :default => "Bookmark"
+    t.integer  "parent_id"
   end
 
   add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
@@ -313,5 +313,16 @@ ActiveRecord::Schema.define(:version => 20110331221947) do
   add_index "usings", ["site_id", "user_id"], :name => "index_usings_on_site_id_and_user_id"
   add_index "usings", ["site_id"], :name => "index_usings_on_site_id"
   add_index "usings", ["tool_id"], :name => "index_usings_on_tool_id"
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

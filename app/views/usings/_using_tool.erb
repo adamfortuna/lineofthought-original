@@ -2,18 +2,40 @@
   site = @site || using_tool.site
   tool = @tool || using_tool.tool
 %>
-<li class="tool group ind">
+
+<li class="tool group ind edit-in-place" id="using_<%= using_tool.id %>" data-id="<%= using_tool.id %>">
   <div class="title group">
     <h4><% if tool.has_favicon? %><a href="<%= tool_path(tool) %>" class="favicon"><img src="<%= tool.full_favicon_url %>" /></a><% end %><%= link_to tool.name, tool %></h4>
     <ul class="mini-categories">
       <%= raw tool_categories(tool, params[:format]) %>
-      <li><%= link_to "comments", site_tool_path(site, tool, :format => params[:format]), :class => "comments" %></li>
     </ul>
   </div>
-  <% if using_tool.description.blank? %>
-    <p class="about"><%= truncate(tool.description, :length => 180) %></p>
-  <% else %>
-    <p><%= using_tool.description %></p>
-  <% end %>
+
+  <div class="description">
+    <% if using_tool.description.blank? %>
+      <p class="about"><%= truncate(tool.description, :length => 150) %></p>
+      <p class="edit-in-place-show" style="display:none;"></p>
+    <% else %>
+      <p class="edit-in-place-show"><%= using_tool.description %></p>
+    <% end %>
+    <ul class="actions">
+      <li><%= link_to "comments", site_tool_path(site, tool, :format => params[:format]) %></li>
+      <% if logged_in? && current_user.can_edit_using?(using_tool, site) %>
+        <li class="edit-in-place-edit"><%= link_to "edit", "#" %></li>
+        <li class="edit-in-place-cancel"><%= link_to "cancel", "#" %></li>
+        <li><%= link_to "remove", using_path(using_tool), :remote => true, :method => :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+
   <%= raw using_bookmarks(using_tool, 2, params[:format]) if using_tool.bookmarks_count > 0 %>
+
+  <% if logged_in? && current_user.can_edit_using?(using_tool, site) %>
+    <%= semantic_form_for using_tool, :remote => true, :method => :put, :html => { :id => "edit_using_#{using_tool.id}" } do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :description, :label => "How is #{tool.name} being used on #{site.title}?", :as => :text, :required => false, :input_html => { :rows => 1, :class => "using_description" } %>
+        <%= form.commit_button :button_html => { :value => "submit", :class => "right" } %>
+      <% end %>
+    <% end %>
+  <% end %>
 </li>

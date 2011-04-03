@@ -11,6 +11,7 @@ a.favicon img, img.favicon { margin:0; width:16px; height:16px; }
 /* Bar listing what's currenly shown with sorting options sites#index, tools#index */
 .title_bar { padding: 1em 1em 0 .5em; }
 .title_bar h2, .title_bar h3, .title_bar h4 { float:left; }
+.title_bar a.add { font-size:13px; padding:0 0 0 10px; }
 
 
 /* Main-list pages - tools#index, sites#index, bookmarks#index */
@@ -84,8 +85,18 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank { background-color: gr
 .sublist li.ind ul.mini-tools { float:right; max-width:400px; position:relative; }
 .sublist li.ind ul.mini-categories li,
 .sublist li.ind ul.mini-tools li { float:right; }
-.sublist li.ind p { clear:left; padding-top:4px; }
+.sublist li.ind p { clear:left; padding-top:4px; display:inline; }
 .sublist li.ind p.about { color:#888; font-size:12px; }
+.sublist li.ind div.description { position:relative; min-height:20px; }
+.sublist li.ind .actions { width:170px; display:inline; float:right; margin-top:4px; }
+.sublist li.ind .actions li { float:right; }
+.sublist li.ind .actions li a { font-size: 11px; padding:0 0 0 10px; color:#666; float:right; }
+.sublist li.ind .actions li a:hover { color:red; }
+.sublist li.ind .actions li.edit-in-place-cancel { display:none;}
+.sublist li.ind.editing .actions li.edit-in-place-cancel { display:inline; }
+.sublist li.ind.editing .actions .edit-in-place-edit { display:none; }
+
+.edit-in-place:hover .actions { display:block; }
 
 
 /* * tools#show list of sites using  *
@@ -93,3 +104,6 @@ ul.main-list .using { clear:both; margin:1.5em 0 0 0; }
 ul.main-list .using li { float:left; margin-right:10px; }
 ul.main-list .using li a { background-color:#ccc; padding:.4em; }
 */
+
+section.add_in_place { border-top:1px solid #ccc; }
+p.add_more { text-align:center; font-size:18px; color:#555; margin:14px 0; }

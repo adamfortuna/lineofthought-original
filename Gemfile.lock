@@ -157,6 +157,8 @@ GEM
       oa-more (= 0.2.0)
       oa-oauth (= 0.2.0)
       oa-openid (= 0.2.0)
+    paper_trail (2.1.1)
+      rails (~> 3)
     paperclip (2.3.8)
       activerecord
       activesupport
@@ -280,6 +282,7 @@ DEPENDENCIES
   mocha
   mysql2
   omniauth
+  paper_trail
   paperclip
   pismo
   pusher

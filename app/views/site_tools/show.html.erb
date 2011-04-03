@@ -11,6 +11,11 @@
   </section>
 </section>
 
-<% cache(["sidebar", @site]) do %>
-  <%= render 'sites/show_sidebar' %>
+<%= render 'sites/show_sidebar' %>
+
+<% javascript do %>
+$(function() {  
+  using_tool_autocomplete("/sites/<%=@site.cached_slug%>/tools/autocomplete", "#using");
+  edit_in_place();
+});
 <% end %>

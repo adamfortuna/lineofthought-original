@@ -215,7 +215,7 @@ ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 
 ul.tabs a {background-color: #f3f3f3; font-size: 16px; position: relative; top: 1px}
 ul.tabs li.current a:link, ul.tabs li.current a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
 ul.tabs a:hover {background-color: #fff}
- #sorting {float: right; position: relative; width: 250px}
+ #sorting {float: right; position: relative; width: 200px}
 #sorting p {float: right; width: 100%; text-align: right}
 #sorting p a {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
 #sorting p a.active {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat right}
@@ -248,32 +248,22 @@ form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position
 form.formtastic fieldset ol li.nolabel label {display: none}
 form.formtastic fieldset ol li.tokeninput {margin-bottom: 2em}
 .using textarea {height: 55px; width: 97%}
-.using .countdown {margin: 0; height: 30px; position: absolute; width: 580px}
-.using .countdown span {float: right}
 form {font-size: 14px}
 .check_boxes {position: relative}
 .check_boxes fieldset {margin: 0 0 5px 0}
 .check_boxes fieldset li {float: left; width: 30%}
 .inline-hints {margin: 0.5em .25em}
-form.formtastic fieldset {border: 0; background: none}
-  li.countdown {float: right; font-size: 16px; margin: 0 14px 0 0}
-li.countdown .alert {color: red}
-.edit-in-place {position: relative}
+form.formtastic fieldset {border: 0; background: none; padding-bottom: 0px}
+  .edit-in-place {position: relative}
 .edit-in-place:hover {background-color: transparent}
 .edit-in-place form {display: none}
 .edit-in-place form textarea {font-size: 13px}
-.edit-in-place .actions {display: none; position: absolute; right: 0px; width: 120px; top: 10px}
-.edit-in-place .actions li {float: right}
-.edit-in-place .actions li a {font-size: 11px; padding: 0 0 0 20px; color: #666; float: right}
-.edit-in-place .actions li a:hover {color: red}
-.edit-in-place:hover .actions {display: block}
 .edit-in-place h4 {font-size: 16px}
 .edit-in-place p em {color: #777}
 .editing form.using {display: block; margin: 0}
 .editing form.using fieldset {padding: 0}
 .editing .edit-in-place-show {display: none}
-.edit-in-place-cancel {display: none}
-.popup .using .countdown {width: auto; right: 10px}
+.editing p.about {display: none}
 li.tool_name_autocomplete .inline-hints {display: none}
 input.autocomplete-toolname {padding-left: 26px; background: url(/images/placeholder.jpg) no-repeat 4px 4px; width: 520px}
 body.popup input.autocomplete-toolname {width: 452px}
@@ -305,6 +295,7 @@ a.favicon, img.favicon {width: 16px; height: 16px; float: left; padding-right: 8
 a.favicon img, img.favicon {margin: 0; width: 16px; height: 16px}
  .title_bar {padding: 1em 1em 0 .5em}
 .title_bar h2, .title_bar h3, .title_bar h4 {float: left}
+.title_bar a.add {font-size: 13px; padding: 0 0 0 10px}
  ul.main-list li.ind {padding: 1em 0; position: relative}
 ul.main-list li.ind p {margin-top: 4px}
 ul.main-list li.ind .details {margin: 0; padding: 0 .5em}
@@ -354,6 +345,16 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {background-color: gre
 .sublist li.ind:hover a.comments:hover {background-color: #dddd11}
 .sublist li.ind ul.mini-categories, .sublist li.ind ul.mini-tools {float: right; max-width: 400px; position: relative}
 .sublist li.ind ul.mini-categories li, .sublist li.ind ul.mini-tools li {float: right}
-.sublist li.ind p {clear: left; padding-top: 4px}
+.sublist li.ind p {clear: left; padding-top: 4px; display: inline}
 .sublist li.ind p.about {color: #888; font-size: 12px}
- 
+.sublist li.ind div.description {position: relative; min-height: 20px}
+.sublist li.ind .actions {width: 170px; display: inline; float: right; margin-top: 4px}
+.sublist li.ind .actions li {float: right}
+.sublist li.ind .actions li a {font-size: 11px; padding: 0 0 0 10px; color: #666; float: right}
+.sublist li.ind .actions li a:hover {color: red}
+.sublist li.ind .actions li.edit-in-place-cancel {display: none}
+.sublist li.ind.editing .actions li.edit-in-place-cancel {display: inline}
+.sublist li.ind.editing .actions .edit-in-place-edit {display: none}
+.edit-in-place:hover .actions {display: block}
+ section.add_in_place {border-top: 1px solid #ccc}
+p.add_more {text-align: center; font-size: 18px; color: #555; margin: 14px 0}

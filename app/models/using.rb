@@ -1,5 +1,6 @@
 class Using < ActiveRecord::Base
   attr_accessor :tool_name, :tool_url # For implicit tool creation when a tool doesn't exist
+  has_paper_trail
   belongs_to :site, :counter_cache => 'tools_count'
   belongs_to :tool, :counter_cache => 'sites_count'
 
