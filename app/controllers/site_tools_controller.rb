@@ -1,6 +1,6 @@
 class SiteToolsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:manage, :create]
-  before_filter :load_record, :only => [:create, :manage, :autocomplete]
+  before_filter :authenticate_user!, :only => [:create]
+  before_filter :load_record, :only => [:create, :autocomplete]
   respond_to :html, :json, :xml
   cache_sweeper :using_sweeper, :only => [:create]
 
@@ -16,15 +16,6 @@ class SiteToolsController < ApplicationController
     @using = @site.usings.where(:tool_id => @tool.id).first
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
-  end
-
-  # GET /sites/:site_id/tools/manage
-  def manage
-    @usings = @site.usings.all(:include => :tool, :order => "tools.name")
-    respond_to do |format|
-      format.html
-      format.popup
-    end
   end
   
   # POST /sites/:site_id/tools

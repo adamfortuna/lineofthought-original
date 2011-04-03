@@ -27,7 +27,7 @@ Snaps::Application.routes.draw do
     resources :claims, :controller => "site_claims", :only => [:new, :create]
     resources :tools, :controller => "site_tools", :only => [:create, :show] do
       collection do 
-        get :autocomplete, :manage
+        get :autocomplete
       end
     end
   end
