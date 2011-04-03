@@ -1,7 +1,7 @@
 require 'csv'
 class Tool < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true
-  has_paper_trail
+  has_paper_trail :only => [:description, :name, :url, :language_id]
   include HasFavicon
   attr_accessor :claimer
 

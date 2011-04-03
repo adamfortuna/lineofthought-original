@@ -1,11 +1,19 @@
+Heroku:
 Clear cache
-ActionController::Base.cache_store.clear
+  ActionController::Base.cache_store.clear
 
 reindex solr
-heroku rake sunspot:reindex
+  heroku rake sunspot:reindex
 
-regenerate css
-rake asset:packager:build_all
+Local:
+build css/js
+  rake asset:packager:build_all
+  rake sunspot:reindex
+  rake sunspot:solr:run
+  rake sunspot:solr:start
+  rake sunspot:solr:stop
+
+
 
 Financials:
   $6    1 Job runner (not always running)

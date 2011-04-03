@@ -2,7 +2,7 @@ require 'digest/md5'
 class Site < ActiveRecord::Base
   extend ActiveSupport::Memoizable
   has_friendly_id :full_uid, :use_slug => true
-  has_paper_trail
+  has_paper_trail :only => [:description, :title, :location, :display_location]
   acts_as_mappable
   include HasFavicon
   attr_accessor :skip_ranks, :claimer  

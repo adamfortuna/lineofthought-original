@@ -42,7 +42,7 @@ class Page < ActiveRecord::Base
   end
   
   def datetime
-    doc.datetime
+    doc.datetime rescue nil
   end
   
   def html_body
@@ -75,12 +75,16 @@ class Page < ActiveRecord::Base
   def load_url
     Timeout::timeout(20) do
       agent = Mechanize.new
-      agent.redirection_limit     = 3             # only follow 3 redirect
+      agent.redirection_limit     = 5             # only follow 3 redirect
       agent.redirect_ok           = true          # follow redirects
       agent.user_agent_alias      = 'Mac Safari'  # cloak it
       page = agent.get(self.uri)
       self.url = page.uri.to_s if self.url != page.uri.to_s
-      self.html = page.send(:html_body)
+      if page.is_a?(Mechanize::Page)
+        self.html = page.send(:html_body)
+      else
+        self.html = page.body
+      end
       self.code = page.code
       self.success = true
     end
