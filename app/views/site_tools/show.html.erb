@@ -5,35 +5,40 @@
   <section class="tab">
     <ul id="site-tools-list" class="sublist usings sites titleless">
       <%= render :partial => 'usings/using_tool', :object => @using %>
-      <% if logged_in? %>
+      <% if logged_in? && (@using.versions.count > 0) && current_user.can_edit_using?(@using, @site)%>
       <li class="ind">
         <a href="#" id="see_history">see history</a>
-        <form action="<%= revert_version_path %>" method="post">
-        <table id="site_tool_history">
-          <tr>
-            <th>Date</th>
-            <th>Editor</th>
-            <th>Action</th>
-            <th style="text-align:center;">Revert</th>
-          </tr>
-        <% @using.versions.each do |version| %>
-          <% if using = version.reify %>
+        <div id="site_tool_history" style="display:none;">
+          <form action="<%= revert_version_path %>" method="post">
+          <table>
             <tr>
-              <td><%= using.updated_at %></td>
-              <td><%= link_to using.user.username, profile_path(using.user) %></td>
+              <th>Date</th>
+              <th>Editor</th>
+              <th>Action</th>
+              <th style="text-align:center;">Revert</th>
+            </tr>
+          <% @using.versions.each do |version| %>
+            <% 
+              using = version.reify
+              user = (using && using.user) ? using.user : User.find(version.whodunnit)
+            %>
+            
+            <tr>
+              <td><%= version.created_at %></td>
+              <td><%= link_to user.username, profile_path(user) %></td>
               <td><%= version.event %></td>
               <td style="text-align:center;"><input type="radio" name="id" value="<%= version.id %>" /></td>
             </tr>
-            <% unless using.description.blank? %>
+            <% if using && !using.description.blank? %>
             <tr>
               <td colspan="4"><p>Description: <em><%= truncate(using.description, :length => 200) %></em></p></td>
             </tr>
             <% end %>
           <% end %>
-        <% end %>
-        </table>
-        <p><input type="submit" value="revert" /></p>
-        </form>
+          </table>
+          <p><input type="submit" value="revert" /></p>
+          </form>
+        </div>
       </li>
       <% end %>
     </ul>

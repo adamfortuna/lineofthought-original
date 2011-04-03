@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit_using?(using, site = nil, tool = nil)
-    return using.user_id == self.id    
+    return true if using.user_id == self.id
     return can_edit_site?(site) if site
     return can_edit_tool?(tool) if tool
     return false
