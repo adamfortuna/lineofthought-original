@@ -140,14 +140,18 @@ class User < ActiveRecord::Base
 
   def can_edit_using?(using, site = nil, tool = nil)
     return true if using.user_id == self.id
+    site = site || using.site
     return can_edit_site?(site) if site
+    tool = tool || using.tool
     return can_edit_tool?(tool) if tool
     return false
   end
 
   def can_destroy_using?(using, site = nil, tool = nil)
-    return using.user_id == self.id    
+    return true if using.user_id == self.id    
+    site = site || using.site
     return can_edit_site?(site) if site
+    tool = tool || using.tool
     return can_edit_tool?(tool) if tool
     return false
   end
