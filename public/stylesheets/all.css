@@ -208,6 +208,12 @@ a.remove {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/ic
 img.screenshot, .screenshot img {border: 1px solid #ccc; float: left}
 a.external {font-size: 10px}
 a:link, a:visited {color: #3792B3; font-weight: bold; outline-color: -moz-use-text-color; outline-style: none; outline-width: medium; text-decoration: none}
+section.text p, section.text h3 {margin: .5em 1em}
+section.text ul, section.text ol {margin: 1em 1em 1em 1.4em; padding: 0 1em}
+section.text ul {list-style: disc outside}
+section.text ol {list-style: decimal outside}
+section.text ol li {margin-bottom: .5em}
+section.text ul li p, section.text ol li p {margin: 1em 0}
  section.announcement {margin-bottom: 1em}
 section.announcement p {font-size: 18px; color: #333; margin: .5em 1em; text-align: center}
 section.announcement p.title {font-size: 24px; color: #666; margin: .5em 0}
@@ -250,6 +256,8 @@ body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited, b
 #tool-header .mini-categories {bottom: 20px; right: 6px}
 #bookmark-header {margin-bottom: 20px}
 .titleless li.ind:first-child {border-top: none}
+button.loading {display: none}
+.loading button.loading {display: inline; padding-right: 18px; background: url(/images/indicator.gif) no-repeat right}
  form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
 form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
 form.formtastic fieldset ol li.nolabel label {display: none}

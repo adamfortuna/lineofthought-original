@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110404030434) do
+ActiveRecord::Schema.define(:version => 20110404194632) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -86,6 +86,9 @@ ActiveRecord::Schema.define(:version => 20110404030434) do
     t.integer  "user_id"
     t.integer  "claimable_id"
     t.string   "claimable_type"
+    t.string   "status"
+    t.string   "claim_method"
+    t.datetime "status_updated_at"
   end
 
   add_index "claims", ["claimable_id", "claimable_type"], :name => "index_claims_on_claimable_id_and_claimable_type"

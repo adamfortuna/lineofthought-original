@@ -2,22 +2,94 @@
 <section id="content" class="main site">
   <%= render 'sites/header' %>
 
-  <section class="tab">
-    <p>There are two ways to claim a site:</p>    
-
-    <div>
-      <p>Add the following tag anywhere on the URL <%= @site.url%></p>
-      <pre><%= current_user.claim_id %></pre>
-      <p><%= link_to "Claim Using code", site_claims_path(@site, :using => "tag"), :method => :post %></p>
-    </div>
-    
-    <div>
-      <p>Upload a new file to this site in the root directory with the file name below:</p>
-      <pre><%= current_user.claim_file %></pre>
-      <p><%= link_to "Claim using file", site_claims_path(@site, :using => "file"), :method => :post %></p>
-    </div>
-    
+  <section class="tab text">
+    <h3>Benefits to Claiming this Site</h3>
+    <p>After successfully claiming this site, you'll be able to do the following...</p>
+    <ul class="normal">
+      <li>Have the ability to change the description and site title.</li>
+      <li>Lock adding of tools except by others who have claimed this site.</li>
+      <li>Ability to edit or remove tools associated with this site.</li>
+      <li>List of deleted tools, and the ability to restore them.</li>
+      <li>Edit history of how each tool is used with the ability to restore to a past revision.</li>
+    </ul>
+    <h3>Claim this Site Now</h3>
+    <p>There are two ways to claim a site.</p>
+    <ol>
+      <li>
+        <h4>Claim by Tag</h4>
+        <p>Add the following tag anywhere on the URL <%= link_to @site.url, @site.url %></p>
+        <textarea><%= current_user.claim_id %></textarea>
+        <p><%= button_to "This code is now on my site", site_claims_path(@site, :using => "tag"), :method => :post, :remote => true, :id => :claim_by_code %>
+          <button class="loading cancel" id="cancel_claim_by_code">cancel</button>
+        </p>
+        <div class="error" id="error-tag" style="display:none;"><p>We were not able to verify your claim at this time. You can try again in 30 seconds.</p></div>
+      </li>
+      <li>
+        <h4>Claim by File</h4>
+        <p>Upload a new file to this site in the root directory with the file name below:</p>
+        <textarea><%= current_user.claim_file %></textarea>
+        <p>
+          <%= button_to "This file is now uploaded", site_claims_path(@site, :using => "file"), :method => :post, :remote => true, :id => :claim_by_file %>
+          <button class="loading cancel" id="cancel_claim_by_tag">cancel</button>
+        </p>
+        <div class="error" id="error-file" style="display:none;"><div>We were not able to verify your claim at this time. You can try again in 30 seconds.</p></div>
+      </li>
+    </ol>    
   </section>
 </section>
 
 <%= render 'sites/show_sidebar' %>
+
+<% javascript do %>
+var failedLookup, checkForLookup;
+$(function(){
+  $("#claim_by_code").click(function(e) {
+    $("#claim_by_code").attr("disabled", "disabled");
+    $("#claim_by_code").parents("form").addClass("loading").parent().addClass("loading");
+    checkForLookup = setInterval("resubmit_claim_by_code()", 3000);
+    failedLookup = setTimeout("claim_failed('tag')", 15000);
+    return true;
+  });
+  $("#claim_by_file").click(function(e) {
+    $("#claim_by_file").attr("disabled", "disabled");
+    $("#claim_by_file").parents("form").addClass("loading").parent().addClass("loading");
+    checkForLookup = setInterval("resubmit_claim_by_file()", 3000);
+    failedLookup = setTimeout("claim_failed('file')", 15000);
+    return true;
+  });
+  $("button.cancel").click(function(e) {
+    cancel_lookup();
+  });
+});
+
+function resubmit_claim_by_code() {
+  $("#claim_by_code").parents("form").submit();
+}
+
+function resubmit_claim_by_file() {
+  $("#claim_by_file").parents("form").submit();
+}
+
+function claim_failed(method) {
+  cancel_lookup();
+  $(".error").hide();
+  if(method == "tag") {
+    $("#error-tag").show();
+  } else {
+    $("#error-file").show();
+  }
+}
+
+function cancel_lookup() {
+  clearInterval(checkForLookup);
+  clearTimeout(failedLookup);
+  checkForLookup = false;
+  $("#claim_by_code, #claim_by_file").removeAttr("disabled");
+  $("form.loading, li.loading").removeClass("loading");
+}
+
+function lookup_failed() {
+  cancel_lookup();
+  $("#site_error").show();
+}
+<% end %>

@@ -7,6 +7,14 @@ img.screenshot, .screenshot img { border: 1px solid #ccc; float:left; }
 a.external { font-size:10px; }
 a:link, a:visited { color:#3792B3; font-weight:bold; outline-color:-moz-use-text-color; outline-style:none; outline-width:medium; text-decoration:none; }
 
+section.text { }
+section.text p, section.text h3 { margin:.5em 1em; }
+section.text ul, section.text ol { margin:1em 1em 1em 1.4em; padding:0 1em; }
+section.text ul  { list-style:disc outside; }
+section.text ol { list-style:decimal outside; }
+section.text ol li { margin-bottom:.5em; }
+section.text ul li p, section.text ol li p { margin: 1em 0; }
+
 /* home */
 section.announcement { margin-bottom:1em; }
 section.announcement p { font-size:18px; color:#333; margin:.5em 1em; text-align:center; }
@@ -85,3 +93,9 @@ body.site_tools-deleted li.site_tools-deleted a:link, body.site_tools-deleted li
 #tool-header .mini-categories { bottom:20px; right:6px; }
 #bookmark-header { margin-bottom:20px; }
 .titleless li.ind:first-child { border-top:none; }
+
+
+form.loading { }
+form.loading input[type=submit] { }
+button.loading { display:none; }
+.loading button.loading { display:inline; padding-right:18px;  background:url(/images/indicator.gif) no-repeat right; }

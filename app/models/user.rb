@@ -85,20 +85,25 @@ class User < ActiveRecord::Base
 
   def claimed_site?(object)
     return false if cached_site_claims.nil? || cached_site_claims.empty?
-    if object.is_a?(Site)
-      cached_site_claims.include?(object.id)
-    elsif
-      cached_site_claims.include?(object)
-    end
+    site_id = object.is_a?(Site) ? object.id : object
+    cached_site_claims.include?(site_id)
   end
 
   def claimed_tool?(object)
     return false if cached_tool_claims.nil? || cached_tool_claims.empty?
-    if object.is_a?(Tool)
-      cached_tool_claims.include?(object.id)
-    elsif object_type == 'Tool'
-      cached_tool_claims.include?(object)
+    tool_id = object.is_a?(Tool) ? object.id : object
+    cached_tool_claims.include?(tool_id)
+  end
+  
+  def find_or_create_claim(object, method)
+    claim = self.claims.find(:first, 
+                             :conditions => ["claimable_type = ? AND claimable_id = ?", object.class.to_s, object.id])
+    claim = self.claims.create({:claimable => object, :claim_method => method}) if claim.nil?
+
+    if claim && claim.claim_method != method
+      claim.update_attribute(:claim_method, method)
     end
+    return claim
   end
 
   # Is this users email confirmed?

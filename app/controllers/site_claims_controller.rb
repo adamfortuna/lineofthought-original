@@ -4,26 +4,34 @@ class SiteClaimsController < ApplicationController
   respond_to :html
 
   # GET /sites/:site_id/claims/new
-  def new
-    #@articles = @site.articles.recent(5)
-  end
+  def new; end
 
   # POST /sites/:site_id/claims
   # todo
   def create
-    fetch_method = params[:using]
+    @claim = current_user.find_or_create_claim(@site, params[:using])
     
-    if fetch_method == "tag"
-      Claim.by_tag(@site, current_user)
-    else
-      Claim.by_file(@site, current_user)
+    # Retry verification
+    if @claim && @claim.verification_failed? && @claim.status_updated_at < 30.seconds.ago.to_datetime
+      @claim.retry!
+      @claim.attempt_to_verify! 
     end
-    
-    if current_user.claimed_site?(@site)
-      redirect_to site_path(@site), :notice => "You've now claimed this site! You can now fully edit it's contents."
-    else
-      flash[:error] = "We weren't able to verify your claim, please try again."
-      render :new
+
+    respond_to do |format|
+      format.js do
+        if @claim.nil?
+          render :create_failed
+        elsif @claim.verified?
+          flash[:notice] = "You have successfully claimed this site."
+          render :create
+        elsif @claim.verification_failed? 
+          render :create_failed
+        elsif @claim.unverified?
+          render :js => "console.log('create in progress');"
+        else # unknown error
+          render :create_failed
+        end
+      end
     end
   end
   
