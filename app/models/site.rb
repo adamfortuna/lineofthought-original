@@ -34,7 +34,7 @@ class Site < ActiveRecord::Base
   
   
   has_many :usings, :dependent => :destroy
-  has_many :tools, :through => :usings, :conditions => ["usings.deleted IS ?", nil]
+  has_many :tools, :through => :usings#, :conditions => ["usings.deleted IS ?", nil]
   belongs_to :link
 
   # Bookmarks

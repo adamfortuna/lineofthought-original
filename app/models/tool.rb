@@ -34,7 +34,7 @@ class Tool < ActiveRecord::Base
   has_many :buildables, :dependent => :destroy
   has_many :categories, :through => :buildables
   has_many :usings, :dependent => :destroy
-  has_many :sites, :through => :usings, :conditions => ["usings.deleted IS ?", nil]
+  has_many :sites, :through => :usings#, :conditions => ["usings.deleted IS ?", nil]
   
   # Used to get all links that are considered this Tools main pages
   has_many :sources, :as => :sourceable, :dependent => :destroy

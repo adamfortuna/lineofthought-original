@@ -9,12 +9,20 @@ class ToolSitesController < ApplicationController
   def deleted
     @tool = Tool.find_by_cached_slug!(params[:tool_id]) 
     params[:sort] ||= "alexa_asc"
-    @usings = @tool.usings
-                   .only_deleted
+    # Todo: Not sure why the 2nd one stopped working
+    @usings = Using.only_deleted
+                   .where(["tool_id=?", @tool.id])
                    .includes(:site)
                    .joins(:site)
                    .order(Site.sql_order(params[:sort]))
                    .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+
+    # @usings = @tool.usings
+    #                .only_deleted
+    #                .includes(:site)
+    #                .joins(:site)
+    #                .order(Site.sql_order(params[:sort]))
+    #                .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a tool matching #{params[:id]}" }    
   end

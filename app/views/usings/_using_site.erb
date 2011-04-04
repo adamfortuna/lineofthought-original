@@ -2,7 +2,7 @@
   site = @site || using_site.site
   tool = @tool || using_site.tool
 %>
-<li class="site group ind">
+<li class="site group ind edit-in-place" id="using_<%= using_site.id %>" data-id="<%= using_site.id %>">
   <div class="title group">
     <h4><% if site.has_favicon? %><a href="<%= site_path(site) %>" class="favicon"><img src="<%= using_site.site.full_favicon_url %>" /></a><% end %><%= link_to site.title, site_path(site) %></h4>
     <ul class="mini-tools group">
@@ -12,13 +12,39 @@
         <% end %>
         <%= raw site_tools(site, 2, params[:format]) %>
       <% end %>
-      <li><%= link_to "comments", site_tool_path(site, tool, :format => params[:format]), :class => "comments" %></li>
     </ul>
   </div>
-  <% if using_site.description.blank? %>
-    <p class="about"><%= truncate(site.description, :length => 180) %></p>
-  <% else %>
-    <p><%= using_site.description %></p>
-  <% end %>
+  
+  
+  <div class="description">
+    <% if using_site.description.blank? %>
+      <p class="about"><%= truncate(site.description, :length => 150) %></p>
+      <p class="edit-in-place-show" style="display:none;"></p>
+    <% else %>
+      <p class="edit-in-place-show"><%= using_site.description %></p>
+    <% end %>
+    <ul class="actions">
+      <li class="comments"><%= link_to "comments", site_tool_path(site, tool, :format => params[:format]) %></li>
+      <% if logged_in? && current_user.can_edit_using?(using_site, site) %>
+        <li class="edit-in-place-edit"><%= link_to "edit", "#" %></li>
+        <li class="edit-in-place-cancel"><%= link_to "cancel", "#" %></li>
+        <% if !using_site.deleted? && current_user.can_destroy_using?(using_site, site, tool) %>
+          <li><%= link_to "remove", using_path(using_site), :remote => true, :method => :delete, :confirm => "Are you sure you want to delete this association? If you just want to remove the description of how it's used, remove all text and save it." %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  
   <%= raw using_bookmarks(using_site, 2, params[:format]) if using_site.bookmarks_count > 0 %>
+  
+  
+  <% if logged_in? && current_user.can_edit_using?(using_site, site) %>
+    <%= semantic_form_for using_site, :remote => true, :method => :put, :html => { :id => "edit_using_#{using_site.id}" } do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :description, :label => "How is #{site.title} using #{tool.name}?", :as => :text, :required => false, :input_html => { :rows => 1, :class => "using_description" } %>
+        <%= form.commit_button :button_html => { :value => "submit", :class => "right" } %>
+      <% end %>
+    <% end %>
+  <% end %>
+
 </li>
