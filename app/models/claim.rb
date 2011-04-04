@@ -35,6 +35,9 @@ class Claim < ActiveRecord::Base
     event :retry do
       transition :verification_failed => :unverified
     end
+    event :bypass_and_claim do
+      transition :unverified => :verified
+    end
   end
   
   def self.by_tag(claimable, user)

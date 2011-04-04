@@ -315,6 +315,9 @@ class Site < ActiveRecord::Base
   
   after_create :create_initial_claim
   def create_initial_claim
-    claimer.claims.create({ :claimable => self }) if claimer
+    if claimer
+      claim = claimer.claims.create({ :claimable => self })
+      claim.bypass_and_claim!
+    end
   end
 end
