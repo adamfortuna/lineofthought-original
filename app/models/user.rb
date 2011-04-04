@@ -121,6 +121,7 @@ class User < ActiveRecord::Base
   def admin?
     email.include?("@lineofthought.com")
   end
+  memoize :admin?
 
   def can_edit_tool?(tool)
     admin? || editor? || claimed_tool?(tool)
@@ -137,8 +138,17 @@ class User < ActiveRecord::Base
   def can_destroy_site?(site)
     admin?
   end
+  
+  # Add new usings to a site
+  def can_add_lines?(site)
+    return true if admin? || super_editor?
+    return true if !site.locked?
+    return cached_site_claims && cached_site_claims.include?(site.id)
+  end
 
+  # Edit an existing using
   def can_edit_using?(using, site = nil, tool = nil)
+    return true if admin? || super_editor?
     return true if using.user_id == self.id
     site = site || using.site
     return can_edit_site?(site) if site
@@ -147,7 +157,9 @@ class User < ActiveRecord::Base
     return false
   end
 
+  # Remove an existing using
   def can_destroy_using?(using, site = nil, tool = nil)
+    return true if admin? || super_editor?
     return true if using.user_id == self.id    
     site = site || using.site
     return can_edit_site?(site) if site

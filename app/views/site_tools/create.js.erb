@@ -1,2 +1,2 @@
-$('ul.usings').append("<%= escape_javascript(render(:partial => 'usings/using_tool', :object => @using)) %>").find("li:last-child").effect("highlight", {}, 1000);
+$('ul.usings').prepend("<%= escape_javascript(render(:partial => 'usings/using_tool', :object => @using)) %>").find("li:first-child").effect("highlight", {}, 1500);
 reset_new_using_form();

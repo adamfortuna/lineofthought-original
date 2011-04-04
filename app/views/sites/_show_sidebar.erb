@@ -1,19 +1,50 @@
 <sidebar>
+  <aside>
+    <h3>Your Permissions</h3>
+      <% if logged_in? %>
+        <ul class="lst">
+        <% if current_user.can_edit_site?(@site) %>
+          <li><%= link_to "Edit this site", edit_site_path(@site) %></li>
+          <li><a href="#add_new_tool" class="add_another_tool">Add another tool</a></li>
+          <li><%= link_to "Undelete tools", deleted_site_tools_path(@site) %></li>
+        <% elsif !@site.locked? %>
+          <li><a href="#add_new_tool" class="add_another_tool">Add another tool</a></li>
+        <% elsif @site.locked? %>
+          <li>This site is locked by a site owner. Your permissions are limited.</li>
+        <% end %>
+        
+          <% if !current_user.can_edit_site?(@site) %>
+            <li><%= link_to "Claim to enable more permissions", new_site_claim_path(@site) %></li>
+          <% end %>
+          <% if current_user.can_destroy_site?(@site) %>
+            <li><%= link_to "Delete this site", site_path(@site), :method => :delete, :confirm => "Are you sure you want to delete this site?" %></li>
+          <% end %>
+        <li>
+        </ul>
+      <% else %>
+      <ul class="txt">
+        <li><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to make changes.</li>
+      </ul>
+      <% end %>
+  </aside>
+
   <% if params[:action] != 'bookmarks' %>
     <%= render :partial => "bookmarks/related", :object => @site.cached_bookmarks if (@site.bookmarks.size > 0) && @site.cached_bookmarks && @site.cached_bookmarks.length > 0 %>
   <% end %>
   <%= render :partial => "sites/similar", :object => @similar_sites if @similar_sites %>  
   <%= render :partial => "sites/featured" %>
   <% if logged_in? %>
-  <aside>
+  <aside class="bookmarks">
     <h3>Add an Bookmark</h3>
     <p>Know of a blog post or video about <%= @site.title %>?</p>
     <p><%= link_to "Add an Bookmark about #{@site.title}", new_bookmark_path %></p>
   </aside>
   <aside>
-    <h3>Add a Tool</h3>
-    <p>Want to add a tool?</p>
-    <p><%= link_to "Add an Tool", new_tool_path %></p>
+    <h3>Contribute to Line Of Thought</h3>
+    <ul class="lst">
+      <li><%= link_to "Add any site", new_site_path %></li>
+      <li><%= link_to "Add a new Tool", new_tool_path %></li>
+    </ul>
   </aside>
   <% end %>
 </sidebar>

@@ -1,5 +1,5 @@
-$header-link: #68aff3;
 $nav-link-hover: #4B81B4;
+$accent-color: #68aff3;
 
 body { font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background:#222; }
 body.popup { background-color:#E3E3E3; }
@@ -9,20 +9,25 @@ body.popup .container { max-width:600px; }
 ul { list-style:none; margin:0; padding:0; }
 
 /* header */
-header { display:block; background-color:#222; border-top:6px solid #68aff3; height:100px; border-bottom:3px solid #68aff3; }
-#title p a { display:block; color:#eee; font-size:30px; padding-top:12px; }
+header { display:block; background-color:#222; border-top:4px solid $accent-color; height:70px; border-bottom:2px solid #ccc; }
+#title p a { display:block; color:#eee; font-size:24px; padding-top:6px; }
 #title p a:hover { color:#ccc; }
 #title p a span { color:#68aff3; font-size:100%; }
 #title p a:hover span { color:#4B81B4; }
-#title span { font-size:20px; color:#9c9c9c; }
+#title span { font-size:18px; color:#9c9c9c; }
 
 /* navigation */
-nav { display:block; position:absolute; right:0; bottom:0; width:724px; }
+nav { display:block; position:absolute; right:0; top:0; width:724px; }
 nav ul { float:right; }
 nav ul li { float:left; }
-nav ul li a:link, nav ul li a:visited  { display:block; background-color:$header-link; color:#fff; }
-nav ul li a { padding:.6em 1.4em; font-size:14px; margin-left:1em; }
-nav ul li a:hover { background-color:$nav-link-hover; }
+nav ul li a:link, nav ul li a:visited  { display:block; color:#ddd; }
+nav ul li a { padding:6px 6px; font-size:14px; margin-left:4px; }
+nav ul li a:hover {  background-color:$accent-color; color:#eee; }
+
+#search { position:absolute; bottom:6px; right:0; display:none; }
+#search form { width:400px; float:right; font-size:13px; }
+#search form input[type=text] { width:200px; background-color:#ddd; border:1px solid #666; }
+#search form input[type=text]:focus { background-color:#fff; }
 
 #current_user { display:block; position:absolute; right:0; top:30px; }
 #current_user li { font-size:14px; float:right; padding-left:1em;}
@@ -83,3 +88,18 @@ footer section.sidebar { width:260px; float:right; }
 footer section h3 { color:#E2DDDC; font-size:10px; text-transform:uppercase; }
 footer section.main-footer p { color:#bbb; }
 footer section ul li, footer section ul { }
+
+
+body.sites nav ul li.sites a,
+body.tools nav ul li.tools a, 
+body.bookmarks nav ul li.bookmarks a,
+body.authentications nav ul li.profile a,
+body.profiles nav ul li.profile a,
+body.tool_sites nav ul li.tools a,
+body.site_tools nav ul li.sites a,
+body.site_claims nav ul li.sites a,
+body.sessions nav ul li.sign-in a,
+body.registrations nav ul li.profile a
+{ background-color:$accent-color; color:#eee; }
+
+.bookmarks { display:none; }

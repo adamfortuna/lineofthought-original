@@ -33,16 +33,16 @@ class Site < ActiveRecord::Base
   validate :validate_uri, :if => :url_changed?
   
   
-  has_many :usings
+  has_many :usings, :dependent => :destroy
   has_many :tools, :through => :usings
   belongs_to :link
 
   # Bookmarks
-  has_many :bookmark_annotations, :as => :annotateable
+  has_many :bookmark_annotations, :as => :annotateable, :dependent => :destroy
   has_many :bookmarks, :through => :bookmark_annotations
   
   # Claims
-  has_many :claims, :as => :claimable
+  has_many :claims, :as => :claimable, :dependent => :destroy
   has_many :users, :through => :claims
 
   scope :recent, order("created_at desc")

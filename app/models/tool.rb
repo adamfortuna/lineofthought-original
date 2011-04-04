@@ -34,11 +34,10 @@ class Tool < ActiveRecord::Base
   has_many :buildables, :dependent => :destroy
   has_many :categories, :through => :buildables
   has_many :usings, :dependent => :destroy
-  
   has_many :sites, :through => :usings
   
   # Used to get all links that are considered this Tools main pages
-  has_many :sources, :as => :sourceable
+  has_many :sources, :as => :sourceable, :dependent => :destroy
   has_many :links, :through => :sources
   belongs_to :link
   
@@ -48,7 +47,7 @@ class Tool < ActiveRecord::Base
   has_many :bookmark_users, :through => :annotations, :source => :bookmark, :class_name => "BookmarkUser", :conditions => "parent_id is not null"
 
   # Claims
-  has_many :claims, :as => :claimable
+  has_many :claims, :as => :claimable, :dependent => :destroy
   has_many :users, :through => :claims
 
   accepts_nested_attributes_for :categories

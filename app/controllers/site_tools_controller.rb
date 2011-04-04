@@ -1,8 +1,10 @@
 class SiteToolsController < ApplicationController
   before_filter :authenticate_user!, :only => [:create]
   before_filter :load_record, :only => [:create, :autocomplete]
+  before_filter :verify_access_to_create!, :only => [:create]
+
   respond_to :html, :json, :xml
-  cache_sweeper :using_sweeper, :only => [:create]
+  # cache_sweeper :using_sweeper, :only => [:create]
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name",
@@ -64,5 +66,13 @@ class SiteToolsController < ApplicationController
   private
   def load_record
     @site = Site.find_by_cached_slug(params[:site_id])
+  end
+
+  def verify_access_to_create!
+    if !current_user.can_add_lines?(@site)
+      respond_to do |format|
+        format.js { render :js => "alert('You do not have access to add new tools to this site.');" }
+      end
+    end
   end
 end

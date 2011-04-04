@@ -31,7 +31,7 @@
   </div>
 
   <%= raw using_bookmarks(using_tool, 2, params[:format]) if using_tool.bookmarks_count > 0 %>
-
+  
   <% if logged_in? && current_user.can_edit_using?(using_tool, site) %>
     <%= semantic_form_for using_tool, :remote => true, :method => :put, :html => { :id => "edit_using_#{using_tool.id}" } do |form| %>
       <%= form.inputs do %>

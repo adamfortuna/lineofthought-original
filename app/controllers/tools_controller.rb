@@ -4,8 +4,8 @@ class ToolsController < ApplicationController
   before_filter :verify_editable!, :only => [:edit, :update]
   before_filter :verify_destroyable!, :only => [:destroy]
   respond_to :html, :json, :xml
-  cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
 
+  # cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
   # caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
   # caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && current_user && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
 

@@ -93,6 +93,7 @@ body.site_tools-show .sublist li.ind .actions li.comments { display:none; }
 .sublist li.ind .actions li.edit-in-place-cancel { display:none;}
 .sublist li.ind.editing .actions li.edit-in-place-cancel { display:inline; }
 .sublist li.ind.editing .actions .edit-in-place-edit { display:none; }
+section.deleted li.edit-in-place-edit, section.single-site-tool li.edit-in-place-edit { display:none; }
 
 .edit-in-place:hover .actions { display:block; }
 

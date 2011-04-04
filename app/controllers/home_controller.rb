@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 
   def index; end
   def beta
-    @sites = Site.featured.limit(5)
+    @sites = Site.featured.limit(10)
   end
   def subscribed; end
 

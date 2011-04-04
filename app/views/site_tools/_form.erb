@@ -10,7 +10,10 @@
             :class => "autocomplete-toolname" } %>
     <%= form.input :tool_url, :label => "Tool URL", :required => false, :input_html => { :placeholder => "If adding a new tool, please try to add a URL for it." } %>
     <%= form.input :description, :label => "How is this tool being used?", :as => :text, :required => false, :input_html => { :rows => 3 } %>
+  <% end %>
+  <%= form.buttons do %>
     <%= form.commit_button :button_html => { :value => "add this tool", :class => "right", :id => "add_tool_submit" } %>
+    <%= form.commit_button :button_html => { :value => "hide form", :class => "left add_another_tool" } %>
     <%= form.commit_button :button_html => { :type => "reset", :id => "reset_button", :value => "reset", :class => "left" } %>
   <% end %>
 <% end %>

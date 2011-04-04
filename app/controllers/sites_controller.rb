@@ -1,6 +1,9 @@
 class SitesController < ApplicationController
   before_filter :redirect_to_site_tools, :only => [:new]
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :claim]
+  before_filter :load_record, :only => [:edit, :update, :destroy]
+  before_filter :verify_edit_access!, :only => [:edit, :update]
+  before_filter :verify_delete_access!, :only => [:delete]
   respond_to :html, :json, :xml
   
   cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
@@ -55,7 +58,6 @@ class SitesController < ApplicationController
   
   # GET /sites/:id/edit
   def edit
-    @site = find(params[:id]) 
     respond_with(@site)
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
@@ -63,7 +65,6 @@ class SitesController < ApplicationController
   
   # PUT /sites/:id
   def update
-    @site = find(params[:id]) 
     if @site.update_attributes(params[:site])
       redirect_to @site
     else
@@ -80,7 +81,6 @@ class SitesController < ApplicationController
   end
 
   def destroy
-    @site = find(params[:id]) 
     if @site.destroy
       flash[:notice] = "Delete successful"
       redirect_to sites_path
@@ -113,5 +113,23 @@ class SitesController < ApplicationController
     url = HandyUrl.new(params[:site][:url])
     site = Site.find_by_uid(url.uid)
     redirect_to manage_site_tools_path(site, :format => params[:format]) if site
+  end
+  
+  def load_record
+    @site = find(params[:id]) 
+  end
+
+  def verify_edit_access!
+    if !current_user.can_edit_site?(@site)
+      flash[:error] = "You do not have access to edit this site."
+      redirect_to site_path(@site)
+    end
+  end
+
+  def verify_delete_access!
+    if !current_user.can_destroy_site?(@site)
+      flash[:error] = "You do not have access to delete this site."
+      redirect_to site_path(@site)
+    end
   end
 end

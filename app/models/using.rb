@@ -9,7 +9,7 @@ class Using < ActiveRecord::Base
 
   attr_accessible :site_id, :tool_id, :tool_name, :tool_url, :user_id, :description, :deleted
 
-  has_many :bookmark_connections
+  has_many :bookmark_connections, :dependent => :destroy
   has_many :bookmarks, :through => :bookmark_connections
   
   validates_presence_of :site_id

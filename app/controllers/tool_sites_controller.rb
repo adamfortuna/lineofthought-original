@@ -1,7 +1,7 @@
 class ToolSitesController < ApplicationController
   before_filter :authenticate_user!, :only => [:manage, :create]
   respond_to :html, :json, :xml
-  cache_sweeper :using_sweeper, :only => [:create]
+  # cache_sweeper :using_sweeper, :only => [:create]
   
   # GET /tools/:tool_id/sites/manage
   def manage

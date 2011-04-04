@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110403171709) do
+ActiveRecord::Schema.define(:version => 20110404030434) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -187,6 +187,8 @@ ActiveRecord::Schema.define(:version => 20110403171709) do
     t.boolean  "has_favicon",                                                    :default => false
     t.integer  "link_id"
     t.boolean  "featured",                                                       :default => false
+    t.boolean  "locked",                                                         :default => false
+    t.integer  "locked_by"
   end
 
   add_index "sites", ["alexa_global_rank"], :name => "index_sites_on_alexa_global_rank"
