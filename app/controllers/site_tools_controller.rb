@@ -48,13 +48,7 @@ class SiteToolsController < ApplicationController
   def autocomplete
     if params[:term]
       @site = Site.find_by_cached_slug(params[:site_id])
-      tags = Tool.autocomplete(params[:term]).collect do |tool|
-        { "name" => tool.name, 
-          "id" => tool.id.to_s,
-          "url" => tool.url,
-          "categories" => tool.cached_categories.collect { |c| c[:name]}.join(", "),
-          "icon" => tool.has_favicon? ? tool.full_favicon_url : nil }
-      end
+      tags = Tool.autocomplete(params[:term]).collect(&:autocomplete_data)
       tools = (tags - @site.tools_hash)
     else
       tools = []

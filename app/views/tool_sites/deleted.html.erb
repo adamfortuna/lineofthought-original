@@ -1,14 +1,14 @@
-<% title "List of sites using #{@tool.name}" %>
-<section id="content" class="main tool">
-  <%= render 'header' %>
-  <%= render :partial => "sites", :object => @usings %>
+<% title "Deleted sites by #{@tool.name}" %>
+<section id="content" class="main site deleted">
+  <%= render 'tools/header' %>
+  <%= render :partial => "tools/sites", :object => @usings %>
 </section>
 
 <% javascript do %>
 $(function(){
   $(".add_another_site").click(function(e) {
     if($(this).hasClass("showing_form")) {
-      $(".add_another_site").html("add another site");
+      $(".add_another_site").html("add a site");
       $("#new_using_form").slideUp();
       $(".add_another_site").removeClass("showing_form");
       e.preventDefault();
@@ -21,3 +21,5 @@ $(function(){
   });
 });
 <% end %>
+
+<%= render 'tools/show_sidebar' %>

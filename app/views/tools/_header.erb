@@ -21,9 +21,9 @@
   <% if logged_in? %>
     <% if current_user.can_edit_tool?(@tool) %>
       <li class="right tools-edit"><%= link_to "Edit", edit_tool_path(@tool, :format => params[:format]) %></li> 
+      <li class="right tool_sites-deleted"><%= link_to "deleted sites", deleted_tool_sites_path(@tool) %></li>
     <% else %>
       <!-- <li class="right tools-edit"><a href="#">Claim</a></li> -->
     <% end %>
   <% end %>
-  <li class="right tool_sites-manage"><%= link_to "Manage Sites", manage_tool_sites_path(@tool, :format => params[:format]) %></li> 
 </ul>

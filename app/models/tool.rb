@@ -34,7 +34,7 @@ class Tool < ActiveRecord::Base
   has_many :buildables, :dependent => :destroy
   has_many :categories, :through => :buildables
   has_many :usings, :dependent => :destroy
-  has_many :sites, :through => :usings
+  has_many :sites, :through => :usings, :conditions => ["usings.deleted IS ?", nil]
   
   # Used to get all links that are considered this Tools main pages
   has_many :sources, :as => :sourceable, :dependent => :destroy
@@ -111,30 +111,6 @@ class Tool < ActiveRecord::Base
     ([self.cached_language] + self.cached_categories).compact
   end
   
-  def add_sites!(csv)
-    transaction do
-      CSV.parse(csv) do |row|
-        self.add_site!(row[0], row[1..row.length].join(", "))
-      end
-    end
-  end
-  handle_asynchronously :add_sites!
-  
-  def add_site!(url, description = nil)
-    handy_url = HandyUrl.new(url)
-    if site = Site.find_by_handy_url(handy_url)
-      using = self.usings.find_by_site_id(site.id)
-    else
-      site = Site.new({ :uri => url })
-      site.load_by_url
-      site.save
-    end
-  
-    description.strip! if description
-    self.usings.create( {:site => site, :description => description }) unless using
-  end
-  handle_asynchronously :add_site!
-  
   def update_cached_sites!
     self.cached_sites = []
     sites.limit(20).order("google_pagerank desc").each do |site|
@@ -203,11 +179,17 @@ class Tool < ActiveRecord::Base
   end
   
   def sites_hash
-    self.sites.collect do |site|
-      { "id" => site.id.to_s, "name" => "#{site.title} (#{site.url})"}
-    end
-  end  
-
+    self.sites.collect(&:autocomplete_data)
+  end
+  
+  def autocomplete_data
+    { "name" => self.name, 
+      "id" => self.id.to_s,
+      "url" => self.url,
+      "categories" => self.cached_categories.collect { |c| c[:name]}.join(", "),
+      "icon" => self.has_favicon? ? self.full_favicon_url : nil }    
+  end
+  
   def self.search_by_params(params)
     search = search do
       keywords params[:search] if params[:search]

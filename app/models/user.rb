@@ -145,10 +145,15 @@ class User < ActiveRecord::Base
   end
   
   # Add new usings to a site
-  def can_add_lines?(site)
+  def can_add_lines?(object)
     return true if admin? || super_editor?
-    return true if !site.locked?
-    return cached_site_claims && cached_site_claims.include?(site.id)
+    if object.is_a?(Site)
+      return true if !object.locked?
+      return cached_site_claims && cached_site_claims.include?(object.id)
+    elsif object.is_a?(Tool)
+      return true
+      # return cached_tool_claims && cached_tool_claims.include?(object.id)
+    end
   end
 
   # Edit an existing using

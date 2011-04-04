@@ -8,14 +8,4 @@
   </section>
 </section>
 
-<sidebar>
-  <% if logged_in? && current_user.admin? %>
-  <aside>
-    <h3>Admin Options</h3>
-    <ul>
-      <li><%= link_to "Delete This Tool", @tool, :method => :delete, :confirm => "Are you sure you want to delete this tool?" %></li>
-    </ul>
-  </aside>
-  <% end %>
-  <%= render :partial => "tools/add_bookmark", :locals => { :tool => @tool } if logged_in? %>
-</sidebar>
+<%= render 'tools/show_sidebar' %>

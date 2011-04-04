@@ -1,28 +1,33 @@
 class ToolSitesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:manage, :create]
+  before_filter :authenticate_user!, :only => [:create]
+  before_filter :load_record, :only => [:create, :autocomplete]
+  before_filter :verify_access_to_create!, :only => [:create]
   respond_to :html, :json, :xml
   # cache_sweeper :using_sweeper, :only => [:create]
   
-  # GET /tools/:tool_id/sites/manage
-  def manage
-    @tool = Tool.find_by_cached_slug(params[:tool_id])
-    @usings = @tool.usings.all(:include => :site, :order => "sites.title")
-    respond_to do |format|
-      format.html
-      format.popup
-    end
+  # GET /tools/:site_id/sites/deleted
+  def deleted
+    @tool = Tool.find_by_cached_slug!(params[:tool_id]) 
+    params[:sort] ||= "alexa_asc"
+    @usings = @tool.usings
+                   .only_deleted
+                   .includes(:site)
+                   .joins(:site)
+                   .order(Site.sql_order(params[:sort]))
+                   .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to sites_path, :flash => { :error => "Unable to find a tool matching #{params[:id]}" }    
   end
 
   # POST /tools/:tool_id/sites
   def create
-    @tool = Tool.find_by_cached_slug(params[:tool_id])
-    params[:using][:site_id] = Site.create_from_url(params[:using][:site_id]) unless params[:using][:site_id].to_i > 0
+    @using = @tool.usings.create(params[:using].merge(:user_id => current_user.id))
     respond_to do |format|
       format.js {
-        if @using = @tool.usings.create(params[:using].merge(:user_id => current_user.id))
+        if @using.id
           render
         else
-          render :js => "alert('problem');"
+          render :create_failed
         end
       }
     end   
@@ -30,11 +35,26 @@ class ToolSitesController < ApplicationController
   
   # GET /tools/:tool_id/sites/autocomplete
   def autocomplete
-    tags = Site.autocomplete(params[:q]).collect do |site|
-      { "name" => "#{site.title} (#{site.url})", "id" => site.id.to_s }
-    end.compact
+    if params[:term]
+      @tool = Tool.find_by_cached_slug(params[:tool_id])
+      tags = Site.autocomplete(params[:term]).collect(&:autocomplete_data)
+      tools = (tags - @tool.sites_hash)
+    else
+      tools = []
+    end
+    render :json => tools
+  end
+  
+  private
+  def load_record
     @tool = Tool.find_by_cached_slug(params[:tool_id])
+  end
 
-    render :json => (tags - @tool.sites_hash)
+  def verify_access_to_create!
+    if !current_user.can_add_lines?(@tool)
+      respond_to do |format|
+        format.js { render :js => "alert('You do not have access to add new sites for this tool.');" }
+      end
+    end
   end
 end

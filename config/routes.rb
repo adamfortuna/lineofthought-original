@@ -12,7 +12,7 @@ Snaps::Application.routes.draw do
     end
     resources :sites, :controller => "tool_sites", :only => [:create] do
       collection do
-        get :autocomplete, :manage
+        get :autocomplete, :deleted
       end
     end
   end

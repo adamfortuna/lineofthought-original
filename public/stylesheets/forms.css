@@ -76,12 +76,12 @@ form.formtastic fieldset {
 li.tool_name_autocomplete .inline-hints {
   display: none; }
 
-input.autocomplete-toolname {
+input.autocomplete-toolname, input.autocomplete-sitetitle {
   padding-left: 26px;
   background: url(/images/placeholder.jpg) no-repeat 4px 4px;
   width: 520px; }
 
-body.popup input.autocomplete-toolname {
+body.popup input.autocomplete-toolname, body.popup input.autocomplete-sitetitle {
   width: 452px; }
 
 /* Jquery UI for autocomplete */

@@ -238,7 +238,8 @@ body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bo
 body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited,
 body.saved_bookmark-new li.saved_bookmark-new a:link, body.saved_bookmark-new li.saved_bookmark-new a:visited,
 body.saved_bookmark-edit li.saved_bookmark-edit a:link, body.saved_bookmark-edit li.saved_bookmark-edit a:visited,
-body.site_tools-deleted li.site_tools-deleted a:link, body.site_tools-deleted li.site_tools-deleted a:visited {
+body.site_tools-deleted li.site_tools-deleted a:link, body.site_tools-deleted li.site_tools-deleted a:visited,
+body.tool_sites-deleted li.tool_sites-deleted a:link, body.tool_sites-deleted li.tool_sites-deleted a:visited {
   border-bottom: 1px solid #fff;
   background: #fff;
   color: #000; }
@@ -256,11 +257,17 @@ body.site_tools-deleted li.site_tools-deleted a:link, body.site_tools-deleted li
 #site-header {
   min-height: 88px; }
 
+#site-header h2, #tool-header h2 {
+  float: left; }
+
 #site-header h2, #site-header p {
   max-width: 600px; }
 
 #tool-header {
   min-height: 110px; }
+
+#site-header p, #tool-header p {
+  clear: left; }
 
 #tool-header h2, #tool-header p {
   max-width: 600px; }

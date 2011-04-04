@@ -2,8 +2,8 @@
   <a name="add_new_tool"></a>
   <% if @site.tools_count > 0 %>
   <div class="title_bar group">
-    <% description "We know of #{pluralize(tools.length, "tool")} used #{@site.title} (#{@site.url})." %>
-    <h3>We know of <strong><%= pluralize(tools.length, "tool") %></strong> used on <strong><%= @site.title %></strong></h3>
+    <% description "We know of #{pluralize(@site.tools_count, "tool")} used #{@site.title} (#{@site.url})." %>
+    <h3>We know of <strong><%= pluralize(@site.tools_count, "tool") %></strong> used on <strong><%= @site.title %></strong></h3>
     <div id="sorting">
       <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
       <ul class="options" style="display:none;">
@@ -32,7 +32,7 @@
     <p class="main_message">We don't know of any tools used by <strong><%= @site.title %></strong>.</p>
   <% end %>
 
-  <% if @site.tools_count > 10 %>
+  <% if tools.length > 10 %>
     <p class="add_more">Want to add a tool used on this site? <a href="#add_new_tool" class="add_another_tool">Add it here</a></p>
   <% end %>
 </section>

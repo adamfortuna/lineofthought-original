@@ -34,7 +34,7 @@ class Site < ActiveRecord::Base
   
   
   has_many :usings, :dependent => :destroy
-  has_many :tools, :through => :usings
+  has_many :tools, :through => :usings, :conditions => ["usings.deleted IS ?", nil]
   belongs_to :link
 
   # Bookmarks
@@ -135,8 +135,9 @@ class Site < ActiveRecord::Base
   end
   handle_asynchronously :update_cached_tools_in_background!
     
-  def self.find_by_handy_url(handy_url)
-    Site.find(:first, :conditions => ['url IN (?)', handy_url.variants.collect(&:to_s)])
+  def self.find_by_url(url)
+    link, success = Link.find_or_create_by_domain(url)
+    link ? link.site : nil
   end
   
   def self.cached_count(reload = false)
@@ -161,13 +162,14 @@ class Site < ActiveRecord::Base
   end
   
   def tools_hash
-    self.tools.collect do |tool|
-      { "name" => tool.name, 
-        "id" => tool.id.to_s,
-        "url" => tool.url,
-        "categories" => tool.cached_categories.collect { |c| c[:name]}.join(", "),
-        "icon" => tool.has_favicon? ? tool.full_favicon_url : nil }
-    end
+    self.tools.collect(&:autocomplete_data)
+  end
+  
+  def autocomplete_data
+    { "title" => self.title, 
+      "id" => self.id.to_s,
+      "url" => self.url,
+      "icon" => self.has_favicon? ? self.full_favicon_url : nil }    
   end
   
   def update_bookmarks!
@@ -180,6 +182,7 @@ class Site < ActiveRecord::Base
 
   def self.create_from_url(url)
     handy_url = HandyUrl.new(url)
+    debugger
     site = where(["uid = ?", handy_url.uid])
     return site.first.id unless site.blank?
     site = Site.create(:url => url, :title => handy_url.full_uid.capitalize)
