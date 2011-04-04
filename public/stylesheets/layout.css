@@ -75,9 +75,9 @@ nav ul li a:link, nav ul li a:visited {
   color: #ddd; }
 
 nav ul li a {
-  padding: 6px 6px;
+  padding: 10px;
   font-size: 14px;
-  margin-left: 4px; }
+  margin-left: 10px; }
 
 nav ul li a:hover {
   background-color: #68aff3;
@@ -283,7 +283,8 @@ body.tool_sites nav ul li.tools a,
 body.site_tools nav ul li.sites a,
 body.site_claims nav ul li.sites a,
 body.sessions nav ul li.sign-in a,
-body.registrations nav ul li.profile a {
+body.registrations nav ul li.profile a,
+body.blog nav ul li.blog a {
   background-color: #68aff3;
   color: #eee; }
 

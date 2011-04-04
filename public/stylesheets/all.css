@@ -154,7 +154,7 @@ ul {list-style: none; margin: 0; padding: 0}
 nav ul {float: right}
 nav ul li {float: left}
 nav ul li a:link, nav ul li a:visited {display: block; color: #ddd}
-nav ul li a {padding: 6px 6px; font-size: 14px; margin-left: 4px}
+nav ul li a {padding: 10px; font-size: 14px; margin-left: 10px}
 nav ul li a:hover {background-color: #68aff3; color: #eee}
 #search {position: absolute; bottom: 6px; right: 0; display: none}
 #search form {width: 400px; float: right; font-size: 13px}
@@ -198,7 +198,7 @@ footer section.main-footer {width: 700px}
 footer section.sidebar {width: 260px; float: right}
 footer section h3 {color: #E2DDDC; font-size: 10px; text-transform: uppercase}
 footer section.main-footer p {color: #bbb}
-body.sites nav ul li.sites a, body.tools nav ul li.tools a, body.bookmarks nav ul li.bookmarks a, body.authentications nav ul li.profile a, body.profiles nav ul li.profile a, body.tool_sites nav ul li.tools a, body.site_tools nav ul li.sites a, body.site_claims nav ul li.sites a, body.sessions nav ul li.sign-in a, body.registrations nav ul li.profile a {background-color: #68aff3; color: #eee}
+body.sites nav ul li.sites a, body.tools nav ul li.tools a, body.bookmarks nav ul li.bookmarks a, body.authentications nav ul li.profile a, body.profiles nav ul li.profile a, body.tool_sites nav ul li.tools a, body.site_tools nav ul li.sites a, body.site_claims nav ul li.sites a, body.sessions nav ul li.sign-in a, body.registrations nav ul li.profile a, body.blog nav ul li.blog a {background-color: #68aff3; color: #eee}
 .bookmarks {display: none}
 .clear {clear: both}
 .right {float: right}

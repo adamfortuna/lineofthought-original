@@ -21,7 +21,7 @@ nav { display:block; position:absolute; right:0; top:0; width:724px; }
 nav ul { float:right; }
 nav ul li { float:left; }
 nav ul li a:link, nav ul li a:visited  { display:block; color:#ddd; }
-nav ul li a { padding:6px 6px; font-size:14px; margin-left:4px; }
+nav ul li a { padding:10px; font-size:14px; margin-left:10px; }
 nav ul li a:hover {  background-color:$accent-color; color:#eee; }
 
 #search { position:absolute; bottom:6px; right:0; display:none; }
@@ -99,7 +99,8 @@ body.tool_sites nav ul li.tools a,
 body.site_tools nav ul li.sites a,
 body.site_claims nav ul li.sites a,
 body.sessions nav ul li.sign-in a,
-body.registrations nav ul li.profile a
+body.registrations nav ul li.profile a,
+body.blog nav ul li.blog a
 { background-color:$accent-color; color:#eee; }
 
 .bookmarks { display:none; }
