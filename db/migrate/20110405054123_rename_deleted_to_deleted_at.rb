@@ -1,12 +1,13 @@
 class RenameDeletedToDeletedAt < ActiveRecord::Migration
   def self.up
-    rename_column :usings, :deleted, :deleted_at
-    change_column :usings, :deleted_at, :datetime
-    Using.update_all ["deleted_at = ?", Time.now], "deleted_at is not null"
+    add_column :usings, :deleted_at, :datetime
+    Using.update_all ["deleted_at = ?", Time.now], "deleted is not null"
+    remove_column :usings, :deleted
   end
 
   def self.down
-    change_column :usings, :deleted_at, :boolean
-    rename_column :usings, :deleted_at, :deleted
+    add_column :usings, :deleted, :boolean
+    Using.update_all ["deleted = ?", true], "deleted_at is not null"
+    remove_column :usings, :deleted_at
   end
 end
