@@ -16,7 +16,7 @@
     </div>
   
     <% if !logged_in? || current_user.can_add_lines?(@tool) %>
-      <%= render "add_new_sites" %>
+      <%= render "tools/add_new_sites" %>
     <% end %>
   
     <ul id="tool-sites-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>">
@@ -24,7 +24,7 @@
     </ul>
     <%= will_paginate sites %>
   <% else %>
-    <%= render "add_new_sites" %>
+    <%= render "tools/add_new_sites" %>
     <ul id="tool-sites-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>"></ul>
     <p class="empty_message">We don't know of any sites using <%= @tool.name %>.</p>
   <% end %>

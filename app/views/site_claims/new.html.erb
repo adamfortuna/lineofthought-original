@@ -46,14 +46,14 @@ $(function(){
   $("#claim_by_code").click(function(e) {
     $("#claim_by_code").attr("disabled", "disabled");
     $("#claim_by_code").parents("form").addClass("loading").parent().addClass("loading");
-    checkForLookup = setInterval("resubmit_claim_by_code()", 3000);
+    checkForLookup = setInterval("resubmit_claim_by_code()", 5000);
     failedLookup = setTimeout("claim_failed('tag')", 15000);
     return true;
   });
   $("#claim_by_file").click(function(e) {
     $("#claim_by_file").attr("disabled", "disabled");
     $("#claim_by_file").parents("form").addClass("loading").parent().addClass("loading");
-    checkForLookup = setInterval("resubmit_claim_by_file()", 3000);
+    checkForLookup = setInterval("resubmit_claim_by_file()", 5000);
     failedLookup = setTimeout("claim_failed('file')", 15000);
     return true;
   });
