@@ -3,6 +3,7 @@
 <head>
   <title><%= page_title %></title>
   <meta content="<%= page_description %>" name="description" />
+  <link rel="shortcut icon" href="/favicon.ico"/> 
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" /> 
   <meta content="en-us" http-equiv="Content-Language" />
   <%= csrf_meta_tag %>
@@ -41,7 +42,7 @@
         <li class="bookmarks"><a href="<%= bookmarks_url %>">Bookmarks</a></li>
         <li class="blog"><a href="http://blog.lineofthought.com">Blog</a></li>
         <% if logged_in? %>
-          <li class="profile"><%= link_to "Account", edit_user_registration_path %></li>
+          <li class="profile"><%= link_to "Account", edit_account_path %></li>
           <li><%= link_to "Logout", destroy_user_session_path %></li>
         <% else %>
           <li class="sign-in"><a href="<%= new_user_session_url(:secure => Settings.force_ssl) %>">Sign In</a></li>

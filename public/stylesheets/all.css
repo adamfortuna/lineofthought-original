@@ -198,7 +198,7 @@ footer section.main-footer {width: 700px}
 footer section.sidebar {width: 260px; float: right}
 footer section h3 {color: #E2DDDC; font-size: 10px; text-transform: uppercase}
 footer section.main-footer p {color: #bbb}
-body.sites nav ul li.sites a, body.tools nav ul li.tools a, body.bookmarks nav ul li.bookmarks a, body.authentications nav ul li.profile a, body.profiles nav ul li.profile a, body.tool_sites nav ul li.tools a, body.site_tools nav ul li.sites a, body.site_claims nav ul li.sites a, body.sessions nav ul li.sign-in a, body.registrations nav ul li.profile a, body.blog nav ul li.blog a {background-color: #68aff3; color: #eee}
+body.sites nav ul li.sites a, body.tools nav ul li.tools a, body.bookmarks nav ul li.bookmarks a, body.authentications nav ul li.profile a, body.profiles nav ul li.profile a, body.tool_sites nav ul li.tools a, body.site_tools nav ul li.sites a, body.site_claims nav ul li.sites a, body.sessions nav ul li.sign-in a, body.registrations nav ul li.profile a, body.blog nav ul li.blog a, body.accounts nav ul li.profile a {background-color: #68aff3; color: #eee}
 .bookmarks {display: none}
 .clear {clear: both}
 .right {float: right}
@@ -232,7 +232,7 @@ ul.tabs a:hover {background-color: #fff}
 #sorting p a {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
 #sorting p a.active {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat right}
 #sorting ul.options {background-color: #F1F1F1; padding: 10px; float: right; z-index: 1; clear: left; border: 3px solid #e3e3e3; clear: both; position: absolute; top: 20px; border-radius: 8px; -moz-border-radius: 8px; width: 200px; right: 0}
- .pagination {background: white}
+ .pagination {background: white; margin: 1em 0}
 .pagination a, .pagination span, .pagination em {padding: .2em .5em; display: block; float: left; margin-right: 1px}
 .pagination span.disabled {color: #999; border: 1px solid #DDD}
 .pagination em {font-weight: bold; background: #2E6AB1; color: white; border: 1px solid #2E6AB1}

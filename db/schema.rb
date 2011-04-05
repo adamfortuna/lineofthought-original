@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110405054123) do
+ActiveRecord::Schema.define(:version => 20110405160529) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -296,6 +296,11 @@ ActiveRecord::Schema.define(:version => 20110405054123) do
     t.text     "cached_tool_claims"
     t.string   "time_zone"
     t.integer  "bookmarks_count",                     :default => 0
+    t.string   "url"
+    t.text     "description"
+    t.integer  "lines_count",                         :default => 0
+    t.integer  "claimed_sites_count",                 :default => 0
+    t.integer  "claimed_tools_count",                 :default => 0
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

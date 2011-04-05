@@ -4,11 +4,37 @@ module SiteHelper
     site.cached_tools.sample(count).collect { |tool| "<li><a href='/tools/#{tool[:param]}#{".#{format}" if format} '>#{tool[:name]}</a></li>" }.join
   end
   
+  def comma_site_tools(site, count=3, format=nil)
+    return nil unless site.cached_tools
+    tools = site.cached_tools.sample(count).collect { |tool| tool[:name] }.uniq
+    return tools.first if tools.length == 1
+    tools[0..(tools.length-2)].join(", ") + " and " + tools.last
+  end
+  
+  def site_share_message(site, count=3)
+    "#{site.title} is using at least #{pluralize(site.tools_count, "tool")} including #{comma_site_tools(site, count) || "HTML"} (via Line Of Thought)"
+  end
+
+
+
   def tool_sites(tool, count=3, format=nil)
     return nil unless tool.cached_sites
     tool.cached_sites.sample(count).collect { |site| "<li><a href='/sites/#{site[:param]}#{".#{format}" if format}'>#{site[:name]}</a></li>" }.join
   end
+
+  def comma_tool_sites(tool, count=3, format=nil)
+    return nil unless tool.cached_sites
+    sites = tool.cached_sites.sample(count).collect { |site| site[:name] }.uniq
+    return sites.first if sites.length == 1
+    sites[0..(sites.length-2)].join(", ") + " and " + sites.last
+  end
   
+  def tool_share_message(tool, count=3)
+    "#{tool.name} is using on at least #{pluralize(tool.sites_count, "sites")} including #{comma_tool_sites(tool, count)} (via Line Of Thought)"
+  end
+  
+  
+    
   def tool_categories(tool, format=nil)
     language = (tool.language_id? && tool.cached_language) ? "<li><a href='/tools/#{tool.cached_language[:param]}#{".#{format}" if format}'>#{tool.cached_language[:name]}</a></li>" : ""
     language + (tool.cached_categories || []).collect do |category|

@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :username, :password, :password_confirmation, :remember_me, :invite_code, :time_zone
+  attr_accessible :email, :username, :password, :password_confirmation, :remember_me, :invite_code, :time_zone, :url, :description
+  attr_protected  :lines_count, :claimed_sites_count, :claimed_tools_count
 
   has_many :claims
   has_many :sites, :through => :claims, :source => :site,
@@ -15,6 +16,7 @@ class User < ActiveRecord::Base
                    :conditions => "claims.claimable_type = 'Tool'"
   has_many :authentications
   has_many :bookmarks, :class_name => "BookmarkUser"
+  has_many :usings
   
   validate :validate_invite, :on => :create
   after_create :increment_invite, :if => :invite_code?
@@ -24,6 +26,9 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_uniqueness_of :username
   validates_length_of :username, :in => 1..25
+  validates_format_of :username, :with => /^[\w\d_]+$/, :message => "is invalid. Please use only letters, number and underscores."
+  
+  validates_format_of :url, :with => Util::URL_HTTP_OPTIONAL, :message => "Must be a valid URL.", :allow_blank => true
 
 
   def to_param
@@ -201,6 +206,10 @@ class User < ActiveRecord::Base
     grav_url << "&size=#{gravatar_options[:size]}" if gravatar_options[:size]
     grav_url << "&default=#{gravatar_options[:default]}" if gravatar_options[:default]
     return grav_url
+  end
+  
+  def karma
+    lines_count + (claimed_sites_count * 20) + (claimed_tools_count * 5)
   end
   
   private

@@ -17,6 +17,26 @@
       </ul>
       <% end %>
   </aside>
+  <% if @tool.sites_count > 0 %>
+  <aside>
+    <h3>Share this Tool</h3>
+    <ul class="txt">      
+      <li>Share on Twitter
+        <div class="right">
+          <iframe allowtransparency="true" frameborder="0" scrolling="no"
+                  src="http://platform.twitter.com/widgets/tweet_button.html?text=<%= tool_share_message(@tool) %>"
+                  style="width:110px; height:20px;"></iframe>
+        </div>
+      </li>
+      <li>Like on Facebook
+        <div class="right">
+        <iframe src="http://www.facebook.com/plugins/like.php?href&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:104px; height:21px;" allowTransparency="true"></iframe>
+        </div>
+      </li>
+      <li><a href="http://www.facebook.com/sharer.php?u=<%=tool_url(@tool) %>&amp;t=<%= tool_share_message(@tool) %>" target="_blank"><img src="https://d1mr7he6yibwdu.cloudfront.net/favicons/com.facebook/com.facebook.small.png" class="favicon">Share on Facebook</a></li>
+    </ul>
+  </aside>
+  <% end %>
   <%= render :partial => "tools/featured" %>
   <%= render :partial => "sites/featured" %>
   <%= render :partial => "bookmarks/related", :object => @tool.cached_bookmarks if (@tool.bookmarks_count > 0) && @tool.cached_bookmarks %>

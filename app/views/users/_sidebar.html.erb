@@ -2,13 +2,21 @@
   <aside>
     <h3>My Account</h3>
     <ul class="lst">
-      <li><%= link_to "My Profile", profile_path(@user) %></li>
-      <li><%= link_to "My Sites", sites_profile_path(@user) %></li>
-      <li><%= link_to "My Tools", tools_profile_path(@user) %></li>
-      <li><%= link_to "My Bookmarks", bookmarks_profile_path(@user) %></li>
+      <li><%= link_to "Edit My Profile", edit_account_path %></li>
+      <li><%= link_to "Change Email and Password", edit_user_registration_path %></li>
       <li><%= link_to "My Login Methods", authentications_path %></li>
     </ul>
   </aside>
+  
+  <aside>
+    <h3><%= @user.username %>'s Account (<%= @user.karma %>)</h3>
+    <ul class="lst">
+      <li><%= link_to "Profile", profile_path(@user) %></li>
+      <li><%= link_to "Claimed Sites", sites_profile_path(@user) %></li>
+      <li><%= link_to "Tools added", tools_profile_path(@user) %></li>
+    </ul>
+  </aside>
+  
   <% if current_user.admin? %>
   <aside>
     <h3>Admin</h3>

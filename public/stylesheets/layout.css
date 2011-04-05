@@ -284,7 +284,8 @@ body.site_tools nav ul li.sites a,
 body.site_claims nav ul li.sites a,
 body.sessions nav ul li.sign-in a,
 body.registrations nav ul li.profile a,
-body.blog nav ul li.blog a {
+body.blog nav ul li.blog a,
+body.accounts nav ul li.profile a {
   background-color: #68aff3;
   color: #eee; }
 

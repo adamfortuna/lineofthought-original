@@ -1,3 +1,5 @@
+rake asset:packager:build_all
+
 Heroku:
 Clear cache
   ActionController::Base.cache_store.clear

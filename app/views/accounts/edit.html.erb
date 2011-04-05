@@ -1,0 +1,19 @@
+<% title "Update Your Profile" %>
+
+<section id="content" class="main">
+  <h2><%= @title %></h2>
+  <section>
+    <%= semantic_form_for @user, :url => account_path do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :username, :as => :string, :required => true, :hint => "Between 1 and 25 characters, letters numbers and underscores only." %>
+        <%= form.input :url, :as => :string, :hint => "We'll also show your claimed site, but this will be the first listing shown." %>
+        <%= form.input :description, :as => :text, :input_html => { :rows => 3} %>
+      <% end %>
+      <%= form.buttons do %>
+        <%= form.commit_button :label => "Update" %>
+      <% end %>
+    <% end %>
+  </section>
+</section>
+
+<%= render 'users/sidebar' %>

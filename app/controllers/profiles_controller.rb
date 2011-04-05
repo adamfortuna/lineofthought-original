@@ -1,6 +1,22 @@
 class ProfilesController < ApplicationController
   respond_to :html, :json, :xml
 
+  # GET /profile/edit
+  def edit
+    @user = current_user
+    respond_with(@user)
+  end
+
+  # PUT /profile
+  def update
+    @user = current_user
+    if @user.update_attributes(params[:user])
+      redirect_to edit_profile_path, :flash => { :notice => "Your profile was updated." }
+    else
+      render :edit
+    end
+  end
+  
   def show
     @user = lookup_user(params[:id])
     respond_with(@user)

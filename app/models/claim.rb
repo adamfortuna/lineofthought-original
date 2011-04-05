@@ -2,8 +2,14 @@ class Claim < ActiveRecord::Base
   belongs_to :user
   belongs_to :claimable, :polymorphic => true
 
-  belongs_to :site, :class_name => "Site", :foreign_key => "claimable_id"
-  belongs_to :tool, :class_name => "Tool", :foreign_key => "claimable_id"
+  belongs_to :site, 
+             :class_name => "Site", 
+             :foreign_key => "claimable_id", 
+             :counter_cache => "claimed_sites_count"
+  belongs_to :tool, 
+             :class_name => "Tool", 
+             :foreign_key => "claimable_id",
+             :counter_cache => "claimed_tools_count"
   
   validates_uniqueness_of :user_id, :scope => [:claimable_id, :claimable_type]
   

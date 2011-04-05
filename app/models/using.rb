@@ -6,7 +6,7 @@ class Using < ActiveRecord::Base
   validates_as_paranoid
   belongs_to :site, :counter_cache => 'tools_count'
   belongs_to :tool, :counter_cache => 'sites_count'
-  belongs_to :user
+  belongs_to :user, :counter_cache => 'usings_count'
 
   attr_accessible :site_id, :tool_id, :tool_name, :tool_url, :user_id, :description, :deleted_at, :site_title, :site_url
 

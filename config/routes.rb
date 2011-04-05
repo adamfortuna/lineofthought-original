@@ -51,6 +51,7 @@ Snaps::Application.routes.draw do
   devise_for :users, :only => [:new, :create, :edit, :update],
     :controllers => { :registrations => 'registrations', :sessions => 'sessions' }
   
+  resource :account, :only => [:edit, :update]
   resources :profiles, :only => [:show] do
     member do
       get :sites
