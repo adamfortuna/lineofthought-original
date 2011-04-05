@@ -52,7 +52,8 @@ sidebar aside { margin-bottom:10px; padding: 15px; }
 sidebar aside h3 { margin: 0 0 6px 0; padding: 0 0 4px 0; font-size:16px; font-weight: bold; color:#365B81; border-bottom: 2px solid #ecebe1; }
 sidebar aside p.more { margin-top:12px; text-align:center; }
 sidebar aside ul li { }
-sidebar aside p { margin-top:12px; }
+sidebar aside p { margin-top:12px; font-size: 16px;
+line-height: 20px; }
 
 /* Sidebar - Right - List of text */
 ul.txt li { padding:7px; border-bottom: 1px solid #f3f2e8; overflow: hidden; }

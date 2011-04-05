@@ -176,7 +176,7 @@ sidebar {width: 300px; float: right}
 sidebar aside {margin-bottom: 10px; padding: 15px}
 sidebar aside h3 {margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #365B81; border-bottom: 2px solid #ecebe1}
 sidebar aside p.more {margin-top: 12px; text-align: center}
-sidebar aside p {margin-top: 12px}
+sidebar aside p {margin-top: 12px; font-size: 16px; line-height: 20px}
  ul.txt li {padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
 ul.txt li:hover {background: #EFF2F7}
  ul.lst li a {display: block; padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
@@ -208,6 +208,7 @@ a.remove {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/ic
 img.screenshot, .screenshot img {border: 1px solid #ccc; float: left}
 a.external {font-size: 10px}
 a:link, a:visited {color: #3792B3; font-weight: bold; outline-color: -moz-use-text-color; outline-style: none; outline-width: medium; text-decoration: none}
+p.center {text-align: center}
 section.text p, section.text h3 {margin: .5em 1em}
 section.text ul, section.text ol {margin: 1em 1em 1em 1.4em; padding: 0 1em}
 section.text ul {list-style: disc outside}
@@ -387,43 +388,41 @@ a.favicon img, img.favicon {margin: 0; width: 16px; height: 16px}
 .title_bar h2, .title_bar h3, .title_bar h4 {float: left}
 .title_bar a.add {font-size: 13px; padding: 0 0 0 10px}
  ul.main-list li.ind {padding: 1em 0; position: relative}
-ul.main-list li.ind p {margin-top: 4px}
+ul.main-list li.ind p {margin-top: 4px; clear: left}
 ul.main-list li.ind .details {margin: 0; padding: 0 .5em}
 ul.main-list li.ind .content {position: relative}
 ul.main-list li.ind .title {margin-left: 0px}
-ul.main-list li.ind .title h4 {display: inline; font-size: 16px; margin-bottom: 10px}
+ul.main-list li.ind .title h4 {display: inline; font-size: 16px; margin-bottom: 10px; float: left}
  ul.main-list li.ind ul.count, .show-header ul.count {float: right; margin: 0 0 0 20px}
 ul.count {color: #fff; width: 120px; list-style: none; font-size: 11px; font-weight: bold}
 ul.count a {display: block; padding: 4px; color: #fff}
 ul.count li {margin: 0 0 .4em 0; position: relative}
 ul.count li a {padding: 4px}
 ul.count li span, ul.count li a {display: block}
-ul.count li span {padding: 7px}
+ul.count li span {padding: 4px}
 ul.count li em {float: right; font-style: normal; font-weight: bold; padding-left: 12px}
-ul.count li.sites a {background-color: #f00}
-ul.count li.sites a:hover {background-color: #D00}
+ul.count li.sites a {background-color: #68AFF3}
+ul.count li.sites a:hover {background-color: #609cd6}
 ul.count li.links a {background-color: #FFA500}
 ul.count li.links a:hover {background-color: #ccA500}
-ul.count li.alexa, ul.sort-alexa li.ind li.alexa {background-color: blue; color: #fff}
-ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {background-color: green; color: #fff}
+ul.count li.alexa, ul.sort-alexa li.ind li.alexa {background-color: #229EC9; color: #fff}
+ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {background-color: #69a039; color: #fff}
  .mini-sites li a, .mini-categories li a, .mini-tools li a {display: block; font-size: 12px; padding: 0.3em}
  .mini-sites li {float: left; margin-right: .4em}
-.mini-sites li a {background-color: #ff0}
-.mini-sites li a:hover {background-color: #dddd11}
+.mini-sites li a {color: #555; border: 1px solid #ddd}
+.mini-sites li a:hover {color: #000; background-color: #eee}
  .mini-categories {position: absolute; bottom: 0; right: 0; margin: 0; padding: 0}
 .mini-categories li {margin-left: .2em; float: right}
-.mini-categories li a {background-color: #ccc}
-.mini-categories li a:hover {background-color: #aaa}
+.mini-categories li a {color: #555; border: 1px solid #ddd}
+.mini-categories li a:hover {color: #000; background-color: #eee}
  .mini-tools li {float: left; margin-right: .4em}
-.mini-tools li a {background-color: #FFA500; color: #000}
-.mini-tools li a:hover {background-color: #ccA500; color: #000}
+.mini-tools li a {color: #555; border: 1px solid #ddd}
+.mini-tools li a:hover {color: #000; background-color: #eee}
  #tools-list li.ind {min-height: 90px}
 #tools-list li.ind div.title {min-height: 70px}
-#tools-list li.ind div.title h4, #tools-list li.ind p {clear: none; max-width: 525px}
+#tools-list li.ind div.title h4, #tools-list li.ind p {clear: left}
 #tools-list li.ind .content {position: relative; min-height: 12px}
 #tools-list li.ind .content ul.sites .tools {margin: 0.4em 0}
-#tools-list li.ind div.title h4, #tools-list li.ind p {clear: none; max-width: 525px}
- #tools-list li.ind div.title h4, #tools-list li.ind p {clear: none; max-width: 525px}
  #bookmarks-list li.ind span.url {float: right; display: none; color: #888; font-size: 10px}
 #bookmarks-list li.ind span.url a {color: #888}
 #bookmarks-list li.ind:hover span.url {display: inline}

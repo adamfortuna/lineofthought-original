@@ -171,7 +171,9 @@ sidebar aside p.more {
   text-align: center; }
 
 sidebar aside p {
-  margin-top: 12px; }
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 20px; }
 
 /* Sidebar - Right - List of text */
 ul.txt li {

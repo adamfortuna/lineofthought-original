@@ -1,18 +1,15 @@
 <% title "Current Activity" %>
 <section id="content" class="main site">
-  <h2><%= @title %></h2>
-  <p>Here's what's going on right now.</p>
-  <ul id="activity"></ul>
-
+  <article>
+    <h2><%= @title %></h2>
+    <p>Here's what's going on right now.</p>
+    <ul id="activity"></ul>
+  </article>
 </section>
 
 <sidebar>
-  <aside>
-    <h3>Filter Activity</h3>
-    <ul>
-      test
-    </ul>
-  </aside>
+  <%= render :partial => "sites/featured" %>
+  <%= render :partial => "tools/featured" %>
 </sidebar>
 
 
@@ -25,19 +22,19 @@ $(function() {
   var pusher = new Pusher('<%= Pusher.key %>');
   var channel = pusher.subscribe('stream');
   channel.bind('signup', function(data) {
-    var source = '<li class="signup">User <a href="/profiles/{{username}}"><img src="{{avatar}}" />{{username}} signed up.</li>';
+    var source = '<li class="signup">User <a href="/profiles/{{username}}" target="_blank"><img src="{{avatar}}" />{{username}} signed up.</li>';
     output(data, source);
   });
   channel.bind('site', function(data) {
-    var source = '<li class="site">The site <a href="/sites/{{param}}">{{title}}</a> was added.</li>';
+    var source = '<li class="site">The site <a href="/sites/{{param}}" target="_blank">{{title}}</a> was added.</li>';
     output(data, source)
   });
   channel.bind('tool', function(data) {
-    var source = '<li class="tool">The Tool <a href="/tools/{{param}}">{{name}}</a> was added.</li>';
+    var source = '<li class="tool">The Tool <a href="/tools/{{param}}" target="_blank">{{name}}</a> was added.</li>';
     output(data, source)
   });
   channel.bind('using', function(data) {
-    var source = '<li class="using"><a href="/sites/{{site_param}}">{{site_title}}</a> is now using <a href="/tools/{{tool_param}}">{{tool_name}}</a>.</li>';
+    var source = '<li class="using"><a href="/sites/{{site_param}}" target="_blank">{{site_title}}</a> is now using <a href="/tools/{{tool_param}}" target="_blank">{{tool_name}}</a>.</li>';
     output(data, source)
   });
   channel.bind('bookmark', function(data) {

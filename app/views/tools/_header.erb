@@ -3,7 +3,7 @@
     <h2><% if @tool.has_favicon? %><img src="<%= @tool.full_favicon_url %>" class="favicon" /><% end %><%= @tool.name %></h2>
     <ul class="count">
       <li class="sites"><%= link_to pluralize(@tool.sites_count, "site"), @tool %></li>
-      <li class="links"><%= link_to pluralize(@tool.bookmarks_count, "bookmark"), @tool %></li>
+      <li class="links bookmarks"><%= link_to pluralize(@tool.bookmarks_count, "bookmark"), @tool %></li>
     </ul>
     
     <%= content_tag(:p, @tool.description) unless @tool.description.blank? %>

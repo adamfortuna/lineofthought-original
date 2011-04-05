@@ -1,0 +1,25 @@
+<% title "Get notified when Line Of Thought Opens" %>
+<section id="content">
+  <article>
+    <h2><%= @title %></h2>
+    <p>We'll shoot you an email with an invite code as soon as we can. We're just opening the gates now and letting a few people in, but if you want to be notified with a code before we're publicly open, you can sign up here.</p>
+    <p>Your email is private and all that. We won't do anything we wouldn't do with our own email addresses.</p>
+  </article>
+  
+  <section>
+    <%= semantic_form_for @subscription do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :email, :as => :string, :required => true %>
+        <%= form.input :url, :as => :string, :hint => "If you're wanting to add a site to Line Of Thought, you can add it here." %>
+        <%= form.commit_button :label => "Let me know!" %>
+      <% end %>
+    <% end %>
+  </section>
+    
+</section>
+
+<sidebar>
+  <%= render :partial => "tools/featured" %>
+  <%= render :partial => "usings/recent" %>
+  <%= render :partial => "sites/featured" %>
+</sidebar>

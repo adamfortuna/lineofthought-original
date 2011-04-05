@@ -1,25 +1,18 @@
 class HomeController < ApplicationController
-  before_filter :redirect_if_signed_in!, :only => :index
-  layout lambda { |res| ["index","subscribed"].include?(params[:action]) ? "notify" : "application" }
-  caches_action :index, :expires_in => 15.minutes
   # caches_action :beta, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 1.hour
-  caches_action :beta, :expires_in => 1.hour, :layout => false
+  caches_action :beta, :expires_in => 15.minutes, :layout => false
 
-
-  def index; end
-  def beta
-    @sites = Site.featured.limit(10)
+  # GET /
+  def index
+    @sites = Site.featured.order("updated_at desc").limit(10)
   end
+
+  # GET /tellme
+  def tellme; end
+
+  # GET /subscribed
   def subscribed; end
 
-  def fail
-    Aasdfa
-  end
-  
+  # GET /stream
   def stream; end
-
-  private 
-  def redirect_if_signed_in!
-    redirect_to beta_path if user_signed_in?
-  end
 end

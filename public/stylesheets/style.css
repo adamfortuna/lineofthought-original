@@ -30,6 +30,9 @@ a:link, a:visited {
   outline-width: medium;
   text-decoration: none; }
 
+p.center {
+  text-align: center; }
+
 section.text p, section.text h3 {
   margin: .5em 1em; }
 

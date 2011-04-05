@@ -51,8 +51,8 @@ module ApplicationHelper
     case name.split("_").first
       when 'sites' then 'popularity'
       when 'category' then 'category'
-      when 'toolname' then 'tool'
-      when 'sitename' then 'site'
+      when 'toolname' then 'tool name'
+      when 'sitename' then 'site title'
       when 'alexa' then 'Alexa Rank'
       when 'google' then 'Google PageRank'
       when 'tools' then 'popularity'

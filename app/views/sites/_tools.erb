@@ -7,7 +7,7 @@
     <div id="sorting">
       <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
       <ul class="options" style="display:none;">
-        <li><a href="<%= site_path(@site, :sort => :toolname_asc) %>">Sort by tool</a></li>
+        <li><a href="<%= site_path(@site, :sort => :toolname_asc) %>">Sort by tool name</a></li>
         <li><a href="<%= site_path(@site, :sort => :sites_desc) %>">Sort by tool popularity</a></li>
       </ul>
     </div>

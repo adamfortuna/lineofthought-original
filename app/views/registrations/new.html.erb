@@ -1,21 +1,28 @@
 <% title "Register" %>
 
 <section id="content" class="main">
-  <h2><%= @title %></h2>
+  <article>
+    <h2><%= @title %></h2>
+    <p>In order to sign up, you'll <strong>need an invite code</strong> for now. We're just getting started and want to make sure things are working correctly before opening publicly.</p>
+    <p>If you'd like to be notified when we launch, or get a code for access before we launch, you can <%= link_to "sign up here", new_subscription_path %>.</p>
+  </article>
 
-  <section>
+  <hr />
+
+  <article>
     <% 
       method = "Facebook" if @user.auth_with_facebook?
       method = "Twitter" if @user.auth_with_twitter?
     %>
-    
+
     <% if method %>
       <p>Your account is connected to <%= method %>. You will be able to login via <%= method %>, or with email/password.</p>
     <% else %>
+      <p>You'll still need an <%= link_to "invite code", new_subscription_path %> even if you sign up with Twitter or Facebook.</p>
       <p>Sign up using Twitter. <a href="/auth/twitter">yeah, please</a></p>
       <p>Sign up using Facebook. <a href="/auth/facebook">yeah, please</a></p>
     <% end %>
-  </section>
+  </article>
 
   <hr />
 
@@ -26,7 +33,7 @@
         <%= form.input :username, :required => true %>
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>
-        <%= form.input :invite_code, :as => :string, :required => true, :hint => raw("Right now we're invite only while working out the kinks. If you'd like to get an invite code, please #{link_to 'let us know!', root_path}") %>
+        <%= form.input :invite_code, :as => :string, :required => true, :hint => raw("Right now we're invite only while working out the kinks. If you'd like to get an invite code, please #{link_to 'let us know!', new_subscription_path}") %>
       <% end %>
       <%= form.buttons do %>
         <%= form.commit_button :label => "Register" %>
@@ -45,6 +52,6 @@
   <aside>
     <h3>Looking for an Invite?</h3>
     <p>We're still trying to get the basics of the system down, so for now we're trying to work closely with those using the system to create an awesome site.</p>
-    <p>Add your name to the <%= link_to "subscriptions lists", root_path %> in order to get an invite.</p>
+    <p>Sign up to be <%= link_to "notified", new_subscription_path %> in order to get an invite to join before we launch pubicly.</p>
   </aside>
 </sidebar>

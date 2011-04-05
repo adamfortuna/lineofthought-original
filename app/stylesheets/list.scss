@@ -16,11 +16,11 @@ a.favicon img, img.favicon { margin:0; width:16px; height:16px; }
 
 /* Main-list pages - tools#index, sites#index, bookmarks#index */
 ul.main-list li.ind { padding:1em 0; position:relative; }
-ul.main-list li.ind p { margin-top:4px; }
+ul.main-list li.ind p { margin-top:4px; clear:left; }
 ul.main-list li.ind .details { margin:0; padding:0 .5em; }
 ul.main-list li.ind .content { position:relative; }
 ul.main-list li.ind .title { margin-left:0px; }
-ul.main-list li.ind .title h4 { display:inline; font-size:16px; margin-bottom:10px; }
+ul.main-list li.ind .title h4 { display:inline; font-size:16px; margin-bottom:10px; float:left; }
 
 
 /* Counts - sites/bookmarks on tools#index */
@@ -30,14 +30,14 @@ ul.count a { display:block; padding:4px; color:#fff; }
 ul.count li { margin:0 0 .4em 0; position: relative; }
 ul.count li a { padding:4px; }
 ul.count li span, ul.count li a { display: block; }
-ul.count li span { padding:7px; }
+ul.count li span { padding:4px; }
 ul.count li em { float: right; font-style:normal; font-weight:bold; padding-left:12px; }
-ul.count li.sites a { background-color:#f00; }
-ul.count li.sites a:hover { background-color:#D00; }
+ul.count li.sites a { background-color:#68AFF3; }
+ul.count li.sites a:hover { background-color:#609cd6; }
 ul.count li.links a { background-color:#FFA500; }
 ul.count li.links a:hover { background-color:#ccA500; }
-ul.count li.alexa, ul.sort-alexa li.ind li.alexa { background-color: blue; color: #fff; }
-ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank { background-color: green; color: #fff; }
+ul.count li.alexa, ul.sort-alexa li.ind li.alexa { background-color:#229EC9; color: #fff; }
+ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank { background-color:#69a039; color: #fff; }
 
 /* Mini-lists */
 .mini-sites li a, 
@@ -45,28 +45,24 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank { background-color: gr
 .mini-tools li a { display: block; font-size: 12px; padding: 0.3em; }
 /* tools#index sites list */
 .mini-sites li { float:left; margin-right:.4em; }
-.mini-sites li a { background-color:#ff0; }
-.mini-sites li a:hover { background-color:#dddd11; }
+.mini-sites li a { color:#555; border:1px solid #ddd; }
+.mini-sites li a:hover { color:#000; background-color:#eee; }
 /* tools#index categories list */
 .mini-categories { position:absolute; bottom:0; right:0; margin:0; padding:0; }
 .mini-categories li { margin-left:.2em; float:right; }
-.mini-categories li a { background-color:#ccc; }
-.mini-categories li a:hover { background-color:#aaa; }
+.mini-categories li a { color:#555; border:1px solid #ddd; }
+.mini-categories li a:hover { color:#000; background-color:#eee; }
 /* sites#index sites list */
 .mini-tools li { float:left; margin-right:.4em; }
-.mini-tools li a { background-color:#FFA500; color:#000; }
-.mini-tools li a:hover { background-color:#ccA500; color:#000; }
+.mini-tools li a { color:#555; border:1px solid #ddd; }
+.mini-tools li a:hover { color:#000; background-color:#eee; }
 
 /* tools#index */
 #tools-list li.ind { min-height:90px; }
 #tools-list li.ind div.title { min-height:70px; }
-#tools-list li.ind div.title h4, #tools-list li.ind p { clear:none; max-width:525px; }
+#tools-list li.ind div.title h4, #tools-list li.ind p { clear:left; }
 #tools-list li.ind .content { position: relative; min-height:12px; }
 #tools-list li.ind .content ul.sites .tools { margin: 0.4em 0; }
-#tools-list li.ind div.title h4, #tools-list li.ind p { clear:none; max-width:525px; }
-
-/* sites#index */
-#tools-list li.ind div.title h4, #tools-list li.ind p { clear:none; max-width:525px; }
 
 /* bookmarks#index */
 #bookmarks-list li.ind { }

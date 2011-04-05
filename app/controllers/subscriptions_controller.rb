@@ -8,11 +8,15 @@ class SubscriptionsController < ApplicationController
     @subscriptions = Subscription.all.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
   end
 
+  def new
+    @subscription = Subscription.new
+  end
+
   def create
     @subscription = Subscription.create(params[:subscription])
     if @subscription.new_record?
       flash[:error] = "There was a problem subscribing."
-      render "home/index"
+      render :new
     else
       render
     end

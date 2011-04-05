@@ -46,7 +46,8 @@ ul.main-list li.ind {
   position: relative; }
 
 ul.main-list li.ind p {
-  margin-top: 4px; }
+  margin-top: 4px;
+  clear: left; }
 
 ul.main-list li.ind .details {
   margin: 0;
@@ -61,7 +62,8 @@ ul.main-list li.ind .title {
 ul.main-list li.ind .title h4 {
   display: inline;
   font-size: 16px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  float: left; }
 
 /* Counts - sites/bookmarks on tools#index */
 ul.main-list li.ind ul.count, .show-header ul.count {
@@ -91,7 +93,7 @@ ul.count li span, ul.count li a {
   display: block; }
 
 ul.count li span {
-  padding: 7px; }
+  padding: 4px; }
 
 ul.count li em {
   float: right;
@@ -100,10 +102,10 @@ ul.count li em {
   padding-left: 12px; }
 
 ul.count li.sites a {
-  background-color: #f00; }
+  background-color: #68AFF3; }
 
 ul.count li.sites a:hover {
-  background-color: #D00; }
+  background-color: #609cd6; }
 
 ul.count li.links a {
   background-color: #FFA500; }
@@ -112,11 +114,11 @@ ul.count li.links a:hover {
   background-color: #ccA500; }
 
 ul.count li.alexa, ul.sort-alexa li.ind li.alexa {
-  background-color: blue;
+  background-color: #229EC9;
   color: #fff; }
 
 ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
-  background-color: green;
+  background-color: #69a039;
   color: #fff; }
 
 /* Mini-lists */
@@ -133,10 +135,12 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
   margin-right: .4em; }
 
 .mini-sites li a {
-  background-color: #ff0; }
+  color: #555;
+  border: 1px solid #ddd; }
 
 .mini-sites li a:hover {
-  background-color: #dddd11; }
+  color: #000;
+  background-color: #eee; }
 
 /* tools#index categories list */
 .mini-categories {
@@ -151,10 +155,12 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
   float: right; }
 
 .mini-categories li a {
-  background-color: #ccc; }
+  color: #555;
+  border: 1px solid #ddd; }
 
 .mini-categories li a:hover {
-  background-color: #aaa; }
+  color: #000;
+  background-color: #eee; }
 
 /* sites#index sites list */
 .mini-tools li {
@@ -162,12 +168,12 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
   margin-right: .4em; }
 
 .mini-tools li a {
-  background-color: #FFA500;
-  color: #000; }
+  color: #555;
+  border: 1px solid #ddd; }
 
 .mini-tools li a:hover {
-  background-color: #ccA500;
-  color: #000; }
+  color: #000;
+  background-color: #eee; }
 
 /* tools#index */
 #tools-list li.ind {
@@ -177,8 +183,7 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
   min-height: 70px; }
 
 #tools-list li.ind div.title h4, #tools-list li.ind p {
-  clear: none;
-  max-width: 525px; }
+  clear: left; }
 
 #tools-list li.ind .content {
   position: relative;
@@ -186,15 +191,6 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {
 
 #tools-list li.ind .content ul.sites .tools {
   margin: 0.4em 0; }
-
-#tools-list li.ind div.title h4, #tools-list li.ind p {
-  clear: none;
-  max-width: 525px; }
-
-/* sites#index */
-#tools-list li.ind div.title h4, #tools-list li.ind p {
-  clear: none;
-  max-width: 525px; }
 
 /* bookmarks#index */
 #bookmarks-list li.ind span.url {

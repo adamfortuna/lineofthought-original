@@ -60,14 +60,13 @@ Snaps::Application.routes.draw do
     end
   end
 
-  resources :subscriptions, :only => [:index, :create]
+  resources :subscriptions, :only => [:index, :new, :create]
   
-  match '/new' => 'home#new',                       :as => 'new'
-  match '/beta' => 'home#beta',                     :as => 'beta'
   match '/about' => 'home#about',                   :as => 'about'
-  match '/fail' => 'home#fail',                     :as => 'fail'
-  match '/lookup' => 'lookup#new',                  :as => 'lookup'
   match '/stream' => 'home#stream',                 :as => 'stream'
+  match '/tellme' => 'home#tellme',                 :as => 'tellme'
+
+  match '/lookup' => 'lookup#new',                  :as => 'lookup'
   match '/sites/lineofthought' => 'sites#show',     :as => 'lineofthought', :id => 'lineofthought'
 
   match '/tour' => 'tour#index',                    :as => 'tour'
