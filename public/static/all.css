@@ -1,0 +1,448 @@
+ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block}
+nav ul {list-style: none}
+blockquote, q {quotes: none}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none}
+a {margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent}
+ins {background-color: #ff9; color: #000; text-decoration: none}
+mark {background-color: #ff9; color: #000; font-style: italic; font-weight: bold}
+del {text-decoration: line-through}
+abbr[title], dfn[title] {cursor: help}
+ table {border-collapse: collapse; border-spacing: 0}
+hr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0}
+input, select {vertical-align: middle}
+body {color: #222; font-size: 13px; font-family: arial, "helvetica neue", helvetica, "lucida grande", sans-serif}
+h1, h2, h3, h4, h5, h6 {color: #111; font-family: "helvetica neue", Helvetica, arial, sans-serif}
+ div.alert, div.error, div.notice, div.success, #flash_failure, #flash_success, #flash_notice {border: 1px solid #ddd; -moz-border-radius: 8px; -webkit-border-radius: 8px; margin-bottom: 1em; font-size: 1.4em; padding: 0.8em}
+div.alert, div.error, #flash_failure {background: #FBE3E4; border-color: #FBC2C4; color: #D12F19}
+div.alert a, div.error a, #flash_failure a {color: #D12F19}
+div.success, #flash_success {background: #FFF6BF; border-color: #FFD324; color: #817134}
+div.success a, #flash_success a {color: #817134}
+div.notice, #flash_notice {background: #E6EFC2; border-color: #C6D880; color: #529214}
+div.notice a, #flash_notice a {color: #529214}
+  .box {background: #eee; margin-bottom: 1.5em; padding: 1.5em}
+ hr {background: #ddd; border: none; clear: both; color: #ddd; float: none; height: 1px; margin: 0 0 1.4em; width: 100%}
+hr.space {background: #fff; color: #fff}
+ .ir {display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr}
+ .hidden {display: none; visibility: hidden}
+ .visuallyhidden {position: absolute !important; clip: rect(1px 1px 1px 1px);  clip: rect(1px, 1px, 1px, 1px)}
+ .invisible {visibility: hidden}
+ .clearfix:before, .clearfix:after {content: "\0020"; display: block; height: 0; visibility: hidden}
+.clearfix:after {clear: both}
+ .clearfix {zoom: 1}
+.ie7 img {-ms-interpolation-mode: bicubic}
+@media print {* {background: transparent !important; color: #444 !important; text-shadow: none !important}
+a, a:visited {color: #444 !important; text-decoration: underline}
+a:after {content: " (" attr(href) ")"}
+abbr:after {content: " (" attr(title) ")"}
+.ir a:after {content: ""}
+ pre, blockquote {border: 1px solid #999; page-break-inside: avoid}
+thead {display: table-header-group}
+ tr, img {page-break-inside: avoid}
+@page {margin: 0.5cm}
+p, h2, h3 {orphans: 3; widows: 3}
+h2, h3 {page-break-after: avoid}
+}
+ h1, h2, h3, h4, h5, h6 {font-weight: bold}
+h1 {font-size: 2.2em; line-height: 1; margin-bottom: 0.25em}
+h2 {font-size: 1.6em; line-height: 1.1; margin-bottom: 0.25em}
+h3 {font-size: 1.3em; line-height: 1; margin-bottom: 0.25em}
+h4 {font-size: 1.1em; line-height: 1.25; margin-bottom: 0.25em}
+h5 {font-size: 1em; margin-bottom: 0.25em}
+h6 {font-size: 1em; margin-bottom: 0.25em}
+ p {margin-bottom: 0.5em}
+p.last {margin-bottom: 0}
+p img {float: left; margin: 1.5em 1.5em 1.5em 0; padding: 0}
+ p img.top {margin-top: 0}
+img {margin: 0 0 1.5em}
+abbr, acronym {border-bottom: 1px dotted #666; cursor: help}
+address {font-style: italic; margin-top: 1.5em}
+del {color: #666}
+a, a:link {color: #1a4882; text-decoration: underline}
+a:visited {color: #1a4882}
+a:hover {color: #052246}
+a:active, a:focus {color: #1a4882}
+blockquote {border-left: 4px solid #d1d1d1; color: #666; font-style: italic; margin: 1.5em 0; padding-left: 1em}
+strong {font-weight: bold}
+em, dfn {font-style: italic}
+dfn {font-weight: bold}
+pre, code {margin: 1.5em 0; white-space: pre;  white-space: pre-wrap;  white-space: pre-line;  word-wrap: break-word;  }
+pre, code, tt {font: 1em 'andale mono', 'monotype.com', 'lucida console', monospace; line-height: 1.5}
+pre.code {background: #000; color: #fff; padding: 20px}
+tt {display: block; line-height: 1.5; margin: 1.5em 0}
+  input[type="submit"]::-moz-focus-inner {border: none}
+form ol {list-style: none; margin: 0 0 1em 0}
+form ol ol {margin-left: 0}
+form ol li {list-style-position: outside; margin: 0 0 1em 0}
+ form ol ol li {list-style-position: outside; margin: 0 0 .25em 0}
+form ol li.error input {background: #FBE3E4}
+p.inline-errors {color: #D12F19}
+form ol li.file {background: #e1e1e1; border: 1px solid #c8c8c8; padding: 10px}
+form abbr {border-bottom: 0}
+label {display: block; color: #333; font-size: 18px}
+.required label {font-weight: bold}
+.checkbox_field label, .radio_field label {font-weight: normal}
+a.cancel {color: #7d0d0d}
+.inline-hints {color: #666; font-size: 0.8em; margin-bottom: 0.25em}
+ fieldset {background: #f1f1f1; border: 1px solid #e3e3e3; margin: 0 0 1.5em 0; padding: 1.5em 1.5em 1em 1.5em}
+fieldset fieldset, fieldset fieldset fieldset {border: 0; padding: 0}
+legend {font-weight: bold}
+.ie6 legend, .ie7 legend {margin-left: -7px}
+fieldset.buttons {background: inherit; border: 0; padding: 0}
+fieldset.buttons li {display: inline}
+.radio fieldset {margin: 0; padding: 0}
+ input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"] {font-size: inherit; border: 1px solid #888888; padding: 3px 2px; width: 98%}
+.ie6 input {vertical-align: text-bottom}
+input[disabled='disabled'] {background-color: #fcfcfc; cursor: default}
+input[type="checkbox"] {margin: 0 3px 0 0; position: relative; top: -2px; vertical-align: middle}
+.ie7 input[type="checkbox"] {vertical-align: baseline}
+input[type="radio"] {margin: 0 3px 0 0; position: relative; top: -2px; vertical-align: middle}
+.check_boxes label {display: inline; padding: 0; vertical-align: middle}
+.radio label {padding: 0}
+ textarea {font-size: inherit; height: auto; margin: 0 0.5em 0.5em 0; padding: 5px; width: 97%; overflow: auto; font-size: 18px}
+ fieldset .select select {width: 200px; font-size: 0.9em}
+optgroup {margin: 0 0 .5em 0}
+ form ol li.date ol li, form ol li.time ol li {display: inline}
+form ol li.datetime ol li {display: inline-block}
+form ol li.datetime select, form ol li.date select, form ol li.time select {display: inline; width: auto}
+form ol li.date label, form ol li.time label {display: none}
+ table {margin-bottom: 2em; width: 100%}
+th {border-bottom: 2px solid #ccc; font-weight: bold; text-align: left}
+td {border-bottom: 1px solid #ddd}
+caption, th, td {padding: 4px 10px 4px 0}
+caption {background: #f1f1f1; margin-bottom: 1em; padding: 10px 0}
+tr, td, th {vertical-align: middle}
+ table .last {padding-right: 0}
+ ul, ol {list-style-position: inside; margin-bottom: 1.5em}
+ul {list-style-type: disc}
+ol {list-style-type: decimal}
+dl {line-height: 1.4; margin-bottom: 1.5em}
+dl dt {font-weight: bold; margin-top: 0.5em}
+dl dd {margin-bottom: 0em}
+dd {margin-left: 0.5em}
+li {line-height: 1.4}
+ol ol, ol ul, ul ul, ul ol {margin-left: 1em}
+ ul.token-input-list {overflow: hidden; height: auto !important; height: 1%; border: 1px solid #888; width: 98%; cursor: text; font-size: 12px; font-family: Verdana; min-height: 1px; z-index: 999; margin: 0; padding: 0; background-color: #fff}
+ul.token-input-list {list-style-type: none}
+ul.token-input-list li input {border: 0; width: 100px; padding: 3px 8px; background-color: white; margin: 2px 0}
+li.token-input-token {overflow: hidden; height: auto !important; height: 1%; margin: 3px; padding: 1px 3px; background-color: #eff2f7; color: #000; cursor: default; border: 1px solid #ccd5e4; font-size: 11px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; float: left}
+li.token-input-token p {display: inline; padding: 0; margin: 0}
+li.token-input-token span {color: #a6b3cf; margin-left: 5px; font-weight: bold; cursor: pointer}
+li.token-input-selected-token {background-color: #5670a6; border: 1px solid #3b5998; color: #fff}
+li.token-input-input-token {float: left}
+div.token-input-dropdown {position: absolute; width: 98%; background-color: #fff; overflow: hidden; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; cursor: default; font-size: 11px; font-family: Verdana; z-index: 1}
+div.token-input-dropdown p {margin: 0; padding: 5px; font-weight: bold; color: #777}
+div.token-input-dropdown ul {margin: 0; padding: 0}
+div.token-input-dropdown ul li {background-color: #fff; padding: 3px}
+div.token-input-dropdown ul li.token-input-dropdown-item {background-color: #fff}
+div.token-input-dropdown ul li.token-input-dropdown-item2 {background-color: #fff}
+div.token-input-dropdown ul li em {font-weight: bold; font-style: none}
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #3b5998; color: #fff}
+body {font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background: #222}
+body.popup {background-color: #E3E3E3}
+.container {max-width: 960px; margin: 0 auto; position: relative; height: 100%}
+body.popup .container {max-width: 600px}
+.group:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
+ul {list-style: none; margin: 0; padding: 0}
+ header {display: block; background-color: #222; border-top: 4px solid #68aff3; height: 70px; border-bottom: 2px solid #ccc}
+#title p a {display: block; color: #eee; font-size: 24px; padding-top: 6px}
+#title p a:hover {color: #ccc}
+#title p a span {color: #68aff3; font-size: 100%}
+#title p a:hover span {color: #4B81B4}
+#title span {font-size: 18px; color: #9c9c9c}
+ nav {display: block; position: absolute; right: 0; top: 0; width: 724px}
+nav ul {float: right}
+nav ul li {float: left}
+nav ul li a:link, nav ul li a:visited {display: block; color: #ddd}
+nav ul li a {padding: 10px; font-size: 14px; margin-left: 10px}
+nav ul li a:hover {background-color: #68aff3; color: #eee}
+#search {position: absolute; bottom: 6px; right: 0; display: none}
+#search form {width: 400px; float: right; font-size: 13px}
+#search form input[type=text] {width: 200px; background-color: #ddd; border: 1px solid #666}
+#search form input[type=text]:focus {background-color: #fff}
+#current_user {display: block; position: absolute; right: 0; top: 30px}
+#current_user li {font-size: 14px; float: right; padding-left: 1em}
+#current_user li a:hover {color: #ccc}
+ section, aside {display: block}
+#main {background-color: #E3E3E3; color: #1B1B1B}
+#content {padding: 14px}
+#content, sidebar aside {background-color: #fff; border: 1px solid #ccc; font-size: 14px}
+#main .container {padding: 10px 0}
+ #content {width: 620px; float: left}
+body.popup #content {width: 550px}
+.main section {padding: .4em}
+ body.popup sidebar {display: none}
+sidebar {width: 300px; float: right}
+sidebar aside {margin-bottom: 10px; padding: 15px}
+sidebar aside h3 {margin: 0 0 6px 0; padding: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #365B81; border-bottom: 2px solid #ecebe1}
+sidebar aside p.more {margin-top: 12px; text-align: center}
+sidebar aside p {margin-top: 12px; font-size: 16px; line-height: 20px}
+ ul.txt li {padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
+ul.txt li:hover {background: #EFF2F7}
+ ul.lst li a {display: block; padding: 7px; border-bottom: 1px solid #f3f2e8; overflow: hidden}
+ul.lst li.last a {border: none}
+ul.lst a:hover {background: #EFF2F7}
+ul.lst li em {float: right; margin: 0 0 0 5px; font-size: 10px; font-style: normal; font-weight: normal; color: #9c836e}
+ul.lst li a img.favicon {float: left; margin: 0; width: 16px; height: 16px; padding-right: 8px}
+ ul.lst-rating li {margin: 0 0 2px 0; position: relative}
+ul.lst-rating li a {position: relative; display: block; padding: 7px; z-index: 2; font-size: 11px}
+ul.lst-rating li em {float: right; margin: 0 0 0 5px; font-style: normal; font-weight: normal; color: #9c836e}
+ul.lst-rating li span {position: absolute; top: 0; left: 0; display: block; height: 100%; line-height: 2.55em; text-indent: -9999px; background: #EBE6FF}
+ul.lst-rating li:hover span {background: #C6C8E8}
+aside ul.bookmarks {font-size: 11px}
+ footer {display: block; min-height: 140px}
+footer section {float: left}
+footer section p, footer section h3 {margin: 1em}
+footer section li {margin: .4em 1em}
+footer section.main-footer {width: 700px}
+footer section.sidebar {width: 260px; float: right}
+footer section h3 {color: #E2DDDC; font-size: 10px; text-transform: uppercase}
+footer section.main-footer p {color: #bbb}
+body.sites nav ul li.sites a, body.tools nav ul li.tools a, body.bookmarks nav ul li.bookmarks a, body.authentications nav ul li.profile a, body.profiles nav ul li.profile a, body.tool_sites nav ul li.tools a, body.site_tools nav ul li.sites a, body.site_claims nav ul li.sites a, body.sessions nav ul li.sign-in a, body.registrations nav ul li.profile a, body.blog nav ul li.blog a, body.accounts nav ul li.profile a {background-color: #68aff3; color: #eee}
+.bookmarks {display: none}
+.clear {clear: both}
+.right {float: right}
+p.breadcrumbs {font-size: 8px}
+a.add {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat; padding-left: 20px}
+a.remove {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat 0 7px; padding-left: 20px}
+img.screenshot, .screenshot img {border: 1px solid #ccc; float: left}
+a.external {font-size: 10px}
+a:link, a:visited {color: #3792B3; font-weight: bold; outline-color: -moz-use-text-color; outline-style: none; outline-width: medium; text-decoration: none}
+p.center {text-align: center}
+section.text p, section.text h3 {margin: .5em 1em}
+section.text ul, section.text ol {margin: 1em 1em 1em 1.4em; padding: 0 1em}
+section.text ul {list-style: disc outside}
+section.text ol {list-style: decimal outside}
+section.text ol li {margin-bottom: .5em}
+section.text ul li p, section.text ol li p {margin: 1em 0}
+ section.announcement {margin-bottom: 1em}
+section.announcement p {font-size: 18px; color: #333; margin: .5em 1em; text-align: center}
+section.announcement p.title {font-size: 24px; color: #666; margin: .5em 0}
+section.announcement p a {font-weight: bold; font-style: normal}
+section.announcement p a:hover {text-decoration: underline}
+section.tab {clear: both}
+section.tab p.empty_message, section.tab p.main_message {color: #444; text-align: center; font-size: 16px; margin: 1.5em 0 1em}
+  ul.tabs {height: 34px; padding: 0 20px; border-bottom: 1px solid #a3a09e; clear: both; margin: 0}
+ul.tabs li {margin: 0; padding: 0; display: inline; list-style-type: none}
+ul.tabs a:link, ul.tabs a:visited {float: left; font-weight: bold; padding: 7px 1.2em; margin-right: 8px; border: 1px solid #a3a09e; text-decoration: none; color: #666; height: 18px}
+ul.tabs a {background-color: #f3f3f3; font-size: 16px; position: relative; top: 1px}
+ul.tabs li.current a:link, ul.tabs li.current a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
+ul.tabs a:hover {background-color: #fff}
+ #sorting {float: right; position: relative; width: 200px}
+#sorting p {float: right; width: 100%; text-align: right}
+#sorting p a {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat right; display: block; width: 14px; height: 14px; float: right; margin-left: 10px}
+#sorting p a.active {background: url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat right}
+#sorting ul.options {background-color: #F1F1F1; padding: 10px; float: right; z-index: 1; clear: left; border: 3px solid #e3e3e3; clear: both; position: absolute; top: 20px; border-radius: 8px; -moz-border-radius: 8px; width: 200px; right: 0}
+ .pagination {background: white; margin: 1em 0}
+.pagination a, .pagination span, .pagination em {padding: .2em .5em; display: block; float: left; margin-right: 1px}
+.pagination span.disabled {color: #999; border: 1px solid #DDD}
+.pagination em {font-weight: bold; background: #2E6AB1; color: white; border: 1px solid #2E6AB1}
+.pagination a {text-decoration: none; color: #105CB6; border: 1px solid #9AAFE5}
+.pagination a:hover, .pagination a:focus {color: #003; border-color: #003}
+.pagination .page_info {background: #2E6AB1; color: white; padding: .4em .6em; width: 22em; margin-bottom: .3em; text-align: center}
+.pagination .page_info b {color: #003; background: #6aa6ed; padding: .1em .25em}
+.pagination:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
+* html .pagination {height: 1%}
+*:first-child + html .pagination {overflow: hidden}
+div.disqus_wrapper {padding: 1em; font-size: 14px}
+sidebar aside.search input[type='text'] {width: 200px; border-color: #bbb}
+body.sites-show li.sites-show a:link, body.sites-show li.sites-show a:visited, body.site_tools-index li.site_tools-index a:link, body.site_tools-index li.site_tools-index a:visited, body.site_claims-new li.site_claims-new a:link, body.site_claims-new li.site_claims-new a:visited, body.site_tools-manage li.site_tools-manage a:link, body.site_tools-manage li.site_tools-manage a:visited, body.tools-show li.tools-show a:link, body.tools-show li.tools-show a:visited, body.tools-edit li.tools-edit a:link, body.tools-edit li.tools-edit a:visited, body.tool_sites-new li.tool_sites-new a:link, body.tool_sites-new li.tool_sites-new a:visited, body.tool_sites-index li.tool_sites-index a:link, body.tool_sites-index li.tool_sites-index a:visited, body.site_claims-create li.site_claims-create a:link, body.site_claims-create li.site_claims-create a:visited, body.tool_sites-manage li.tool_sites-manage a:link, body.tool_sites-manage li.tool_sites-manage a:visited, body.sites-edit li.sites-edit a:link, body.sites-edit li.sites-edit a:visited, body.bookmarks-show li.bookmarks-show a:link, body.bookmarks-show li.bookmarks-show a:visited, body.bookmarks-edit li.bookmarks-edit a:link, body.bookmarks-edit li.bookmarks-edit a:visited, body.bookmarks-sites li.bookmarks-sites a:link, body.bookmarks-sites li.bookmarks-sites a:visited, body.bookmarks-tools li.bookmarks-tools a:link, body.bookmarks-tools li.bookmarks-tools a:visited, body.tools-bookmarks li.tools-bookmarks a:link, body.tools-bookmarks li.tools-bookmarks a:visited, body.sites-bookmarks li.sites-bookmarks a:link, body.sites-bookmarks li.sites-bookmarks a:visited, body.saved_bookmark-new li.saved_bookmark-new a:link, body.saved_bookmark-new li.saved_bookmark-new a:visited, body.saved_bookmark-edit li.saved_bookmark-edit a:link, body.saved_bookmark-edit li.saved_bookmark-edit a:visited, body.site_tools-deleted li.site_tools-deleted a:link, body.site_tools-deleted li.site_tools-deleted a:visited, body.tool_sites-deleted li.tool_sites-deleted a:link, body.tool_sites-deleted li.tool_sites-deleted a:visited {border-bottom: 1px solid #fff; background: #fff; color: #000}
+ .show-header {position: relative}
+.show-header h2 {display: inline}
+.show-header .content {padding: .4em .4em 1em}
+#site-header {min-height: 88px}
+#site-header h2, #tool-header h2 {float: left}
+#site-header h2, #site-header p {max-width: 600px}
+#tool-header {min-height: 110px}
+#site-header p, #tool-header p {clear: left}
+#tool-header h2, #tool-header p {max-width: 600px}
+#tool-header .mini-categories {bottom: 20px; right: 6px}
+#bookmark-header {margin-bottom: 20px}
+.titleless li.ind:first-child {border-top: none}
+button.loading {display: none}
+.loading button.loading {display: inline; padding-right: 18px; background: url(/images/indicator.gif) no-repeat right}
+.highlight {background: #ffffff}
+.highlight .c {color: #999988; font-style: italic }
+ .highlight .err {color: #a61717; background-color: #e3d2d2 }
+ .highlight .k {font-weight: bold }
+ .highlight .o {font-weight: bold }
+ .highlight .cm {color: #999988; font-style: italic }
+ .highlight .cp {color: #999999; font-weight: bold }
+ .highlight .c1 {color: #999988; font-style: italic }
+ .highlight .cs {color: #999999; font-weight: bold; font-style: italic }
+ .highlight .gd {color: #000000; background-color: #ffdddd }
+ .highlight .gd .x {color: #000000; background-color: #ffaaaa }
+ .highlight .ge {font-style: italic }
+ .highlight .gr {color: #aa0000 }
+ .highlight .gh {color: #999999 }
+ .highlight .gi {color: #000000; background-color: #ddffdd }
+ .highlight .gi .x {color: #000000; background-color: #aaffaa }
+ .highlight .go {color: #888888 }
+ .highlight .gp {color: #555555 }
+ .highlight .gs {font-weight: bold }
+ .highlight .gu {color: #aaaaaa }
+ .highlight .gt {color: #aa0000 }
+ .highlight .kc {font-weight: bold }
+ .highlight .kd {font-weight: bold }
+ .highlight .kp {font-weight: bold }
+ .highlight .kr {font-weight: bold }
+ .highlight .kt {color: #445588; font-weight: bold }
+ .highlight .m {color: #009999 }
+ .highlight .s {color: #d14 }
+ .highlight .na {color: #008080 }
+ .highlight .nb {color: #0086B3 }
+ .highlight .nc {color: #445588; font-weight: bold }
+ .highlight .no {color: #008080 }
+ .highlight .ni {color: #800080 }
+ .highlight .ne {color: #990000; font-weight: bold }
+ .highlight .nf {color: #990000; font-weight: bold }
+ .highlight .nn {color: #555555 }
+ .highlight .nt {color: #000080 }
+ .highlight .nv {color: #008080 }
+ .highlight .ow {font-weight: bold }
+ .highlight .w {color: #bbbbbb }
+ .highlight .mf {color: #009999 }
+ .highlight .mh {color: #009999 }
+ .highlight .mi {color: #009999 }
+ .highlight .mo {color: #009999 }
+ .highlight .sb {color: #d14 }
+ .highlight .sc {color: #d14 }
+ .highlight .sd {color: #d14 }
+ .highlight .s2 {color: #d14 }
+ .highlight .se {color: #d14 }
+ .highlight .sh {color: #d14 }
+ .highlight .si {color: #d14 }
+ .highlight .sx {color: #d14 }
+ .highlight .sr {color: #009926 }
+ .highlight .s1 {color: #d14 }
+ .highlight .ss {color: #990073 }
+ .highlight .bp {color: #999999 }
+ .highlight .vc {color: #008080 }
+ .highlight .vg {color: #008080 }
+ .highlight .vi {color: #008080 }
+ .highlight .il {color: #009999 }
+ body.blog #content {width:932px}
+body.blog sidebar {display:none}
+#home {}
+articles {}
+article {padding:1em; font-size:16px; line-height:22px}
+article a:hover {text-decoration:underline}
+article h2 {margin-bottom:.6em}
+article h2, article h2 a:link, article h2 a:visited {color:#444; font-size:26px}
+article h3 {margin-top:1.4em}
+article ul {list-style:disc inside; margin:1em}
+article .article {margin-bottom:10px}
+article .date {color:#777; font-size:14px}
+body.blog #comments {padding:1em}
+ form.formtastic fieldset ol li.autolabel, form.formtastic fieldset ol li.tokeninput {position: relative}
+form.formtastic fieldset ol li.autolabel label {margin: .4em 0 0 0.6em; position: absolute; color: #666; font-weight: normal}
+form.formtastic fieldset ol li.nolabel label {display: none}
+form.formtastic fieldset ol li.tokeninput {margin-bottom: 2em}
+.using textarea {height: 55px; width: 97%}
+form {font-size: 14px}
+.check_boxes {position: relative}
+.check_boxes fieldset {margin: 0 0 5px 0}
+.check_boxes fieldset li {float: left; width: 30%}
+.inline-hints {margin: 0.5em .25em}
+form.formtastic fieldset {border: 0; background: none; padding-bottom: 0px}
+  .edit-in-place {position: relative}
+.edit-in-place:hover {background-color: transparent}
+.edit-in-place form {display: none; clear: both}
+.edit-in-place form textarea {font-size: 13px}
+.edit-in-place h4 {font-size: 16px}
+.edit-in-place p em {color: #777}
+.editing form.using {display: block; margin-top: 14px}
+.editing form.using fieldset {padding: 0}
+.editing .edit-in-place-show {display: none}
+.editing p.about {display: none}
+li.tool_name_autocomplete .inline-hints {display: none}
+input.autocomplete-toolname, input.autocomplete-sitetitle {padding-left: 26px; background: url(/images/placeholder.jpg) no-repeat 4px 4px; width: 520px}
+body.popup input.autocomplete-toolname, body.popup input.autocomplete-sitetitle {width: 452px}
+ .ui-widget-overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
+.ui-widget-content {border: 1px solid #aaaaaa; background: #ffffff; color: #222222}
+.ui-widget-content a {color: #222222}
+.ui-autocomplete {position: absolute; cursor: default}
+* html .ui-autocomplete {width: 1px}
+ .ui-autocomplete li a img {margin: 0 8px 0 0; float: left; width: 16px}
+.ui-autocomplete li:nth-child(even) {background-color: #eee}
+.ui-menu {list-style: none; padding: 2px; margin: 0; display: block; float: left; font-size: 13px}
+.ui-menu .ui-menu {margin-top: -3px}
+.ui-menu .ui-menu-item {margin: 0; padding: 0; zoom: 1; float: left; clear: left; width: 100%}
+.ui-menu .ui-menu-item a {text-decoration: none; display: block; padding: .2em .4em; line-height: 1.5; zoom: 1}
+.ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active {font-weight: normal; margin: -1px}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {border: 1px solid #d3d3d3; background: #e6e6e6; font-weight: normal; color: #555555}
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {color: #555555; text-decoration: none}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {border: 1px solid #999999; background: #dadada; font-weight: normal; color: #212121}
+.ui-state-hover a, .ui-state-hover a:hover {color: #212121; text-decoration: none}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {border: 1px solid #aaaaaa; background: #ffffff; font-weight: normal; color: #212121}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {color: #212121; text-decoration: none}
+.ui-widget :active {outline: none}
+ ul.categories, ul.sites, ul.tools, ul.usings, ul.mini-categories, ul.mini-sites, ul.mini-tools {list-style: none; margin: 0; padding: 0}
+ul.categories, ul.sites, ul.tools, ul.usings {min-height: 1em}
+li.ind a:hover {text-decoration: underline}
+li.ind {border-bottom: 1px solid #ccc; padding: 1em 0}
+li.ind:first-child {border-top: 1px solid #ccc}
+a.favicon, img.favicon {width: 16px; height: 16px; float: left; padding-right: 8px}
+a.favicon img, img.favicon {margin: 0; width: 16px; height: 16px}
+ .title_bar {padding: 1em 1em 0 .5em}
+.title_bar h2, .title_bar h3, .title_bar h4 {float: left}
+.title_bar a.add {font-size: 13px; padding: 0 0 0 10px}
+ ul.main-list li.ind {padding: 1em 0; position: relative}
+ul.main-list li.ind p {margin-top: 4px; clear: left}
+ul.main-list li.ind .details {margin: 0; padding: 0 .5em}
+ul.main-list li.ind .content {position: relative}
+ul.main-list li.ind .title {margin-left: 0px}
+ul.main-list li.ind .title h4 {display: inline; font-size: 16px; margin-bottom: 10px; float: left}
+ ul.main-list li.ind ul.count, .show-header ul.count {float: right; margin: 0 0 0 20px}
+ul.count {color: #fff; width: 120px; list-style: none; font-size: 11px; font-weight: bold}
+ul.count a {display: block; padding: 4px; color: #fff}
+ul.count li {margin: 0 0 .4em 0; position: relative}
+ul.count li a {padding: 4px}
+ul.count li span, ul.count li a {display: block}
+ul.count li span {padding: 4px}
+ul.count li em {float: right; font-style: normal; font-weight: bold; padding-left: 12px}
+ul.count li.sites a {background-color: #68AFF3}
+ul.count li.sites a:hover {background-color: #609cd6}
+ul.count li.links a {background-color: #FFA500}
+ul.count li.links a:hover {background-color: #ccA500}
+ul.count li.alexa, ul.sort-alexa li.ind li.alexa {background-color: #229EC9; color: #fff}
+ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {background-color: #69a039; color: #fff}
+ .mini-sites li a, .mini-categories li a, .mini-tools li a {display: block; font-size: 12px; padding: 0.3em}
+ .mini-sites li {float: left; margin-right: .4em}
+.mini-sites li a {color: #555; border: 1px solid #ddd}
+.mini-sites li a:hover {color: #000; background-color: #eee}
+ .mini-categories {position: absolute; bottom: 0; right: 0; margin: 0; padding: 0}
+.mini-categories li {margin-left: .2em; float: right}
+.mini-categories li a {color: #555; border: 1px solid #ddd}
+.mini-categories li a:hover {color: #000; background-color: #eee}
+ .mini-tools li {float: left; margin-right: .4em}
+.mini-tools li a {color: #555; border: 1px solid #ddd}
+.mini-tools li a:hover {color: #000; background-color: #eee}
+ #tools-list li.ind {min-height: 90px}
+#tools-list li.ind div.title {min-height: 70px}
+#tools-list li.ind div.title h4, #tools-list li.ind p {clear: left}
+#tools-list li.ind .content {position: relative; min-height: 12px}
+#tools-list li.ind .content ul.sites .tools {margin: 0.4em 0}
+ #bookmarks-list li.ind span.url {float: right; display: none; color: #888; font-size: 10px}
+#bookmarks-list li.ind span.url a {color: #888}
+#bookmarks-list li.ind:hover span.url {display: inline}
+ .sublist li.ind {padding: 0.8em 0.8em 0.6em}
+.sublist li.ind .title {margin-left: 0; min-height: 0px; position: relative}
+.sublist li.ind .title h4 {float: left; font-size: 16px; margin: 0; padding: .3em 0; width: auto}
+.sublist li.ind ul.mini-categories, .sublist li.ind ul.mini-tools {float: right; max-width: 400px; position: relative}
+.sublist li.ind ul.mini-categories li, .sublist li.ind ul.mini-tools li {float: right}
+.sublist li.ind p {clear: left; padding-top: 4px; display: inline}
+.sublist li.ind p.about {color: #888; font-size: 12px}
+.sublist li.ind div.description {position: relative; min-height: 20px}
+body.site_tools-show .sublist li.ind .actions li.comments {display: none}
+.sublist li.ind .actions {display: inline; float: right; margin-top: 4px}
+.sublist li.ind .actions li {float: right}
+.sublist li.ind .actions li a {font-size: 11px; padding: 0 0 0 10px; color: #666; float: right}
+.sublist li.ind .actions li a:hover {color: red}
+.sublist li.ind .actions li.edit-in-place-cancel {display: none}
+.sublist li.ind.editing .actions li.edit-in-place-cancel {display: inline}
+.sublist li.ind.editing .actions .edit-in-place-edit {display: none}
+section.deleted li.edit-in-place-edit, section.single-site-tool li.edit-in-place-edit {display: none}
+.edit-in-place:hover .actions {display: block}
+ section.add_in_place {border-top: 1px solid #ccc}
+p.add_more {text-align: center; font-size: 18px; color: #555; margin: 14px 0}
