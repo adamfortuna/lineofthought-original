@@ -43,7 +43,7 @@ ul.tabs a:hover { background-color: #fff;	}
 
 
 /* Pagination */
-.pagination { background: white; }
+.pagination { background: white; margin:1em 0; }
 .pagination a, .pagination span, .pagination em { padding: .2em .5em; display: block; float: left; margin-right: 1px; }
 .pagination span.disabled { color: #999; border: 1px solid #DDD; }
 .pagination em { font-weight: bold; background: #2E6AB1; color: white; border: 1px solid #2E6AB1; }

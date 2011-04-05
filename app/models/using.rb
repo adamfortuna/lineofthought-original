@@ -2,20 +2,20 @@ class Using < ActiveRecord::Base
   attr_accessor :tool_name, :tool_url,
                 :site_title, :site_url # For implicit tool creation when a tool doesn't exist
   has_paper_trail :only => [:description, :user_id]
-  acts_as_paranoid :column => :deleted, :type => :boolean
+  acts_as_paranoid
   validates_as_paranoid
   belongs_to :site, :counter_cache => 'tools_count'
   belongs_to :tool, :counter_cache => 'sites_count'
   belongs_to :user
 
-  attr_accessible :site_id, :tool_id, :tool_name, :tool_url, :user_id, :description, :deleted, :site_title, :site_url
+  attr_accessible :site_id, :tool_id, :tool_name, :tool_url, :user_id, :description, :deleted_at, :site_title, :site_url
 
   has_many :bookmark_connections, :dependent => :destroy
   has_many :bookmarks, :through => :bookmark_connections
   
   validates_presence_of :site_id
   validates_presence_of :tool_id
-  validates_uniqueness_of :tool_id, :scope => [:site_id, :deleted], :message => "has already been added to this site."
+  validates_uniqueness_of :tool_id, :scope => :site_id, :message => "has already been added to this site."
   
   scope :recent, :order => "created_at desc"
   scope :by_alexa_site, joins(:site).order(:alexa_global_rank).includes(:site)

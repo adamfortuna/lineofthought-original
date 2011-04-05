@@ -5,7 +5,6 @@
   <section>
     <%= semantic_form_for resource, :as => resource_name, :url => registration_path(resource_name) do |form| %>
       <%= form.inputs do %>
-        <%= form.input :username, :as => :string, :required => true %>
         <%= form.input :email, :as => :string, :required => true %>
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>

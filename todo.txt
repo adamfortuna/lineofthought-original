@@ -1,0 +1,2 @@
+* can't add .edu tlds as sites to tools pages.
+* Need to add the uri.to_s of the url as the URL on the tool. added one as "espn.com", and it was created.

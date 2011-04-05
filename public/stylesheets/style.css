@@ -158,7 +158,8 @@ ul.tabs a:hover {
 
 /* Pagination */
 .pagination {
-  background: white; }
+  background: white;
+  margin: 1em 0; }
 
 .pagination a, .pagination span, .pagination em {
   padding: .2em .5em;

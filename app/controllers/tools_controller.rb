@@ -32,7 +32,11 @@ class ToolsController < ApplicationController
   def show
     params[:sort] ||= "alexa_asc"
     @tool = find(params[:id])
-    @usings = @tool.usings.joins(:site).includes(:site).order(Site.sql_order(params[:sort])).paginate(:page => 1, :per_page => 25)
+    @usings = @tool.usings
+                   .joins(:site)
+                   .includes(:site)
+                   .order(Site.sql_order(params[:sort]))
+                   .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
     @featured = Tool.featured.limit(5)
     respond_with @tool
   rescue ActiveRecord::RecordNotFound
