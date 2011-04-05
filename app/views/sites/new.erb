@@ -23,7 +23,7 @@
     </div>
     <div id="existing_site" class="response" style="display:none;">
       <h3>Matching Site</h3>
-      <ul class="sites"></ul>
+      <ul id="sites-list" class="sites main-list"></ul>
     </div>
   </section>
 </section>
@@ -49,7 +49,7 @@ $(function() {
       $("#submit_lookup input").attr("disabled", "disabled");
       $("#cancel_lookup").show();
       $("#lookup_loading").show();
-      checkForLookup = setInterval("resubmit_lookup()", 3000);
+      checkForLookup = setInterval("resubmit_lookup()", 6000);
     }
   });
   

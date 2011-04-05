@@ -11,7 +11,11 @@
             <li><%= link_to "Delete this tool", tool_path(@tool), :method => :delete, :confirm => "Are you sure you want to delete this site?" %></li>
           <% end %>
         </ul>
-      <% else %>
+      <% elsif logged_in? %>
+        <ul class="lst">
+          <li><a href="#add_new_site" class="add_another_site">Add another site</a></li>
+        </ul>
+      <% elsif !logged_in? %>
       <ul class="txt">
         <li><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to add some sites that use this tool.</li>
       </ul>

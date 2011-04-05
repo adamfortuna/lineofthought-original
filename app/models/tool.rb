@@ -28,7 +28,7 @@ class Tool < ActiveRecord::Base
   end
   handle_asynchronously :solr_index
     
-  attr_accessible :name, :url, :description, :category_ids, :language_id, :link_id, :claimer
+  attr_accessible :name, :url, :description, :category_ids, :language_id, :link_id, :claimer, :categories, :link
   
   belongs_to :language, :class_name => 'Tool'
   has_many :buildables, :dependent => :destroy
@@ -170,11 +170,7 @@ class Tool < ActiveRecord::Base
       :link => link,
       :link_id => link.id
     })
-    if link.cached_keywords && link.cached_keywords.length > 0
-      tool.name = link.cached_keywords.first.first.capitalize
-    else
-      tool.name = link.title
-    end
+    tool.name = link.title
     tool
   end
   
@@ -267,6 +263,9 @@ class Tool < ActiveRecord::Base
   
   after_create :create_initial_claim
   def create_initial_claim
-    claimer.claims.create({ :claimable => self }) if claimer
+    if claimer
+      claim = claimer.claims.create({ :claimable => self })
+      claim.bypass_and_claim!
+    end
   end
 end

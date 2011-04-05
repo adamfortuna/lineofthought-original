@@ -1,37 +1,31 @@
 <section class="tab">
   <a name="add_new_site"></a>
   <% if @tool.sites_count > 0 %>
-  <% description "We know of #{pluralize(@tool.sites_count, "site")} using #{@tool.name} (#{@tool.url})." %>
-  <div class="title_bar group">
-    <h3>We know of <%= pluralize(@tool.sites_count, "site") %> using <%= @tool.name %>.</h3>
-    <div id="sorting">
-      <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
-      <ul class="options" style="display:none;">
-        <li><%= link_to "Sort by Alexa Rank", tool_path(@tool, :sort => :alexa_asc, :format => params[:format]) %></li>
-        <li><%= link_to "Sort by Google PageRank", tool_path(@tool, :sort => :google_desc, :format => params[:format]) %></li>
-        <li><%= link_to "Sort by Site Name", tool_path(@tool, :sort => :sitename_asc, :format => params[:format]) %></li>
-        <li><%= link_to "Sort by Number of Tools", tool_path(@tool, :sort => :tools_desc, :format => params[:format]) %></li>
-      </ul>
+    <% description "We know of #{pluralize(@tool.sites_count, "site")} using #{@tool.name} (#{@tool.url})." %>
+    <div class="title_bar group">
+      <h3>We know of <%= pluralize(@tool.sites_count, "site") %> using <%= @tool.name %>.</h3>
+      <div id="sorting">
+        <p>Sorting by <%= sorting_name(params[:sort]) %> <a href="#" class="change_sorting"></a></p>
+        <ul class="options" style="display:none;">
+          <li><%= link_to "Sort by Alexa Rank", tool_path(@tool, :sort => :alexa_asc, :format => params[:format]) %></li>
+          <li><%= link_to "Sort by Google PageRank", tool_path(@tool, :sort => :google_desc, :format => params[:format]) %></li>
+          <li><%= link_to "Sort by Site Name", tool_path(@tool, :sort => :sitename_asc, :format => params[:format]) %></li>
+          <li><%= link_to "Sort by Number of Tools", tool_path(@tool, :sort => :tools_desc, :format => params[:format]) %></li>
+        </ul>
+      </div>
     </div>
-  </div>
   
-  <% if !logged_in? || current_user.can_add_lines?(@tool) %>
-    <p class="add_more">Want to add a site that uses this tool? <a href="#add_new_site" class="add_another_site">Add it here</a></p>
-    <section id="new_using_form" style="display:none;" class="add_in_place">
-      <% if logged_in? && current_user.can_add_lines?(@tool) %>
-        <%= render 'tool_sites/form' %>
-      <% elsif !logged_in? %>
-        <p class="main_message">You must <%= link_to "sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to add a site.</p>
-      <% end %>
-    </section>
-  <% end %>
+    <% if !logged_in? || current_user.can_add_lines?(@tool) %>
+      <%= render "add_new_sites" %>
+    <% end %>
   
-  <ul id="tool-sites-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>">
-    <%= render :partial => 'usings/using_site', :collection => sites %>
-  </ul>
-  <%= will_paginate sites %>
+    <ul id="tool-sites-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>">
+      <%= render :partial => 'usings/using_site', :collection => sites %>
+    </ul>
+    <%= will_paginate sites %>
   <% else %>
+    <%= render "add_new_sites" %>
+    <ul id="tool-sites-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>"></ul>
     <p class="empty_message">We don't know of any sites using <%= @tool.name %>.</p>
-    <p class="empty_message">You can <%= link_to "add some sites now", manage_tool_sites_path(@tool, :format => params[:format]) %> if you know of any.</p>
   <% end %>
 </section>

@@ -1,0 +1,8 @@
+<p class="add_more">Want to add a site that uses this tool? <a href="#add_new_site" class="add_another_site">Add it here</a></p>
+<section id="new_using_form" style="display:none;" class="add_in_place">
+  <% if logged_in? && current_user.can_add_lines?(@tool) %>
+    <%= render 'tool_sites/form' %>
+  <% elsif !logged_in? %>
+    <p class="main_message">You must <%= link_to "sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to add a site.</p>
+  <% end %>
+</section>

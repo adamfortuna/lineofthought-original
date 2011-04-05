@@ -212,6 +212,12 @@ class User < ActiveRecord::Base
     lines_count + (claimed_sites_count * 20) + (claimed_tools_count * 5)
   end
   
+  def update_claim_counts!
+    self.claimed_sites_count = self.sites.count
+    self.claimed_tools_count = self.tools.count
+    self.save
+  end
+  
   private
   def validate_invite
     invite = Invite.find_by_code(self.invite_code)

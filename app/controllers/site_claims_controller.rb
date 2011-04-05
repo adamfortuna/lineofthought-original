@@ -12,7 +12,10 @@ class SiteClaimsController < ApplicationController
     @claim = current_user.find_or_create_claim(@site, params[:using])
     
     # Retry verification
-    if @claim && @claim.verification_failed? && @claim.status_updated_at < 30.seconds.ago.to_datetime
+    if @claim.unverified?
+      @claim.start_verification!
+      @claim.attempt_to_verify!
+    elsif @claim && @claim.verification_failed? && @claim.status_updated_at < 30.seconds.ago.to_datetime
       @claim.retry!
       @claim.attempt_to_verify! 
     end

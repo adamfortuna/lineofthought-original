@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
-  # caches_action :beta, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 1.hour
-  caches_action :beta, :expires_in => 15.minutes, :layout => false
+  caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 15.minutes
 
   # GET /
   def index

@@ -1,15 +1,8 @@
 class Claim < ActiveRecord::Base
   belongs_to :user
   belongs_to :claimable, :polymorphic => true
-
-  belongs_to :site, 
-             :class_name => "Site", 
-             :foreign_key => "claimable_id", 
-             :counter_cache => "claimed_sites_count"
-  belongs_to :tool, 
-             :class_name => "Tool", 
-             :foreign_key => "claimable_id",
-             :counter_cache => "claimed_tools_count"
+  belongs_to :site, :class_name => "Site", :foreign_key => "claimable_id"
+  belongs_to :tool, :class_name => "Tool", :foreign_key => "claimable_id"
   
   validates_uniqueness_of :user_id, :scope => [:claimable_id, :claimable_type]
   
@@ -23,12 +16,24 @@ class Claim < ActiveRecord::Base
     state :verified do
     end
 
+    state :verifying do
+    end
+
+    # User authorized to claim it, but only until someone else is verified.
+    state :authorized do
+    end
+
     state :verification_failed do
     end
 
     before_transition any => any, :do => :set_status_updated_at
 
-    after_transition :to => :verified, :do => :update_user_cached_claims
+    event :start_verification do
+      transition [:unverified, :verification_failed] => :verifying
+    end
+
+    after_transition :to => [:authorized, :verified], :do => :update_user_cached_claims
+    after_transition :to => [:authorized, :verified], :do => :increment_user_claims
     event :verify_claim do
       transition [:unverified, :verification_failed] => :verified, :if => :able_to_verify?
       transition [:unverified, :verification_failed] => :verification_failed
@@ -39,10 +44,10 @@ class Claim < ActiveRecord::Base
       transition :verified => :unverified
     end
     event :retry do
-      transition :verification_failed => :unverified
+      transition :verification_failed => :verifying
     end
     event :bypass_and_claim do
-      transition :unverified => :verified
+      transition :unverified => :authorized
     end
   end
   
@@ -55,7 +60,6 @@ class Claim < ActiveRecord::Base
     
     # Todo: make sure the code is in the head of the page.
     if data.include?(user.claim_code)
-      user.claims.create({ :claimable => claimable })
       user.reload
       return true
     else
@@ -74,7 +78,6 @@ class Claim < ActiveRecord::Base
     end
 
     if response.status.first.to_i == 200
-      user.claims.create({ :claimable => claimable })
       user.reload
       return true
     else
@@ -84,7 +87,6 @@ class Claim < ActiveRecord::Base
     return false
   end
   
-  after_create :attempt_to_verify!
   def attempt_to_verify!
     self.verify_claim!
   end
@@ -113,4 +115,9 @@ class Claim < ActiveRecord::Base
   def set_status_updated_at
     self.status_updated_at = Time.now
   end
+  
+  def increment_user_claims
+    self.user.update_claim_counts!
+  end
+  handle_asynchronously :attempt_to_verify!, :priority => 10
 end
