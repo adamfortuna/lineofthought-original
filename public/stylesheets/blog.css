@@ -64,10 +64,12 @@ body.blog sidebar { display:none; }
 
 #home { }
 articles { }
-article { padding:1em; font-size:18px; line-height:24px; }
+article { padding:1em; font-size:16px; line-height:22px; }
 article a:hover { text-decoration:underline; }
 article h2 { margin-bottom:.6em; }
 article h2, article h2 a:link, article h2 a:visited { color:#444; font-size:26px; }
 article h3 { margin-top:1.4em; }
 article ul { list-style:disc inside; margin:1em; }
+article .article { margin-bottom:10px; }
+article .date { color:#777; font-size:14px; }
 body.blog #comments { padding:1em; }

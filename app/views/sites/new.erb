@@ -1,9 +1,11 @@
 <% title "Add a Site to Line Of Thought" %>
 
 <section id="content" class="main">
-  <h2><%= @title %></h2>
-  <p>All sites in our system need a unique URL associated with them. It's possible to add multiple sites on the same domain if they are on different subdomains, otherwise they should all be under the same root domain listing.</p>
-  <p>For example, if there's an entry <a href="/sites/twitter">http://twitter.com</a> it'll show up on the <a href="/sites">sites</a> list. If a subdomain of Twitter is added, say <a href="/sites/dev-twitter">http://dev.twitter.com</a>, it'll be visible from the <a href="/sites/twitter">Twitter site page</a>, but won't show up on the general sites list.
+  <article>
+    <h2><%= @title %></h2>
+    <p>All sites in our system need a unique URL associated with them. It's possible to add multiple sites on the same domain if they are on different subdomains, otherwise they should all be under the same root domain listing.</p>
+    <p>For instance, if you try to add a Twitter handle, like <a href="http://twitter.com/lineof">http://twitter.com/lineof</a>, we'll actually add the root site, <a href="http://twitter.com">http://twitter.com</a>. <strong>Sites must be root domains or subdomains.</strong></p>
+  </article>
   <section>
     <%= semantic_form_for @site, :html => { :id => "new_site", :remote => true } do |f| %>
       <%= f.inputs do %>

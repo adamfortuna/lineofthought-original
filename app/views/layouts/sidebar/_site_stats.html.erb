@@ -4,7 +4,6 @@
     <li><a href="<%= sites_path %>"><em><%= Site.count %></em>Sites</a></li>
     <li><a href="<%= tools_path %>"><em><%= Tool.count %></em>Tools</a></li>
     <li><a href="<%= tools_path(:category => "programming-langauge" ) %>"><em><%= Tool.languages.count %></em> Programming Languages</a></li>
-    <li><a href="<%= bookmarks_path %>"><em><%= Bookmark.count %></em> Bookmarks</a></li>
     <li><a href="<%= edit_user_registration_path %>"><em><%= User.count %></em> Registered Users</a></li>
   </ul>
 </aside>
