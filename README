@@ -3,6 +3,11 @@ rake asset:packager:build_all
 Heroku:
 Clear cache
   ActionController::Base.cache_store.clear
+  
+  heroku maintenance:on
+  heroku maintenance:off
+  heroku config:add MAINTENANCE_PAGE_URL=http://s3.amazonaws.com/s.lineofthought.com/static/maintenance.html
+  heroku config:add ERROR_PAGE_URL=http://s3.amazonaws.com/s.lineofthought.com/static/error.html
 
 reindex solr
   heroku rake sunspot:reindex
