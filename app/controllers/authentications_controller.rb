@@ -5,7 +5,7 @@ class AuthenticationsController < ApplicationController
     @authentications = current_user.authentications if user_signed_in?
   end
   
-  def new
+  def failure
     if params[:message] == "invalid_credentials"
       flash[:error] = "For some reason we weren't able to verify your authentication with your provider. Please try again."
     end
