@@ -1,10 +1,22 @@
 class AuthenticationsController < ApplicationController  
-  before_filter :authenticate_user!, :only => [:index]
+  before_filter :authenticate_user!, :only => [:index, :destroy]
   def index  
     @user = current_user
     @authentications = current_user.authentications if user_signed_in?
   end
-    
+  
+  def new
+    if params[:message] == "invalid_credentials"
+      flash[:error] = "For some reason we weren't able to verify your authentication with your provider. Please try again."
+    end
+
+    if logged_in? 
+      redirect_to authentications_url
+    else
+      redirect_to new_user_registration_url
+    end
+  end
+
   # authentications_controller.rb
   def create
     omniauth = request.env["omniauth.auth"]
