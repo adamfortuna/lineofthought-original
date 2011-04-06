@@ -20,6 +20,8 @@ class ProfilesController < ApplicationController
   def show
     @user = lookup_user(params[:id])
     respond_with(@user)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, :flash => { :error => "Unable to find a profile matching #{params[:id]}" }
   end
 
   def sites
@@ -27,6 +29,8 @@ class ProfilesController < ApplicationController
     @sites = @user.sites.order(:title).paginate(:per_page => params[:per_page] || 20,
                                                 :page => params[:page] || 1)
     respond_with([@user, @sites])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, :flash => { :error => "Unable to find a profile matching #{params[:id]}" }
   end
 
   def bookmarks
@@ -35,6 +39,8 @@ class ProfilesController < ApplicationController
                                 .paginate(:per_page => params[:per_page] || 20,
                                           :page => params[:page] || 1)
     respond_with([@user, @bookmarks])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, :flash => { :error => "Unable to find a profile matching #{params[:id]}" }
   end
 
   def tools
@@ -42,10 +48,12 @@ class ProfilesController < ApplicationController
     @tools = @user.tools.order(:name).paginate(:per_page => params[:per_page] || 20,
                                                :page => params[:page] || 1)
     respond_with([@user, @tools])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, :flash => { :error => "Unable to find a profile matching #{params[:id]}" }
   end
   
   private
   def lookup_user(username)
-    User.find_by_username(username)
+    User.find_by_username!(username)
   end
 end
