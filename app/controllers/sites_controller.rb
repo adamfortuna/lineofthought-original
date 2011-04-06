@@ -7,8 +7,8 @@ class SitesController < ApplicationController
   respond_to :html, :json, :xml
   
   cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
-  caches_action :show, :if => Proc.new { |controller| !logged_in? && params[:page].nil?  && params[:per_page].nil? }, :expires_in => 1.hour
-  caches_action :index, :if => Proc.new { |controller| !logged_in? && params[:sort].nil? && params[:search].nil? && params[:page].nil?  && params[:per_page].nil? }, :expires_in => 1.hour
+  caches_action :show, :if => Proc.new { |controller| !logged_in? && params[:page].nil?  && params[:per_page].nil? }, :expires_in => 1.hour, :layout => false
+  caches_action :index, :if => Proc.new { |controller| !logged_in? && params[:sort].nil? && params[:search].nil? && params[:page].nil?  && params[:per_page].nil? }, :expires_in => 1.hour, :layout => false
   
   # caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && current_user && (current_user.admin? || current_user.claimed_site?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
 
