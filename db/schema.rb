@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110405184919) do
+ActiveRecord::Schema.define(:version => 20110406024257) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20110405184919) do
     t.integer  "max_count",   :default => 1
     t.integer  "users_count", :default => 0
     t.datetime "expire_date"
+    t.integer  "user_id"
   end
 
   add_index "invites", ["code"], :name => "index_invites_on_code"

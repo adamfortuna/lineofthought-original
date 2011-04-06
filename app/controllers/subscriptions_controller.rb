@@ -1,7 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!, :only => :index
   before_filter :require_admin!, :only => :index
-  layout lambda { |res| ["create"].include?(params[:action]) ? "notify" : "application" }
 
   def index
     @user = current_user

@@ -1,0 +1,43 @@
+<% title "Your Invites" %>
+
+<section id="content" class="main">
+  <article>
+    <h2><%= @title %></h2>
+    <p>You were granted <%= pluralize(@invites.length, "invite") %> and have <%= pluralize(@active_count, "invite") %> remaining.
+    <p>Here's a list of your invites and who redeemed them.</p>
+    <table>
+      <tr>
+        <th>Code</th>
+        <th>Redeemed By</th>
+        <th>Redeemed On</th>
+        <th>Max Redemptions</th>
+      </tr>
+      
+      <% @invites.each do |invite| %>
+        <% redeemer = (invite.users_count == 1 && invite.redeemers) ? invite.redeemers.first : nil %>
+        <tr>
+          <td><%= invite.code %></td>
+          <td>
+            <% if redeemer %>
+              <%= link_to redeemer.username, profile_path(redeemer) %>
+            <% elsif invite.users_count > 1 %>
+              By <%= pluralize(invite.users_count, "user") %>
+            <% else %>
+             -
+            <% end %>
+          </td>
+          <td>
+            <% if redeemer %>
+              <%= redeemer.created_at.strftime('%m/%d/%y') %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td><%= pluralize(invite.max_count, "user") %></td>
+        </tr>
+      <% end %>
+    </table>
+  </article>
+</section>
+
+<%= render 'users/sidebar' %>

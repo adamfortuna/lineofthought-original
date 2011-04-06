@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :authentications
   has_many :bookmarks, :class_name => "BookmarkUser"
   has_many :usings
+  has_many :invites
   
   validate :validate_invite, :on => :create
   after_create :increment_invite, :if => :invite_code?
@@ -234,4 +235,10 @@ class User < ActiveRecord::Base
     invite = Invite.find_by_code(self.invite_code)
     invite.increment! :users_count if invite
   end
+  
+  after_create :create_invite_codes
+  def create_invite_codes
+    Invite.generate_for_user!(self, 5)
+  end
+  handle_asynchronously :create_invite_codes, :priority => -10
 end
