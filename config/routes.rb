@@ -43,7 +43,7 @@ Snaps::Application.routes.draw do
 
 
 
-  match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/:provider/callback' => 'authentications#create', :host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema
   match '/auth/failure' => 'authentications#failure'
   resources :authentications, :only => [:index, :create, :destroy]
   # match '/users/sign_in' => 'sessions#new', :host => Settings.ssl_root_domain, :protocol => Settings.ssl_schema, :as => 'sign_in'
