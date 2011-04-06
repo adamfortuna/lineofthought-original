@@ -8,15 +8,13 @@
 $(function(){
   $(".add_another_site").click(function(e) {
     if($(this).hasClass("showing_form")) {
-      $(".add_another_site").html("add another site");
       $("#new_using_form").slideUp();
       $(".add_another_site").removeClass("showing_form");
       e.preventDefault();
       return false;
     } else {
-      $(".add_another_site").addClass("showing_form");
-      $(".add_another_site").html("hide form");
       $("#new_using_form").slideDown();
+      $(".add_another_site").addClass("showing_form");
     }
   });
 });

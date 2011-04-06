@@ -219,7 +219,7 @@ div.disqus_wrapper {
   padding: 1em;
   font-size: 14px; }
 
-sidebar aside.search input[type='text'] {
+sidebar aside.search input[type='text'], .sidebar aside.search input[type='text'] {
   width: 200px;
   border-color: #bbb; }
 

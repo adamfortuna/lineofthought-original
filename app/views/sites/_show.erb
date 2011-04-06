@@ -8,14 +8,12 @@
 $(function(){
   $(".add_another_tool").click(function(e) {
     if($(this).hasClass("showing_form")) {
-      $(".add_another_tool").html("add a tool");
       $("#new_using_form").slideUp();
       $(".add_another_tool").removeClass("showing_form");
       e.preventDefault();
       return false;
     } else {
       $(".add_another_tool").addClass("showing_form");
-      $(".add_another_tool").html("hide form");
       $("#new_using_form").slideDown();
     }
   });

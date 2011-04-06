@@ -29,7 +29,7 @@
 </section>
 
 <% cache("recent_sites", :expires_in => 15.minutes) do %>
-<sidebar>
+<section class="sidebar">
   <aside>
     <h3>Recently Added Sites</h3>
     <ul class="lst">
@@ -38,7 +38,7 @@
       <% end %>
     </ul>
   </aside>
-</sidebar>
+</section>
 <% end %>
 
 <% javascript do %>

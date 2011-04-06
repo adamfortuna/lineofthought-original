@@ -1,4 +1,4 @@
-<sidebar>
+<section class="sidebar">
   <aside>
     <h3>Your Permissions</h3>
       <% if logged_in? && current_user.can_edit_tool?(@tool) %>
@@ -47,4 +47,4 @@
   <%= render :partial => "tools/similar", :object => @similar_tools if @similar_tools %>  
   
   <%= render :partial => "tools/add_bookmark", :locals => { :tool => @tool } if logged_in? %>
-</sidebar>
+</section>

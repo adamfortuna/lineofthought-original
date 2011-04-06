@@ -37,7 +37,7 @@ nav ul li a:hover {  background-color:$accent-color; color:#eee; }
 section, aside { display:block; }
 #main { background-color:#E3E3E3; color:#1B1B1B; }
 #content { padding:14px; }
-#content, sidebar aside { background-color:#fff; border:1px solid #ccc; font-size:14px; }
+#content, sidebar aside, .sidebar aside { background-color:#fff; border:1px solid #ccc; font-size:14px; }
 #main .container { padding:10px 0; }
 
 /* main content */
@@ -46,13 +46,12 @@ body.popup #content { width:550px; }
 .main section { padding:.4em; }
 
 /* Right sidebar */
-body.popup sidebar { display:none; }
-sidebar { width:300px; float:right;}
-sidebar aside { margin-bottom:10px; padding: 15px; }
-sidebar aside h3 { margin: 0 0 6px 0; padding: 0 0 4px 0; font-size:16px; font-weight: bold; color:#365B81; border-bottom: 2px solid #ecebe1; }
-sidebar aside p.more { margin-top:12px; text-align:center; }
-sidebar aside ul li { }
-sidebar aside p { margin-top:12px; font-size: 16px;
+body.popup sidebar, body.popup .sidebar { display:none; }
+.sidebar, sidebar { width:300px; float:right;}
+.sidebar aside, sidebar aside { margin-bottom:10px; padding: 15px; }
+.sidebar aside h3, sidebar aside h3 { margin: 0 0 6px 0; padding: 0 0 4px 0; font-size:16px; font-weight: bold; color:#365B81; border-bottom: 2px solid #ecebe1; }
+.sidebar aside p.more, sidebar aside p.more { margin-top:12px; text-align:center; }
+.sidebar aside p, sidebar aside p { margin-top:12px; font-size: 16px;
 line-height: 20px; }
 
 /* Sidebar - Right - List of text */

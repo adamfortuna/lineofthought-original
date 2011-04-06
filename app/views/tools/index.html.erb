@@ -24,7 +24,7 @@
   </section>
 </section>
 
-<sidebar>
+<section class="sidebar">
   <aside class="search">
     <form action="<%= tools_path %>" method="get">
       <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a tool..." />
@@ -53,4 +53,4 @@
       <p><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to get started.</p>
     <% end %>
   </aside>
-</sidebar>
+</section>
