@@ -19,22 +19,27 @@ class AuthenticationsController < ApplicationController
 
   # authentications_controller.rb
   def create
+    puts "authentications#create"
     omniauth = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication
+      puts "authentications#create - found"
       flash[:notice] = "Signed in successfully."
       sign_in_and_redirect(:user, authentication.user)
     elsif current_user
+      puts "authentications#create - not found, but logged in, adding it"
       current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
       flash[:notice] = "Authentication successful."
       redirect_to authentications_url
     else
       user = User.new
       user.apply_omniauth(omniauth)
-      if user.save
-        flash[:notice] = "Signed in successfully."
-        sign_in_and_redirect(:user, user)
-      else
+      # if user.save
+      #   puts "authentications#create - user saved, redirecting to sign in"
+      #   flash[:notice] = "Signed in successfully."
+      #   sign_in_and_redirect(:user, user)
+      # else
+        puts "authentications#create - user not saved, new user!"
         email = omniauth['extra']['user_hash']['email'] rescue nil
         nickname = omniauth['user_info']['nickname'] rescue nil
         usable_omniauth =  {
@@ -44,8 +49,9 @@ class AuthenticationsController < ApplicationController
           'user_info' => { 'nickname' => nickname }
         }
         session[:omniauth] = usable_omniauth
+        puts "authentications#create - user not saved, redirecting to signup form "
         redirect_to new_user_registration_url
-      end
+      # end
     end
   end
       
