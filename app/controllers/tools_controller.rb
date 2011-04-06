@@ -24,7 +24,7 @@ class ToolsController < ApplicationController
      params[:category] = nil
      flash[:error] = "Sorry, search is not available at the moment. Usually this means Solr is down :/ Please try again later."
    end
-   @categories = Category.order(:name).where("tools_count > 0")
+   @categories = Category.order(:name)
    @featured = Tool.featured.limit(5)
    respond_with(@tools)
  end
