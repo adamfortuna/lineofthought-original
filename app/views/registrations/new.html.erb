@@ -19,8 +19,8 @@
       <p>Your account is connected to <%= method %>. You will be able to login via <%= method %>, or with email/password.</p>
     <% else %>
       <p>You'll still need an <%= link_to "invite code", new_subscription_path %> even if you sign up with Twitter or Facebook.</p>
-      <p>Sign up using Twitter. <a href="/auth/twitter">yeah, please</a></p>
-      <p>Sign up using Facebook. <a href="/auth/facebook">yeah, please</a></p>
+      <p>Sign up using Twitter. <a href="<%= Settings.root_url %>/auth/twitter">yeah, please</a></p>
+      <p>Sign up using Facebook. <a href="<%= Settings.root_url %>/auth/facebook">yeah, please</a></p>
     <% end %>
   </article>
 

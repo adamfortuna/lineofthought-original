@@ -1,5 +1,4 @@
 class AuthenticationsController < ApplicationController  
-  # ssl_required :create
   before_filter :authenticate_user!, :only => [:index, :destroy]
 
   def index  
@@ -9,7 +8,7 @@ class AuthenticationsController < ApplicationController
   
   def failure
     if params[:message] == "invalid_credentials"
-      flash[:error] = "For some reason we weren't able to verify your authentication with your provider. Please try again."
+      flash[:error] = "For some reason we weren't able to authenticate you with your provider. Please try again."
     end
 
     if logged_in? 
