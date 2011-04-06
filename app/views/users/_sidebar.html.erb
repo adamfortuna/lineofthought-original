@@ -18,7 +18,7 @@
     </ul>
   </aside>
   
-  <% if current_user.admin? %>
+  <% if logged_in? && current_user.admin? %>
   <aside>
     <h3>Admin</h3>
     <ul class="lst">
@@ -27,7 +27,7 @@
       <li><%= link_to "Users (#{User.count})", admin_users_path %></li>
     </ul>
   </aside>  
-  <% else %>
+  <% elsif logged_in? %>
   <aside>
     <h3>Delete My Account</h3>
     <p>Unhappy? <%= link_to "Delete my account", registration_path(:user), :confirm => "Are you sure?", :method => :delete %>.</p>
