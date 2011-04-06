@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   def apply_omniauth(omniauth)
     self.email = omniauth['extra']['user_hash']['email'] if email.blank?
     self.username = omniauth['user_info']['nickname'] if username.blank?
-    self.time_zone = ActiveSupport::TimeZone[-5] if time_zone.blank? # omniauth['extra']['user_hash']['timezone']
+    self.time_zone = ActiveSupport::TimeZone[-5].to_s if time_zone.blank? # omniauth['extra']['user_hash']['timezone']
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   rescue
     nil
