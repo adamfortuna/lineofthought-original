@@ -1,4 +1,5 @@
 <sidebar>
+  <% if logged_in? && current_user.id == @user.id %>
   <aside>
     <h3>My Account</h3>
     <ul class="lst">
@@ -8,6 +9,7 @@
       <li><%= link_to "My Invites", invites_path %></li>
     </ul>
   </aside>
+  <% end %>
   
   <aside>
     <h3><%= @user.username %>'s Account (<%= @user.karma %>)</h3>
