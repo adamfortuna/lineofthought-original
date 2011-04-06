@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110406024257) do
+ActiveRecord::Schema.define(:version => 20110406040010) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id"
@@ -232,6 +232,8 @@ ActiveRecord::Schema.define(:version => 20110406024257) do
     t.string   "email"
     t.string   "referrer"
     t.string   "url"
+    t.integer  "invite_id"
+    t.datetime "invite_sent_at"
   end
 
   create_table "tools", :force => true do |t|

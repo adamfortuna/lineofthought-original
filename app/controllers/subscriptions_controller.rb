@@ -4,7 +4,8 @@ class SubscriptionsController < ApplicationController
 
   def index
     @user = current_user
-    @subscriptions = Subscription.all.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
+    @subscriptions = Subscription.order(:invite_sent_at)
+                                 .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
   end
 
   def new
@@ -17,7 +18,7 @@ class SubscriptionsController < ApplicationController
       flash[:error] = "There was a problem subscribing."
       render :new
     else
-      render
+      redirect_to new_subscription_path, :flash => { :notice => "Thanks! We'll let you know as soon as we launch or have more spots open." }
     end
   end
 end

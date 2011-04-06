@@ -2,7 +2,7 @@
 <html>
 <head>
   <%- title = yield(:title) %>
-  <title><%=  title || "Line Of Thought - Find out what powers the web!" %><%= " - Line Of Thought" if title && !title.blank? %></title>
+  <title><%=  title || "Line of Thought - Find out what powers the web!" %><%= " - Line of Thought" if title && !title.blank? %></title>
   <%= raw stylesheet_link_merged :all %>
   <%= csrf_meta_tag %>
 </head>

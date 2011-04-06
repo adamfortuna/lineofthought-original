@@ -7,16 +7,25 @@
     
     <table>
       <tr>
+        <th>Controls</th>
         <th>Created At</th>
         <th>Email</th>
         <th>Referrer</th>
+        <th>URL</th>
       </tr>
       <tbody>
         <% @subscriptions.each do |subscription| %>
-          <tr>
-            <td><%= subscription.created_at %></td>
+          <tr class="<%= 'invited' if !subscription.invite_id.nil? %>">
+            <td>
+              <% if subscription.invited? %>
+                on <%= subscription.invite_sent_at.strftime('%m/%d/%y') %>
+              <% else %>
+                <%= button_to "invite", invites_path(:id => subscription.id), :method => :post %></td>
+              <% end %>
+            <td><%= subscription.created_at.strftime('%m/%d/%y') %></td>
             <td><%= subscription.email %></td>
             <td><%= subscription.referrer %></td>
+            <td><%= link_to subscription.url, subscription.url if subscription.url %></td>
           </tr>
         <% end %>
       </tbody>

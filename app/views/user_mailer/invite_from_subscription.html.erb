@@ -1,0 +1,9 @@
+<p>Hello there! You have been invited to join <%= link_to "Line of Thought", root_url %>. We're still at a invite only mode, so you'll need the following code to sign up.</p>
+
+<p>Your invite code: <%= @subscription.invite.code %></p>
+
+<p>You can <%= link_to "sign up", new_user_registration_url(:secure => Settings.force_ssl) %> at anytime using this code.</p>
+
+<p>Once you're in, you can add any number of websites or tools you want. You'll also have 5 invite codes to share with your friends.</p>
+
+<p>We're still in the extreme early stages, so if you see anything that doesn't work, or doesn't seem right, please free to shoot off an email to this address, or post on our <%= link_to "GetSatisfaction", "https://getsatisfaction.com/lineofthought" %> page.</p>

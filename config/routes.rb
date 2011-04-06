@@ -61,7 +61,7 @@ Snaps::Application.routes.draw do
   end
 
   resources :subscriptions, :only => [:index, :new, :create]
-  resources :invites, :only => [:index]
+  resources :invites, :only => [:index, :create]
   
   match '/about' => 'home#about',                   :as => 'about'
   match '/stream' => 'home#stream',                 :as => 'stream'

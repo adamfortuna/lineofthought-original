@@ -12,7 +12,7 @@ module SiteHelper
   end
   
   def site_share_message(site, count=3)
-    "#{site.title} is using at least #{pluralize(site.tools_count, "tool")} including #{comma_site_tools(site, count) || "HTML"} (via Line Of Thought)"
+    "#{site.title} is using at least #{pluralize(site.tools_count, "tool")} including #{comma_site_tools(site, count) || "HTML"} (via Line of Thought)"
   end
 
 
@@ -30,7 +30,7 @@ module SiteHelper
   end
   
   def tool_share_message(tool, count=3)
-    "#{tool.name} is using on at least #{pluralize(tool.sites_count, "sites")} including #{comma_tool_sites(tool, count)} (via Line Of Thought)"
+    "#{tool.name} is using on at least #{pluralize(tool.sites_count, "sites")} including #{comma_tool_sites(tool, count)} (via Line of Thought)"
   end
   
   

@@ -7,7 +7,7 @@ module ApplicationHelper
   end
   
   def page_title
-    "#{@title || "Line Of Thought - Tracking what powers the web"}#{" - Line Of Thought" if @title && !@title.blank?}"
+    "#{@title || "Line of Thought - Tracking what powers the web"}#{" - Line of Thought" if @title && !@title.blank?}"
   end
   
   def description(page_description)
@@ -16,7 +16,7 @@ module ApplicationHelper
   end
   
   def page_description
-    @description || "Line Of Thought tracks what powers the web. Find out what tools power the sites you visit, or add your own site or tools."
+    @description || "Line of Thought tracks what powers the web. Find out what tools power the sites you visit, or add your own site or tools."
   end
   
   def body_class(classes)

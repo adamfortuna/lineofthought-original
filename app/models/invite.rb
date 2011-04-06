@@ -7,6 +7,7 @@ class Invite < ActiveRecord::Base
   scope :active, where("max_count > users_count")
 
   def self.generate_for_user!(user, count=1)
+    invites = []
     transaction do
       count.times do
         created = false
@@ -14,8 +15,10 @@ class Invite < ActiveRecord::Base
           invite = Invite.create({:code => ActiveSupport::SecureRandom.hex(4), :user => user })
           created = true if !invite.new_record?
         end
+        invites << invite
       end
     end
+    return (invites.length == 1) ? invites.first : invites
   end
   
   def max_allowed?
