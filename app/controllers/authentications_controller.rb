@@ -1,4 +1,5 @@
 class AuthenticationsController < ApplicationController  
+  ssl_required :create
   before_filter :authenticate_user!, :only => [:index, :destroy]
   def index  
     @user = current_user
