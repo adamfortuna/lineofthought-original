@@ -3,7 +3,7 @@ class ToolSitesController < ApplicationController
   before_filter :load_record, :only => [:create, :autocomplete]
   before_filter :verify_access_to_create!, :only => [:create]
   respond_to :html, :json, :xml
-  # cache_sweeper :using_sweeper, :only => [:create]
+  cache_sweeper :using_sweeper, :only => [:create]
   
   # GET /tools/:site_id/sites/deleted
   def deleted

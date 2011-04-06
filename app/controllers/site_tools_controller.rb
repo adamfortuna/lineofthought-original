@@ -4,7 +4,7 @@ class SiteToolsController < ApplicationController
   before_filter :verify_access_to_create!, :only => [:create]
 
   respond_to :html, :json, :xml
-  # cache_sweeper :using_sweeper, :only => [:create]
+  cache_sweeper :using_sweeper, :only => [:create]
 
   @@order = { "sites" => "sites_count", 
               "toolname" => "tools.name",

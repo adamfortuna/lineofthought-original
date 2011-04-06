@@ -17,9 +17,6 @@ class SiteSweeper < ActionController::Caching::Sweeper
   def expire_cache_for(site)
     return unless site && site.cached_slug
     expire_action(:controller => "sites", :action => "show", :id => site.cached_slug)
-    expire_action(:controller => "sites", :action => "show", :id => site.cached_slug, :logged_in => true)
-    expire_action(:controller => "sites", :action => "show", :id => site.cached_slug, :logged_in => true, :claimed => true)
-    
     expire_fragment('featured_sites') if site.featured?
   end
 end
