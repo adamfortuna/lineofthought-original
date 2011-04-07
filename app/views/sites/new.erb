@@ -22,7 +22,7 @@
     
     <div id="existing_site" class="response" style="display:none;">
       <h3>Matching Site</h3>
-      <p>Logged in users can add tools to existing sites. New users can only add tools to sites they have added on during their visit.</p>
+      <p>Logged in users can add tools to existing sites. New users can only add tools to sites they have added during their visit.</p>
       <% if !logged_in? %><p>Want to add some tools to this site? Please <%= link_to "sign in",  new_user_session_url(:secure => Settings.force_ssl) %> first.</p><% end %>
       <ul id="sites-list" class="sites main-list"></ul>
     </div>

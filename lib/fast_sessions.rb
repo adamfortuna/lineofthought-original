@@ -1,7 +1,7 @@
 module FastSessions
   protected
   def self.included(base)
-    base.send :helper_method, :logged_in?, :session_exists?, :current_session, :can_edit_site?, :can_add_lines?, :can_edit_using?, :can_destroy_using?
+    base.send :helper_method, :logged_in?, :session_exists?, :current_session, :can_edit_site?, :can_add_lines?, :can_edit_using?, :can_destroy_using?, :can_edit_tool?
   end
   
   def logged_in?
@@ -18,6 +18,11 @@ module FastSessions
   
   def can_edit_site?(site)
     (logged_in? && (current_user.admin? || current_user.can_edit_site?(site))) || current_session.site?(site)
+  end
+  
+  def can_edit_tool?(tool)
+    return logged_in? && current_user.can_edit_tool?(tool)
+    
   end
   
   def can_add_lines?(object)

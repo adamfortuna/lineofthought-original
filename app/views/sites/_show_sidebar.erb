@@ -25,8 +25,9 @@
       <ul class="txt">
         <% if can_edit_site?(@site) %>
           <li><%= link_to "Edit this site", edit_site_path(@site) %></li>
-        <% elsif !@site.claimed? %>
-          <li><%= link_to "Sign in", new_user_session_path %> to add tools to this site</li>
+        <% end %>
+        <% if can_add_lines?(@site) %>
+          <li><a href="#add_new_tool" class="add_another_tool">Add another tool used on this site</a></li>
         <% end %>
         <li><%= link_to "Add a new Site", new_site_path %></li>
         <li><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to claim this site.</li>
