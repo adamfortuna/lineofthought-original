@@ -65,7 +65,6 @@ class SiteToolsController < ApplicationController
     render :json => tools
   end
 
-
   private
   def load_record
     @site = Site.find_by_cached_slug(params[:site_id])

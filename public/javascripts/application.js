@@ -16,7 +16,7 @@ function reset_new_using_form() {
   $("#using_tool_name, #using_site_title").css({ "background": "url(/images/placeholder.jpg) no-repeat 4px 4px"});
   $('#using_tool_url, #using_site_url').removeAttr("disabled");
   $('li.tool_name_autocomplete .inline-hints').hide().hide();
-  $(".loading-indicator").hide();
+  $("#new_using").removeClass("loading");
 }
 
 var cache = {}, lastXhr;

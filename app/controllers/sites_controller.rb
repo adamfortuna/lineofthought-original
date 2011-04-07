@@ -9,8 +9,6 @@ class SitesController < ApplicationController
   cache_sweeper :site_sweeper, :only => [:create, :update, :destroy]
   # caches_action :show, :if => Proc.new { |controller| !logged_in? && params[:page].nil?  && params[:per_page].nil? }, :expires_in => 1.hour, :layout => false
   caches_action :index, :if => Proc.new { |controller| !logged_in? && params[:sort].nil? && params[:search].nil? && params[:page].nil?  && params[:per_page].nil? }, :expires_in => 1.hour, :layout => false
-  
-  # caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && current_user && (current_user.admin? || current_user.claimed_site?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
 
   # GET /sites
   def index
@@ -49,6 +47,7 @@ class SitesController < ApplicationController
         elsif @site = @link.site
           render :duplicate
         elsif @link.parsed? && (@site = Site.create_from_link(@link, current_user)) && !@site.new_record?
+          flash[:notice] = "Your site was added to Line of Thought. You can now add some tools it uses, or edit it."
           if !logged_in?
             session[:site_ids] ||= []
             session[:site_ids] << @site.id

@@ -7,11 +7,8 @@ class ToolsController < ApplicationController
 
   cache_sweeper :tool_sweeper, :only => [:create, :update, :destroy]
   # caches_action :show, :if => Proc.new { |controller| !logged_in? && params[:page].nil?  && params[:per_page].nil? }, :expires_in => 1.hour, :layout => false
+  # just the tools#index, and only when not logged in
   caches_action :index, :if => Proc.new { |controller| !logged_in? && params[:sort].nil? && params[:search].nil? && params[:page].nil?  && params[:per_page].nil? && params[:category].nil? }, :expires_in => 1.hour, :layout => false
-
-
-  # caches_action :index, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in? ) }, :expires_in => 2.minutes
-  # caches_action :show, :cache_path => Proc.new { |controller| controller.params.merge(:logged_in => logged_in?, :claimed => (logged_in? && current_user && (current_user.admin? || current_user.claimed_tool?(params[:id])) ? true : false) ) }, :expires_in => 12.hours
 
   @@site_order = { "google" => "google_pagerank", 
                    "alexa" => "coalesce(alexa_global_rank, 100000000)", 
@@ -104,6 +101,7 @@ class ToolsController < ApplicationController
         format.popup { render :new }
       end
     else
+      flash[:notice] = "This tool was added to Line of Thought. You can now add some sites that use it, or edit it."
       respond_to do |format|
         format.html { redirect_to @tool }
         format.popup { redirect_to tool_path(@tool, :format => :popup) }

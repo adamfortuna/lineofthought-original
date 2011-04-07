@@ -20,9 +20,10 @@ module FastSessions
     (logged_in? && (current_user.admin? || current_user.can_edit_site?(site))) || current_session.site?(site)
   end
   
-  def can_add_lines?(site)
-    return true if current_session.site?(site) && !site.claimed?
-    return logged_in? && current_user.can_add_lines?(site)
+  def can_add_lines?(object)
+    return true if object.is_a?(Site) && current_session.site?(object) && !object.claimed?
+    return true if object.is_a?(Tool) # && current_session.tool?(object) && !object.claimed?
+    return logged_in? && current_user.can_add_lines?(object)
   end
   
   def can_edit_using?(using, site = nil)

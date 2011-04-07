@@ -182,7 +182,6 @@ class Site < ActiveRecord::Base
 
   def self.create_from_url(url)
     handy_url = HandyUrl.new(url)
-    debugger
     site = where(["uid = ?", handy_url.uid])
     return site.first.id unless site.blank?
     site = Site.create(:url => url, :title => handy_url.full_uid.capitalize)

@@ -11,4 +11,8 @@ class UserSession
   def using?(using)
     (@session[:using_ids] || []).include?(using.id)
   end
+  
+  def tool?(tool)
+    (@session[:tool_ids] || []).include?(tool.id)
+  end
 end

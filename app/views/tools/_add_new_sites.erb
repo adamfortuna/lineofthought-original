@@ -1,8 +1,11 @@
-<p class="add_more">Want to add a site that uses this tool? <a href="#add_new_site" class="add_another_site">Add it here</a></p>
-<section id="new_using_form" style="display:none;" class="add_in_place">
+<a name="add_new_site"></a>
+<p class="add_more">Want to add a site that uses this tool? <a href="#add_new_site" class="button green add_another_site">Add it here</a></p>
+<section id="new_using_form" <%= "style='display:none;' " if @tool.sites_count > 0  %> class="add_in_place">
   <% if logged_in? && current_user.can_add_lines?(@tool) %>
     <%= render 'tool_sites/form' %>
-  <% elsif !logged_in? %>
-    <p class="main_message">You must <%= link_to "sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to add a site.</p>
+  <% elsif @tool.claimed? %>
+    <p class="main_message">This tool has been claimed and can no longer be updated unless you log in.</p>
+  <% else %>
+    <%= render 'tool_sites/form' %>    
   <% end %>
 </section>

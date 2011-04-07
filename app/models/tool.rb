@@ -235,6 +235,10 @@ class Tool < ActiveRecord::Base
     return order
   end
   
+  def claimed?
+    false
+  end
+
   private
   def categories_changed?
     true

@@ -1,4 +1,4 @@
-<%= semantic_form_for Using.new, :as => Using.new, :url => tool_sites_path(@tool), :remote => true, :html => { :id => "new_using", :name => "new_using" } do |form| %>
+<%= semantic_form_for Using.new, :as => 'using', :url => tool_sites_path(@tool), :remote => true, :html => { :id => "new_using", :name => "new_using" } do |form| %>
   <%= form.inputs do %>
     <%= form.input :site_id, :as => :hidden %>
     <%= form.input :site_title, 
@@ -11,7 +11,8 @@
     <%= form.input :description, :label => "How is this site using this tool?", :as => :text, :required => false, :input_html => { :rows => 3 } %>
   <% end %>
   <%= form.buttons do %>
-    <%= form.commit_button :button_html => { :value => "add this site", :class => "right", :id => "add_site_submit" } %>
+    <%= form.commit_button :button_html => { :value => "add this site", :class => "right grey button", :id => "add_site_submit" } %>
+    <li id="lookup_loading" class="response right loading-indicator"> <img src="/images/indicator.gif"/></li>
     <%= form.commit_button :button_html => { :value => "hide form", :class => "left add_another_site" } %>
     <%= form.commit_button :button_html => { :type => "reset", :id => "reset_button", :value => "reset", :class => "left" } %>
   <% end %>
@@ -22,5 +23,8 @@
 $(function() {  
   using_site_autocomplete("/tools/<%=@tool.cached_slug%>/sites/autocomplete", "#using");
   edit_in_place();
+  $("#new_using").live('submit', function() {
+    $(this).addClass("loading");
+  });
 });
 <% end %>

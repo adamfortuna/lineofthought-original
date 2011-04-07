@@ -1,5 +1,4 @@
 class ToolSitesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:create]
   before_filter :load_record, :only => [:create, :autocomplete]
   before_filter :verify_access_to_create!, :only => [:create]
   respond_to :html, :json, :xml
@@ -29,7 +28,7 @@ class ToolSitesController < ApplicationController
 
   # POST /tools/:tool_id/sites
   def create
-    @using = @tool.usings.create(params[:using].merge(:user_id => current_user.id))
+    @using = @tool.usings.create(params[:using].merge(:user => current_user))
     respond_to do |format|
       format.js {
         if @using.id
@@ -63,7 +62,7 @@ class ToolSitesController < ApplicationController
   end
 
   def verify_access_to_create!
-    if !current_user.can_add_lines?(@tool)
+    if !can_add_lines?(@tool)
       respond_to do |format|
         format.js { render :js => "alert('You do not have access to add new sites for this tool.');" }
       end
