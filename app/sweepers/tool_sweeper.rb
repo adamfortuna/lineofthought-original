@@ -17,6 +17,6 @@ class ToolSweeper < ActionController::Caching::Sweeper
   def expire_cache_for(tool)
     return unless tool && tool.cached_slug
     expire_action(:controller => "tools", :action => "show", :id => tool.cached_slug)
-    expire_fragment('featured_tools') if using.tool.featured?
+    expire_fragment('featured_tools') if tool.featured?
   end
 end

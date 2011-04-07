@@ -1,0 +1,11 @@
+/* TEAM */
+	Developer: Adam Fortuna
+	Contact: contact [at] lineofthought.com
+	Twitter: @adamfortuna
+	From:Orlando, Florida, USA
+
+/* SITE */
+	Last update:2011/04/06
+	Language:English
+	Doctype:HTML5
+	IDE:Textmate
