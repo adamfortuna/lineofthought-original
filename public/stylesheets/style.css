@@ -30,7 +30,8 @@ a:link, a:visited {
   outline-color: -moz-use-text-color;
   outline-style: none;
   outline-width: medium;
-  text-decoration: none; }
+  text-decoration: none;
+  font-weight: bold; }
 
 p.center, .center {
   text-align: center; }
@@ -81,8 +82,7 @@ section.announcement p a:hover {
 
 section.announcement div.feature {
   float: right;
-  width: 275px;
-  margin-top: 7px; }
+  width: 275px; }
 
 section.announcement div.feature p {
   line-height: 19px;
@@ -98,6 +98,10 @@ section.tab {
 
 section.announcement div.feature p.minilink a {
   text-decoration: underline; }
+
+section.announcement div.feature a.button {
+  font-size: 18px;
+  padding: 9px 18px; }
 
 section.tab p.empty_message, section.tab p.main_message {
   color: #444;
