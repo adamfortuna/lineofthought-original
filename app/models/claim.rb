@@ -35,8 +35,8 @@ class Claim < ActiveRecord::Base
     after_transition :to => [:authorized, :verified], :do => :update_user_cached_claims
     after_transition :to => [:authorized, :verified], :do => :increment_user_claims
     event :verify_claim do
-      transition [:unverified, :verification_failed] => :verified, :if => :able_to_verify?
-      transition [:unverified, :verification_failed] => :verification_failed
+      transition [:unverified, :verifying, :verification_failed] => :verified, :if => :able_to_verify?
+      transition [:unverified, :verifying, :verification_failed] => :verification_failed
     end
     
     after_transition :on => :revoke, :do => :update_user_cached_claims
@@ -119,5 +119,5 @@ class Claim < ActiveRecord::Base
   def increment_user_claims
     self.user.update_claim_counts!
   end
-  handle_asynchronously :attempt_to_verify!, :priority => 10
+  handle_asynchronously :increment_user_claims, :priority => 10
 end
