@@ -1,12 +1,13 @@
 .clear { clear:both; }
 .right { float:right; }
+.block { display:block; }
 p.breadcrumbs { font-size:8px; }
 a.add { background:url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/13-plus.png) no-repeat; padding-left:20px; }
 a.remove { background:url(https://s3.amazonaws.com/s.lineofthought.com/images/icons/14-minus.png) no-repeat 0 7px; padding-left:20px; }
 img.screenshot, .screenshot img { border: 1px solid #ccc; float:left; }
 a.external { font-size:10px; }
-a:link, a:visited { color:#3792B3; font-weight:bold; outline-color:-moz-use-text-color; outline-style:none; outline-width:medium; text-decoration:none; }
-p.center { text-align:center; }
+a:link, a:visited { color:#3792B3; outline-color:-moz-use-text-color; outline-style:none; outline-width:medium; text-decoration:none; }
+p.center, .center { text-align:center; }
 
 section.text { }
 section.text p, section.text h3 { margin:.5em 1em; }
@@ -17,12 +18,16 @@ section.text ol li { margin-bottom:.5em; }
 section.text ul li p, section.text ol li p { margin: 1em 0; }
 
 /* home */
-section.announcement { margin-bottom:1em; }
-section.announcement p { font-size:18px; color:#333; margin:.5em 1em; text-align:center; }
-section.announcement p.title  { font-size:24px; color:#666; margin:.5em 0; }
-section.announcement p a { font-weight:bold; font-style:normal; }
-section.announcement p a:hover { text-decoration:underline; }
+section.announcement { margin-bottom:2em; }
+section.announcement p.title  { font-size:24px; color:#444; margin:.5em 0; text-align:center; }
+section.announcement p.subtitle { font-size:18px; color:#333; margin:.5em 0 .5em 30px; text-align:center; float:left; width:300px; }
+section.announcement p a { font-style:normal; font-size:14px; }
+section.announcement p a:hover { text-decoration:none; }
+section.announcement div.feature { float:right; width:275px; margin-top: 7px; }
+section.announcement div.feature p { line-height: 19px; text-align:center; }
+section.announcement div.feature p.subbutton { font-size: 12px; text-align: center; line-height: 8px; }
 section.tab { clear:both; }
+section.announcement div.feature p.minilink a { text-decoration:underline; }
 section.tab p.empty_message, section.tab p.main_message { color:#444; text-align:center; font-size:16px; margin:1.5em 0 1em; }
 
 
@@ -103,3 +108,6 @@ form.loading { }
 form.loading input[type=submit] { }
 button.loading { display:none; }
 .loading button.loading { display:inline; padding-right:18px;  background:url(/images/indicator.gif) no-repeat right; }
+form fieldset.buttons li.loading-indicator { display:none; line-height: 0;margin: 0;padding: 10px 10px 0 0; }
+form.loading fieldset.buttons li.loading-indicator { display:inline; }
+a.add_another_tool.block { display:block; }

@@ -291,4 +291,8 @@ p.add_more {
   text-align: center;
   font-size: 18px;
   color: #555;
-  margin: 14px 0; }
+  margin: 14px 0;
+  line-height: 40px; }
+
+p.add_more a {
+  margin-left: 14px; }

@@ -20,10 +20,10 @@
     <% end %>
     <ul class="actions">
       <li class="comments"><%= link_to "comments", site_tool_path(site, tool, :format => params[:format]) %></li>
-      <% if logged_in? && current_user.can_edit_using?(using_tool, site) %>
+      <% if can_edit_using?(using_tool, site) %>
         <li class="edit-in-place-edit"><%= link_to "edit", "#" %></li>
         <li class="edit-in-place-cancel"><%= link_to "cancel", "#" %></li>
-        <% if !using_tool.deleted? && current_user.can_destroy_using?(using_tool, site, tool) %>
+        <% if !using_tool.deleted? && can_destroy_using?(using_tool, site, tool) %>
           <li><%= link_to "remove", using_path(using_tool), :remote => true, :method => :delete, :confirm => "Are you sure you want to delete this association? If you just want to remove the description of how it's used, remove all text and save it." %></li>
         <% end %>
       <% end %>
@@ -32,7 +32,7 @@
 
   <%= raw using_bookmarks(using_tool, 2, params[:format]) if using_tool.bookmarks_count > 0 %>
   
-  <% if logged_in? && current_user.can_edit_using?(using_tool, site) %>
+  <% if can_edit_using?(using_tool, site) %>
     <%= semantic_form_for using_tool, :remote => true, :method => :put, :html => { :id => "edit_using_#{using_tool.id}" } do |form| %>
       <%= form.inputs do %>
         <%= form.input :description, :label => "How is #{tool.name} being used on #{site.title}?", :as => :text, :required => false, :input_html => { :rows => 1, :class => "using_description" } %>

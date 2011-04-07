@@ -12,7 +12,7 @@
         <% elsif @site.locked? %>
           <li>This site is locked by a site owner. Your permissions are limited.</li>
         <% end %>
-        
+        <li><%= link_to "Add a Site", new_site_path %></li>        
           <% if !current_user.can_edit_site?(@site) %>
             <li><%= link_to "Claim to enable more permissions", new_site_claim_path(@site) %></li>
           <% end %>
@@ -23,8 +23,13 @@
         </ul>
       <% else %>
       <ul class="txt">
-        <li><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to make changes.</li>
-        <li><%= link_to "Sign up", new_user_registration_path %> to add your own site</li>
+        <% if can_edit_site?(@site) %>
+          <li><%= link_to "Edit this site", edit_site_path(@site) %></li>
+        <% elsif !@site.claimed? %>
+          <li><%= link_to "Sign in", new_user_session_path %> to add tools to this site</li>
+        <% end %>
+        <li><%= link_to "Add a new Site", new_site_path %></li>
+        <li><%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to claim this site.</li>
       </ul>
       <% end %>
   </aside>

@@ -19,11 +19,11 @@
   <% if @tool %>
     <li class="current"><a href="#"><%= @tool.name %></a></li>
   <% end %>
-  <% if logged_in? && current_user.can_edit_site?(@site) %>
+  <% if can_edit_site?(@site) %>
     <li class="right site_tools-deleted"><%= link_to "deleted tools", deleted_site_tools_path(@site) %></li>
   <% end %>
 
-  <% if logged_in? && (current_user.claimed_site?(@site) || current_user.admin?) %>
+  <% if can_edit_site?(@site) %>
     <li class="right sites-edit"><%= link_to "Edit", edit_site_path(@site, :format => params[:format]) %></li>
   <% else %>
     <li class="right site_claims-new site_claims-create"><%= link_to "Claim", new_site_claim_path(@site, :format => params[:format]) %></li>

@@ -1,9 +1,18 @@
 <section id="content" class="main">
-  <section class="announcement">
-    <p class="title">Discover what tools power the sites you visit</p>
-    <p>The easiest way to share information about any site.</p>
+  <section class="announcement group">
+    <p class="title">Share the technology stack of your site</p>
+    <p class="subtitle">What programming language, framework, database and other tools do your sites use?</p>
+    
+    <div class="feature group">
+      <p class="minilink"><%= link_to "see some sites", sites_path %> or</p>
+      <p><%= link_to "Add Your Site Now", new_site_path, :class => "green button center" %></p>
+      <p class="subbutton">No account needed</p>
+    </div>
+
   </section>
 
+
+  <h3>Recently Active Sites</h3>
   <ul id="sites-list" class="sites main-list">
     <%= render @sites %>
   </ul>
@@ -16,7 +25,6 @@
 <section id="sidebar" class="sidebar">
   <aside>
     <h3>Welcome to Line of Thought!</h3>
-    <p>We provide an easy way for developers to <em>share information</em> about what powers their websites.</p>
     <p>If you'd like to know more about Line of Thought, <%= link_to "take a tour", tour_path %>.</p>
     <% if !logged_in? %>
     <p>We're limiting new sign up while we work things out, but if you'd like an invite, you can <%= link_to "sign up", new_subscription_path %> and we'll let you know.</p>

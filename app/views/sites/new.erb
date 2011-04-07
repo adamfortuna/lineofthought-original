@@ -7,29 +7,33 @@
     <p>For instance, if you try to add a Twitter handle, like <a href="http://twitter.com/lineof">http://twitter.com/lineof</a>, we'll actually add the root site, <a href="http://twitter.com">http://twitter.com</a>. <strong>Sites must be root domains or subdomains.</strong></p>
   </article>
   <section>
-    <%= semantic_form_for @site, :html => { :id => "new_site", :remote => true } do |f| %>
-      <%= f.inputs do %>
-        <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
-      <% end %>
-      <%= f.buttons do %>
-      <li id="lookup_loading" class="response" style="display:none;"> <img src="/images/indicator.gif"/>We're looking up this site, just a sec.</li>
-        <%= f.commit_button :label => "Add URL", :wrapper_html => { :id => "submit_lookup" } %>
-        <%= f.commit_button :label => "Cancel", :id => "lookup_cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_lookup", :class => "response" } %>
-      <% end %>
-    <% end %>
-    
     <div id="site_error" class="error response" style="display:none;">
       <p>Unable to lookup this URL</p>
     </div>
+
+    <%= semantic_form_for @site, :html => { :id => "new_site", :remote => true } do |f| %>
+      <%= f.inputs do %>
+        <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
+        <%= f.commit_button :label => "Cancel", :id => "lookup_cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_lookup", :class => "response right" } %>
+        <li id="lookup_loading" class="response right" style="display:none;margin:0 10px;"> <img src="/images/indicator.gif"/></li>
+        <%= f.commit_button :label => "Add this Site", :wrapper_html => { :id => "submit_lookup", :class => "right" } %>
+      <% end %>
+    <% end %>
+    
     <div id="existing_site" class="response" style="display:none;">
       <h3>Matching Site</h3>
+      <p>Logged in users can add tools to existing sites. New users can only add tools to sites they have added on during their visit.</p>
+      <% if !logged_in? %><p>Want to add some tools to this site? Please <%= link_to "sign in",  new_user_session_url(:secure => Settings.force_ssl) %> first.</p><% end %>
       <ul id="sites-list" class="sites main-list"></ul>
     </div>
   </section>
 </section>
 
-<% cache("recent_sites", :expires_in => 15.minutes) do %>
 <section class="sidebar">
+  <aside>
+    <p>After adding this site, you'll be able to edit it and add tools to it.</p>
+  </aside>
+  <% cache("recent_sites", :expires_in => 15.minutes) do %>
   <aside>
     <h3>Recently Added Sites</h3>
     <ul class="lst">
@@ -38,8 +42,8 @@
       <% end %>
     </ul>
   </aside>
+  <% end %>
 </section>
-<% end %>
 
 <% javascript do %>
 var checkForLookup = false

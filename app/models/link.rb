@@ -111,6 +111,8 @@ class Link < ActiveRecord::Base
   def self.find_or_create_by_domain(url)
     h = HandyUrl.new(url).root_url_with_subdomain
     find_or_create_by_url(h.to_s)
+  rescue
+    nil
   end
   
   def self.find_or_create_by_url(url)
@@ -125,6 +127,8 @@ class Link < ActiveRecord::Base
       link = Link.find_by_entered_url_using_sql(h)
     end
     return link
+  rescue
+    nil
   end
   
   def self.find_by_entered_url(url)
@@ -135,6 +139,8 @@ class Link < ActiveRecord::Base
       puts "Link.find_by_entered_url - loaded from sql"
       return Link.find_by_entered_url_using_sql(url), :sql
     end
+  rescue
+    nil
   end
   
   def self.find_by_entered_url_using_solr(url)

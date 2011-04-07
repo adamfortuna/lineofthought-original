@@ -1,5 +1,4 @@
 class SiteToolsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:create]
   before_filter :load_record, :only => [:create, :autocomplete]
   before_filter :verify_access_to_create!, :only => [:create]
 
@@ -38,10 +37,14 @@ class SiteToolsController < ApplicationController
   
   # POST /sites/:site_id/tools
   def create
-    @using = @site.usings.create(params[:using].merge(:user_id => current_user.id))
+    @using = @site.usings.create(params[:using].merge(:user => current_user))
     respond_to do |format|
       format.js {
         if @using.id
+          if !logged_in?
+            session[:using_ids] ||= []
+            session[:using_ids] << @using.id
+          end
           render
         else
           render :create_failed
@@ -69,7 +72,7 @@ class SiteToolsController < ApplicationController
   end
 
   def verify_access_to_create!
-    if !current_user.can_add_lines?(@site)
+    if !can_add_lines?(@site)
       respond_to do |format|
         format.js { render :js => "alert('You do not have access to add new tools to this site.');" }
       end

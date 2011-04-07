@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   before_filter :redirect_to_site_tools, :only => [:new]
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :claim]
+  before_filter :authenticate_user!, :only => [:destroy, :claim]
   before_filter :load_record, :only => [:edit, :update, :destroy]
   before_filter :verify_edit_access!, :only => [:edit, :update]
   before_filter :verify_delete_access!, :only => [:delete]
@@ -41,7 +41,7 @@ class SitesController < ApplicationController
 
   # POST /sites
   def create
-    @link = Link.find_or_create_by_domain(params[:site][:url])
+    @link = Link.find_or_create_by_domain(params[:site][:url]) if params[:site] && !params[:site][:url].blank?
     respond_to do |format|
       format.js do
         if @link.nil?
@@ -49,6 +49,10 @@ class SitesController < ApplicationController
         elsif @site = @link.site
           render :duplicate
         elsif @link.parsed? && (@site = Site.create_from_link(@link, current_user)) && !@site.new_record?
+          if !logged_in?
+            session[:site_ids] ||= []
+            session[:site_ids] << @site.id
+          end
           render :create_success
         elsif (@site && @site.new_record?) || @link.unparseable? || @link.unreachable?
           render :create_failed
@@ -123,7 +127,7 @@ class SitesController < ApplicationController
   end
 
   def verify_edit_access!
-    if !current_user.can_edit_site?(@site)
+    if !can_edit_site?(@site)
       flash[:error] = "You do not have access to edit this site."
       redirect_to site_path(@site)
     end

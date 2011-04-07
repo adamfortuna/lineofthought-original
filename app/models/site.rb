@@ -258,6 +258,10 @@ class Site < ActiveRecord::Base
     order = "asc" unless (order == "asc") || (order == "desc")
     return order
   end
+  
+  def claimed?
+    claims.count > 0
+  end
 
   private
   

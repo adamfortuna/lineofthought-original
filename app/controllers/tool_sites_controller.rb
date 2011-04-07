@@ -33,6 +33,10 @@ class ToolSitesController < ApplicationController
     respond_to do |format|
       format.js {
         if @using.id
+          if !logged_in?
+            session[:using_ids] ||= []
+            session[:using_ids] << @using.id
+          end
           render
         else
           render :create_failed

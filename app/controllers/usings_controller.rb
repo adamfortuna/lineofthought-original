@@ -1,5 +1,4 @@
 class UsingsController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :load_record, :only => [:update, :destroy]
   before_filter :verify_can_edit!, :only => :update
   before_filter :verify_can_delete!, :only => :destroy
@@ -8,7 +7,7 @@ class UsingsController < ApplicationController
   def update
     respond_to do |format|
       format.js {
-        if current_user.can_edit_using?(@using) && @using.update_attributes(params[:using])
+        if @using.update_attributes(params[:using])
           render 'update.js'
         else
           render :js => "alert('Cannot edit.');"
@@ -21,7 +20,7 @@ class UsingsController < ApplicationController
   def destroy
     respond_to do |format|
       format.js {
-        if current_user.can_destroy_using?(@using) && @using.destroy
+        if @using.destroy
           render 'destroy.js'
         else
           render :js => "alert('Cannot delete.');"
@@ -37,7 +36,7 @@ class UsingsController < ApplicationController
   end
   
   def verify_can_edit!
-    if !current_user.can_edit_using?(@using)
+    if !can_edit_using?(@using)
       respond_to do |format|
         format.js { render :js => "alert('You do not have access to edit this line of thought.');" }
       end
@@ -45,7 +44,7 @@ class UsingsController < ApplicationController
   end
 
   def verify_can_delete!
-    if !current_user.can_destroy_using?(@using)
+    if !can_destroy_using?(@using)
       respond_to do |format|
         format.js { render :js => "alert('You do not have access to delete this line of thought.');" }
       end

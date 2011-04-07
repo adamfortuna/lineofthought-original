@@ -105,7 +105,7 @@ class Using < ActiveRecord::Base
   
   before_validation :verify_permissions, :on => :create
   def verify_permissions
-    return true if !self.errors.empty?
+    return true if !self.errors.empty? || self.user.nil?
     # Verify the current user can add tools to this site.
     if self.site_id && !self.user.can_add_lines?(self.site)
       self.errors.add_to_base("The site you entered has been locked. You cannot add new tools to it at this time.")
