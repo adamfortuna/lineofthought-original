@@ -1,0 +1,15 @@
+<% title "Welcome to Line of Thought!" %>
+<section id="content" class="main">
+  <article>
+    <h2><%= @title %></h2>
+    <p>Thanks for signing up! You will now be able to add tools to existing sites, claim sites and more. To see what else you can do, you can <%= link_to "take a tour", tour_path %> anytime by clicking on the link in the footer.</p>
+    <p>Your next step is to <%= link_to "add a site", new_site_path %>. You can add any number of sites.</p>
+    
+    <p><%= link_to "Add Your Site Now", new_site_path, :class => "green button center" %></p>
+  </article>
+</section>
+
+<section class="sidebar">
+  <%= render 'tools/featured' %>
+  <%= render 'sites/featured' %>
+</section>

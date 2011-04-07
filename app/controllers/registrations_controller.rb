@@ -11,6 +11,15 @@ class RegistrationsController < Devise::RegistrationsController
     session[:omniauth] = nil unless @user.new_record?
   end
     
+
+  def after_sign_up_path_for(resource)
+    welcome_url
+  end
+  
+  def after_inactive_sign_up_path_for(resource)
+    welcome_url
+  end
+
   private
     
   def build_resource(*args)
