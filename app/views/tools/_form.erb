@@ -9,8 +9,6 @@
                 :collection => Category.order(:name), :hint => "Is this tool a database? A framework? A web service?" %>
     <%= f.input :description, :as => :text, :required => false, :input_html => { :rows => 5 },
                 :hint => "Few words about this tool. The first 140 characters are what matter." %>
-  <% end %>
-  <%= f.buttons do %>
-    <%= f.commit_button %>
+    <%= f.commit_button :button_html => { :class => "button grey right" } %>
   <% end %>
 <% end %>

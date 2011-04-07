@@ -82,3 +82,7 @@
   background-image: -moz-linear-gradient(top, #98ba40 0%, #98ba40 40%, #6e9e2c 85%, #6e9e2c 100%);
   border-color: #608925;
   text-shadow: #242217 1px -1px -1px; }
+
+.button.small {
+  padding: 4px;
+  font-size: 14px; }

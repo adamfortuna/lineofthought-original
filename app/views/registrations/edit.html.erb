@@ -9,9 +9,7 @@
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>
         <%= form.input :current_password, :as => :password %>
-      <% end %>
-      <%= form.buttons do %>
-        <%= form.commit_button :label => "Update" %>
+        <%= form.commit_button :label => "Update", :button_html => { :class => "right button grey" } %>
       <% end %>
     <% end %>
   </section>

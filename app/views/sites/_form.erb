@@ -9,8 +9,6 @@
     <% end %>
     <%= f.input :display_location, :as => :string, :required => false, :label => "Location text to show", :hint => "Usually just city state, like Orlando, FL." %>
     <%= f.input :location, :as => :string, :required => false, :label => "Location for maps", :hint => "Be as exact as you want. If you're running this site out of your house, might want to leave this as your city/state, or your zip code." %>
-  <% end %>
-  <%= f.buttons do %>
-    <%= f.commit_button %>
+    <%= f.commit_button :button_html => { :class => "right button grey" } %>
   <% end %>
 <% end %>

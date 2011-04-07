@@ -8,9 +8,7 @@
         <%= form.input :username, :as => :string, :required => true, :hint => "Between 1 and 25 characters, letters numbers and underscores only." %>
         <%= form.input :url, :as => :string, :hint => "We'll also show your claimed site, but this will be the first listing shown." %>
         <%= form.input :description, :as => :text, :input_html => { :rows => 3} %>
-      <% end %>
-      <%= form.buttons do %>
-        <%= form.commit_button :label => "Update" %>
+        <%= form.commit_button :label => "Update", :button_html => { :class => "right button grey" } %>
       <% end %>
     <% end %>
   </section>

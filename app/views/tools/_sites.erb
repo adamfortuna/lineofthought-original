@@ -27,7 +27,7 @@
     <p class="empty_message">We don't know of any sites using <%= @tool.name %>.</p>
   <% end %>
   
-  <% if logged_in? && sites.count > 10 %>
-    <p class="add_more"><a href="#add_new_tool" class="add_another_site grey button block">Add another site here</a></p>
+  <% if logged_in? && sites.count > 5 %>
+    <p class="add_more"><a href="#add_new_site" class="add_another_site add_another_tool grey button block">Add another site here</a></p>
   <% end %>
 </section>

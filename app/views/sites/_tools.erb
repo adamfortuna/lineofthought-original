@@ -22,7 +22,7 @@
     <p class="main_message">We don't know of any tools used by <strong><%= @site.title %></strong>.</p>
   <% end %>
 
-  <% if can_add_lines?(@site) && tools.count > 10 %>
+  <% if can_add_lines?(@site) && tools.count > 5 %>
     <p class="add_more"><a href="#add_new_tool" class="add_another_tool grey button block">Add another tool here</a></p>
   <% end %>
 </section>

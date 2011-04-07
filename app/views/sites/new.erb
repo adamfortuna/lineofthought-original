@@ -14,9 +14,9 @@
     <%= semantic_form_for @site, :html => { :id => "new_site", :remote => true } do |f| %>
       <%= f.inputs do %>
         <%= f.input :url, :as => :string, :required => true, :label => "Site URL", :hint => "Root site URL. Don't add multiple URLs within the same domain." %>
-        <%= f.commit_button :label => "Cancel", :id => "lookup_cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_lookup", :class => "response right" } %>
+        <%= f.commit_button :label => "Add this Site", :wrapper_html => { :id => "submit_lookup", :class => "right" }, :button_html => { :class => "button grey" } %>
         <li id="lookup_loading" class="response right" style="display:none;margin:0 10px;"> <img src="/images/indicator.gif"/></li>
-        <%= f.commit_button :label => "Add this Site", :wrapper_html => { :id => "submit_lookup", :class => "right" } %>
+        <%= f.commit_button :label => "Cancel", :id => "lookup_cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_lookup", :class => "response right" }, :button_html => { :class => "button grey small" } %>
       <% end %>
     <% end %>
     
