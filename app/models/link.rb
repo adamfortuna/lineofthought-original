@@ -169,11 +169,11 @@ class Link < ActiveRecord::Base
   memoize :categories
 
   def tools
-    tool_keywords = cached_keywords.collect do |keyword|
+    tool_keywords = (cached_keywords || []).collect do |keyword|
       keyword[0] if known_tool_keywords.include?(keyword[0])
     end.compact
     
-    url_variants = cached_links.collect do |url|
+    url_variants = (cached_links || []).collect do |url|
       HandyUrl.new(url).variants.collect(&:to_s)
     end.flatten
     
