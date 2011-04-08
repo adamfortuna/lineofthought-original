@@ -30,3 +30,14 @@ test:
 
 production:
  <<: *defaults
+ 
+staging:
+  <<: *defaults
+  force_ssl: false
+  root_domain_with_port: "staging.lineofthought.com"
+  root_domain: "staging.lineofthought.com"
+  root_url: "http://staging.lineofthought.com"
+  ssl_root_domain: "staging.lineofthought.com"
+  ssl_schema: "http"
+  ssl_root_domain_with_port: "staging.lineofthought.com"
+  ssl_root_url: "http://staging.lineofthought.com"
