@@ -17,10 +17,15 @@ class SiteToolsController < ApplicationController
     # @using = @site.usings.with_deleted.find(:first, :conditions => ["tool_id = ?", @tool.id])
     # @using = @site.usings.with_deleted.where(:tool_id => @tool.id).first
     @using = Using.with_deleted.where(["site_id = ? AND tool_id = ?", @site.id, @tool.id]).first
+    raise ActiveRecord::RecordNotFound, "no using" unless @using
     # debugger
     # responds_with([@site, @tool, @using])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
+  rescue ActiveRecord::RecordNotFound => e
+    if e.message == "no using"
+      redirect_to site_path(@site), :flash => { :error => "We weren't able to find a record of that tool." }
+    else
+      redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
+    end
   end
   
   
