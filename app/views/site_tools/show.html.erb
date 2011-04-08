@@ -20,12 +20,12 @@
           <% @using.versions.each do |version| %>
             <% 
               using = version.reify
-              user = (using && using.user) ? using.user : User.find(version.whodunnit)
+              user = (using && using.user) ? using.user : (version.whodunnit.nil? ? nil : User.find(version.whodunnit))
             %>
             
             <tr>
               <td><%= version.created_at %></td>
-              <td><%= link_to user.username, profile_path(user) %></td>
+              <td><%= link_to user.username, profile_path(user) if user %></td>
               <td><%= version.event %></td>
               <td style="text-align:center;"><input type="radio" name="id" value="<%= version.id %>" /></td>
             </tr>

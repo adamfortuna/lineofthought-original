@@ -26,7 +26,7 @@ class SitesController < ApplicationController
     @site = find(params[:id]) 
     params[:sort] ||= "sites_desc"
     @usings = @site.usings.includes(:tool).joins(:tool).order(Tool.sql_order(params[:sort]))
-    respond_with(@site)
+    respond_with([@site, @usings])
   rescue ActiveRecord::RecordNotFound
     redirect_to sites_path, :flash => { :error => "Unable to find a site matching #{params[:id]}" }
   end

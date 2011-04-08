@@ -39,7 +39,7 @@ class ToolsController < ApplicationController
                    .order(Site.sql_order(params[:sort]))
                    .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 25)
     @featured = Tool.featured.limit(5)
-    respond_with @tool
+    respond_with ([@tool, @usings])
   rescue ActiveRecord::RecordNotFound
     redirect_to tools_path, :flash => { :error => "Unable to find a tool matching #{params[:id]}" }
   end

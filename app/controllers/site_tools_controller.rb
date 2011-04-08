@@ -19,7 +19,7 @@ class SiteToolsController < ApplicationController
     @using = Using.with_deleted.where(["site_id = ? AND tool_id = ?", @site.id, @tool.id]).first
     raise ActiveRecord::RecordNotFound, "no using" unless @using
     # debugger
-    # responds_with([@site, @tool, @using])
+    respond_with([@site, @tool, @using])
   rescue ActiveRecord::RecordNotFound => e
     if e.message == "no using"
       redirect_to site_path(@site), :flash => { :error => "We weren't able to find a record of that tool." }
