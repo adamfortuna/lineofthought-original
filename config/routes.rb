@@ -1,5 +1,6 @@
 Snaps::Application.routes.draw do
   match '/' => 'home#index', :as => 'root'
+  match '/search' => 'search#index', :as => 'search'
 
   resources :tools do
     collection do 
