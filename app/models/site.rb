@@ -326,4 +326,5 @@ class Site < ActiveRecord::Base
       claim.bypass_and_claim!
     end
   end
+  handle_asynchronously :create_initial_claim
 end

@@ -48,10 +48,8 @@ class SitesController < ApplicationController
           render :duplicate
         elsif @link.parsed? && (@site = Site.create_from_link(@link, current_user)) && !@site.new_record?
           flash[:notice] = "Your site was added to Line of Thought. You can now add some tools it uses, or edit it."
-          if !logged_in?
-            session[:site_ids] ||= []
-            session[:site_ids] << @site.id
-          end
+          session[:site_ids] ||= []
+          session[:site_ids] << @site.id
           render :create_success
         elsif (@site && @site.new_record?) || @link.unparseable? || @link.unreachable?
           render :create_failed

@@ -43,5 +43,5 @@ group :development, :test do
   gem 'ruby-debug19'
   gem 'shoulda-matchers'
 
-  #gem "factory_girl", "2.0.0.beta1"
+  gem "factory_girl", "1.3.3"
 end
