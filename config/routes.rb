@@ -67,8 +67,8 @@ Snaps::Application.routes.draw do
   
   match '/about' => 'home#about',                   :as => 'about'
   match '/stream' => 'home#stream',                 :as => 'stream'
-  match '/tellme' => 'home#tellme',                 :as => 'tellme'
   match '/welcome' => 'home#welcome',               :as => 'welcome'
+  match '/license' => 'home#license',               :as => 'license'
 
   match '/lookup' => 'lookup#new',                  :as => 'lookup'
   match '/sites/lineofthought' => 'sites#show',     :as => 'lineofthought', :id => 'lineofthought'

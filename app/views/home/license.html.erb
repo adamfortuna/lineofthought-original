@@ -1,0 +1,36 @@
+<% title "Line of Thought Licensing" %>
+<section id="content" class="main">
+  <article>
+    <h2><%= @title %></h2>
+    <p>All information added to Line of Thought has been done so by the community, and therefore is available for the community to use via <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> with very basic limitations.</p>
+    <p>Any information that you have entered into Line of Thought can be used by the owner without any attrition to Line of Thought, although we reserve the right to use it and license it as well.</p>
+    <p>All remaining information can be used, but does <strong>require attribution</strong>
+    
+    <h3>Attribution</h3>
+    <p>If you are using data from Line of Thought, you <strong>must</strong> do the following:</p>
+    <ul>
+      <li>Visually indicate that the information is from <strong>Line of Thought</strong>.</li>
+      <li>Hyperlink back to the original content page. For instance, if you are using data on <%= link_to "tools using MySQL", tools_path(:id => "mysql" ) %>, you should link back to the MySQL page wherever it is used. All links must <em>not</em> be nofollowed.</li>
+    </ul>
+    
+    <h3>The Goal</h3>
+    <p>The goal of this is to make all data easily available for everyone to use. At later times we want to do data dumps and offer a useful API, but for now it's just the website with XML and JSON equivalents (try adding .json or .xml at the end of an information page!).</p>
+    <p>If you're wanting to remix data in another way that doesn't fit in with the attribution above, <%= link_to "contact us", about_path %> and we can work something out. Maybe just linking to us on some pages rather than every page, for instance.</p>
+    
+    <h3>Creative Commons License</h3>
+    <p>Here is the exact licensing information via Create Commons</p>
+    <p>
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+    </p>
+  </article>
+</section>
+
+<section class="sidebar">
+  <aside>
+    <h3>What can you use?</h3>
+    <ul class="txt">
+      <li>XML equivalent of each page.</li>
+      <li>JSON equivalent of each page.</li>
+    </ul>
+  </aside>
+</section>

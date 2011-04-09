@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   end
   
   def ensure_domain
+    return true unless Rails.env == "production"
     # redirect if not on lineofthought
     schema = request.env['HTTP_X_FORWARDED_PROTO'] || "http"    
     if request.env['HTTP_HOST'] == Settings.root_domain_with_port

@@ -136,7 +136,7 @@ class Link < ActiveRecord::Base
     begin
       return Link.find_by_entered_url_using_solr(url), :solr
     rescue Errno::ECONNREFUSED
-      puts "Link.find_by_entered_url - loaded from sql"
+      # puts "Link.find_by_entered_url - loaded from sql"
       return Link.find_by_entered_url_using_sql(url), :sql
     end
   rescue
@@ -147,7 +147,7 @@ class Link < ActiveRecord::Base
     search_results = Link.search do
       fulltext url.canonical
     end
-    puts "Link.find_by_entered_url - loaded from solr"
+    # puts "Link.find_by_entered_url - loaded from solr"
     search_results.results.first
   end
 

@@ -8,12 +8,15 @@ class HomeController < ApplicationController
     @sites = Site.order("created_at desc").where("tools_count > 3").limit(10)
   end
 
-  # GET /tellme
-  def tellme; end
+  # GET /about
+  def about; end
 
-  # GET /subscribed
-  def subscribed; end
+  # GET /welcome
+  def welcome; end
 
   # GET /stream
   def stream; end
+  
+  # GET /license
+  def license; end
 end

@@ -10,13 +10,6 @@ class ToolsController < ApplicationController
   # just the tools#index, and only when not logged in
   caches_action :index, :if => Proc.new { |controller| !logged_in? && params[:sort].nil? && params[:search].nil? && params[:page].nil?  && params[:per_page].nil? && params[:category].nil? }, :expires_in => 1.hour, :layout => false
 
-  @@site_order = { "google" => "google_pagerank", 
-                   "alexa" => "coalesce(alexa_global_rank, 100000000)", 
-                   "tools" => "tools_count", 
-                   "sitename" => "title",
-                   "jobs" => "jobs_count"
-                 }
-
   def index
    params[:sort] ||= "tools_desc"
    @tools, @hits, loaded_from_solr = Tool.search_by_params(params)

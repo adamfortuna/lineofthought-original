@@ -32,4 +32,9 @@ Snaps::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  
+  config.after_initialize do
+    SslRequirement.ssl_host     = "ssl.dev.lineofthought.com:3000"
+    SslRequirement.non_ssl_host = "dev.lineofthought.com:3000"
+  end
 end

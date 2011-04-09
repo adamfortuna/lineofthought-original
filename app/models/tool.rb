@@ -193,10 +193,10 @@ class Tool < ActiveRecord::Base
       order_by(Tool.order_for(params[:sort]).to_sym, Tool.direction_for(params[:sort]).to_sym)
       paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
     end
-    puts "Loaded tools using solr"
+    # puts "Loaded tools using solr"
     return search.results, search.hits, true
   rescue Errno::ECONNREFUSED
-    puts "Unable to Connect to Solr to retreive tools. Falling back on SQL."
+    # puts "Unable to Connect to Solr to retreive tools. Falling back on SQL."
     tools = order(Tool.sql_order(params[:sort]))
             .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
     return tools, tools, false
