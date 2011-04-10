@@ -133,6 +133,7 @@ class Link < ActiveRecord::Base
   
   def self.find_by_entered_url(url)
     url = HandyUrl.new(Util.parse_uri(url)) unless url.is_a?(HandyUrl)
+    return Link.find_by_entered_url_using_sql(url), :sql
     begin
       return Link.find_by_entered_url_using_solr(url), :solr
     rescue Errno::ECONNREFUSED
