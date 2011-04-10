@@ -235,7 +235,7 @@ class Link < ActiveRecord::Base
     self.original_url ||= self.url
     self.url = Util.normalize_url(self.url).to_s
     self.lookup_urls = [self.uri.to_s, self.original_uri.to_s].uniq.compact
-    self.canonical = self.uri.canonical
+    self.canonical = self.original_uri.canonical
     self.uid_with_subdomain = self.uri.uid_with_subdomain
     self.uid = self.uri.uid
   end
