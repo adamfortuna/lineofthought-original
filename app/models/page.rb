@@ -42,7 +42,10 @@ class Page < ActiveRecord::Base
   end
   
   def datetime
-    doc.datetime rescue nil
+    t = Time.parse(doc.datetime)
+    (t < 100.years.ago) ? nil : t
+  rescue
+    nil
   end
   
   def html_body
