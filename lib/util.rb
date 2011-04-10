@@ -43,5 +43,7 @@ module Util
     return if url.blank?
     uri = url.is_a?(URI) ? url : URI.parse(url)
     uri.relative?
+  rescue
+    false
   end  
 end

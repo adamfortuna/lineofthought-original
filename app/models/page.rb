@@ -53,6 +53,8 @@ class Page < ActiveRecord::Base
     Nokogiri::XML::Document.parse(html_body).css("a").collect do |link|
       link["href"] if !Util.relative_url?(link["href"])
     end.compact
+  rescue
+    []
   end
   
   def favicon

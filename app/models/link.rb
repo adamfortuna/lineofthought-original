@@ -2,7 +2,7 @@ class Link < ActiveRecord::Base
   extend ActiveSupport::Memoizable
   
   validates_presence_of :url, :uid, :canonical
-  validates_uniqueness_of :url, :canonical
+  validates_uniqueness_of :original_url, :canonical
 
   serialize :cached_keywords
   serialize :cached_links
