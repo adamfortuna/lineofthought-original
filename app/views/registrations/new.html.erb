@@ -34,9 +34,7 @@
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>
         <%= form.input :invite_code, :as => :string, :required => true, :hint => raw("Right now we're invite only while working out the kinks. If you'd like to get an invite code, please #{link_to 'let us know!', new_subscription_path}") %>
-      <% end %>
-      <%= form.buttons do %>
-        <%= form.commit_button :label => "Register" %>
+        <%= form.commit_button :label => "Register", :button_html => { :class => "button grey" } %>
       <% end %>
     <% end %>
   </section>
