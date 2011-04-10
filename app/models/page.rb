@@ -87,6 +87,10 @@ class Page < ActiveRecord::Base
       else
         self.html = page.body
       end
+      if self.html
+        self.html = self.html.gsub("\t","").gsub("\n","").gsub("\r","")
+        self.html = Iconv.conv("UTF-8//IGNORE", "US-ASCII", self.html)
+      end
       self.code = page.code
       self.success = true
     end
