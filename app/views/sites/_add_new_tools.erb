@@ -1,6 +1,6 @@
 <a name="add_new_tool"></a>
 <p class="add_more">Know of another tool used on this site? <a href="#add_new_tool" class="button green add_another_tool">Add it here</a></p>
-<section id="new_using_form" <%= "style='display:none;' " if @site.tools_count > 0  %> class="add_in_place">
+<section id="new_using_form" class="add_in_place">
   <% if can_add_lines?(@site) %>
     <%= render 'site_tools/form' %>
   <% elsif !logged_in? %>

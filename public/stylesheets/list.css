@@ -283,9 +283,11 @@ section.deleted li.edit-in-place-edit, section.single-site-tool li.edit-in-place
 ul.main-list .using { clear:both; margin:1.5em 0 0 0; }
 ul.main-list .using li { float:left; margin-right:10px; }
 ul.main-list .using li a { background-color:#ccc; padding:.4em; }
+
+section.add_in_place { border-top:1px solid #ccc; }
 */
-section.add_in_place {
-  border-top: 1px solid #ccc; }
+section.show_form p.add_more, section.show_form p.main_message {
+  display: none; }
 
 p.add_more {
   text-align: center;

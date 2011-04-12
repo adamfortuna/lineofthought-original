@@ -1,4 +1,4 @@
-<section class="tab">
+<section class="tab<%= ' show_form' if (@site.tools_count == 0) && can_add_lines?(@site) %>">
   <%= render 'sites/add_new_tools' if can_add_lines?(@site) %>
 
   <% if @site.tools_count > 0 || tools.count > 0 %>
@@ -19,7 +19,9 @@
     </ul>
   <% else %>
     <ul id="site-tools-list" class="sublist usings sites <%= sorting_class(params[:sort]) %>"></ul>
-    <p class="main_message">We don't know of any tools used by <strong><%= @site.title %></strong>.</p>
+    <% if !can_add_lines?(@site)%>
+      <p class="main_message">We don't know of any tools used by <strong><%= @site.title %></strong>.</p>
+    <% end %>
   <% end %>
 
   <% if can_add_lines?(@site) && tools.count > 5 %>

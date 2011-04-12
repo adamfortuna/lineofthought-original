@@ -1,2 +1,14 @@
 * can't add .edu tlds as sites to tools pages.
 * Need to add the uri.to_s of the url as the URL on the tool. added one as "espn.com", and it was created.
+
+http//www.billmonitor.com/ when adding a site threw error:
+ NoMethodError (undefined method `has_key?' for nil:NilClass):
+2011-04-10T16:12:56-07:00 app[web.1]:   lib/handy_url.rb:13:in `domainatrix'
+2011-04-10T16:12:56-07:00 app[web.1]:   lib/handy_url.rb:69:in `tld'
+2011-04-10T16:12:56-07:00 app[web.1]:   lib/handy_url.rb:73:in `uid'
+2011-04-10T16:12:56-07:00 app[web.1]:   app/models/site.rb:298:in `set_uid'
+2011-04-10T16:12:56-07:00 app[web.1]:   app/models/using.rb:95:in `create_new_site'
+2011-04-10T16:12:56-07:00 app[web.1]:   app/controllers/tool_sites_controller.rb:31:in `create'
+2011-04-10T16:12:56-07:00 app[web.1]: 
+
+

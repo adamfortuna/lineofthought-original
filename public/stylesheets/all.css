@@ -339,7 +339,7 @@ article a:hover {text-decoration:underline}
 article h2 {margin-bottom:.6em}
 article h2, article h2 a:link, article h2 a:visited {color:#444; font-size:26px}
 article h3 {margin-top:1.4em}
-article ul {list-style:disc inside; margin:1em}
+article ul {list-style: disc outside; margin: 1em 1em 1em 2em}
 article .article {margin-bottom:10px}
 article .date {color:#777; font-size:14px}
 body.blog #comments {padding:1em}
@@ -453,7 +453,7 @@ body.site_tools-show .sublist li.ind .actions li.comments {display: none}
 .sublist li.ind.editing .actions .edit-in-place-edit {display: none}
 section.deleted li.edit-in-place-edit, section.single-site-tool li.edit-in-place-edit {display: none}
 .edit-in-place:hover .actions {display: block}
- section.add_in_place {border-top: 1px solid #ccc}
+ section.show_form p.add_more, section.show_form p.main_message {display: none}
 p.add_more {text-align: center; font-size: 18px; color: #555; margin: 14px 0; line-height: 40px}
 p.add_more a {margin-left: 14px}
 .button, a.button, input.button {text-transform: lowercase; font-family: Arial,sans-serif; font-weight: normal; padding: 7px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; cursor: pointer; display: inline-block; font-size: 18px; line-height: 20px; margin: 0; overflow: visible; padding: 5px 18px; text-decoration: none; width: auto; font-style: inherit}

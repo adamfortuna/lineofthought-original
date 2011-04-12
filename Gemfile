@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'ruby-debug19'
   gem 'shoulda-matchers'
-
-  gem "factory_girl", "1.3.3"
+  gem 'spork', '~> 0.9.0.rc4'
+  gem 'factory_girl', "1.3.3"
+  gem 'watchr'
 end

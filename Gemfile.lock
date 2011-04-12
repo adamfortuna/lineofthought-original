@@ -239,6 +239,7 @@ GEM
     shoulda-matchers (1.0.0.beta1)
     signature (0.1.2)
       ruby-hmac
+    spork (0.9.0.rc4)
     state_machine (0.10.1)
     sunspot (1.2.1)
       escape (= 0.0.4)
@@ -253,6 +254,7 @@ GEM
     tzinfo (0.3.25)
     warden (1.0.3)
       rack (>= 1.0.0)
+    watchr (0.7)
     whois (2.0.1)
     will_paginate (3.0.pre2)
     xml-simple (1.0.14)
@@ -294,7 +296,9 @@ DEPENDENCIES
   ruby-debug19
   settingslogic
   shoulda-matchers
+  spork (~> 0.9.0.rc4)
   state_machine
   sunspot_rails (= 1.2.1)
+  watchr
   whois (= 2.0.1)
   will_paginate (= 3.0.pre2)

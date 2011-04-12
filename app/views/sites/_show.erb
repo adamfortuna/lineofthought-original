@@ -7,15 +7,19 @@
 <% javascript do %>
 $(function(){
   $(".add_another_tool").click(function(e) {
-    if($(this).hasClass("showing_form")) {
-      $("#new_using_form").slideUp();
-      $(".add_another_tool").removeClass("showing_form");
-      e.preventDefault();
-      return false;
+    if($("#new_using_form").is(":visible")) {
+      $("section.tab").removeClass("show_form");
+      $("#new_using_form").slideUp(1000, function() {
+        $("p.add_more").slideDown();
+      });
     } else {
-      $(".add_another_tool").addClass("showing_form");
-      $("#new_using_form").slideDown();
+      $("#new_using_form").slideDown(500, function() {
+        
+      });
+      $("section.tab").addClass("show_form");
     }
+    e.preventDefault();
+    return false;
   });
 });
 <% end %>
