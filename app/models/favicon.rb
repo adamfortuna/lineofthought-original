@@ -22,12 +22,13 @@ class Favicon < ActiveRecord::Base
       return true
     end
     
-    if Util.relative_url?(favicon_path)
+    if favicon_path && Util.relative_url?(favicon_path)
       parsed_favicon_url = "#{uri.root_url_with_subdomain}#{favicon_path[1..(favicon_path.length)]}"
-    else
+    elsif favicon_path
       parsed_favicon_url = favicon_path
+    else 
+      parsed_favicon_url = "#{uri.root_url_with_subdomain}favicon.ico"
     end
-    parsed_favicon_url = parsed_favicon_url || "#{uri.root_url_with_subdomain}favicon.ico"
     
     favicon = Favicon.find_by_url(parsed_favicon_url)
     favicon || Favicon.create({ :url => parsed_favicon_url, :uid => uri.uid })

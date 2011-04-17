@@ -101,7 +101,7 @@ class Link < ActiveRecord::Base
   end
   
   def reload_favicon!
-    Favicon.create_by_favicon_url(current_page.favicon, uri) if current_page.favicon
+    Favicon.create_by_favicon_url(current_page.favicon, uri)
   end
   handle_asynchronously :reload_favicon!
 
