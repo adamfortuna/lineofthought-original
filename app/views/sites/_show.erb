@@ -8,15 +8,17 @@
 $(function(){
   $(".add_another_tool").click(function(e) {
     if($("#new_using_form").is(":visible")) {
-      $("section.tab").removeClass("show_form");
-      $("#new_using_form").slideUp(1000, function() {
-        $("p.add_more").slideDown();
+      $("#new_using_form").slideUp(500, function() {
+        $("p.add_more").slideDown(500, function() {
+          $("section.tab").removeClass("show_form");  
+        });
       });
     } else {
-      $("#new_using_form").slideDown(500, function() {
-        
+      $("p.add_more").slideUp(500, function() {
+        $("#new_using_form").slideDown(500, function() {
+          $("section.tab").removeClass("show_form");
+        });
       });
-      $("section.tab").addClass("show_form");
     }
     e.preventDefault();
     return false;

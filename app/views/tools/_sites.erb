@@ -1,4 +1,4 @@
-<section class="tab">
+<section class="tab<%= ' show_form' if (@tool.sites_count == 0) && can_add_lines?(@tool) %>">
   <% if !logged_in? || current_user.can_add_lines?(@tool) %>
     <%= render "tools/add_new_sites" %>
   <% end %>

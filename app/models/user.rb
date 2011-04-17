@@ -73,18 +73,18 @@ class User < ActiveRecord::Base
 
   def update_cached_site_claims!
     self.cached_site_claims = []
-    claims.where("claimable_type='Site'").includes(:claimable).each do |claim|
-      self.cached_site_claims << claim.claimable.id
-      self.cached_site_claims << claim.claimable.cached_slug
+    sites.each do |site|
+      self.cached_site_claims << site.id
+      self.cached_site_claims << site.cached_slug
     end
     save
   end
 
   def update_cached_tool_claims!
     self.cached_tool_claims = []
-    claims.where("claimable_type='Tool'").includes(:claimable).each do |claim|
-      self.cached_tool_claims << claim.claimable.id
-      self.cached_tool_claims << claim.claimable.cached_slug
+    tools.each do |tool|
+      self.cached_tool_claims << tool.id
+      self.cached_tool_claims << tool.cached_slug
     end
     save
   end

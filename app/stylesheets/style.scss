@@ -19,7 +19,7 @@ section.text ul li p, section.text ol li p { margin: 1em 0; }
 
 /* home */
 section.announcement { margin-bottom:2em; }
-section.announcement p.title  { font-size:24px; color:#444; margin:.5em 0; text-align:center; }
+section.announcement p.title  { font-size:26px; color:#444; margin:.5em 0; text-align:center; font-family:arial; font-weight:bold; }
 section.announcement p.subtitle { font-size:18px; color:#333; margin:.5em 0 .5em 30px; text-align:center; float:left; width:300px; }
 section.announcement p a { font-style:normal; font-size:14px; }
 section.announcement p a:hover { text-decoration:none; }
@@ -27,7 +27,7 @@ section.announcement div.feature { float:right; width:275px; }
 section.announcement div.feature p { line-height: 19px; text-align:center; }
 section.announcement div.feature p.subbutton { font-size: 12px; text-align: center; line-height: 8px; }
 section.tab { clear:both; }
-section.announcement div.feature p.minilink a { text-decoration:underline; }
+section.announcement div.feature p.minilink a { text-decoration:underline; font-size:12px; }
 section.announcement div.feature a.button { font-size: 18px; padding: 9px 18px; }
 section.tab p.empty_message, section.tab p.main_message { color:#444; text-align:center; font-size:16px; margin:1.5em 0 1em; }
 

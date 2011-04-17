@@ -97,9 +97,9 @@ class Claim < ActiveRecord::Base
   private
   def update_user_cached_claims
     if claimable.is_a?(Site)
-      user.update_cached_site_claims!
+      user.reload.update_cached_site_claims!
     elsif claimable.is_a?(Tool)
-      user.update_cached_tool_claims!
+      user.reload.update_cached_tool_claims!
     end
   end
   
@@ -118,7 +118,6 @@ class Claim < ActiveRecord::Base
   end
   
   def increment_user_claims
-    self.user.update_claim_counts!
+    user.update_claim_counts!
   end
-  handle_asynchronously :increment_user_claims, :priority => 10
 end

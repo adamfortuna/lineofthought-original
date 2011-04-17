@@ -7,15 +7,21 @@
 <% javascript do %>
 $(function(){
   $(".add_another_site").click(function(e) {
-    if($(this).hasClass("showing_form")) {
-      $("#new_using_form").slideUp();
-      $(".add_another_site").removeClass("showing_form");
-      e.preventDefault();
-      return false;
+    if($("#new_using_form").is(":visible")) {
+      $("#new_using_form").slideUp(500, function() {
+        $("p.add_more").slideDown(500, function() {
+          $("section.tab").removeClass("show_form");  
+        });
+      });
     } else {
-      $("#new_using_form").slideDown();
-      $(".add_another_site").addClass("showing_form");
+      $("p.add_more").slideUp(500, function() {
+        $("#new_using_form").slideDown(500, function() {
+          $("section.tab").removeClass("show_form");
+        });
+      });
     }
+    e.preventDefault();
+    return false;
   });
 });
 <% end %>

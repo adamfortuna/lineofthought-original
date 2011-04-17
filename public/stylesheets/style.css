@@ -60,10 +60,12 @@ section.announcement {
   margin-bottom: 2em; }
 
 section.announcement p.title {
-  font-size: 24px;
+  font-size: 26px;
   color: #444;
   margin: .5em 0;
-  text-align: center; }
+  text-align: center;
+  font-family: arial;
+  font-weight: bold; }
 
 section.announcement p.subtitle {
   font-size: 18px;
@@ -97,7 +99,8 @@ section.tab {
   clear: both; }
 
 section.announcement div.feature p.minilink a {
-  text-decoration: underline; }
+  text-decoration: underline;
+  font-size: 12px; }
 
 section.announcement div.feature a.button {
   font-size: 18px;

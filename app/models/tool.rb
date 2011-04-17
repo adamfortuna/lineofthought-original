@@ -271,5 +271,8 @@ class Tool < ActiveRecord::Base
       claim = claimer.claims.create({ :claimable => self })
       claim.bypass_and_claim!
     end
+    return true
+  rescue Exception => e
+    return false
   end
 end
