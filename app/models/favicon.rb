@@ -39,7 +39,7 @@ class Favicon < ActiveRecord::Base
       fav = self.favicon = download_remote_image
       # If not able to save the favicon, just delete it from favicons
       if fav.nil? || !save
-        Favicon.delete_all "id=#{self.id}" 
+        # Favicon.delete_all "id=#{self.id}" 
       else
         update_associated_items
       end
