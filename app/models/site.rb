@@ -90,10 +90,12 @@ class Site < ActiveRecord::Base
   
   def update_ranks!
     ranks = PageRankr.ranks(url, :alexa, :google) #=> {:alexa=>{:us=>1, :global=>1}, :google=>10}
-    if ranks && ranks[:alexa][:us] != 0 && ranks[:alexa][:global] != 0 && ranks[:google] != 0
-      self.update_attributes({ :alexa_us_rank => ranks[:alexa][:us], 
-                               :alexa_global_rank => ranks[:alexa][:global], 
-                               :google_pagerank => ranks[:google]})
+    if ranks && ranks[:alexa]
+      self.ranks_updated_at = Time.now
+      self.alexa_us_rank = ranks[:alexa][:us] if ranks[:alexa][:us] > 0
+      self.alexa_global_rank = ranks[:alexa][:global] if ranks[:alexa][:global] > 0
+      self.google_pagerank = ranks[:google] if ranks[:google] && ranks[:google] >= 0
+      self.save
     end
   end
   handle_asynchronously :update_ranks!

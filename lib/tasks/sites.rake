@@ -51,14 +51,11 @@ namespace :sites do
   
   desc "reload favicons"
   task :reload_favicons => :environment do
-    Site.find_in_batches(:conditions => "favicon_url is not null") do |sites|
-      sites.each do |site|
-        puts "updating favicons ... #{site.title}"
-        begin
-          site.download_favicon!
-        rescue 
-          puts "Unable to load #{site.title}"
-        end
+    Link.where(["has_favicon=?", false]).all do |link|
+      begin
+        link.reload_favicon!
+      rescue 
+        puts "Unable to load favicon for link #{link.url}"
       end
     end
   end

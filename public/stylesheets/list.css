@@ -298,3 +298,9 @@ p.add_more {
 
 p.add_more a {
   margin-left: 14px; }
+
+section .add_in_place {
+  display: none; }
+
+section.show_form .add_in_place {
+  display: block; }

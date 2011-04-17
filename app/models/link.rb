@@ -99,6 +99,11 @@ class Link < ActiveRecord::Base
   def load_html!
     current_page
   end
+  
+  def reload_favicon!
+    Favicon.create_by_favicon_url(current_page.favicon, uri) if current_page.favicon
+  end
+  handle_asynchronously :reload_favicon!
 
   def content_loaded?
     current_page && current_page.success?

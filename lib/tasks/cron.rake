@@ -18,5 +18,10 @@ task :cron => :environment do
       tool.update_cached_sites!
     end
     puts "tools updated!"
+    
+    puts "Attempt to update pagerank and alexa rating"
+    Site.where(["ranks_updated_at IS NULL OR ranks_updated_at < ?", 1.month.ago]).each do |site|
+      site.update_ranks!
+    end
   end
 end

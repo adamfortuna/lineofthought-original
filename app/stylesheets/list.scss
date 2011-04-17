@@ -104,3 +104,5 @@ section.add_in_place { border-top:1px solid #ccc; }
 section.show_form p.add_more, section.show_form p.main_message { display:none; }
 p.add_more { text-align:center; font-size:18px; color:#555; margin:14px 0; line-height:40px; }
 p.add_more a { margin-left:14px; }
+section .add_in_place { display:none; }
+section.show_form .add_in_place { display:block; }

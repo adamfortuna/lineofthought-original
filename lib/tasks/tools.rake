@@ -33,33 +33,5 @@ namespace :tools do
         end
       end
     end
-  end  
-  
-  desc "Load favicons"
-  task :load_favicons => :environment do
-    Tool.find_in_batches(:conditions => "favicon_url is not null") do |tools|
-      tools.each do |tool|
-        puts "updating favicons ... #{tool.name}"
-        begin
-          tool.download_favicon!
-        rescue 
-          puts "Unable to load #{tool.name}"
-        end
-      end
-    end
-  end
-  
-  desc "reLoad favicons"
-  task :reload_favicons => :environment do
-    Tool.find_in_batches(:conditions => "favicon_url is not null") do |tools|
-      tools.each do |tool|
-        puts "updating favicons ... #{tool.name}"
-        begin
-          tool.download_favicon!
-        rescue 
-          puts "Unable to load #{tool.name}"
-        end
-      end
-    end
   end
 end
