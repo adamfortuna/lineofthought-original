@@ -27,7 +27,7 @@
     <h3>Welcome to Line of Thought!</h3>
     <p>If you'd like to know more about Line of Thought, <%= link_to "take a tour", tour_path %>.</p>
     <% if !logged_in? %>
-    <p>We're limiting new sign up while we work things out, but if you'd like an invite, you can <%= link_to "sign up", new_subscription_path %> and we'll let you know.</p>
+    <p class="invite">We're limiting new sign up while we work things out, but if you'd like an invite, you can <%= link_to "sign up", new_subscription_path %> and we'll let you know.</p>
     <% end %>
   </aside>
   <aside class="search">

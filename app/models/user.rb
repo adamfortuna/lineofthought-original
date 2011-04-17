@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   has_many :usings
   has_many :invites
   
-  validate :validate_invite, :on => :create
-  after_create :increment_invite, :if => :invite_code?
+  # validate :validate_invite, :on => :create
+  # after_create :increment_invite, :if => :invite_code?
   serialize :cached_site_claims
   serialize :cached_tool_claims
 

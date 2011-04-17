@@ -3,8 +3,9 @@
 <section id="content" class="main">
   <article>
     <h2><%= @title %></h2>
-    <p>In order to sign up, you'll <strong>need an invite code</strong> for now. We're just getting started and want to make sure things are working correctly before opening publicly.</p>
-    <p>If you'd like to be notified when we launch, or get a code for access before we launch, you can <%= link_to "sign up here", new_subscription_path %>.</p>
+    <p>In order to continue editing sites on Line of Thought, you'll want to create an account.</p>
+    <p class="invite">In order to sign up, you'll <strong>need an invite code</strong> for now. We're just getting started and want to make sure things are working correctly before opening publicly.</p>
+    <p class="invite">If you'd like to be notified when we launch, or get a code for access before we launch, you can <%= link_to "sign up here", new_subscription_path %>.</p>
   </article>
 
   <hr />
@@ -18,7 +19,7 @@
     <% if method %>
       <p>Your account is connected to <%= method %>. You will be able to login via <%= method %>, or with email/password.</p>
     <% else %>
-      <p>You'll still need an <%= link_to "invite code", new_subscription_path %> even if you sign up with Twitter or Facebook.</p>
+      <p class="invite">You'll still need an <%= link_to "invite code", new_subscription_path %> even if you sign up with Twitter or Facebook.</p>
       <p>Sign up using Twitter. <a href="<%= Settings.root_url %>/auth/twitter">yeah, please</a></p>
       <p>Sign up using Facebook. <a href="<%= Settings.root_url %>/auth/facebook">yeah, please</a></p>
     <% end %>
@@ -33,7 +34,7 @@
         <%= form.input :username, :required => true %>
         <%= form.input :password, :as => :password, :required => true %>
         <%= form.input :password_confirmation, :as => :password, :required => true %>
-        <%= form.input :invite_code, :as => :string, :required => true, :hint => raw("Right now we're invite only while working out the kinks. If you'd like to get an invite code, please #{link_to 'let us know!', new_subscription_path}") %>
+        <%= form.input :invite_code, :as => :string, :required => true, :hint => raw("Right now we're invite only while working out the kinks. If you'd like to get an invite code, please #{link_to 'let us know!', new_subscription_path}"), :wrapper_html => { :class => "invite" } %>
         <%= form.commit_button :label => "Register", :button_html => { :class => "button grey" } %>
       <% end %>
     <% end %>
@@ -47,7 +48,7 @@
     <p>Oauth is awesome, but it's good to have a backup. If you connect your account with Twitter or/and Facebook, you'll be able to login from there, or use your email/password if they're down or your account is inaccessible.</p>
     <p><strong>Passwords</strong> are encrypted with a one-way <a href="http://en.wikipedia.org/wiki/Crypt_(Unix)#Blowfish-based_scheme">bcrypt</a> for passwords, with good password filtering at a logging level, so they're secure.</p>
   </aside>
-  <aside>
+  <aside class="invite">
     <h3>Looking for an Invite?</h3>
     <p>We're still trying to get the basics of the system down, so for now we're trying to work closely with those using the system to create an awesome site.</p>
     <p>Sign up to be <%= link_to "notified", new_subscription_path %> in order to get an invite to join before we launch pubicly.</p>

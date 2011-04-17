@@ -270,6 +270,7 @@ button.loading {display: none}
 form fieldset.buttons li.loading-indicator {display: none; line-height: 0; margin: 0; padding: 10px 10px 0 0}
 form.loading fieldset.buttons li.loading-indicator {display: inline}
 a.add_another_tool.block {display: block}
+.invite {display: none}
 .highlight {background: #ffffff}
 .highlight .c {color: #999988; font-style: italic }
  .highlight .err {color: #a61717; background-color: #e3d2d2 }

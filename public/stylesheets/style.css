@@ -334,3 +334,6 @@ form.loading fieldset.buttons li.loading-indicator {
 
 a.add_another_tool.block {
   display: block; }
+
+.invite {
+  display: none; }
