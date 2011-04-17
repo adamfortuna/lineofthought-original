@@ -10,7 +10,10 @@ class Page < ActiveRecord::Base
     :converter  => :new  
   
   def doc
-    @doc ||= Pismo::Document.new(self.html)
+    load_url if !html_loaded?
+    if !self.html.blank?
+      @doc ||= Pismo::Document.new(self.html)
+    end
   end
   
   def html_title
@@ -62,10 +65,12 @@ class Page < ActiveRecord::Base
   
   def favicon
     doc.favicon
+  rescue
+    nil
   end
   
-  def loaded?
-    success?
+  def html_loaded?
+    self.success? && !self.html.blank?
   end
   
   def parsed?
@@ -75,7 +80,7 @@ class Page < ActiveRecord::Base
     false
   end
 
-  private
+  protected
   after_create :load_url
   def load_url
     Timeout::timeout(20) do
@@ -99,6 +104,14 @@ class Page < ActiveRecord::Base
     end
     save!
   rescue Mechanize::ResponseCodeError => e
-    self.update_attribute(:success, false)
+    self.update_attributes({ :success => false, :code => e.message.to_i})
+  rescue
+    Timeout::timeout(10) do
+      response = open(self.url)
+      self.html = response.read
+      self.code = response.status.first.to_i
+      self.success = true if self.code == 200
+      save!
+    end
   end
 end
