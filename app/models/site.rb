@@ -161,7 +161,7 @@ class Site < ActiveRecord::Base
       end
       sites = search_results.results
     rescue Errno::ECONNREFUSED, Timeout::Error
-      sites = Site.where(["title LIKE (?)", "#{q}%"])
+      sites = Site.where(["LOWER(title) LIKE (?)", "#{q.downcase}%"])
     end
     sites
   end
