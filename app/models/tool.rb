@@ -85,7 +85,7 @@ class Tool < ActiveRecord::Base
         end
       end
       tools = search.results
-    rescue Errno::ECONNREFUSED
+    rescue Errno::ECONNREFUSED, Timeout::Error
       tools = order("sites_count desc").paginate(:page => 1, :per_page => 15)
     end    
     tools.collect { |t| {"id" => t.id.to_s, "name" => "#{t.name}#{" (#{t.cached_language[:name]})" if t.cached_language}", "description" => "(#{t.combined_category_names.join(", ")})"}}
@@ -103,7 +103,7 @@ class Tool < ActiveRecord::Base
         end
       end
       tools = search_results.results
-    rescue Errno::ECONNREFUSED
+    rescue Errno::ECONNREFUSED, Timeout::Error
       tools = Tool.where(["name LIKE (?)", "#{q}%"])
     end
     tools
@@ -204,7 +204,7 @@ class Tool < ActiveRecord::Base
     end
     # puts "Loaded tools using solr"
     return search.results, search.hits, true
-  rescue Errno::ECONNREFUSED
+  rescue Errno::ECONNREFUSED, Timeout::Error
     # puts "Unable to Connect to Solr to retreive tools. Falling back on SQL."
     tools = order(Tool.sql_order(params[:sort]))
             .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)

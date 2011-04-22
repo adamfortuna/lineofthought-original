@@ -221,7 +221,7 @@ class Site < ActiveRecord::Base
     end
     puts "Loaded sites using solr"
     return search.results, search.hits, true
-  rescue Errno::ECONNREFUSED
+  rescue Errno::ECONNREFUSED, Timeout::Error
     puts "Unable to Connect to Solr to retreive sites. Falling back on SQL."
     sites = order([Site.order_for(params[:sort], "sql"), Site.direction_for(params[:sort])].join(" "))
             .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
