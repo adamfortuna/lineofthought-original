@@ -150,14 +150,17 @@ class Site < ActiveRecord::Base
 
   def self.autocomplete(q = "")
     begin
-      search_results = search do
-        any_of do
-          with(:lower_title).starting_with(q.downcase)
-          with(:url, q)
+      search_results = nil
+      Timeout::timeout(1) do
+        search_results = search do
+          any_of do
+            with(:lower_title).starting_with(q.downcase)
+            with(:url, q)
+          end
         end
       end
       sites = search_results.results
-    rescue Errno::ECONNREFUSED
+    rescue Errno::ECONNREFUSED, Timeout::Error
       sites = Site.where(["title LIKE (?)", "#{q}%"])
     end
     sites
