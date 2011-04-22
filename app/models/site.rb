@@ -211,10 +211,13 @@ class Site < ActiveRecord::Base
   end
   
   def self.search_by_params(params)
-    search = search do
-      keywords params[:search] if params[:search]
-      order_by(Site.order_for(params[:sort]).to_sym, Site.direction_for(params[:sort]).to_sym)
-      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    search = nil
+    Timeout::timeout(1) do
+      search = search do
+        keywords params[:search] if params[:search]
+        order_by(Site.order_for(params[:sort]).to_sym, Site.direction_for(params[:sort]).to_sym)
+        paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+      end
     end
     puts "Loaded sites using solr"
     return search.results, search.hits, true

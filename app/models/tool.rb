@@ -77,9 +77,12 @@ class Tool < ActiveRecord::Base
 
   def self.for_autocomplete(count = 20)
     begin
-      search = search do
-        order_by(:sites_count, :desc)
-        paginate(:page => 1, :per_page => 15)
+      search = nil
+      Timeout::timeout(1) do
+        search = search do
+          order_by(:sites_count, :desc)
+          paginate(:page => 1, :per_page => 15)
+        end
       end
       tools = search.results
     rescue Errno::ECONNREFUSED
@@ -90,10 +93,13 @@ class Tool < ActiveRecord::Base
   
   def self.autocomplete(q = "")
     begin
-      search_results = search do
-        any_of do
-          with(:lower_name).starting_with(q.downcase)
-          with(:url, q)
+      search = nil
+      Timeout::timeout(1) do      
+        search_results = search do
+          any_of do
+            with(:lower_name).starting_with(q.downcase)
+            with(:url, q)
+          end
         end
       end
       tools = search_results.results
@@ -187,11 +193,14 @@ class Tool < ActiveRecord::Base
   end
   
   def self.search_by_params(params)
-    search = search do
-      keywords params[:search] if params[:search]
-      keywords params[:category], :fields => [:categories] if params[:category]
-      order_by(Tool.order_for(params[:sort]).to_sym, Tool.direction_for(params[:sort]).to_sym)
-      paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    search = nil
+    Timeout::timeout(1) do
+      search = search do
+        keywords params[:search] if params[:search]
+        keywords params[:category], :fields => [:categories] if params[:category]
+        order_by(Tool.order_for(params[:sort]).to_sym, Tool.direction_for(params[:sort]).to_sym)
+        paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+      end
     end
     # puts "Loaded tools using solr"
     return search.results, search.hits, true
