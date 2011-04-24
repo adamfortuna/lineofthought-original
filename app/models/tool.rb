@@ -211,7 +211,7 @@ class Tool < ActiveRecord::Base
     # puts "Unable to Connect to Solr to retreive tools. Falling back on SQL."
     if params[:category]
       tools = joins(:categories)
-              .where(["categories.name = ?", params[:category]])
+              .where(["categories.cached_slug = ?", params[:category]])
               .order(Tool.sql_order(params[:sort]))
               .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
     else
