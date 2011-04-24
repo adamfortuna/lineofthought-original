@@ -106,7 +106,7 @@ class Tool < ActiveRecord::Base
       end
       tools = search_results.results
     rescue Errno::ECONNREFUSED, Timeout::Error
-      tools = Tool.where(["name LIKE (?)", "#{q}%"])
+      tools = Tool.where(["LOWER(name) LIKE (?)", "#{q.downcase}%"])
     end
     tools
   end
