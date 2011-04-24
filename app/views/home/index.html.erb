@@ -30,12 +30,14 @@
     <p class="invite">We're limiting new sign up while we work things out, but if you'd like an invite, you can <%= link_to "sign up", new_subscription_path %> and we'll let you know.</p>
     <% end %>
   </aside>
+  <% if Settings.use_solr %>
   <aside class="search">
     <form action="<%= search_path %>" method="get">
       <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search this site..." />
       <input type="submit" value="Search" class="small button grey" />
     </form>
   </aside>
+  <% end %>
   <%= render :partial => "layouts/sidebar/share" %>
   <%= render :partial => "tools/featured" %>
   <%= render :partial => "sites/featured" %>

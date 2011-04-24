@@ -77,6 +77,7 @@ class Tool < ActiveRecord::Base
 
   def self.for_autocomplete(count = 20)
     begin
+      raise Errno::ECONNREFUSED if !Settings.use_solr
       search = nil
       Timeout::timeout(1) do
         search = search do
@@ -93,6 +94,7 @@ class Tool < ActiveRecord::Base
   
   def self.autocomplete(q = "")
     begin
+      raise Errno::ECONNREFUSED if !Settings.use_solr
       search = nil
       Timeout::timeout(1) do      
         search_results = search do
@@ -193,6 +195,7 @@ class Tool < ActiveRecord::Base
   end
   
   def self.search_by_params(params)
+    raise Errno::ECONNREFUSED if !Settings.use_solr
     search = nil
     Timeout::timeout(1) do
       search = search do
@@ -206,8 +209,16 @@ class Tool < ActiveRecord::Base
     return search.results, search.hits, true
   rescue Errno::ECONNREFUSED, Timeout::Error
     # puts "Unable to Connect to Solr to retreive tools. Falling back on SQL."
-    tools = order(Tool.sql_order(params[:sort]))
-            .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    if params[:category]
+      tools = joins(:categories)
+              .where(["categories.name = ?", params[:category]])
+              .order(Tool.sql_order(params[:sort]))
+              .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    else
+      tools = order(Tool.sql_order(params[:sort]))
+              .paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
+    end
+            
     return tools, tools, false
   end
   

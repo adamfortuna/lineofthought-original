@@ -150,6 +150,7 @@ class Site < ActiveRecord::Base
 
   def self.autocomplete(q = "")
     begin
+      raise Errno::ECONNREFUSED if !Settings.use_solr
       search_results = nil
       Timeout::timeout(1) do
         search_results = search do
@@ -214,6 +215,7 @@ class Site < ActiveRecord::Base
   end
   
   def self.search_by_params(params)
+    raise Errno::ECONNREFUSED if !Settings.use_solr
     search = nil
     Timeout::timeout(1) do
       search = search do

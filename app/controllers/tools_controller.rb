@@ -15,8 +15,8 @@ class ToolsController < ApplicationController
    @tools, @hits, loaded_from_solr = Tool.search_by_params(params)
    if !loaded_from_solr && (params[:search] || params[:category])
      params[:search] = nil
-     params[:category] = nil
-     flash[:error] = "Sorry, search is not available at the moment. Usually this means Solr is down :/ Please try again later."
+     # params[:category] = nil
+     # flash[:error] = "Sorry, search is not available at the moment. Usually this means Solr is down :/ Please try again later."
    end
    @categories = Category.order(:name)
    @featured = Tool.featured.limit(5)

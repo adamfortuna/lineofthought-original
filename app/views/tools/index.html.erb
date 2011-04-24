@@ -25,12 +25,14 @@
 </section>
 
 <section class="sidebar">
+  <% if Settings.use_solr %>
   <aside class="search">
     <form action="<%= tools_path %>" method="get">
       <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search for a tool..." />
       <input type="submit" value="Search" class="small button grey" />
     </form>
   </aside>
+  <% end %>
 
   <% cache("categories_sidebar", :expires_in => 30.minutes) do %>
     <%= render "tools/categories" %>  
