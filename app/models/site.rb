@@ -7,26 +7,26 @@ class Site < ActiveRecord::Base
   include HasFavicon
   attr_accessor :skip_ranks, :claimer  
 
-  # searchable do
-  #   text :title, :default_boost => 2
-  #   string :lower_title do
-  #     title.downcase
-  #   end
-  #   string :url
-  #   text :description
-  # 
-  #   integer :tools_count
-  #   integer :bookmarks_count
-  #   integer :jobs_count
-  #   integer :google_pagerank
-  #   integer :alexa_global_rank do
-  #     (alexa_global_rank.nil? || alexa_global_rank == 0) ? 100000000 : alexa_global_rank
-  #   end
-  #   time :created_at
-  #   
-  #   boolean :featured, :using => :featured?
-  #   boost { featured? ? 2.0 : 1.0 }
-  # end
+  searchable do
+    text :title, :default_boost => 2
+    string :lower_title do
+      title.downcase
+    end
+    string :url
+    text :description
+  
+    integer :tools_count
+    integer :bookmarks_count
+    integer :jobs_count
+    integer :google_pagerank
+    integer :alexa_global_rank do
+      (alexa_global_rank.nil? || alexa_global_rank == 0) ? 100000000 : alexa_global_rank
+    end
+    time :created_at
+    
+    boolean :featured, :using => :featured?
+    boost { featured? ? 2.0 : 1.0 }
+  end
   # handle_asynchronously :solr_index
   
   validates_presence_of :url, :uid

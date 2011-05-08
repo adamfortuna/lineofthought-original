@@ -5,27 +5,27 @@ class Tool < ActiveRecord::Base
   include HasFavicon
   attr_accessor :claimer
 
-  # searchable do
-  #   text :name, :default_boost => 2
-  #   string :lower_name do
-  #     name.downcase
-  #   end
-  # 
-  #   string :url
-  #   text :description
-  # 
-  #   integer :sites_count
-  #   integer :bookmarks_count
-  #   integer :jobs_count
-  #   
-  #   text :categories do
-  #     cached_categories.map { |category| category[:name] }
-  #   end
-  #   
-  #   time :created_at
-  #   boolean :featured, :using => :featured?
-  #   boost { featured? ? 2.0 : 1.0 }
-  # end
+  searchable do
+    text :name, :default_boost => 2
+    string :lower_name do
+      name.downcase
+    end
+  
+    string :url
+    text :description
+  
+    integer :sites_count
+    integer :bookmarks_count
+    integer :jobs_count
+    
+    text :categories do
+      cached_categories.map { |category| category[:name] }
+    end
+    
+    time :created_at
+    boolean :featured, :using => :featured?
+    boost { featured? ? 2.0 : 1.0 }
+  end
   # handle_asynchronously :solr_index
     
   attr_accessible :name, :url, :description, :category_ids, :language_id, :link_id, :claimer, :categories, :link

@@ -41,7 +41,7 @@ class Link < ActiveRecord::Base
     boolean :has_site, :using => :has_site?
     boolean :has_bookmark, :using => :has_bookmark?
   end
-  handle_asynchronously :solr_index
+  # handle_asynchronously :solr_index
     
   state_machine :status, :initial => :new do
     state :new do

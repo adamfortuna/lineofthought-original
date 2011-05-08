@@ -4,6 +4,7 @@ gem 'admin_data'
 gem 'aws-s3'
 gem 'aws-ses', :require => 'aws/ses'
 gem 'bartt-ssl_requirement', :require => 'ssl_requirement'
+gem 'bson_ext'
 gem 'dalli'
 gem 'delayed_job'
 gem 'devise', '1.2.1'
@@ -14,14 +15,14 @@ gem 'flutie', '~> 1.1'
 gem 'friendly_id'
 gem 'hoptoad_notifier'
 gem 'mechanize'
-gem 'mysql2', '0.3.2'
+gem 'mysql2', '0.2.7'
 gem 'omniauth'
 gem 'PageRankr'
 gem 'paper_trail'
 gem 'paperclip'
 gem 'pismo'
 gem 'pusher'
-gem 'rails', '3.0.5'
+gem 'rails', '3.0.7'
 gem 'rails3_acts_as_paranoid'
 gem 'settingslogic'
 gem 'state_machine'
@@ -36,9 +37,12 @@ group :production do
 end
 
 group :development, :test do
+  gem 'haml'
+end
+
+group :test do
   gem 'factory_girl_rails'
   gem 'autotest'
-  gem 'haml'
   gem 'mocha'
   gem 'rspec'
   gem 'rspec-rails'

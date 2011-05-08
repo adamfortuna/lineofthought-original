@@ -8,7 +8,7 @@ defaults: &defaults
   default_schema: "http"
   ssl_root_domain_with_port: "www.lineofthought.com"
   ssl_root_url: "https://www.lineofthought.com"
-  use_solr: false
+  use_solr: true
   # root_image_url: "https://s3.amazonaws.com/s.lineofthought.com"
   
 

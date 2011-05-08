@@ -39,21 +39,21 @@ class Bookmark < ActiveRecord::Base
 
   attr_accessor :using_params
 
-  searchable do
-    text :title, :default_boost => 2
-    string :url
-    string :type
-    text :description
-    time :created_at
-    
-    text :tools do
-      cached_tools.map { |tool| tool[:name] } if cached_tools
-    end
-    text :sites do
-      cached_sites.map { |site| site[:name] } if cached_sites
-    end
-  end
-  handle_asynchronously :solr_index
+  # searchable do
+  #   text :title, :default_boost => 2
+  #   string :url
+  #   string :type
+  #   text :description
+  #   time :created_at
+  #   
+  #   text :tools do
+  #     cached_tools.map { |tool| tool[:name] } if cached_tools
+  #   end
+  #   text :sites do
+  #     cached_sites.map { |site| site[:name] } if cached_sites
+  #   end
+  # end
+  # handle_asynchronously :solr_index
   
   def self.new_from_link(link)
     Bookmark.new({ :url => link.url,
