@@ -97,14 +97,14 @@ class Tool < ActiveRecord::Base
       raise Errno::ECONNREFUSED if !Settings.use_solr
       search = nil
       Timeout::timeout(1) do      
-        search_results = search do
+        search = search do
           any_of do
             with(:lower_name).starting_with(q.downcase)
             with(:url, q)
           end
         end
       end
-      tools = search_results.results
+      tools = search.results
     rescue Errno::ECONNREFUSED, Timeout::Error
       tools = Tool.where(["LOWER(name) LIKE (?)", "#{q.downcase}%"])
     end
