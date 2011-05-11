@@ -27,8 +27,7 @@ $(function(){
   $("ul.actions li.bookmarks a").click(function(e) {
     var target = $(e.currentTarget),
         id = target.attr("data-usingid");
-    console.log("click " + id);
-    $("#bookmarks_for_"+id).toggle();
+    $(".bookmarks_for_"+id).toggle();
     e.preventDefault();
   });
   

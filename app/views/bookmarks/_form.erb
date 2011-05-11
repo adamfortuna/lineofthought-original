@@ -31,18 +31,19 @@
 <% end %>
 
 <% javascript do %>
-var site_token_options = {
-    hintText: "Start typing the a site URL or site name.",
-    noResultsText: "No sites found. You can <a href='<%= new_site_path %>' target='_blank'>add a site</a> at anytime.",
-    initialValues: <%= raw @bookmark.sites_for_display.to_json %>
-};
-var tool_token_options = {
-    hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
-    noResultsText: "No tools found. You can <a href='<%= new_tool_path %>' target='_blank'>add a tool</a> at anytime.",
-    defaultOptions: <%= raw Tool.for_autocomplete.to_json %>,
-    initialValues: <%= raw @bookmark.tools_for_display.to_json %>
-};
 $(function() {
+  var site_token_options = {
+      hintText: "Start typing the a site URL or site name.",
+      noResultsText: "No sites found. You can <a href='<%= new_site_path %>' target='_blank'>add a site</a> at anytime.",
+      initialValues: <%= raw @bookmark.sites_for_display.to_json %>
+  };
+  var tool_token_options = {
+      hintText: "Start typing the a tool, language or framework or check out our <a href='#' class='defaultOptions'>popular tools</a>.",
+      noResultsText: "No tools found. You can <a href='<%= new_tool_path %>' target='_blank'>add a tool</a> at anytime.",
+      defaultOptions: <%= raw Tool.for_autocomplete.to_json %>,
+      initialValues: <%= raw @bookmark.tools_for_display.to_json %>
+  };
+
   $("#bookmark_tool_ids").tokenInput('<%= autocomplete_tools_path %>', tool_token_options).focus();
   $("#bookmark_site_ids").tokenInput('<%= autocomplete_sites_path %>', site_token_options);
   update_tool_connection();

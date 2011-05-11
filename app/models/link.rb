@@ -190,8 +190,8 @@ class Link < ActiveRecord::Base
   
   def sites
     uids = cached_links.collect do |url|
-      HandyUrl.new(url).uid
-    end
+      HandyUrl.new(url).uid rescue nil
+    end.compact
     return [] if uids.empty?
     Site.where(["uid IN (?)", uids])
   end
