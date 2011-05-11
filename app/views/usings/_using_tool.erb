@@ -3,7 +3,7 @@
   tool = @tool || using_tool.tool
 %>
 
-<li class="tool group ind edit-in-place" id="using_<%= using_tool.id %>" data-id="<%= using_tool.id %>">
+<li class="tool group ind edit-in-place using" id="using_<%= using_tool.id %>" data-id="<%= using_tool.id %>">
   <div class="title group">
     <h4><% if tool.has_favicon? %><a href="<%= tool_path(tool) %>" class="favicon"><img src="<%= tool.full_favicon_url %>" /></a><% end %><%= link_to tool.name, tool %></h4>
     <ul class="mini-categories">
@@ -27,10 +27,13 @@
           <li><%= link_to "remove", using_path(using_tool), :remote => true, :method => :delete, :confirm => "Are you sure you want to delete this association? If you just want to remove the description of how it's used, remove all text and save it." %></li>
         <% end %>
       <% end %>
+      <% if using_tool.bookmarks_count > 0 %>
+        <li class="bookmarks"><%= link_to pluralize(using_tool.bookmarks_count, "bookmark"), "#", "data-usingid" => using_tool.id %></li>
+      <% end %>
     </ul>
   </div>
 
-  <%= raw using_bookmarks(using_tool, 2, params[:format]) if using_tool.bookmarks_count > 0 %>
+  <%= raw using_bookmarks(using_tool, 5, params[:format]) if using_tool.bookmarks_count > 0 %>
   
   <% if can_edit_using?(using_tool, site) %>
     <%= semantic_form_for using_tool, :remote => true, :method => :put, :html => { :id => "edit_using_#{using_tool.id}" } do |form| %>

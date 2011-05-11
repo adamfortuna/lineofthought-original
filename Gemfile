@@ -46,7 +46,7 @@ group :test do
   gem 'mocha'
   gem 'rspec'
   gem 'rspec-rails'
-  # gem 'ruby-debug19'
+  gem 'ruby-debug19'
   gem 'shoulda-matchers'
   gem 'spork', '~> 0.9.0.rc4'
   gem 'factory_girl', "1.3.3"

@@ -276,6 +276,10 @@ body.site_tools-show .sublist li.ind .actions li.comments {
 section.deleted li.edit-in-place-edit, section.single-site-tool li.edit-in-place-edit {
   display: none; }
 
+.sublist li.ind ul.bookmarks {
+  display: none;
+  margin-top: 10px; }
+
 .edit-in-place:hover .actions {
   display: block; }
 
