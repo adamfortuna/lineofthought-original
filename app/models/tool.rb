@@ -191,7 +191,8 @@ class Tool < ActiveRecord::Base
       "id" => self.id.to_s,
       "url" => self.url,
       "categories" => self.cached_categories.collect { |c| c[:name]}.join(", "),
-      "icon" => self.has_favicon? ? self.full_favicon_url : nil }    
+      "icon" => self.has_favicon? ? self.full_favicon_url : nil,
+      "class" => "Tool" }
   end
   
   def self.search_by_params(params)

@@ -33,7 +33,7 @@
   <% if Settings.use_solr %>
   <aside class="search">
     <form action="<%= search_path %>" method="get">
-      <input type="text" name="search" value="<%= params[:search] %>" placeholder="Search this site..." />
+      <input type="text" name="q" value="<%= params[:search] %>" placeholder="Search this site..." />
       <input type="submit" value="Search" class="small button grey" />
     </form>
   </aside>

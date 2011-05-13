@@ -40,26 +40,27 @@ class BookmarksController < ApplicationController
     end
   end
   
-  # POST /bookmarks/lookup
-  def lookup
+  # POST /bookmarks
+  def create
     @link = Link.find_or_create_by_url(params[:bookmark][:url])
     respond_to do |format|
       format.js do
         if @link.nil?
-          render :lookup_failed
+          render :create_failed
         elsif @bookmark = @link.bookmark
-          render :lookup_exists
-        elsif @link.parsed? && (@bookmark = BookmarkUser.new_from_link(@link))
-          render :lookup_complete
+          render :duplicate
+        elsif @link.parsed? && (@bookmark = BookmarkUser.new_from_link(@link)) && @bookmark.save
+          flash[:notice] = "This bookmark was added to Line of Thought. You can now add some sites and tools mentioned on it, or edit it."
+          render :create_success
         elsif @link.unparseable? || @link.unreachable?
-          render :lookup_failed
+          render :create_failed
         else
           render :js => "console.log('create in progress');"
         end
       end
     end
   end
-
+  
   # Admins only
   def edit
     @bookmark = find(params[:id])

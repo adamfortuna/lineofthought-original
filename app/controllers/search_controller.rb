@@ -3,15 +3,15 @@ class SearchController < ApplicationController
 
   def index
     raise Errno::ECONNREFUSED if !Settings.use_solr
-    Timeout::timeout(3) do
-      @search = params[:search]
-      search = Sunspot.search(Site, Tool) do
-        keywords params[:search] if params[:search]
-        paginate(:page => params[:page] || 1, :per_page => params[:per_page] || 20)
-      end
-      @results = search.results
-      @hits = search.hits
-      respond_with(@results, @hits)
+
+    search = Search.new(params[:q])
+    
+    @results = search.results
+    @hits = search.hits
+    
+    respond_to do |format|
+      format.html { render }
+      format.json { respond_with @results.collect(&:autocomplete_data) }
     end
   rescue Timeout::Error, Errno::ECONNREFUSED
     redirect_to root_path, :flash => { :error => "Sorry, search is currently unavailable." }

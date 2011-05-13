@@ -1,14 +1,12 @@
 --- 
 javascripts: 
 - all: 
-  - jquery/jquery.tokeninput
   - rails
   - handlebars-0.9.0.pre.4
   - application
 stylesheets: 
 - all: 
   - flutie
-  - tokeninput
   - layout
   - style
   - blog

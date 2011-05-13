@@ -65,10 +65,8 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank { background-color:#69
 #tools-list li.ind .content ul.sites .tools { margin: 0.4em 0; }
 
 /* bookmarks#index */
-#bookmarks-list li.ind { }
-#bookmarks-list li.ind span.url { float:right; display:none; color:#888; font-size:10px; }
-#bookmarks-list li.ind span.url a { color:#888; }
-#bookmarks-list li.ind:hover span.url { display:inline; }
+#bookmarks-list ul.mini-tools li.url { float:right; color:#888; font-size:10px; }
+#bookmarks-list ul.mini-tools li.url a { color:#888; }
 
 /* Sub-list pages tools#show, tools#bookmarks, sites#show, sites#bookmarks, bookmarks#show */
 .sublist li.ind { padding: 0.8em 0.8em 0.6em;  }

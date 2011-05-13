@@ -175,7 +175,8 @@ class Site < ActiveRecord::Base
     { "title" => self.title, 
       "id" => self.id.to_s,
       "url" => self.url,
-      "icon" => self.has_favicon? ? self.full_favicon_url : nil }    
+      "icon" => self.has_favicon? ? self.full_favicon_url : nil,
+      "class" => "Site" }
   end
   
   def update_bookmarks!

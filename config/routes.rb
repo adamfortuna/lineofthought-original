@@ -34,9 +34,6 @@ Snaps::Application.routes.draw do
   end
   
   resources :bookmarks, :only => [:new, :create, :index, :show, :edit, :update, :destroy] do
-    collection do
-      post :lookup
-    end
     resource :save, :controller => "saved_bookmark", :only => [:new, :create, :edit, :update, :destroy]
   end
   resources :usings, :only => [:update, :create, :destroy]

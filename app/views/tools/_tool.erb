@@ -4,7 +4,9 @@
       <h4><% if tool.has_favicon? %><a href="<%= tool_path(tool, :format => params[:format]) %>" class="favicon"><img src="<%= tool.full_favicon_url %>" /></a><% end %><%= link_to tool.name, tool_path(tool, :format => params[:format]) %></h4>
       <ul class="count">
         <li class="sites"><a href="<%= tool_path(tool, :format => params[:format]) %>"><em><%= tool.sites_count %></em> sites</a></li>
-        <li class="bookmarks links"><a href="<%= bookmarks_tool_path(tool, :format => params[:format]) %>"><em><%= tool.bookmarks_count %></em>bookmarks</a></li>
+        <% if tool.bookmarks_count > 0 %>
+          <li class="bookmarks links"><a href="<%= bookmarks_tool_path(tool, :format => params[:format]) %>"><em><%= tool.bookmarks_count %></em>bookmarks</a></li>
+        <% end %>
       </ul>
       <% if !tool.description.blank? %><p><%= truncate(tool.description, :length => 140) %></p><% end %>
     </div>

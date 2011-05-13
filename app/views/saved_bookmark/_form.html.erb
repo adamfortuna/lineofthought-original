@@ -1,22 +1,3 @@
-<style>
-#new_tools li { clear:both; }
-	#tool-label {
-		display: block;
-		font-weight: bold;
-		margin-bottom: 1em;
-	}
-	#tool-favicon {
-		float: left;
-		height: 16px;
-		width: 16px;
-	}
-	#tool-url {
-		margin: 0;
-		padding: 0;
-	}
-</style>
-
-
 <%= semantic_form_for @bookmark_user, :url => bookmark_save_path(@bookmark), :format => params[:format], :method => (@bookmark_user.new_record? ? :post : :put) do |f| %>
   <%= f.inputs do %>
     <%= f.input :url, :as => :string, :required => true, :label => "Bookmark URL", :input_html => { :disabled => true } %>
@@ -24,106 +5,16 @@
     <%= f.input :description, :as => :text, :required => false, :label => "Bookmark Description", :input_html => { :rows => 3 } %>
     <%= f.input :is_video, :as => :boolean, :label => "Contains video?" %>
     <%= f.input :is_presentation, :as => :boolean, :label => "Contains presentation?" %>
-    
   <% end %>
 
-  <%= f.inputs do %>
-    <div class="demo">
-    	<div id="tool-label">
-    	  <p>Start typing a tool name, then click add.</p>
-    	  <p>If a tool of that name doesn't exist, we'll create it.</p>
-    	</div>
-    	<img id="tool-favicon" src="/images/indicator.gif"  class="ui-state-default" />
-    	<input id="tool"/>
-    	<input type="hidden" id="tool-id"/>
-    	<p id="tool-url"></p>
-    	<button id="add_tool">Add Tool</button>
-    </div><!-- End demo -->
-    
-    <ul id="new_tools">
-      <% @bookmark_user.annotations.for_tools.includes(:annotateable).each do |annotation| %>
-      <li>
-        <input type='hidden' class='delete' value='' name='bookmark_user[annotations_attributes][][_destroy]' />
-        <input type='hidden' name='bookmark_user[annotations_attributes][][id]' value='<%= annotation.id %>' />
-        <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_type]' value='Tool' />
-        <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_id]' value='<%= annotation.annotateable_id %>' />
-		    <p><% if annotation.annotateable.has_favicon? %><img src='<%=annotation.annotateable.full_favicon_url%>' /><% end %> <%= annotation.annotateable.name %></p>
-		    <p><%= annotation.annotateable.url %></p>
-		    <p><textarea name="bookmark_user[annotations_attributes][][description]"><%= annotation.description %></textarea></p>
-		    <p><a href="#" onclick="$(this).parent().parent().hide().find('.delete').val('1');return false;">remove</a></p>
-      </li>
-      <% end %>
-    </ul>
+
+  <!-- form for new tool/site -->
+  <% form.inputs :name => "Tools", :for => :tools do |tool_form| %>
+    <%= tool_form.input :class %>
+    <%= tool_form.input :name %>
   <% end %>
 
   <%= f.buttons do %>
-    <%= f.commit_button %>
+    <%= f.commit_button :button_html => { :value => "save", :class => "right grey button", :id => "bookmark_submit" } %>
   <% end %>
-<% end %>
-
-<% javascript do %>
-	$(function() {
-		
-    var cache = {}, lastXhr;
-		$( "#tool" ).autocomplete({
-			minLength: 0,
-			source: function(request, response) {
-				var term = request.term;
-				if (term in cache) {
-					response(cache[term]);
-					return;
-				}
-
-				lastXhr = $.getJSON("/tools/autocomplete", request, function(data, status, xhr) {
-					cache[term] = data;
-					if (xhr === lastXhr) {
-						response(data);
-					}
-				});
-			},
-      			
-      			
-			focus: function( event, ui ) {
-				$( "#tool" ).val( ui.item.label );
-				return false;
-			},
-			select: function( event, ui ) {
-				$( "#tool" ).val( ui.item.label );
-				$( "#tool-id" ).val( ui.item.value );
-				$( "#tool-url" ).html( ui.item.desc );
-				$( "#tool-favicon" ).attr( "src", ui.item.icon );
-
-				return false;
-			}
-		})
-		.data( "autocomplete" )._renderItem = function( ul, item ) {
-			return $( "<li></li>" )
-				.data( "item.autocomplete", item )
-				.append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
-				.appendTo( ul );
-		};
-
-
-		$("#add_tool").click(function(e){
-		  var current_tool = "<li>" +
-		                     "  <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_type]' value='Tool'/>" +
-		                     "  <input type='hidden' name='bookmark_user[annotations_attributes][][annotateable_id]' value='"+$("#tool-id").val()+"'/>" +
-		                     "  <p><img src='"+$("#tool-favicon").attr("src")+"' />  "+ $("#tool").val()+"</p>" +
-		                     "  <p>"+$("#tool-url").val()+"</p>" +
-		                     "  <p><textarea name='bookmark_user[annotations_attributes][][description]'></textarea></p>" +
-		                     "  <p><a href='#' onclick='$(this).parent().parent().remove();return false;'>remove</a></p>" +
-		                     "</li>";
-      console.log(current_tool);
-		  reset_tool();
-		  $("#new_tools").append(current_tool);
-		  e.preventDefault();
-		  return false;
-		});
-	});
-	
-	function reset_tool() {
-	  $("#tool-favicon").attr("src", "/demos/autocomplete/images/transparent_1x1.png");
-	  $("#tool-id, #tool").val("");
-	  $("#tool-url").html("");
-	}
 <% end %>
