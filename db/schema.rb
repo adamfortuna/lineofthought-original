@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110407221959) do
+ActiveRecord::Schema.define(:version => 20110607025418) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -52,15 +52,6 @@ ActiveRecord::Schema.define(:version => 20110407221959) do
   end
 
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
-
-  create_table "bookmark_annotations", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "annotateable_type"
-    t.integer  "annotateable_id"
-    t.integer  "bookmark_id"
-    t.text     "description"
-  end
 
   create_table "bookmark_connections", :force => true do |t|
     t.datetime "created_at"

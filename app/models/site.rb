@@ -36,10 +36,6 @@ class Site < ActiveRecord::Base
   has_many :usings, :dependent => :destroy
   has_many :tools, :through => :usings#, :conditions => ["usings.deleted IS ?", nil]
   belongs_to :link
-
-  # Bookmarks
-  has_many :bookmark_annotations, :as => :annotateable, :dependent => :destroy
-  has_many :bookmarks, :through => :bookmark_annotations
   
   # Claims
   has_many :claims, :as => :claimable, :dependent => :destroy
