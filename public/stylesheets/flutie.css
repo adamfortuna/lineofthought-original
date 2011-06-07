@@ -198,11 +198,11 @@ hr.space {
 @media print {
   * {
     background: transparent !important;
-    color: #444 !important;
+    color: #444444 !important;
     text-shadow: none !important; }
 
   a, a:visited {
-    color: #444 !important;
+    color: #444444 !important;
     text-decoration: underline; }
 
   a:after {
@@ -235,7 +235,6 @@ hr.space {
 
   h2, h3 {
     page-break-after: avoid; } }
-
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-weight: bold; }

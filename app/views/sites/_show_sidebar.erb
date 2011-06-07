@@ -59,11 +59,6 @@
   <%= render :partial => "sites/similar", :object => @similar_sites if @similar_sites %>  
   <%= render :partial => "sites/featured" %>
   <% if logged_in? %>
-  <aside class="bookmarks">
-    <h3>Add an Bookmark</h3>
-    <p>Know of a blog post or video about <%= @site.title %>?</p>
-    <p><%= link_to "Add an Bookmark about #{@site.title}", new_bookmark_path %></p>
-  </aside>
   <aside>
     <h3>Contribute to Line of Thought</h3>
     <ul class="lst">

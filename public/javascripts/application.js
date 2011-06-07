@@ -138,6 +138,13 @@ $(function() {
   			.appendTo(ul);
   	}
   });
+  
+  $('a.modal').each(function() {
+    var $link     = $(this), 
+        className = $link.attr('data-classname');
+    $link.linkToModal(className);
+  });
+  
 });
 
 function reset_new_using_form() {
@@ -185,4 +192,43 @@ function edit_in_place() {
     $(this).parents('.edit-in-place').find(".edit-in-place-edit").show();
     return false;
   }); 
+}
+
+
+
+
+
+/* site page */
+
+var checkForLookup = false
+$(function() {
+  $("#bookmark_form").live('submit', function() {
+    if(!checkForLookup) {
+      $("#submit_bookmark input").attr("disabled", "disabled");
+      $("#cancel_bookmark, #lookup_loading").show();
+      checkForLookup = setInterval("resubmit_lookup()", 3000);
+    }
+  });
+  
+  $("#cancel_bookmark input").live('click', function(e) {
+    cancel_lookup();
+    e.preventDefault();
+    return false;
+  });
+})
+
+function resubmit_lookup() {
+  $("#bookmark_form.lookup").submit();
+}
+
+function cancel_lookup() {
+  clearInterval(checkForLookup);
+  checkForLookup = false;
+  $(".response").hide();
+  $("#bookmark_form input").removeAttr("disabled");
+}
+
+function lookup_failed() {
+  cancel_lookup();
+  $("#bookmark_error").show();
 }

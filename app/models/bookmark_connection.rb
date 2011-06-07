@@ -10,5 +10,4 @@ class BookmarkConnection < ActiveRecord::Base
   def update_cached_using!
     using.update_cached_bookmarks!
   end
-  handle_asynchronously :update_cached_using!
 end

@@ -27,11 +27,12 @@ class Using < ActiveRecord::Base
   
   def update_cached_bookmarks!
     self.cached_bookmarks = []
-    self.cached_bookmarks = bookmarks.order("created_at desc").limit(5).collect do |bookmark|
+    self.cached_bookmarks = bookmarks.order("created_at desc").collect do |bookmark|
       { :title => bookmark.title, 
         :description => bookmark.description, 
         :param => bookmark.cached_slug,
-        :id => bookmark.id }
+        :id => bookmark.id,
+        :url => bookmark.url }
     end
     save
   end

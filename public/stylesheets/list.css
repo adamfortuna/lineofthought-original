@@ -274,7 +274,7 @@ section.deleted li.edit-in-place-edit, section.single-site-tool li.edit-in-place
 
 .sublist li.ind ul.bookmarks {
   display: none;
-  margin-top: 20px; }
+  margin-top: 25px; }
 
 .edit-in-place:hover .actions {
   display: block; }

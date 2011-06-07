@@ -4,13 +4,6 @@ class Bookmark < ActiveRecord::Base
 
   validates_presence_of :title, :url
   
-  # Any sites/tools this bookmark is tagged with
-  has_many :annotations, :class_name => "BookmarkAnnotation", :dependent => :destroy, :foreign_key => :bookmark_id
-  has_many :sites, :through => :annotations, :source => :site,
-                   :conditions => "bookmark_annotations.annotateable_type = 'Site'"
-  has_many :tools, :through => :annotations, :source => :tool,
-                   :conditions => "bookmark_annotations.annotateable_type = 'Tool'"
-
   # Every user who has saved this bookmark
   has_many :bookmark_users, :foreign_key => :parent_id, :dependent => :destroy
   
@@ -23,8 +16,6 @@ class Bookmark < ActiveRecord::Base
   serialize :cached_tools
   serialize :cached_sites
   serialize :cached_connections
-  
-  accepts_nested_attributes_for :annotations, :allow_destroy => :true
   
   scope :recent, order("created_at desc")
   scope :without_user, where("parent_id is NULL")
@@ -60,8 +51,6 @@ class Bookmark < ActiveRecord::Base
                    :link => link, 
                    :title => link.title,
                    :description => link.description,
-                   :tools => link.tools,
-                   :sites => link.sites,
                    :has_favicon => link.has_favicon })
   end
   
@@ -89,23 +78,6 @@ class Bookmark < ActiveRecord::Base
 
   # Updates the various values of this bookmark based on what people have tagged it with
   def reindex
-    user_bookmark = bookmark_users.first
-    self.title ||= user_bookmark.title
-    self.description ||= user_bookmark.description
-
-    self.cached_tools = []
-    
-    Tool.joins(:bookmark_users)
-        .where(["annotateable_type = ? AND bookmarks.parent_id = ?", 'Tool', self.id])
-        .group(:annotateable_id).each do |tool|
-      self.cached_tools << { :id => tool.id, :name => tool.name, :param => tool.cached_slug }
-    end
-    
-    self.cached_sites = []
-    # self.sites.each do |site|
-    #   self.cached_sites << { :id => site.id, :name => site.name, :param => site.cached_slug }
-    # end
-    self.cached_connections = []
   end
   
   def reindex!
@@ -133,15 +105,13 @@ class Bookmark < ActiveRecord::Base
 
 
 
-
-
-
-
-
-
-
-
-
+  def connect!(using)
+    connection = bookmark_connections.find_by_using_id(using.id)
+    return connection if connection
+    connection = bookmark_connections.build(:using => using)
+    save
+    return connection
+  end
 
 
 

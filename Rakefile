@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Snaps::Application.load_tasks
+Lineofthought::Application.load_tasks

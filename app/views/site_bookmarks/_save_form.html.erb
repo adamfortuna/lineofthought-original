@@ -1,0 +1,16 @@
+<div id="bookmark_error" class="error response" style="display:none;"></div>
+<%= semantic_form_for @bookmark, :format => params[:format], :html => { :id => "bookmark_form", :remote => true } do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :url, :as => :string, :required => true, :label => "Attribution URL", :input_html => { :disabled => true } %>
+    <%= f.input :title, :as => :string, :required => true, :label => "Site Title" %>
+    <%= f.input :description, :as => :text, :required => false, :label => "Description", :input_html => { :rows => 3 } %>
+    <%= f.input :is_video, :as => :boolean, :label => "Contains video?" %>
+    <%= f.input :is_presentation, :as => :boolean, :label => "Contains presentation?" %>
+  <% end %>
+
+  <%= f.buttons do %>
+    <%= f.commit_button :button_html => { :value => "save", :class => "right grey button", :id => "bookmark_submit" }, :wrapper_html => { :id => "submit_bookmark" } %>
+    <li id="lookup_loading" class="response right" style="display:none;margin:0 10px;"> <img src="/images/indicator.gif"/></li>
+    <%= f.commit_button :label => "Cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_bookmark", :class => "response" }, :button_html => { :class => "button grey small right" } %>
+  <% end %>
+<% end %>

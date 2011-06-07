@@ -1,4 +1,4 @@
-Snaps::Application.routes.draw do
+Lineofthought::Application.routes.draw do
   match '/' => 'home#index', :as => 'root'
   match '/search' => 'search#index', :as => 'search'
 
@@ -25,6 +25,7 @@ Snaps::Application.routes.draw do
     member do
       get :bookmarks
     end
+    resources :bookmarks, :controller => "site_bookmarks", :only => [:new, :create]
     resources :claims, :controller => "site_claims", :only => [:new, :create]
     resources :tools, :controller => "site_tools", :only => [:create, :show] do
       collection do 

@@ -1,0 +1,10 @@
+<% if @bookmark.valid? %>
+  $('#facebox .content')
+    .html("<p>This bookmark was successfully updated.</p>");    
+  <% @bookmark.bookmark_connections.each do |connection| %>
+    $('#using_<%= connection.using_id %>').replaceWith("<%= escape_javascript(render(:partial => 'usings/using_tool', :object => connection.using)) %>");
+  <% end %>
+  setTimeout('$(document).trigger("close.facebox");', 5000);
+<% else %>
+  $("#bookmark_error").insertHTML("<%= escape_javascript(@bookmark.errors.full_messages.join(', ')) %>");
+<% end %>

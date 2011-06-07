@@ -55,11 +55,12 @@ module SiteHelper
   def using_bookmarks(using, count=2, format=nil)
     return "" unless using.cached_bookmarks
     
-    content_tag :ul, :class => "bookmarks bookmarks_for_#{using.id}" do
+    content_tag :ul, :class => "bookmarks", :id => "bookmarks_for_#{using.id}" do
       raw(
         using.cached_bookmarks.collect do |bookmark|
           content_tag :li do
-            link_to bookmark[:title], "/bookmarks/#{bookmark[:param]}#{".#{format}" if format}"
+            link_to bookmark[:title], bookmark[:url], :rel => "nofollow", :target => "_blank"
+            # link_to bookmark[:title], "/bookmarks/#{bookmark[:param]}#{".#{format}" if format}"
           end
         end.join
       )

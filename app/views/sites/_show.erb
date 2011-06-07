@@ -24,7 +24,7 @@ $(function(){
     return false;
   });
   
-  $("ul.actions li.bookmarks a").click(function(e) {
+  $("ul.actions li.bookmarks a").live('click', function(e) {
     var target = $(e.currentTarget),
         id = target.attr("data-usingid");
     $("#bookmarks_for_"+id).toggle();

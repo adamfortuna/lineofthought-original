@@ -1,0 +1,12 @@
+<%= semantic_form_for @bookmark, :url => site_bookmarks_path, :html => { :id => "bookmark_form", :remote => true, :class => "lookup" } do |f| %>
+  <% if params[:using_id] %><input type="hidden" name="using_id" value="<%=params[:using_id]%>" /><% end %>
+  <%= f.inputs do %>
+    <%= f.input :url, :as => :string, :required => true, :label => "Attribution URL" %>
+    <%= f.commit_button :label => "Lookup URL", :wrapper_html => { :id => "submit_bookmark" }, :button_html => { :class => "button grey right" } %>
+    <li id="lookup_loading" class="response right" style="display:none;margin:0 10px;"> <img src="/images/indicator.gif"/></li>
+    <%= f.commit_button :label => "Cancel", :wrapper_html => { :style => "display:none;", :id => "cancel_bookmark", :class => "response" }, :button_html => { :class => "button grey small right" } %>
+  <% end %>
+<% end %>
+<div id="bookmark_error" class="error response" style="display:none;">
+  <p>Unable to lookup this URL</p>
+</div>

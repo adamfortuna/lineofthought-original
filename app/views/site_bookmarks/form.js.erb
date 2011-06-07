@@ -1,0 +1,6 @@
+$('#facebox .content')
+  .html("<%= escape_javascript(render(:partial => 'save_form')) %>");
+
+<% if @using %>
+  $('#using_<%= @using.id %>').replaceWith("<%= escape_javascript(render(:partial => 'usings/using_tool', :object => @using)) %>");
+<% end %>

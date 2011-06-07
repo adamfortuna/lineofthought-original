@@ -20,46 +20,6 @@ class BookmarksController < ApplicationController
     @bookmark = find(params[:id])
     respond_with(@bookmark)
   end
-
-  # GET /bookmarks/new
-  # Form for adding the first bookmark at a current URL.
-  # Will be redirected to the save bookmark form if the URL they're 
-  # entering already exists as a bookmark.
-  def new
-    params[:bookmark] ||= {}
-    url = params[:bookmark][:url]
-    if url
-      @link = Link.find_or_create_by_url(url)
-      if @link.bookmark
-        redirect_to new_bookmark_save_url(@link.bookmark)
-      else
-        @bookmark = Bookmark.new_from_link(@link)
-      end
-    else
-      @bookmark = Bookmark.new(params[:bookmark])
-    end
-  end
-  
-  # POST /bookmarks
-  def create
-    @link = Link.find_or_create_by_url(params[:bookmark][:url])
-    respond_to do |format|
-      format.js do
-        if @link.nil?
-          render :create_failed
-        elsif @bookmark = @link.bookmark
-          render :duplicate
-        elsif @link.parsed? && (@bookmark = BookmarkUser.new_from_link(@link)) && @bookmark.save
-          flash[:notice] = "This bookmark was added to Line of Thought. You can now add some sites and tools mentioned on it, or edit it."
-          render :create_success
-        elsif @link.unparseable? || @link.unreachable?
-          render :create_failed
-        else
-          render :js => "console.log('create in progress');"
-        end
-      end
-    end
-  end
   
   # Admins only
   def edit
@@ -69,11 +29,18 @@ class BookmarksController < ApplicationController
   # Admins only
   def update
     @bookmark = find(params[:id])
-    if @bookmark.update_attributes(params[:bookmark])
-      redirect_to @bookmark, :notice => "This bookmark was updated."
-    else
-      flash[:error] = "There was an error updating this bookmark"
-      render :edit
+    @bookmark.update_attributes(params[:bookmark])
+    
+    respond_to do |format|
+      format.html do
+        if @bookmark.valid?
+          redirect_to @bookmark, :notice => "This bookmark was updated."
+        else
+          flash[:error] = "There was an error updating this bookmark"
+          render :edit
+        end
+      end
+      format.js { render }
     end
   end
 

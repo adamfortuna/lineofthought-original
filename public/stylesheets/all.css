@@ -31,8 +31,8 @@ hr.space {background: #fff; color: #fff}
 .clearfix:after {clear: both}
  .clearfix {zoom: 1}
 .ie7 img {-ms-interpolation-mode: bicubic}
-@media print {* {background: transparent !important; color: #444 !important; text-shadow: none !important}
-a, a:visited {color: #444 !important; text-decoration: underline}
+@media print {* {background: transparent !important; color: #444444 !important; text-shadow: none !important}
+a, a:visited {color: #444444 !important; text-decoration: underline}
 a:after {content: " (" attr(href) ")"}
 abbr:after {content: " (" attr(title) ")"}
 .ir a:after {content: ""}
@@ -122,22 +122,6 @@ dl dd {margin-bottom: 0em}
 dd {margin-left: 0.5em}
 li {line-height: 1.4}
 ol ol, ol ul, ul ul, ul ol {margin-left: 1em}
- ul.token-input-list {overflow: hidden; height: auto !important; height: 1%; border: 1px solid #888; width: 98%; cursor: text; font-size: 12px; font-family: Verdana; min-height: 1px; z-index: 999; margin: 0; padding: 0; background-color: #fff}
-ul.token-input-list {list-style-type: none}
-ul.token-input-list li input {border: 0; width: 100px; padding: 3px 8px; background-color: white; margin: 2px 0}
-li.token-input-token {overflow: hidden; height: auto !important; height: 1%; margin: 3px; padding: 1px 3px; background-color: #eff2f7; color: #000; cursor: default; border: 1px solid #ccd5e4; font-size: 11px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; float: left}
-li.token-input-token p {display: inline; padding: 0; margin: 0}
-li.token-input-token span {color: #a6b3cf; margin-left: 5px; font-weight: bold; cursor: pointer}
-li.token-input-selected-token {background-color: #5670a6; border: 1px solid #3b5998; color: #fff}
-li.token-input-input-token {float: left}
-div.token-input-dropdown {position: absolute; width: 98%; background-color: #fff; overflow: hidden; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; cursor: default; font-size: 11px; font-family: Verdana; z-index: 1}
-div.token-input-dropdown p {margin: 0; padding: 5px; font-weight: bold; color: #777}
-div.token-input-dropdown ul {margin: 0; padding: 0}
-div.token-input-dropdown ul li {background-color: #fff; padding: 3px}
-div.token-input-dropdown ul li.token-input-dropdown-item {background-color: #fff}
-div.token-input-dropdown ul li.token-input-dropdown-item2 {background-color: #fff}
-div.token-input-dropdown ul li em {font-weight: bold; font-style: none}
-div.token-input-dropdown ul li.token-input-selected-dropdown-item {background-color: #3b5998; color: #fff}
 body {font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif; color: #51463d; font-size: 62.5%; background: #222}
 body.popup {background-color: #E3E3E3}
 .container {max-width: 960px; margin: 0 auto; position: relative; height: 100%}
@@ -199,7 +183,6 @@ footer section.sidebar {width: 260px; float: right}
 footer section h3 {color: #E2DDDC; font-size: 10px; text-transform: uppercase}
 footer section.main-footer p {color: #bbb}
 body.sites nav ul li.sites a, body.tools nav ul li.tools a, body.bookmarks nav ul li.bookmarks a, body.authentications nav ul li.profile a, body.profiles nav ul li.profile a, body.tool_sites nav ul li.tools a, body.site_tools nav ul li.sites a, body.site_claims nav ul li.sites a, body.sessions nav ul li.sign-in a, body.registrations nav ul li.profile a, body.blog nav ul li.blog a, body.accounts nav ul li.profile a, body.invites nav ul li.profile a, body.subscriptions nav ul li.sign-up a, body.registrations nav ul li.sign-up a {background-color: #68aff3; color: #eee}
-.bookmarks {display: none}
 .clear {clear: both}
 .right {float: right}
 .block {display: block}
@@ -433,9 +416,8 @@ ul.count li.pagerank, ul.sort-pagerank li.ind li.pagerank {background-color: #69
 #tools-list li.ind div.title h4, #tools-list li.ind p {clear: left}
 #tools-list li.ind .content {position: relative; min-height: 12px}
 #tools-list li.ind .content ul.sites .tools {margin: 0.4em 0}
- #bookmarks-list li.ind span.url {float: right; display: none; color: #888; font-size: 10px}
-#bookmarks-list li.ind span.url a {color: #888}
-#bookmarks-list li.ind:hover span.url {display: inline}
+ #bookmarks-list ul.mini-tools li.url {float: right; color: #888; font-size: 10px}
+#bookmarks-list ul.mini-tools li.url a {color: #888}
  .sublist li.ind {padding: 0.8em 0.8em 0.6em}
 .sublist li.ind .title {margin-left: 0; min-height: 0px; position: relative}
 .sublist li.ind .title h4 {float: left; font-size: 16px; margin: 0; padding: .3em 0; width: auto}
@@ -453,6 +435,7 @@ body.site_tools-show .sublist li.ind .actions li.comments {display: none}
 .sublist li.ind.editing .actions li.edit-in-place-cancel {display: inline}
 .sublist li.ind.editing .actions .edit-in-place-edit {display: none}
 section.deleted li.edit-in-place-edit, section.single-site-tool li.edit-in-place-edit {display: none}
+.sublist li.ind ul.bookmarks {display: none; margin-top: 25px}
 .edit-in-place:hover .actions {display: block}
  section.show_form p.add_more, section.show_form p.main_message {display: none}
 p.add_more {text-align: center; font-size: 18px; color: #555; margin: 14px 0; line-height: 40px}
@@ -470,3 +453,18 @@ section.show_form .add_in_place {display: block}
 .button.green:hover {background-color: #b0d74a; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #9cbf42), color-stop(100%, #84be35)); background-image: -moz-linear-gradient(top, #9cbf42 0%, #84be35 100%); border: 1px solid #6f9e2b; text-shadow: 0 1px 1px #242217}
 .button.green:active {background-color: #00e600; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #98ba40), color-stop(40%, #98ba40), color-stop(85%, #6e9e2c), color-stop(100%, #6e9e2c)); background-image: -moz-linear-gradient(top, #98ba40 0%, #98ba40 40%, #6e9e2c 85%, #6e9e2c 100%); border-color: #608925; text-shadow: #242217 1px -1px -1px}
 .button.small {padding: 4px; font-size: 14px}
+#facebox {position: absolute; top: 0; left: 0; z-index: 100; text-align: left}
+#facebox .popup {position: relative; border: 3px solid rgba(0, 0, 0, 0); -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; -webkit-box-shadow: 0 0 18px rgba(0, 0, 0, 0.4); -moz-box-shadow: 0 0 18px rgba(0, 0, 0, 0.4); box-shadow: 0 0 18px rgba(0, 0, 0, 0.4)}
+#facebox .content {display: table; width: 550px; padding: 10px; background: #fff; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px}
+#facebox .content p {font-size: 16px; padding: 20px 10px 14px}
+#facebox .content > p:first-child {margin-top: 0}
+#facebox .content > p:last-child {margin-bottom: 0}
+#facebox .close {position: absolute; top: 5px; right: 5px; padding: 2px; background: #fff}
+#facebox .close img {opacity: 0.3}
+#facebox .close:hover img {opacity: 1.0}
+#facebox .loading {text-align: center; background-color: #fff; padding: 20px}
+#facebox .image {text-align: center}
+#facebox img {border: 0; margin: 0}
+#facebox_overlay {position: fixed; top: 0px; left: 0px; height: 100%; width: 100%}
+.facebox_hide {z-index: -100}
+.facebox_overlayBG {background-color: #000; z-index: 99}
